@@ -9,5 +9,9 @@
       "name": "मध्यप्रदेश",
       "jsonUrl": "https://example.com/mp.json"
     }
+     {
+      "name": "उत्तरप्रदेश",
+      "jsonUrl": "https://example.com/mp.json"
+    }
   ]
 }

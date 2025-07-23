@@ -2,7 +2,7 @@
     "districts": [
          {
             "name": "जिला चुने",
-        }
+        },
         {
             "name": "लखनऊ",
             "jsonUrl": "https://aditya-kumar-tech.github.io/mbk/lucknow.json"

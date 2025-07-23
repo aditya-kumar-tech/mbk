@@ -1,0 +1,9 @@
+// rajasthan.json
+{
+  "districts": [
+    {
+      "name": "जयपुर",
+      "jsonUrl": "https://aditya-kumar-tech.github.io/mbk/jaipur.json"
+    }
+  ]
+}

@@ -3,15 +3,11 @@
   "states": [
     {
       "name": "राजस्थान",
-      "jsonUrl": "https://example.com/rajasthan.json"
+      "jsonUrl": "https://aditya-kumar-tech.github.io/mbk/rajasthan.json"
     },
     {
       "name": "मध्यप्रदेश",
-      "jsonUrl": "https://example.com/mp.json"
-    }
-     {
-      "name": "उत्तरप्रदेश",
-      "jsonUrl": "https://example.com/mp.json"
+      "jsonUrl": "https://aditya-kumar-tech.github.io/mbk/madhyapradesh.json"
     }
   ]
 }

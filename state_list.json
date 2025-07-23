@@ -1,0 +1,20 @@
+{
+  "version": "1.0",
+  "states": [
+    {
+      "name": "मध्यप्रदेश",
+      "districts": [
+        {
+          "name": "श्योपुर",
+          "mandis": [
+            {
+              "name": "श्योपुर",
+              "sheetId": "1nl1xr6WWcauC9he_0ZwoimHZz-x90RnIXdC7L7zgk38",
+              "gidList": ["463545715", "987654321"]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

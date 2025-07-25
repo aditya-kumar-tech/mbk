@@ -2,6 +2,9 @@
   "version": "1.0",
   "states": [
     {
+      "name": "राज्य चुने"
+    },
+    {
       "name": "मध्यप्रदेश",
       "slug": "madhyapradesh",
       "jsonUrl": "https://aditya-kumar-tech.github.io/mbk/districts/madhyapradesh/madhyapradesh_districts.json"

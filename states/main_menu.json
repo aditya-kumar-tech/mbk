@@ -1,17 +1,20 @@
 {
-  "version": "1.1",
+  "version": "1.0",
   "states": [
     {
       "name": "मध्यप्रदेश",
-      "jsonUrl": "https://aditya-kumar-tech.github.io/mbk/madhyapradesh.json"
+      "slug": "madhyapradesh",
+      "jsonUrl": "https://aditya-kumar-tech.github.io/mbk/districts/madhyapradesh/madhyapradesh_districts.json"
     },
     {
       "name": "राजस्थान",
-      "jsonUrl": "https://aditya-kumar-tech.github.io/mbk/rajasthan.json"
+      "slug": "rajasthan",
+      "jsonUrl": "https://aditya-kumar-tech.github.io/mbk/districts/rajasthan/rajasthan_districts.json"
     },
     {
       "name": "उत्तरप्रदेश",
-      "jsonUrl": "https://aditya-kumar-tech.github.io/mbk/uttarpradesh.json"
+      "slug": "uttarpradesh",
+      "jsonUrl": "https://aditya-kumar-tech.github.io/mbk/districts/uttarpradesh/uttarpradesh_districts.json"
     }
   ]
 }

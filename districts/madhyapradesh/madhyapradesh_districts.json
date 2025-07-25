@@ -1,18 +1,17 @@
 {
-  "districts": [
-     {
-      "name": "जिला चुने",
-    },
-    {
-      "name": "श्योपुर",
-      "slug": "sheopur",
-      "jsonUrl": "https://aditya-kumar-tech.github.io/mbk/districts/madhyapradesh/sheopur/madhyapradesh_sheopur_mandis.json"
-    },
-    {
-      "name": "ग्वालियर",
-      "slug": "gwalior",
-      "jsonUrl": "https://aditya-kumar-tech.github.io/mbk/districts/madhyapradesh/gwalior/madhyapradesh_gwalior_mandis.json"
-    }
-    // अन्य जिलों के लिए इसी पैटर्न में
-  ]
+    "districts": [
+        {
+            "name": "जिला चुने"
+        },
+        {
+            "name": "श्योपुर",
+            "slug": "sheopur",
+            "jsonUrl": "https://aditya-kumar-tech.github.io/mbk/districts/madhyapradesh/sheopur/madhyapradesh_sheopur_mandis.json"
+        },
+        {
+            "name": "ग्वालियर",
+            "slug": "gwalior",
+            "jsonUrl": "https://aditya-kumar-tech.github.io/mbk/districts/madhyapradesh/gwalior/madhyapradesh_gwalior_mandis.json"
+        }
+    ]
 }

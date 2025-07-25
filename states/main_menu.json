@@ -1,23 +1,25 @@
 {
-  "version": "1.0",
-  "states": [
-    {
-      "name": "राज्य चुने"
-    },
-    {
-      "name": "मध्यप्रदेश",
-      "slug": "madhyapradesh",
-      "jsonUrl": "https://aditya-kumar-tech.github.io/mbk/districts/madhyapradesh/madhyapradesh_districts.json"
-    },
-    {
-      "name": "राजस्थान",
-      "slug": "rajasthan",
-      "jsonUrl": "https://aditya-kumar-tech.github.io/mbk/districts/rajasthan/rajasthan_districts.json"
-    },
-    {
-      "name": "उत्तरप्रदेश",
-      "slug": "uttarpradesh",
-      "jsonUrl": "https://aditya-kumar-tech.github.io/mbk/districts/uttarpradesh/uttarpradesh_districts.json"
-    }
-  ]
+    "version": "1.0",
+    "states": [
+        {
+            "name": "राज्य चुने",
+            "slug": "madhyapradesh",
+            "jsonUrl": "https://aditya-kumar-tech.github.io/mbk/districts/madhyapradesh/madhyapradesh_districts.json"
+        },
+        {
+            "name": "मध्यप्रदेश",
+            "slug": "madhyapradesh",
+            "jsonUrl": "https://aditya-kumar-tech.github.io/mbk/districts/madhyapradesh/madhyapradesh_districts.json"
+        },
+        {
+            "name": "राजस्थान",
+            "slug": "rajasthan",
+            "jsonUrl": "https://aditya-kumar-tech.github.io/mbk/districts/rajasthan/rajasthan_districts.json"
+        },
+        {
+            "name": "उत्तरप्रदेश",
+            "slug": "uttarpradesh",
+            "jsonUrl": "https://aditya-kumar-tech.github.io/mbk/districts/uttarpradesh/uttarpradesh_districts.json"
+        }
+    ]
 }

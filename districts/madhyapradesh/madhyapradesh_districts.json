@@ -1,5 +1,8 @@
 {
   "districts": [
+     {
+      "name": "जिला चुने",
+    },
     {
       "name": "श्योपुर",
       "slug": "sheopur",

@@ -1,1 +1,18 @@
 
+{
+    "districts": [
+        {
+            "name": "जिला चुने"
+        },
+        {
+            "name": "जयपुर",
+            "slug": "jaipur",
+            "jsonUrl": "https://aditya-kumar-tech.github.io/mbk/districts/madhyapradesh/sheopur/madhyapradesh_sheopur_mandis.json"
+        },
+        {
+            "name": "सवाई माधोपुर",
+            "slug": "sawai madhopur",
+            "jsonUrl": "https://aditya-kumar-tech.github.io/mbk/districts/madhyapradesh/gwalior/madhyapradesh_gwalior_mandis.json"
+        }
+    ]
+}

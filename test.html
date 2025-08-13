@@ -2,9 +2,19 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Fetch Google Apps Script JSON</title>
+  <title>Fetch Google Apps Script JSONP</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    h2 { margin-top: 30px; }
+    ul { list-style: none; padding-left: 0; }
+    li { padding: 4px 0; }
+    input, button { margin: 5px 0; padding: 5px; }
+    pre { background: #f0f0f0; padding: 10px; border-radius: 5px; }
+  </style>
 </head>
 <body>
+  <h1>Google Apps Script JSONP Demo</h1>
+
   <h2>Jins List</h2>
   <ul id="jinsList"></ul>
 
@@ -14,47 +24,53 @@
   <pre id="dataOutput"></pre>
 
   <script>
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwAFHth2kD11WsxLhYcVEGd-QA6b7ETVl-2x86AixA/dev"; // Replace with your deployed web app URL
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwAFHth2kD11WsxLhYcVEGd-QA6b7ETVl-2x86AixA/dev"; // Replace with your Apps Script web app URL
 
-    // Function to fetch jins list
-    function fetchJins() {
-      fetch(`${SCRIPT_URL}?action=getJins`)
-        .then(res => res.json())
-        .then(data => {
-          const ul = document.getElementById("jinsList");
-          ul.innerHTML = "";
-          if(data.jins && data.jins.length > 0) {
-            data.jins.forEach(j => {
-              const li = document.createElement("li");
-              li.textContent = `${j.name} - ${j.qtl}`;
-              ul.appendChild(li);
-            });
-          } else {
-            ul.textContent = "No jins found";
-          }
-        })
-        .catch(err => console.error("Error fetching jins:", err));
+    // --- JSONP fetch for Jins ---
+    function fetchJinsJSONP() {
+      const script = document.createElement("script");
+      script.src = SCRIPT_URL + "?action=getJins&callback=handleJins";
+      document.body.appendChild(script);
     }
 
-    // Function to fetch data for a specific date
-    function fetchData() {
+    function handleJins(data) {
+      const ul = document.getElementById("jinsList");
+      ul.innerHTML = "";
+      if(data.jins && data.jins.length > 0) {
+        data.jins.forEach(j => {
+          const li = document.createElement("li");
+          li.textContent = `${j.name} - ${j.qtl}`;
+          ul.appendChild(li);
+        });
+      } else {
+        ul.textContent = "No jins found";
+      }
+    }
+
+    // --- JSONP fetch for date-specific data ---
+    function fetchDataJSONP(date) {
+      const callbackName = "handleData" + new Date().getTime();
+      window[callbackName] = function(data) {
+        const pre = document.getElementById("dataOutput");
+        pre.textContent = JSON.stringify(data.data || [], null, 2);
+        // Clean up
+        delete window[callbackName];
+        document.body.removeChild(script);
+      };
+
+      const script = document.createElement("script");
+      script.src = `${SCRIPT_URL}?action=getData&date=${date}&callback=${callbackName}`;
+      document.body.appendChild(script);
+    }
+
+    document.getElementById("fetchDataBtn").addEventListener("click", () => {
       const date = document.getElementById("dataDate").value;
       if(!date) return alert("Select a date");
-
-      fetch(`${SCRIPT_URL}?action=getData&date=${date}`)
-        .then(res => res.json())
-        .then(data => {
-          const pre = document.getElementById("dataOutput");
-          pre.textContent = JSON.stringify(data.data || [], null, 2);
-        })
-        .catch(err => console.error("Error fetching data:", err));
-    }
-
-    // Event listener
-    document.getElementById("fetchDataBtn").addEventListener("click", fetchData);
+      fetchDataJSONP(date);
+    });
 
     // Initial load
-    fetchJins();
+    fetchJinsJSONP();
   </script>
 </body>
 </html>

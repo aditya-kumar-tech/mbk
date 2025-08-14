@@ -85,6 +85,15 @@ tfoot td { font-weight: bold; background: #eee; }
     </tr>
   </thead>
   <tbody></tbody>
+  <tfoot>
+    <tr>
+      <td colspan="3">कुल</td>
+      <td id="viewParche">0</td>
+      <td id="viewBori">0</td>
+      <td id="viewKu">0</td>
+      <td colspan="4"></td>
+    </tr>
+  </tfoot>
 </table>
 
 <script>
@@ -195,7 +204,13 @@ async function loadAllData(){
 function renderViewTable(data){
   const tb=document.querySelector("#viewTable tbody");
   tb.innerHTML="";
+  let totalParche = 0, totalBori = 0, totalKu = 0;
+
   data.forEach(row=>{
+    totalParche += Number(row["पर्चे संख्या"]) || 0;
+    totalBori  += Number(row["मात्रा (बोरी)"]) || 0;
+    totalKu    += Number(row["मात्रा (कु.)"]) || 0;
+
     tb.innerHTML += `
       <tr>
         <td>${row.id}</td>
@@ -214,7 +229,13 @@ function renderViewTable(data){
       </tr>
     `;
   });
+
+  // Totals update
+  document.getElementById("viewParche").innerText = totalParche;
+  document.getElementById("viewBori").innerText   = totalBori;
+  document.getElementById("viewKu").innerText     = totalKu;
 }
+
 
 // Edit from main table into form
 function editViewRow(row){

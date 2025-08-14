@@ -109,7 +109,7 @@ let editIndex = -1;
 function showSpinner(){document.getElementById("spinner").style.display="block";}
 function hideSpinner(){document.getElementById("spinner").style.display="none";}
 
-// Init – सिर्फ जिन्स लिस्ट लोड होगी, डेटा नहीं
+// Init – सिर्फ जिन्स लिस्ट लोड होगी
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("दिनांक").value = new Date().toISOString().split('T')[0];
   loadJinsList();
@@ -120,17 +120,14 @@ async function loadJinsList() {
   try {
     const res = await fetch(`${api}?action=getJinsList`);
     const jinsArray = await res.json();
-
     const jinsSelect = document.getElementById("जिन्स");
     const filterSelect = document.getElementById("filterJins");
     jinsSelect.innerHTML = "";
     filterSelect.innerHTML = "<option value=''>सभी</option>";
-
     jinsArray.forEach(jins => {
       const opt1 = document.createElement("option");
       opt1.value = jins; opt1.textContent = jins;
       jinsSelect.appendChild(opt1);
-
       const opt2 = document.createElement("option");
       opt2.value = jins; opt2.textContent = jins;
       filterSelect.appendChild(opt2);
@@ -147,7 +144,12 @@ function addToStaging(){
   }
   const record = {};
   fields.forEach(id => record[id] = document.getElementById(id).value);
-  if (editIndex === -1) stagingData.push(record); else { stagingData[editIndex] = record; editIndex = -1; }
+  if (editIndex === -1) {
+    stagingData.push(record); 
+  } else { 
+    stagingData[editIndex] = record; 
+    editIndex = -1; 
+  }
   renderStaging();
   document.getElementById("entryForm").reset();
   document.getElementById("दिनांक").value = new Date().toISOString().split('T')[0];
@@ -157,11 +159,14 @@ function renderStaging(){
   const tb = document.querySelector("#stagingTable tbody");
   tb.innerHTML = "";
   let totP=0,totB=0,totK=0;
+  
   stagingData.forEach((r,i)=>{
-    totP+=+r["पर्चे संख्या"]||0;
-    totB+=+r["मात्रा (बोरी)"]||0;
-    totK+=+r["मात्रा (कु.)"]||0;
-    tb.innerHTML += `<tr>
+    totP += Number(r["पर्चे संख्या"]) || 0;
+    totB += Number(r["मात्रा (बोरी)"]) || 0;
+    totK += Number(r["मात्रा (कु.)"]) || 0;
+    
+    const row = document.createElement('tr');
+    row.innerHTML = `
       <td>${formatDate(r["दिनांक"])}</td>
       <td>${r["जिन्स"]}</td>
       <td>${r["पर्चे संख्या"]}</td>
@@ -174,48 +179,77 @@ function renderStaging(){
         <button class="edit-btn" onclick="editLocal(${i})">Edit</button>
         <button class="delete-btn" onclick="delLocal(${i})">Del</button>
       </td>
-    </tr>`;
+    `;
+    tb.appendChild(row);
   });
- document.getElementById("stgParche").innerText= totP;
-document.getElementById("stgBori").innerText  = totB;
-document.getElementById("stgKu").innerText    = totK;
+  
+  document.getElementById("stgParche").innerText = totP;
+  document.getElementById("stgBori").innerText = totB;
+  document.getElementById("stgKu").innerText = totK;
 }
 
 function editLocal(i){
-  const r=stagingData[i];
-  ["दिनांक","जिन्स","पर्चे संख्या","मात्रा (बोरी)","मात्रा (कु.)","न्यूनत्तम","मॉडल","अधिकत्तम"].forEach(id => document.getElementById(id).value=r[id]);
-  editIndex=i;
+  const r = stagingData[i];
+  ["दिनांक","जिन्स","पर्चे संख्या","मात्रा (बोरी)","मात्रा (कु.)","न्यूनत्तम","मॉडल","अधिकत्तम"].forEach(id => {
+    document.getElementById(id).value = r[id];
+  });
+  editIndex = i;
 }
 
-function delLocal(i){ if(confirm("हटाएं?")){ stagingData.splice(i,1); renderStaging(); } }
+function delLocal(i){ 
+  if(confirm("हटाएं?")){ 
+    stagingData.splice(i,1); 
+    renderStaging(); 
+  } 
+}
 
 async function submitBulk(){
-  if(stagingData.length===0){ alert("कुछ जोड़ें पहले"); return; }
+  if(stagingData.length === 0){ alert("कुछ जोड़ें पहले"); return; }
   showSpinner();
-  const res = await fetch(`${api}?action=bulkAdd&data=${encodeURIComponent(JSON.stringify(stagingData))}`);
-  const result = await res.json();
-  hideSpinner();
-  if(result.status==="success"){ alert(`${result.count} rows saved!`); stagingData=[]; renderStaging(); }
-  else alert("Error: "+result.message);
+  try {
+    const res = await fetch(`${api}?action=bulkAdd&data=${encodeURIComponent(JSON.stringify(stagingData))}`);
+    const result = await res.json();
+    hideSpinner();
+    if(result.status === "success"){ 
+      alert(`${result.count} rows saved!`); 
+      stagingData = []; 
+      renderStaging(); 
+    } else { 
+      alert("Error: " + result.message); 
+    }
+  } catch(err) {
+    hideSpinner();
+    alert("Network Error: " + err.message);
+  }
 }
 
 // ---------- View/Edit Data ----------
 async function loadAllData(){
   showSpinner();
-  const res = await fetch(api);
-  const data = await res.json();
-  hideSpinner();
-  renderViewTable(data);
+  try {
+    const res = await fetch(api);
+    const data = await res.json();
+    hideSpinner();
+    renderViewTable(data);
+  } catch(err) {
+    hideSpinner();
+    alert("Error loading data: " + err.message);
+  }
 }
 
 async function loadByDate(){
   const date = document.getElementById("viewDate").value;
   if(!date){ alert("कृपया डेट चुनें"); return; }
   showSpinner();
-  const res = await fetch(`${api}?action=getDataByDate&date=${encodeURIComponent(date)}`);
-  const data = await res.json();
-  hideSpinner();
-  renderViewTable(data);
+  try {
+    const res = await fetch(`${api}?action=getDataByDate&date=${encodeURIComponent(date)}`);
+    const data = await res.json();
+    hideSpinner();
+    renderViewTable(data);
+  } catch(err) {
+    hideSpinner();
+    alert("Error loading data: " + err.message);
+  }
 }
 
 async function loadByFilters(){
@@ -224,62 +258,68 @@ async function loadByFilters(){
   const to   = document.getElementById("endDate").value || "";
 
   let url = `${api}?action=getDataByFilter&from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}`;
-  if (jins) url += `&jins=${encodeURIComponent(jins)}`; // सभी पर param नहीं भेजेंगे
+  if (jins) url += `&jins=${encodeURIComponent(jins)}`;
 
-  console.log("Filter API Call:", url); // Debug
+  console.log("Filter API Call:", url);
   showSpinner();
-  const res = await fetch(url);
-  const data = await res.json();
-  hideSpinner();
-
-  renderViewTable(data);
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+    hideSpinner();
+    renderViewTable(data);
+  } catch(err) {
+    hideSpinner();
+    alert("Error loading filtered data: " + err.message);
+  }
 }
 
-
 function renderViewTable(data){
-  const tb=document.querySelector("#viewTable tbody");
-  tb.innerHTML="";
-  let totalParche=0,totalBori=0,totalKu=0;
+  const tb = document.querySelector("#viewTable tbody");
+  tb.innerHTML = "";
+  let totalParche = 0, totalBori = 0, totalKu = 0;
   
-  data.forEach(row=>{
-    totalParche+=+row["पर्चे संख्या"]||0;
-    totalBori+=+row["मात्रा (बोरी)"]||0;
-    totalKu+=+row["मात्रा (कु.)"]||0;
-    tb.innerHTML += `<tr>
-      <td>${row.id}</td>
-      <td>${formatDate(row["दिनांक"])}</td>
-      <td>${row["जिन्स"]}</td>
-      <td>${row["पर्चे संख्या"]}</td>
-      <td>${row["मात्रा (बोरी)"]}</td>
-      <td>${row["मात्रा (कु.)"]}</td>
-      <td>${row["न्यूनत्तम"]}</td>
-      <td>${row["मॉडल"]}</td>
-      <td>${row["अधिकत्तम"]}</td>
-      <td>
-        <button class="edit-btn" onclick='editViewRow(${JSON.stringify(row)})'>Edit</button>
-        <button class="delete-btn" onclick='deleteViewRow("${row.id}")'>Delete</button>
-      </td>
-    </tr>`;
-  });
-
-  // अगर data empty है तो यह भी clear कर दो
+  if(Array.isArray(data)) {
+    data.forEach(row => {
+      totalParche += Number(row["पर्चे संख्या"]) || 0;
+      totalBori   += Number(row["मात्रा (बोरी)"]) || 0;
+      totalKu     += Number(row["मात्रा (कु.)"]) || 0;
+      
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${row.id}</td>
+        <td>${formatDate(row["दिनांक"])}</td>
+        <td>${row["जिन्स"]}</td>
+        <td>${row["पर्चे संख्या"]}</td>
+        <td>${row["मात्रा (बोरी)"]}</td>
+        <td>${row["मात्रा (कु.)"]}</td>
+        <td>${row["न्यूनत्तम"]}</td>
+        <td>${row["मॉडल"]}</td>
+        <td>${row["अधिकत्तम"]}</td>
+        <td>
+          <button class="edit-btn" onclick='editViewRow(${JSON.stringify(row).replace(/'/g, "&apos;")})'>Edit</button>
+          <button class="delete-btn" onclick='deleteViewRow("${row.id}")'>Delete</button>
+        </td>
+      `;
+      tb.appendChild(tr);
+    });
+  }
+  
   document.getElementById("viewParche").innerText = totalParche;
   document.getElementById("viewBori").innerText   = totalBori;
   document.getElementById("viewKu").innerText     = totalKu;
 }
 
-
 // ---------- Local Search ----------
 document.getElementById("localSearch").addEventListener("input", function(){
   const q = this.value.toLowerCase();
-  document.querySelectorAll("#viewTable tbody tr").forEach(row=>{
+  document.querySelectorAll("#viewTable tbody tr").forEach(row => {
     row.style.display = row.innerText.toLowerCase().includes(q) ? "" : "none";
   });
 });
 
 function editViewRow(row){
   ["दिनांक","जिन्स","पर्चे संख्या","मात्रा (बोरी)","मात्रा (कु.)","न्यूनत्तम","मॉडल","अधिकत्तम"]
-    .forEach(id=>document.getElementById(id).value=row[id]);
+    .forEach(id => document.getElementById(id).value = row[id]);
   stagingData.push(row);
   renderStaging();
 }
@@ -287,15 +327,29 @@ function editViewRow(row){
 async function deleteViewRow(id){
   if(!confirm("Delete?")) return;
   showSpinner();
-  const res = await fetch(`${api}?action=delete&id=${id}`);
-  const result = await res.json();
-  hideSpinner();
-  if(result.status==="success"){ alert("Deleted"); }
+  try {
+    const res = await fetch(`${api}?action=delete&id=${id}`);
+    const result = await res.json();
+    hideSpinner();
+    if(result.status === "success"){ 
+      alert("Deleted successfully!"); 
+      // Reload current view
+      const currentView = document.getElementById("viewTable").querySelector("tbody").children.length;
+      if(currentView > 0) {
+        loadAllData(); // या जो भी last filter था उसे reload करें
+      }
+    } else {
+      alert("Delete failed: " + result.message);
+    }
+  } catch(err) {
+    hideSpinner();
+    alert("Error deleting: " + err.message);
+  }
 }
 
 function formatDate(d){
   if(!d) return "";
-  let dt=new Date(d);
+  let dt = new Date(d);
   if(isNaN(dt)) return d;
   return dt.toLocaleDateString('en-GB');
 }

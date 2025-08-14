@@ -2,11 +2,21 @@
 <html lang="hi">
 <head>
 <meta charset="UTF-8">
-<title>SheopurMBK Data</title>
+<title>SheopurMBK डेटा</title>
 <style>
-table { border-collapse: collapse; width: 100%; margin-top: 10px; }
-table, th, td { border: 1px solid black; padding: 5px; }
-input, select, button { margin: 3px; padding: 5px; }
+body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
+h2, h3 { color: #333; }
+table { border-collapse: collapse; width: 100%; background: #fff; margin-top: 10px; }
+table, th, td { border: 1px solid #ccc; }
+th, td { padding: 8px; text-align: center; }
+th { background: #4CAF50; color: white; }
+tr:nth-child(even) { background: #f9f9f9; }
+input, select, button { padding: 6px; margin: 3px; border: 1px solid #ccc; border-radius: 4px; }
+button { background: #4CAF50; color: white; border: none; cursor: pointer; }
+button:hover { background: #45a049; }
+tfoot td { font-weight: bold; background: #eee; }
+.action-btn { margin: 0 2px; padding: 4px 8px; font-size: 12px; }
+.editing { background: #fffae6; }
 </style>
 </head>
 <body>
@@ -18,20 +28,6 @@ input, select, button { margin: 3px; padding: 5px; }
 <button onclick="loadFiltered()">खोजें</button>
 <button onclick="loadAll()">सभी दिखाएं</button>
 
-<h3>नया / अपडेट डेटा</h3>
-<form id="dataForm">
-  <input type="hidden" id="id">
-  दिनांक: <input type="date" id="दिनांक" required>
-  जिन्स: <input type="text" id="जिन्स"><br>
-  पर्चे संख्या: <input type="text" id="पर्चे संख्या">
-  मात्रा (बोरी): <input type="number" id="मात्रा (बोरी)">
-  मात्रा (कु.): <input type="number" id="मात्रा (कु.)"><br>
-  न्यूनत्तम: <input type="number" id="न्यूनत्तम">
-  मॉडल: <input type="number" id="मॉडल">
-  अधिकत्तम: <input type="number" id="अधिकत्तम"><br>
-  <button type="submit">Save</button>
-</form>
-
 <h3>डेटा सूची</h3>
 <table id="dataTable">
   <thead>
@@ -42,10 +38,18 @@ input, select, button { margin: 3px; padding: 5px; }
     </tr>
   </thead>
   <tbody></tbody>
+  <tfoot>
+    <tr>
+      <td colspan="4">कुल</td>
+      <td id="totalBori">0</td>
+      <td id="totalKu">0</td>
+      <td colspan="4"></td>
+    </tr>
+  </tfoot>
 </table>
 
 <script>
-const api = "https://script.google.com/macros/s/AKfycbwTeA-NGZDLF6kOpukq4xdFusnrW2YDdtqgzmhkIKX0eCjWl0N5wVbvjtpy3vPlh89m/exec"; // यहां अपना deployed WebApp URL डालें
+const api = "YOUR_WEB_APP_URL"; // यहाँ अपना WebApp URL लगाएं
 
 async function loadAll() {
   const res = await fetch(api);
@@ -61,14 +65,29 @@ async function loadFiltered() {
   renderTable(data);
 }
 
+// तारीख Indian Format में
+function formatDateIndian(dateStr) {
+  if(!dateStr) return "";
+  let dateObj = new Date(dateStr);
+  if (isNaN(dateObj)) return dateStr; // अगर गलत date है
+  return dateObj.toLocaleDateString('en-GB'); // DD/MM/YYYY
+}
+
+// टेबल रेंडर करना
 function renderTable(data) {
   const tbody = document.querySelector("#dataTable tbody");
   tbody.innerHTML = "";
+  let totalBori = 0;
+  let totalKu = 0;
+
   data.forEach(row => {
+    totalBori += Number(row["मात्रा (बोरी)"]) || 0;
+    totalKu += Number(row["मात्रा (कु.)"]) || 0;
+
     const tr = document.createElement("tr");
     tr.innerHTML = `
       <td>${row.id}</td>
-      <td>${row["दिनांक"]}</td>
+      <td>${formatDateIndian(row["दिनांक"])}</td>
       <td>${row["जिन्स"]}</td>
       <td>${row["पर्चे संख्या"]}</td>
       <td>${row["मात्रा (बोरी)"]}</td>
@@ -77,19 +96,61 @@ function renderTable(data) {
       <td>${row["मॉडल"]}</td>
       <td>${row["अधिकत्तम"]}</td>
       <td>
-        <button onclick='editRow(${JSON.stringify(row)})'>Edit</button>
-        <button onclick='deleteRow("${row.id}")'>Delete</button>
+        <button class="action-btn" onclick='editRow(this)'>Edit</button>
+        <button class="action-btn" style="background:#d9534f" onclick='deleteRow("${row.id}")'>Delete</button>
       </td>
     `;
     tbody.appendChild(tr);
   });
+
+  document.getElementById("totalBori").innerText = totalBori;
+  document.getElementById("totalKu").innerText = totalKu;
 }
 
-function editRow(row) {
-  for (let key in row) {
-    if (document.getElementById(key)) {
-      document.getElementById(key).value = row[key];
+// Inline edit
+function editRow(btn) {
+  const tr = btn.closest("tr");
+  if (tr.classList.contains("editing")) return;
+
+  tr.classList.add("editing");
+  for (let i = 1; i <= 8; i++) { // ID को छोड़
+    let cell = tr.cells[i];
+    let val = cell.innerText;
+    if (i === 1) { // दिनांक
+      let parts = val.split("/");
+      if (parts.length === 3) {
+        val = `${parts[2]}-${parts[1].padStart(2,'0')}-${parts[0].padStart(2,'0')}`;
+      }
+      cell.innerHTML = `<input type="date" value="${val}">`;
+    } else {
+      cell.innerHTML = `<input type="text" value="${val}">`;
     }
+  }
+  btn.innerText = "Save";
+  btn.onclick = () => saveRow(tr, btn);
+}
+
+async function saveRow(tr, btn) {
+  const id = tr.cells[0].innerText;
+  const record = {
+    id: id,
+    "दिनांक": tr.cells[1].querySelector("input").value,
+    "जिन्स": tr.cells[2].querySelector("input").value,
+    "पर्चे संख्या": tr.cells[3].querySelector("input").value,
+    "मात्रा (बोरी)": tr.cells[4].querySelector("input").value,
+    "मात्रा (कु.)": tr.cells[5].querySelector("input").value,
+    "न्यूनत्तम": tr.cells[6].querySelector("input").value,
+    "मॉडल": tr.cells[7].querySelector("input").value,
+    "अधिकत्तम": tr.cells[8].querySelector("input").value
+  };
+
+  const res = await fetch(`${api}?action=update&data=${encodeURIComponent(JSON.stringify(record))}`);
+  const result = await res.json();
+  if (result.status === "success") {
+    tr.classList.remove("editing");
+    loadAll();
+  } else {
+    alert("Error updating data");
   }
 }
 
@@ -103,24 +164,6 @@ async function deleteRow(id) {
     alert("Error deleting");
   }
 }
-
-document.getElementById("dataForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const record = {};
-  ["id","दिनांक","जिन्स","पर्चे संख्या","मात्रा (बोरी)","मात्रा (कु.)","न्यूनत्तम","मॉडल","अधिकत्तम"].forEach(id => {
-    record[id] = document.getElementById(id).value;
-  });
-
-  let action = record.id ? "update" : "add";
-  const res = await fetch(`${api}?action=${action}&data=${encodeURIComponent(JSON.stringify(record))}`);
-  const result = await res.json();
-  if (result.status === "success") {
-    document.getElementById("dataForm").reset();
-    loadAll();
-  } else {
-    alert("Error saving data");
-  }
-});
 
 loadAll();
 </script>

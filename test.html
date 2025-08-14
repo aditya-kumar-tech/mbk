@@ -2,34 +2,30 @@
 <html lang="hi">
 <head>
 <meta charset="UTF-8">
-<title>SheopurMBK डेटा</title>
+<title>Staging Entry with Edit/Delete</title>
 <style>
-body { font-family: Arial, sans-serif; margin: 20px; background: #f5f5f5; }
+body { font-family: Arial, sans-serif; background: #f5f5f5; margin: 20px; }
 h2, h3 { color: #333; }
-table { border-collapse: collapse; width: 100%; background: #fff; margin-top: 10px; }
+table { border-collapse: collapse; width: 100%; background: #fff; }
 table, th, td { border: 1px solid #ccc; }
-th, td { padding: 8px; text-align: center; }
+th, td { padding: 6px; text-align: center; }
 th { background: #4CAF50; color: white; }
 tr:nth-child(even) { background: #f9f9f9; }
-input, select, button { padding: 6px; margin: 3px; border: 1px solid #ccc; border-radius: 4px; }
-button { background: #4CAF50; color: white; border: none; cursor: pointer; }
-button:hover { background: #45a049; }
-tfoot td { font-weight: bold; background: #eee; }
-.action-btn { margin: 0 2px; padding: 4px 8px; font-size: 12px; }
-.editing { background: #fffae6; }
-.form-box { background: #fff; padding: 10px; border: 1px solid #ccc; border-radius: 5px; margin-bottom: 15px; }
-#errorMsg { color: red; font-weight: bold; }
+input, select, button { padding: 5px; margin: 4px; border: 1px solid #ccc; border-radius: 4px; }
+button { cursor: pointer; }
+.action-btn { padding: 4px 8px; margin: 0 2px; }
+.edit-btn { background: orange; color: #fff; border: none; }
+.delete-btn { background: red; color: #fff; border: none; }
+.save-btn { background: green; color: #fff; border: none; }
+.form-box { background: #fff; padding: 10px; border: 1px solid #ccc; margin-bottom: 10px; border-radius: 4px; }
 </style>
 </head>
 <body>
 
-<h2>SheopurMBK डेटा</h2>
+<h2>SheopurMBK - Local Entry Table</h2>
 
-<div id="errorMsg"></div>
-
-<!-- Entry Form -->
 <div class="form-box">
-  <h3>नई एंट्री</h3>
+  <h3>नया डेटा दर्ज करें</h3>
   <form id="entryForm">
     दिनांक: <input type="date" id="दिनांक" required>  
     जिन्स: <select id="जिन्स"></select><br>
@@ -39,104 +35,75 @@ tfoot td { font-weight: bold; background: #eee; }
     न्यूनत्तम: <input type="number" id="न्यूनत्तम" step="0.01">
     मॉडल: <input type="number" id="मॉडल" step="0.01">
     अधिकत्तम: <input type="number" id="अधिकत्तम" step="0.01"><br>
-    <button type="submit">Save</button>
+    <button type="button" onclick="addOrUpdate()">टेबल में जोड़ें</button>
   </form>
 </div>
 
-<!-- Filter & Load -->
-<label>दिनांक से खोजें:</label>
-<input type="date" id="searchDate">
-<button onclick="loadFiltered()">खोजें</button>
-<button onclick="loadAll()">डेटा लोड करें</button>
-
-<h3>डेटा सूची</h3>
-<table id="dataTable">
+<h3>Staging Table</h3>
+<table id="stagingTable">
   <thead>
     <tr>
-      <th>ID</th><th>दिनांक</th><th>जिन्स</th><th>पर्चे संख्या</th>
+      <th>दिनांक</th><th>जिन्स</th><th>पर्चे संख्या</th>
       <th>मात्रा (बोरी)</th><th>मात्रा (कु.)</th>
-      <th>न्यूनत्तम</th><th>मॉडल</th><th>अधिकत्तम</th><th>Action</th>
+      <th>न्यूनत्तम</th><th>मॉडल</th><th>अधिकत्तम</th>
+      <th>एक्शन</th>
     </tr>
   </thead>
   <tbody></tbody>
-  <tfoot>
-    <tr>
-      <td colspan="3">कुल</td>
-      <td id="totalParche">0</td>
-      <td id="totalBori">0</td>
-      <td id="totalKu">0</td>
-      <td colspan="4"></td>
-    </tr>
-  </tfoot>
 </table>
 
+<br>
+<button onclick="submitToSheet()" class="save-btn">Submit to Google Sheet</button>
+
 <script>
-const api = "https://script.google.com/macros/s/AKfycbwZjNymnBi7-yqhzMtHeHfsTiKUDZcngjaWL1GL7MsKjRwiyJaH9nU7D1hMiOKxFuhh/exec"; // अपने Web App का exec URL डालें
+const api = "https://script.google.com/macros/s/AKfycbwZjNymnBi7-yqhzMtHeHfsTiKUDZcngjaWL1GL7MsKjRwiyJaH9nU7D1hMiOKxFuhh/exec"; // यहाँ अपना Web App URL डालें
+let stagingData = [];
+let editIndex = -1; // कौनसी row edit हो रही है
 
-// ====== Dropdown Loader with Logs ======
+// ========= जिन्स लिस्ट लोड =========
 async function loadJinsList() {
-  const errorBox = document.getElementById("errorMsg");
-  errorBox.textContent = "";
   try {
-    console.log("Fetching JINS list from:", `${api}?action=getJinsList`);
     const res = await fetch(`${api}?action=getJinsList`);
-    console.log("Response status:", res.status);
-
-    const raw = await res.text();
-    console.log("Raw response text:", raw);
-
-    let jinsArray;
-    try {
-      jinsArray = JSON.parse(raw);
-    } catch (e) {
-      console.error("JSON parse error:", e);
-      errorBox.textContent = "❌ JINS list JSON parse error";
-      return;
-    }
-
-    console.log("Parsed JINS Array:", jinsArray);
-
+    const jinsArray = await res.json();
     const jinsSelect = document.getElementById("जिन्स");
     jinsSelect.innerHTML = "";
-    if (Array.isArray(jinsArray) && jinsArray.length > 0) {
-      jinsArray.forEach(jins => {
-        const opt = document.createElement("option");
-        opt.value = jins;
-        opt.textContent = jins;
-        jinsSelect.appendChild(opt);
-      });
-    } else {
-      console.warn("⚠ JINS array empty");
-      errorBox.textContent = "⚠ JINS array empty (backend returned no data)";
-    }
+    jinsArray.forEach(jins => {
+      const opt = document.createElement("option");
+      opt.value = jins;
+      opt.textContent = jins;
+      jinsSelect.appendChild(opt);
+    });
   } catch (err) {
-    console.error("Fetch error for JINS list:", err);
-    errorBox.textContent = "❌ Failed to fetch JINS list";
+    console.error("JINS लिस्ट लोड एरर:", err);
   }
 }
 
-// ====== Date Format ======
-function formatDateIndian(dateStr) {
-  if(!dateStr) return "";
-  let dateObj = new Date(dateStr);
-  if (isNaN(dateObj)) return dateStr;
-  return dateObj.toLocaleDateString('en-GB');
+// ========= फॉर्म से डेटा एंट्री या अपडेट =========
+function addOrUpdate() {
+  const record = {};
+  ["दिनांक","जिन्स","पर्चे संख्या","मात्रा (बोरी)","मात्रा (कु.)","न्यूनत्तम","मॉडल","अधिकत्तम"]
+    .forEach(id => {
+      record[id] = document.getElementById(id).value;
+    });
+
+  if (editIndex === -1) {
+    stagingData.push(record); // नई row
+  } else {
+    stagingData[editIndex] = record; // अपडेट row
+    editIndex = -1;
+  }
+  renderStagingTable();
+  document.getElementById("entryForm").reset();
+  document.getElementById("दिनांक").value = new Date().toISOString().split('T')[0];
 }
 
-// ====== Render Table ======
-function renderTable(data) {
-  const tbody = document.querySelector("#dataTable tbody");
+// ========= टेबल रेंडर =========
+function renderStagingTable() {
+  const tbody = document.querySelector("#stagingTable tbody");
   tbody.innerHTML = "";
-  let totalParche = 0, totalBori = 0, totalKu = 0;
-
-  data.forEach(row => {
-    totalParche += Number(row["पर्चे संख्या"]) || 0;
-    totalBori += Number(row["मात्रा (बोरी)"]) || 0;
-    totalKu += Number(row["मात्रा (कु.)"]) || 0;
-
+  stagingData.forEach((row, index) => {
     const tr = document.createElement("tr");
     tr.innerHTML = `
-      <td>${row.id}</td>
       <td>${formatDateIndian(row["दिनांक"])}</td>
       <td>${row["जिन्स"]}</td>
       <td>${row["पर्चे संख्या"]}</td>
@@ -146,123 +113,59 @@ function renderTable(data) {
       <td>${row["मॉडल"]}</td>
       <td>${row["अधिकत्तम"]}</td>
       <td>
-        <button onclick='editRow(this)'>Edit</button>
-        <button style="background:#d9534f" onclick='deleteRow("${row.id}")'>Delete</button>
+        <button class="action-btn edit-btn" onclick="editLocal(${index})">Edit</button>
+        <button class="action-btn delete-btn" onclick="deleteFromLocal(${index})">Delete</button>
       </td>
     `;
     tbody.appendChild(tr);
   });
-
-  document.getElementById("totalParche").innerText = totalParche;
-  document.getElementById("totalBori").innerText = totalBori;
-  document.getElementById("totalKu").innerText = totalKu;
 }
 
-// ====== Load All Data Button ======
-async function loadAll() {
-  console.log("Loading all data...");
-  const res = await fetch(api);
-  const raw = await res.text();
-  console.log("Raw all-data response:", raw);
-  let data;
-  try {
-    data = JSON.parse(raw);
-  } catch(e) {
-    console.error("Error parsing all-data JSON:", e);
+// ========= Edit =========
+function editLocal(index) {
+  const row = stagingData[index];
+  ["दिनांक","जिन्स","पर्चे संख्या","मात्रा (बोरी)","मात्रा (कु.)","न्यूनत्तम","मॉडल","अधिकत्तम"]
+    .forEach(id => {
+      document.getElementById(id).value = row[id];
+    });
+  editIndex = index;
+}
+
+// ========= Delete =========
+function deleteFromLocal(index) {
+  if (!confirm("Row हटानी है?")) return;
+  stagingData.splice(index, 1);
+  renderStagingTable();
+}
+
+// ========= अंतिम Submit =========
+async function submitToSheet() {
+  if (stagingData.length === 0) {
+    alert("कोई डेटा नहीं है सेव करने के लिए");
     return;
   }
-  renderTable(data);
-}
-
-// ====== Load Filtered ======
-async function loadFiltered() {
-  const date = document.getElementById("searchDate").value;
-  if (!date) return alert("कृपया दिनांक चुनें");
-  console.log("Loading filtered data for date:", date);
-  const res = await fetch(`${api}?action=getDataByDate&date=${encodeURIComponent(date)}`);
-  const raw = await res.text();
-  console.log("Raw filtered-data response:", raw);
-  let data;
-  try {
-    data = JSON.parse(raw);
-  } catch(e) {
-    console.error("Error parsing filtered-data JSON:", e);
-    return;
+  for (let record of stagingData) {
+    const res = await fetch(`${api}?action=add&data=${encodeURIComponent(JSON.stringify(record))}`);
+    const result = await res.json();
+    console.log("Saved:", result);
   }
-  renderTable(data);
+  alert("✅ सभी एंट्री Google Sheet में सेव हो गईं");
+  stagingData = [];
+  renderStagingTable();
 }
 
-// ====== Inline Edit ======
-function editRow(btn) {
-  const tr = btn.closest("tr");
-  if (tr.classList.contains("editing")) return;
-  tr.classList.add("editing");
-  for (let i = 1; i <= 8; i++) { 
-    let cell = tr.cells[i];
-    let val = cell.innerText;
-    if (i === 1) { // date
-      let parts = val.split("/");
-      if (parts.length === 3) {
-        val = `${parts[2]}-${parts[1].padStart(2,'0')}-${parts[0].padStart(2,'0')}`;
-      }
-      cell.innerHTML = `<input type="date" value="${val}">`;
-    } else {
-      cell.innerHTML = `<input type="text" value="${val}">`;
-    }
-  }
-  btn.innerText = "Save";
-  btn.onclick = () => saveRow(tr, btn);
+// ========= इंडियन डेट फॉर्मेट =========
+function formatDateIndian(dateStr) {
+  if (!dateStr) return "";
+  const d = new Date(dateStr);
+  if (isNaN(d)) return dateStr;
+  return d.toLocaleDateString('en-GB');
 }
 
-async function saveRow(tr, btn) {
-  const id = tr.cells[0].innerText;
-  const record = {
-    id: id,
-    "दिनांक": tr.cells[1].querySelector("input").value,
-    "जिन्स": tr.cells[2].querySelector("input").value,
-    "पर्चे संख्या": tr.cells[3].querySelector("input").value,
-    "मात्रा (बोरी)": tr.cells[4].querySelector("input").value,
-    "मात्रा (कु.)": tr.cells[5].querySelector("input").value,
-    "न्यूनत्तम": tr.cells[6].querySelector("input").value,
-    "मॉडल": tr.cells[7].querySelector("input").value,
-    "अधिकत्तम": tr.cells[8].querySelector("input").value
-  };
-  console.log("Updating record:", record);
-  const res = await fetch(`${api}?action=update&data=${encodeURIComponent(JSON.stringify(record))}`);
-  const raw = await res.text();
-  console.log("Update response:", raw);
-  tr.classList.remove("editing");
- // loadAll();
-}
-
-// ====== Delete Row ======
-async function deleteRow(id) {
-  if (!confirm("क्या आप वाकई delete करना चाहते हैं?")) return;
-  console.log("Deleting ID:", id);
-  const res = await fetch(`${api}?action=delete&id=${id}`);
-  const raw = await res.text();
-  console.log("Delete response:", raw);
- // loadAll();
-}
-
-// ====== Add New Entry ======
-document.getElementById("entryForm").addEventListener("submit", async (e) => {
-  e.preventDefault();
-  const record = {};
-  ["दिनांक","जिन्स","पर्चे संख्या","मात्रा (बोरी)","मात्रा (कु.)","न्यूनत्तम","मॉडल","अधिकत्तम"].forEach(id => {
-    record[id] = document.getElementById(id).value;
-  });
-  console.log("Adding new record:", record);
-  const res = await fetch(`${api}?action=add&data=${encodeURIComponent(JSON.stringify(record))}`);
-  const raw = await res.text();
-  console.log("Add record response:", raw);
-  document.getElementById("entryForm").reset();
-  document.getElementById("दिनांक").value = new Date().toISOString().split('T')[0];
-});
-
-// ====== Init: Load only dropdown ======
+// ========= Init =========
 document.getElementById("दिनांक").value = new Date().toISOString().split('T')[0];
 loadJinsList();
 </script>
+
 </body>
 </html>

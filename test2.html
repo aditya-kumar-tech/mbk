@@ -257,8 +257,11 @@ async function loadByFilters(){
   const from = document.getElementById("startDate").value || "";
   const to   = document.getElementById("endDate").value || "";
 
-  let url = `${api}?action=getDataByFilter&from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}`;
-  if (jins) url += `&jins=${encodeURIComponent(jins)}`;
+ let url = `${api}?action=getDataByFilter`
+        + `&from=${encodeURIComponent(from)}`
+        + `&to=${encodeURIComponent(to)}`;
+if (jins) url += `&jins=${encodeURIComponent(jins)}`;
+
 
   console.log("Filter API Call:", url);
   showSpinner();

@@ -17,23 +17,23 @@ button:hover { background: #45a049; }
 tfoot td { font-weight: bold; background: #eee; }
 .action-btn { margin: 0 2px; padding: 4px 8px; font-size: 12px; }
 .editing { background: #fffae6; }
-.form-box {
-  background: #fff; padding: 10px; border: 1px solid #ccc; 
-  border-radius: 5px; margin-bottom: 15px;
-}
+.form-box { background: #fff; padding: 10px; border: 1px solid #ccc; border-radius: 5px; margin-bottom: 15px; }
+#errorMsg { color: red; font-weight: bold; }
 </style>
 </head>
 <body>
 
 <h2>SheopurMBK डेटा</h2>
 
-<!-- 📌 New Entry Form -->
+<div id="errorMsg"></div>
+
+<!-- Entry Form -->
 <div class="form-box">
   <h3>नई एंट्री</h3>
   <form id="entryForm">
     दिनांक: <input type="date" id="दिनांक" required>  
     जिन्स: <select id="जिन्स"></select><br>
-    पर्चे संख्या: <input type="text" id="पर्चे संख्या">
+    पर्चे संख्या: <input type="number" id="पर्चे संख्या">
     मात्रा (बोरी): <input type="number" id="मात्रा (बोरी)" step="0.01">
     मात्रा (कु.): <input type="number" id="मात्रा (कु.)" step="0.01"><br>
     न्यूनत्तम: <input type="number" id="न्यूनत्तम" step="0.01">
@@ -43,10 +43,11 @@ tfoot td { font-weight: bold; background: #eee; }
   </form>
 </div>
 
+<!-- Filter & Load -->
 <label>दिनांक से खोजें:</label>
 <input type="date" id="searchDate">
 <button onclick="loadFiltered()">खोजें</button>
-<button onclick="loadAll()">सभी दिखाएं</button>
+<button onclick="loadAll()">डेटा लोड करें</button>
 
 <h3>डेटा सूची</h3>
 <table id="dataTable">
@@ -58,32 +59,45 @@ tfoot td { font-weight: bold; background: #eee; }
     </tr>
   </thead>
   <tbody></tbody>
- <tfoot>
-  <tr>
-    <td colspan="3">कुल</td>
-    <td id="totalParche">0</td>
-    <td id="totalBori">0</td>
-    <td id="totalKu">0</td>
-    <td colspan="4"></td>
-  </tr>
-</tfoot>
+  <tfoot>
+    <tr>
+      <td colspan="3">कुल</td>
+      <td id="totalParche">0</td>
+      <td id="totalBori">0</td>
+      <td id="totalKu">0</td>
+      <td colspan="4"></td>
+    </tr>
+  </tfoot>
 </table>
 
 <script>
-const api = "https://script.google.com/macros/s/AKfycbwTeA-NGZDLF6kOpukq4xdFusnrW2YDdtqgzmhkIKX0eCjWl0N5wVbvjtpy3vPlh89m/exec"; // यहां अपना Web App URL डालें
+const api = "https://script.google.com/macros/s/AKfycbwZjNymnBi7-yqhzMtHeHfsTiKUDZcngjaWL1GL7MsKjRwiyJaH9nU7D1hMiOKxFuhh/exec"; // अपने Web App का exec URL डालें
 
-// -------- Load JINS Dropdown from Sheet --------
+// ====== Dropdown Loader with Logs ======
 async function loadJinsList() {
+  const errorBox = document.getElementById("errorMsg");
+  errorBox.textContent = "";
   try {
+    console.log("Fetching JINS list from:", `${api}?action=getJinsList`);
     const res = await fetch(`${api}?action=getJinsList`);
     console.log("Response status:", res.status);
-    const jinsArray = await res.json();
 
-    console.log("JINS List from backend:", jinsArray); // ✅ अब देखें data क्या आ रहा है
+    const raw = await res.text();
+    console.log("Raw response text:", raw);
+
+    let jinsArray;
+    try {
+      jinsArray = JSON.parse(raw);
+    } catch (e) {
+      console.error("JSON parse error:", e);
+      errorBox.textContent = "❌ JINS list JSON parse error";
+      return;
+    }
+
+    console.log("Parsed JINS Array:", jinsArray);
 
     const jinsSelect = document.getElementById("जिन्स");
     jinsSelect.innerHTML = "";
-    
     if (Array.isArray(jinsArray) && jinsArray.length > 0) {
       jinsArray.forEach(jins => {
         const opt = document.createElement("option");
@@ -92,31 +106,16 @@ async function loadJinsList() {
         jinsSelect.appendChild(opt);
       });
     } else {
-      console.warn("JINS array empty या invalid");
+      console.warn("⚠ JINS array empty");
+      errorBox.textContent = "⚠ JINS array empty (backend returned no data)";
     }
   } catch (err) {
-    console.error("Error fetching JINS list:", err);
+    console.error("Fetch error for JINS list:", err);
+    errorBox.textContent = "❌ Failed to fetch JINS list";
   }
 }
 
-
-// -------- Load All Data --------
-async function loadAll() {
-  const res = await fetch(api);
-  const data = await res.json();
-  renderTable(data);
-}
-
-// -------- Load Filtered Data --------
-async function loadFiltered() {
-  const date = document.getElementById("searchDate").value;
-  if (!date) return alert("कृपया दिनांक चुनें");
-  const res = await fetch(`${api}?action=getDataByDate&date=${encodeURIComponent(date)}`);
-  const data = await res.json();
-  renderTable(data);
-}
-
-// -------- Format Date Indian --------
+// ====== Date Format ======
 function formatDateIndian(dateStr) {
   if(!dateStr) return "";
   let dateObj = new Date(dateStr);
@@ -124,13 +123,11 @@ function formatDateIndian(dateStr) {
   return dateObj.toLocaleDateString('en-GB');
 }
 
-// -------- Render Table --------
+// ====== Render Table ======
 function renderTable(data) {
   const tbody = document.querySelector("#dataTable tbody");
   tbody.innerHTML = "";
-  let totalParche = 0;
-  let totalBori = 0;
-  let totalKu = 0;
+  let totalParche = 0, totalBori = 0, totalKu = 0;
 
   data.forEach(row => {
     totalParche += Number(row["पर्चे संख्या"]) || 0;
@@ -149,8 +146,8 @@ function renderTable(data) {
       <td>${row["मॉडल"]}</td>
       <td>${row["अधिकत्तम"]}</td>
       <td>
-        <button class="action-btn" onclick='editRow(this)'>Edit</button>
-        <button class="action-btn" style="background:#d9534f" onclick='deleteRow("${row.id}")'>Delete</button>
+        <button onclick='editRow(this)'>Edit</button>
+        <button style="background:#d9534f" onclick='deleteRow("${row.id}")'>Delete</button>
       </td>
     `;
     tbody.appendChild(tr);
@@ -161,12 +158,45 @@ function renderTable(data) {
   document.getElementById("totalKu").innerText = totalKu;
 }
 
-// -------- Inline Edit --------
+// ====== Load All Data Button ======
+async function loadAll() {
+  console.log("Loading all data...");
+  const res = await fetch(api);
+  const raw = await res.text();
+  console.log("Raw all-data response:", raw);
+  let data;
+  try {
+    data = JSON.parse(raw);
+  } catch(e) {
+    console.error("Error parsing all-data JSON:", e);
+    return;
+  }
+  renderTable(data);
+}
+
+// ====== Load Filtered ======
+async function loadFiltered() {
+  const date = document.getElementById("searchDate").value;
+  if (!date) return alert("कृपया दिनांक चुनें");
+  console.log("Loading filtered data for date:", date);
+  const res = await fetch(`${api}?action=getDataByDate&date=${encodeURIComponent(date)}`);
+  const raw = await res.text();
+  console.log("Raw filtered-data response:", raw);
+  let data;
+  try {
+    data = JSON.parse(raw);
+  } catch(e) {
+    console.error("Error parsing filtered-data JSON:", e);
+    return;
+  }
+  renderTable(data);
+}
+
+// ====== Inline Edit ======
 function editRow(btn) {
   const tr = btn.closest("tr");
   if (tr.classList.contains("editing")) return;
   tr.classList.add("editing");
-
   for (let i = 1; i <= 8; i++) { 
     let cell = tr.cells[i];
     let val = cell.innerText;
@@ -184,7 +214,6 @@ function editRow(btn) {
   btn.onclick = () => saveRow(tr, btn);
 }
 
-// -------- Save Edited Row --------
 async function saveRow(tr, btn) {
   const id = tr.cells[0].innerText;
   const record = {
@@ -198,52 +227,42 @@ async function saveRow(tr, btn) {
     "मॉडल": tr.cells[7].querySelector("input").value,
     "अधिकत्तम": tr.cells[8].querySelector("input").value
   };
-
+  console.log("Updating record:", record);
   const res = await fetch(`${api}?action=update&data=${encodeURIComponent(JSON.stringify(record))}`);
-  const result = await res.json();
-  if (result.status === "success") {
-    tr.classList.remove("editing");
-    //loadAll();
-  } else {
-    alert("Error updating data");
-  }
+  const raw = await res.text();
+  console.log("Update response:", raw);
+  tr.classList.remove("editing");
+  loadAll();
 }
 
-// -------- Delete Row --------
+// ====== Delete Row ======
 async function deleteRow(id) {
   if (!confirm("क्या आप वाकई delete करना चाहते हैं?")) return;
+  console.log("Deleting ID:", id);
   const res = await fetch(`${api}?action=delete&id=${id}`);
-  const result = await res.json();
-  if (result.status === "success") {
-    loadAll();
-  } else {
-    alert("Error deleting");
-  }
+  const raw = await res.text();
+  console.log("Delete response:", raw);
+  loadAll();
 }
 
-// -------- Handle New Entry Form Submit --------
+// ====== Add New Entry ======
 document.getElementById("entryForm").addEventListener("submit", async (e) => {
   e.preventDefault();
   const record = {};
   ["दिनांक","जिन्स","पर्चे संख्या","मात्रा (बोरी)","मात्रा (कु.)","न्यूनत्तम","मॉडल","अधिकत्तम"].forEach(id => {
     record[id] = document.getElementById(id).value;
   });
-
+  console.log("Adding new record:", record);
   const res = await fetch(`${api}?action=add&data=${encodeURIComponent(JSON.stringify(record))}`);
-  const result = await res.json();
-  if (result.status === "success") {
-    document.getElementById("entryForm").reset();
-    document.getElementById("दिनांक").value = new Date().toISOString().split('T')[0];
-    loadAll();
-  } else {
-    alert("Error saving data");
-  }
+  const raw = await res.text();
+  console.log("Add record response:", raw);
+  document.getElementById("entryForm").reset();
+  document.getElementById("दिनांक").value = new Date().toISOString().split('T')[0];
 });
 
-// -------- Init --------
-document.getElementById("दिनांक").value = new Date().toISOString().split('T')[0]; // default today
+// ====== Init: Load only dropdown ======
+document.getElementById("दिनांक").value = new Date().toISOString().split('T')[0];
 loadJinsList();
-loadAll();
 </script>
 </body>
 </html>

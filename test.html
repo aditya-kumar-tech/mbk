@@ -106,8 +106,18 @@ let editIndex = -1;
 
 async function loadJinsList() {
   try {
+    console.log("Fetching JINS list from:", `${api}?action=getJinsList`);
     const res = await fetch(`${api}?action=getJinsList`);
-    const jinsArray = await res.json();
+    console.log("Response status:", res.status);
+    const raw = await res.text();
+    console.log("Raw response:", raw);
+    let jinsArray = [];
+    try {
+      jinsArray = JSON.parse(raw);
+    } catch (e) {
+      console.error("JSON Parse Error:", e);
+    }
+
     const jinsSelect = document.getElementById("जिन्स");
     jinsSelect.innerHTML = "";
     jinsArray.forEach(jins => {
@@ -116,8 +126,12 @@ async function loadJinsList() {
       opt.textContent = jins;
       jinsSelect.appendChild(opt);
     });
+
+    if (jinsArray.length === 0) {
+      console.warn("⚠ JINS list empty");
+    }
   } catch (err) {
-    console.error("JINS लिस्ट लोड एरर:", err);
+    console.error("Error fetching JINS list:", err);
   }
 }
 

@@ -232,7 +232,7 @@ async function saveRow(tr, btn) {
   const raw = await res.text();
   console.log("Update response:", raw);
   tr.classList.remove("editing");
-  loadAll();
+ // loadAll();
 }
 
 // ====== Delete Row ======
@@ -242,7 +242,7 @@ async function deleteRow(id) {
   const res = await fetch(`${api}?action=delete&id=${id}`);
   const raw = await res.text();
   console.log("Delete response:", raw);
-  loadAll();
+ // loadAll();
 }
 
 // ====== Add New Entry ======

@@ -54,7 +54,11 @@ tfoot td { font-weight: bold; background: #eee; }
   <tbody></tbody>
   <tfoot>
     <tr>
-      <td colspan="2">कुल</td><td id="stgParche">0</td><td id="stgBori">0</td><td id="stgKu">0</td><td colspan="4"></td>
+      <td colspan="2">कुल</td>
+      <td id="stgParche">0</td>
+      <td id="stgBori">0</td>
+      <td id="stgKu">0</td>
+      <td colspan="4"></td>
     </tr>
   </tfoot>
 </table>
@@ -88,7 +92,11 @@ tfoot td { font-weight: bold; background: #eee; }
   <tbody></tbody>
   <tfoot>
     <tr>
-      <td colspan="3">कुल</td><td id="viewParche">0</td><td id="viewBori">0</td><td id="viewKu">0</td><td colspan="4"></td>
+      <td colspan="3">कुल</td>
+      <td id="viewParche">0</td>
+      <td id="viewBori">0</td>
+      <td id="viewKu">0</td>
+      <td colspan="4"></td>
     </tr>
   </tfoot>
 </table>
@@ -101,10 +109,10 @@ let editIndex = -1;
 function showSpinner(){document.getElementById("spinner").style.display="block";}
 function hideSpinner(){document.getElementById("spinner").style.display="none";}
 
-// ========== Init ==========
+// Init – सिर्फ जिन्स लिस्ट लोड होगी, डेटा नहीं
 document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("दिनांक").value = new Date().toISOString().split('T')[0];
-  loadJinsList(); // सिर्फ dropdown भरना
+  loadJinsList();
 });
 
 // ---------- जिन्स लिस्ट ----------
@@ -211,11 +219,13 @@ async function loadByDate(){
 }
 
 async function loadByFilters(){
-  const jins = document.getElementById("filterJins").value;
+  const jins = document.getElementById("filterJins").value.trim();
   const from = document.getElementById("startDate").value;
   const to   = document.getElementById("endDate").value;
+  let url = `${api}?action=getDataByFilter&from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}`;
+  if (jins) url += `&jins=${encodeURIComponent(jins)}`; // "सभी" पर नहीं भेजेंगे
   showSpinner();
-  const res = await fetch(`${api}?action=getDataByFilter&from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}&jins=${encodeURIComponent(jins)}`);
+  const res = await fetch(url);
   const data = await res.json();
   hideSpinner();
   renderViewTable(data);

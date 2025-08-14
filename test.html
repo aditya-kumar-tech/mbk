@@ -2,7 +2,7 @@
 <html lang="hi">
 <head>
 <meta charset="UTF-8">
-<title>Staging Entry with Edit/Delete</title>
+<title>SheopurMBK - Bulk Save</title>
 <style>
 body { font-family: Arial, sans-serif; background: #f5f5f5; margin: 20px; }
 h2, h3 { color: #333; }
@@ -11,31 +11,66 @@ table, th, td { border: 1px solid #ccc; }
 th, td { padding: 6px; text-align: center; }
 th { background: #4CAF50; color: white; }
 tr:nth-child(even) { background: #f9f9f9; }
-input, select, button { padding: 5px; margin: 4px; border: 1px solid #ccc; border-radius: 4px; }
+input, select, button { padding: 6px; margin: 4px 0; border: 1px solid #ccc; border-radius: 4px; width: 100%; }
 button { cursor: pointer; }
-.action-btn { padding: 4px 8px; margin: 0 2px; }
+.action-btn { padding: 4px 8px; margin: 0 2px; border-radius: 3px; font-size: 12px; }
 .edit-btn { background: orange; color: #fff; border: none; }
 .delete-btn { background: red; color: #fff; border: none; }
-.save-btn { background: green; color: #fff; border: none; }
-.form-box { background: #fff; padding: 10px; border: 1px solid #ccc; margin-bottom: 10px; border-radius: 4px; }
+.save-btn { background: green; color: #fff; border: none; padding: 6px 12px; }
+.form-box { background: #fff; padding: 15px; border: 1px solid #ccc; margin-bottom: 10px; border-radius: 5px; max-width: 800px; }
+.form-row { display: flex; gap: 10px; margin-bottom: 8px; }
+.form-group { flex: 1; }
+tfoot td { font-weight: bold; background: #eee; }
 </style>
 </head>
 <body>
 
-<h2>SheopurMBK - Local Entry Table</h2>
+<h2>SheopurMBK - Local Entry Table (Bulk Save)</h2>
 
 <div class="form-box">
   <h3>नया डेटा दर्ज करें</h3>
   <form id="entryForm">
-    दिनांक: <input type="date" id="दिनांक" required>  
-    जिन्स: <select id="जिन्स"></select><br>
-    पर्चे संख्या: <input type="number" id="पर्चे संख्या">
-    मात्रा (बोरी): <input type="number" id="मात्रा (बोरी)" step="0.01">
-    मात्रा (कु.): <input type="number" id="मात्रा (कु.)" step="0.01"><br>
-    न्यूनत्तम: <input type="number" id="न्यूनत्तम" step="0.01">
-    मॉडल: <input type="number" id="मॉडल" step="0.01">
-    अधिकत्तम: <input type="number" id="अधिकत्तम" step="0.01"><br>
-    <button type="button" onclick="addOrUpdate()">टेबल में जोड़ें</button>
+    <div class="form-row">
+      <div class="form-group">
+        <label>दिनांक</label>
+        <input type="date" id="दिनांक" required>
+      </div>
+      <div class="form-group">
+        <label>जिन्स</label>
+        <select id="जिन्स"></select>
+      </div>
+      <div class="form-group">
+        <label>पर्चे संख्या</label>
+        <input type="number" id="पर्चे संख्या">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>मात्रा (बोरी)</label>
+        <input type="number" id="मात्रा (बोरी)" step="0.01">
+      </div>
+      <div class="form-group">
+        <label>मात्रा (कु.)</label>
+        <input type="number" id="मात्रा (कु.)" step="0.01">
+      </div>
+      <div class="form-group">
+        <label>न्यूनत्तम</label>
+        <input type="number" id="न्यूनत्तम" step="0.01">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>मॉडल</label>
+        <input type="number" id="मॉडल" step="0.01">
+      </div>
+      <div class="form-group">
+        <label>अधिकत्तम</label>
+        <input type="number" id="अधिकत्तम" step="0.01">
+      </div>
+      <div class="form-group" style="display:flex;align-items:flex-end;">
+        <button type="button" onclick="addOrUpdate()" class="save-btn">टेबल में जोड़ें</button>
+      </div>
+    </div>
   </form>
 </div>
 
@@ -50,17 +85,25 @@ button { cursor: pointer; }
     </tr>
   </thead>
   <tbody></tbody>
+  <tfoot>
+    <tr>
+      <td colspan="2">कुल</td>
+      <td id="totalParche">0</td>
+      <td id="totalBori">0</td>
+      <td id="totalKu">0</td>
+      <td colspan="4"></td>
+    </tr>
+  </tfoot>
 </table>
 
 <br>
 <button onclick="submitToSheet()" class="save-btn">Submit to Google Sheet</button>
 
 <script>
-const api = "https://script.google.com/macros/s/AKfycbwZjNymnBi7-yqhzMtHeHfsTiKUDZcngjaWL1GL7MsKjRwiyJaH9nU7D1hMiOKxFuhh/exec"; // यहाँ अपना Web App URL डालें
+const api = "https://script.google.com/macros/s/AKfycbwZjNymnBi7-yqhzMtHeHfsTiKUDZcngjaWL1GL7MsKjRwiyJaH9nU7D1hMiOKxFuhh/exec"; // यहां अपना Web App URL डालें
 let stagingData = [];
-let editIndex = -1; // कौनसी row edit हो रही है
+let editIndex = -1;
 
-// ========= जिन्स लिस्ट लोड =========
 async function loadJinsList() {
   try {
     const res = await fetch(`${api}?action=getJinsList`);
@@ -78,94 +121,10 @@ async function loadJinsList() {
   }
 }
 
-// ========= फॉर्म से डेटा एंट्री या अपडेट =========
 function addOrUpdate() {
   const record = {};
   ["दिनांक","जिन्स","पर्चे संख्या","मात्रा (बोरी)","मात्रा (कु.)","न्यूनत्तम","मॉडल","अधिकत्तम"]
-    .forEach(id => {
-      record[id] = document.getElementById(id).value;
-    });
+    .forEach(id => record[id] = document.getElementById(id).value);
 
   if (editIndex === -1) {
-    stagingData.push(record); // नई row
-  } else {
-    stagingData[editIndex] = record; // अपडेट row
-    editIndex = -1;
-  }
-  renderStagingTable();
-  document.getElementById("entryForm").reset();
-  document.getElementById("दिनांक").value = new Date().toISOString().split('T')[0];
-}
-
-// ========= टेबल रेंडर =========
-function renderStagingTable() {
-  const tbody = document.querySelector("#stagingTable tbody");
-  tbody.innerHTML = "";
-  stagingData.forEach((row, index) => {
-    const tr = document.createElement("tr");
-    tr.innerHTML = `
-      <td>${formatDateIndian(row["दिनांक"])}</td>
-      <td>${row["जिन्स"]}</td>
-      <td>${row["पर्चे संख्या"]}</td>
-      <td>${row["मात्रा (बोरी)"]}</td>
-      <td>${row["मात्रा (कु.)"]}</td>
-      <td>${row["न्यूनत्तम"]}</td>
-      <td>${row["मॉडल"]}</td>
-      <td>${row["अधिकत्तम"]}</td>
-      <td>
-        <button class="action-btn edit-btn" onclick="editLocal(${index})">Edit</button>
-        <button class="action-btn delete-btn" onclick="deleteFromLocal(${index})">Delete</button>
-      </td>
-    `;
-    tbody.appendChild(tr);
-  });
-}
-
-// ========= Edit =========
-function editLocal(index) {
-  const row = stagingData[index];
-  ["दिनांक","जिन्स","पर्चे संख्या","मात्रा (बोरी)","मात्रा (कु.)","न्यूनत्तम","मॉडल","अधिकत्तम"]
-    .forEach(id => {
-      document.getElementById(id).value = row[id];
-    });
-  editIndex = index;
-}
-
-// ========= Delete =========
-function deleteFromLocal(index) {
-  if (!confirm("Row हटानी है?")) return;
-  stagingData.splice(index, 1);
-  renderStagingTable();
-}
-
-// ========= अंतिम Submit =========
-async function submitToSheet() {
-  if (stagingData.length === 0) {
-    alert("कोई डेटा नहीं है सेव करने के लिए");
-    return;
-  }
-  for (let record of stagingData) {
-    const res = await fetch(`${api}?action=add&data=${encodeURIComponent(JSON.stringify(record))}`);
-    const result = await res.json();
-    console.log("Saved:", result);
-  }
-  alert("✅ सभी एंट्री Google Sheet में सेव हो गईं");
-  stagingData = [];
-  renderStagingTable();
-}
-
-// ========= इंडियन डेट फॉर्मेट =========
-function formatDateIndian(dateStr) {
-  if (!dateStr) return "";
-  const d = new Date(dateStr);
-  if (isNaN(d)) return dateStr;
-  return d.toLocaleDateString('en-GB');
-}
-
-// ========= Init =========
-document.getElementById("दिनांक").value = new Date().toISOString().split('T')[0];
-loadJinsList();
-</script>
-
-</body>
-</html>
+    stagingData.push(record);

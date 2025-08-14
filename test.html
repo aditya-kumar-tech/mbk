@@ -1,551 +1,128 @@
 <!DOCTYPE html>
 <html lang="hi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SheopurMBK डेटा एंट्री फॉर्म</title>
-    <style>
-        * {
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
-        body {
-            margin: 0;
-            padding: 20px;
-            background-color: #f5f5f5;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            overflow: hidden;
-        }
-        .header {
-            background: #4CAF50;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-        .form-container {
-            display: flex;
-            flex-wrap: wrap;
-            padding: 20px;
-            gap: 15px;
-            background: #f9f9f9;
-        }
-        .form-group {
-            flex: 1;
-            min-width: 200px;
-        }
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
-            color: #333;
-        }
-        .form-group input, .form-group select {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-size: 14px;
-        }
-        .btn-group {
-            text-align: center;
-            padding: 15px;
-            background: #f9f9f9;
-        }
-        .btn {
-            padding: 10px 20px;
-            margin: 0 5px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: bold;
-        }
-        .btn-primary { background: #4CAF50; color: white; }
-        .btn-secondary { background: #2196F3; color: white; }
-        .btn-danger { background: #f44336; color: white; }
-        .btn-warning { background: #ff9800; color: white; }
-
-        .table-container {
-            padding: 20px;
-            overflow-x: auto;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        th, td {
-            padding: 8px 12px;
-            text-align: left;
-            border: 1px solid #ddd;
-        }
-        th {
-            background: #4CAF50;
-            color: white;
-            position: sticky;
-            top: 0;
-        }
-        tr:nth-child(even) {
-            background-color: #f2f2f2;
-        }
-        tr:hover {
-            background-color: #e8f5e8;
-        }
-        .search-container {
-            padding: 20px;
-            background: #f9f9f9;
-            border-bottom: 1px solid #ddd;
-        }
-        .search-group {
-            display: flex;
-            gap: 15px;
-            align-items: end;
-            flex-wrap: wrap;
-        }
-        .search-input {
-            flex: 1;
-            min-width: 200px;
-        }
-        .message {
-            padding: 10px;
-            margin: 10px 20px;
-            border-radius: 4px;
-            display: none;
-        }
-        .message.success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-        .message.error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-        .edit-row {
-            background-color: #fff3cd !important;
-        }
-        .action-buttons {
-            white-space: nowrap;
-        }
-        .action-btn {
-            padding: 5px 10px;
-            margin: 2px;
-            border: none;
-            border-radius: 3px;
-            cursor: pointer;
-            font-size: 12px;
-        }
-        .edit-btn { background: #17a2b8; color: white; }
-        .delete-btn { background: #dc3545; color: white; }
-        .save-btn { background: #28a745; color: white; }
-        .cancel-btn { background: #6c757d; color: white; }
-    </style>
+<meta charset="UTF-8">
+<title>SheopurMBK Data</title>
+<style>
+table { border-collapse: collapse; width: 100%; margin-top: 10px; }
+table, th, td { border: 1px solid black; padding: 5px; }
+input, select, button { margin: 3px; padding: 5px; }
+</style>
 </head>
 <body>
-    <div class="container">
-        <!-- Header -->
-        <div class="header">
-            <h1>SheopurMBK डेटा प्रबंधन</h1>
-            <p>कृषि बाज़ार डेटा एंट्री और संपादन सिस्टम</p>
-        </div>
 
-        <!-- Message Area -->
-        <div id="message" class="message"></div>
+<h2>SheopurMBK डेटा</h2>
 
-        <!-- Form Section -->
-        <div class="form-container">
-            <input type="hidden" id="editId" value="">
+<label>दिनांक से खोजें:</label>
+<input type="date" id="searchDate">
+<button onclick="loadFiltered()">खोजें</button>
+<button onclick="loadAll()">सभी दिखाएं</button>
 
-            <div class="form-group">
-                <label for="date">दिनांक *</label>
-                <input type="date" id="date" name="date" required>
-            </div>
+<h3>नया / अपडेट डेटा</h3>
+<form id="dataForm">
+  <input type="hidden" id="id">
+  दिनांक: <input type="date" id="दिनांक" required>
+  जिन्स: <input type="text" id="जिन्स"><br>
+  पर्चे संख्या: <input type="text" id="पर्चे संख्या">
+  मात्रा (बोरी): <input type="number" id="मात्रा (बोरी)">
+  मात्रा (कु.): <input type="number" id="मात्रा (कु.)"><br>
+  न्यूनत्तम: <input type="number" id="न्यूनत्तम">
+  मॉडल: <input type="number" id="मॉडल">
+  अधिकत्तम: <input type="number" id="अधिकत्तम"><br>
+  <button type="submit">Save</button>
+</form>
 
-            <div class="form-group">
-                <label for="commodity">जिन्स *</label>
-                <select id="commodity" name="commodity" required>
-                    <option value="">जिन्स चुनें</option>
-                    <option value="गेहूं">गेहूं</option>
-                    <option value="धान">धान</option>
-                    <option value="मक्का">मक्का</option>
-                    <option value="चना">चना</option>
-                    <option value="मसूर">मसूर</option>
-                    <option value="अरहर">अरहर</option>
-                    <option value="सरसों">सरसों</option>
-                    <option value="तिल">तिल</option>
-                    <option value="जौ">जौ</option>
-                    <option value="बाजरा">बाजरा</option>
-                </select>
-            </div>
+<h3>डेटा सूची</h3>
+<table id="dataTable">
+  <thead>
+    <tr>
+      <th>ID</th><th>दिनांक</th><th>जिन्स</th><th>पर्चे संख्या</th>
+      <th>मात्रा (बोरी)</th><th>मात्रा (कु.)</th>
+      <th>न्यूनत्तम</th><th>मॉडल</th><th>अधिकत्तम</th><th>Action</th>
+    </tr>
+  </thead>
+  <tbody></tbody>
+</table>
 
-            <div class="form-group">
-                <label for="receipt_number">पर्चे संख्या *</label>
-                <input type="text" id="receipt_number" name="receipt_number" required>
-            </div>
+<script>
+const api = "YOUR_WEB_APP_URL"; // यहां अपना deployed WebApp URL डालें
 
-            <div class="form-group">
-                <label for="quantity_bags">मात्रा (बोरी) *</label>
-                <input type="number" id="quantity_bags" name="quantity_bags" min="0" step="1" required>
-            </div>
+async function loadAll() {
+  const res = await fetch(api);
+  const data = await res.json();
+  renderTable(data);
+}
 
-            <div class="form-group">
-                <label for="quantity_quintal">मात्रा (कु.) *</label>
-                <input type="number" id="quantity_quintal" name="quantity_quintal" min="0" step="0.01" required>
-            </div>
+async function loadFiltered() {
+  const date = document.getElementById("searchDate").value;
+  if (!date) return alert("कृपया दिनांक चुनें");
+  const res = await fetch(`${api}?action=getDataByDate&date=${encodeURIComponent(date)}`);
+  const data = await res.json();
+  renderTable(data);
+}
 
-            <div class="form-group">
-                <label for="minimum">न्यूनत्तम (₹)</label>
-                <input type="number" id="minimum" name="minimum" min="0" step="0.01">
-            </div>
+function renderTable(data) {
+  const tbody = document.querySelector("#dataTable tbody");
+  tbody.innerHTML = "";
+  data.forEach(row => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td>${row.id}</td>
+      <td>${row["दिनांक"]}</td>
+      <td>${row["जिन्स"]}</td>
+      <td>${row["पर्चे संख्या"]}</td>
+      <td>${row["मात्रा (बोरी)"]}</td>
+      <td>${row["मात्रा (कु.)"]}</td>
+      <td>${row["न्यूनत्तम"]}</td>
+      <td>${row["मॉडल"]}</td>
+      <td>${row["अधिकत्तम"]}</td>
+      <td>
+        <button onclick='editRow(${JSON.stringify(row)})'>Edit</button>
+        <button onclick='deleteRow("${row.id}")'>Delete</button>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
 
-            <div class="form-group">
-                <label for="modal">मॉडल (₹)</label>
-                <input type="number" id="modal" name="modal" min="0" step="0.01">
-            </div>
+function editRow(row) {
+  for (let key in row) {
+    if (document.getElementById(key)) {
+      document.getElementById(key).value = row[key];
+    }
+  }
+}
 
-            <div class="form-group">
-                <label for="maximum">अधिकत्तम (₹)</label>
-                <input type="number" id="maximum" name="maximum" min="0" step="0.01">
-            </div>
-        </div>
+async function deleteRow(id) {
+  if (!confirm("क्या आप वाकई delete करना चाहते हैं?")) return;
+  const res = await fetch(`${api}?action=delete&id=${id}`);
+  const result = await res.json();
+  if (result.status === "success") {
+    loadAll();
+  } else {
+    alert("Error deleting");
+  }
+}
 
-        <!-- Button Group -->
-        <div class="btn-group">
-            <button type="button" class="btn btn-primary" onclick="submitData()">
-                <span id="submitText">डेटा जोड़ें</span>
-            </button>
-            <button type="button" class="btn btn-secondary" onclick="clearForm()">फॉर्म साफ़ करें</button>
-            <button type="button" class="btn btn-warning" onclick="loadAllData()">सभी डेटा लोड करें</button>
-        </div>
+document.getElementById("dataForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const record = {};
+  ["id","दिनांक","जिन्स","पर्चे संख्या","मात्रा (बोरी)","मात्रा (कु.)","न्यूनत्तम","मॉडल","अधिकत्तम"].forEach(id => {
+    record[id] = document.getElementById(id).value;
+  });
 
-        <!-- Search Section -->
-        <div class="search-container">
-            <div class="search-group">
-                <div class="search-input">
-                    <label>दिनांक से खोजें:</label>
-                    <input type="date" id="searchDate" placeholder="दिनांक चुनें">
-                </div>
-                <div class="search-input">
-                    <label>जिन्स से खोजें:</label>
-                    <select id="searchCommodity">
-                        <option value="">सभी जिन्स</option>
-                        <option value="गेहूं">गेहूं</option>
-                        <option value="धान">धान</option>
-                        <option value="मक्का">मक्का</option>
-                        <option value="चना">चना</option>
-                        <option value="मसूर">मसूर</option>
-                        <option value="अरहर">अरहर</option>
-                        <option value="सरसों">सरसों</option>
-                        <option value="तिल">तिल</option>
-                        <option value="जौ">जौ</option>
-                        <option value="बाजरा">बाजरा</option>
-                    </select>
-                </div>
-                <div>
-                    <button type="button" class="btn btn-secondary" onclick="searchData()">खोजें</button>
-                    <button type="button" class="btn btn-secondary" onclick="clearSearch()">साफ़ करें</button>
-                </div>
-            </div>
-        </div>
+  let action = record.id ? "update" : "add";
+  const res = await fetch(`${api}?action=${action}&data=${encodeURIComponent(JSON.stringify(record))}`);
+  const result = await res.json();
+  if (result.status === "success") {
+    document.getElementById("dataForm").reset();
+    loadAll();
+  } else {
+    alert("Error saving data");
+  }
+});
 
-        <!-- Table Section -->
-        <div class="table-container">
-            <table id="dataTable">
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>दिनांक</th>
-                        <th>जिन्स</th>
-                        <th>पर्चे संख्या</th>
-                        <th>मात्रा (बोरी)</th>
-                        <th>मात्रा (कु.)</th>
-                        <th>न्यूनत्तम</th>
-                        <th>मॉडल</th>
-                        <th>अधिकत्तम</th>
-                        <th>क्रियाएं</th>
-                    </tr>
-                </thead>
-                <tbody id="dataTableBody">
-                    <!-- Data will be populated here -->
-                </tbody>
-            </table>
-        </div>
-    </div>
-
-    <script>
-        // Global variables
-        let currentEditRow = null;
-        let allData = [];
-
-        // Replace with your Google Apps Script Web App URL
-        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyruHNJUDiZd_ORzM5qrhiOL4WrOzOKU6crA9LXUEyVEoFl0VA2ELf4doRYbHpZrs0H/exec';
-
-        // Initialize form
-        document.addEventListener('DOMContentLoaded', function() {
-            // Set today's date as default
-            document.getElementById('date').value = new Date().toISOString().split('T')[0];
-
-            // Load data on page load
-            loadAllData();
-        });
-
-        // Show message function
-        function showMessage(text, type = 'success') {
-            const messageEl = document.getElementById('message');
-            messageEl.textContent = text;
-            messageEl.className = `message ${type}`;
-            messageEl.style.display = 'block';
-
-            setTimeout(() => {
-                messageEl.style.display = 'none';
-            }, 5000);
-        }
-
-        // Submit data function
-        function submitData() {
-            const formData = getFormData();
-
-            // Validate required fields
-            if (!formData.date || !formData.commodity || !formData.receipt_number || 
-                !formData.quantity_bags || !formData.quantity_quintal) {
-                showMessage('कृपया सभी आवश्यक फील्ड भरें।', 'error');
-                return;
-            }
-
-            const editId = document.getElementById('editId').value;
-            const action = editId ? 'update' : 'create';
-
-            // Prepare data for Google Sheets
-            const data = {
-                action: action,
-                id: editId,
-                ...formData
-            };
-
-            // Call Google Apps Script
-            fetch(SCRIPT_URL, {
-                method: 'POST',
-                body: JSON.stringify(data),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-            .then(response => response.json())
-            .then(result => {
-                if (result.success) {
-                    showMessage(editId ? 'डेटा सफलतापूर्वक अपडेट हो गया!' : 'डेटा सफलतापूर्वक जोड़ा गया!');
-                    clearForm();
-                    loadAllData();
-                } else {
-                    showMessage('त्रुटि: ' + result.message, 'error');
-                }
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                showMessage('डेटा सबमिट करने में त्रुटि हुई।', 'error');
-            });
-        }
-
-        // Get form data
-        function getFormData() {
-            return {
-                date: document.getElementById('date').value,
-                commodity: document.getElementById('commodity').value,
-                receipt_number: document.getElementById('receipt_number').value,
-                quantity_bags: parseFloat(document.getElementById('quantity_bags').value) || 0,
-                quantity_quintal: parseFloat(document.getElementById('quantity_quintal').value) || 0,
-                minimum: parseFloat(document.getElementById('minimum').value) || 0,
-                modal: parseFloat(document.getElementById('modal').value) || 0,
-                maximum: parseFloat(document.getElementById('maximum').value) || 0
-            };
-        }
-
-        // Clear form function
-        function clearForm() {
-            document.getElementById('editId').value = '';
-            document.getElementById('date').value = new Date().toISOString().split('T')[0];
-            document.getElementById('commodity').value = '';
-            document.getElementById('receipt_number').value = '';
-            document.getElementById('quantity_bags').value = '';
-            document.getElementById('quantity_quintal').value = '';
-            document.getElementById('minimum').value = '';
-            document.getElementById('modal').value = '';
-            document.getElementById('maximum').value = '';
-
-            document.getElementById('submitText').textContent = 'डेटा जोड़ें';
-
-            // Remove highlight from any edited row
-            if (currentEditRow) {
-                currentEditRow.classList.remove('edit-row');
-                currentEditRow = null;
-            }
-        }
-
-        // Load all data function
-        function loadAllData() {
-            fetch(SCRIPT_URL + '?action=read')
-            .then(response => response.json())
-            .then(result => {
-                if (result.success) {
-                    allData = result.data;
-                    displayData(allData);
-                } else {
-                    showMessage('डेटा लोड करने में त्रुटि: ' + result.message, 'error');
-                }
-            })
-            .catch(error => {
-                console.error('Error loading data:', error);
-                showMessage('डेटा लोड करने में त्रुटि हुई।', 'error');
-            });
-        }
-
-        // Display data in table
-        function displayData(data) {
-            const tableBody = document.getElementById('dataTableBody');
-            tableBody.innerHTML = '';
-
-            data.forEach((row, index) => {
-                const tr = document.createElement('tr');
-                tr.innerHTML = `
-                    <td>${row.id || index + 1}</td>
-                    <td>${formatDate(row.date)}</td>
-                    <td>${row.commodity}</td>
-                    <td>${row.receipt_number}</td>
-                    <td>${row.quantity_bags}</td>
-                    <td>${row.quantity_quintal}</td>
-                    <td>₹${row.minimum}</td>
-                    <td>₹${row.modal}</td>
-                    <td>₹${row.maximum}</td>
-                    <td class="action-buttons">
-                        <button class="action-btn edit-btn" onclick="editRecord(${index})">संपादित</button>
-                        <button class="action-btn delete-btn" onclick="deleteRecord('${row.id || index + 1}', ${index})">हटाएं</button>
-                    </td>
-                `;
-                tableBody.appendChild(tr);
-            });
-        }
-
-        // Format date for display
-        function formatDate(dateStr) {
-            if (!dateStr) return '';
-            const date = new Date(dateStr);
-            return date.toLocaleDateString('hi-IN');
-        }
-
-        // Edit record function
-        function editRecord(index) {
-            const record = allData[index];
-
-            // Populate form with record data
-            document.getElementById('editId').value = record.id || index + 1;
-            document.getElementById('date').value = record.date;
-            document.getElementById('commodity').value = record.commodity;
-            document.getElementById('receipt_number').value = record.receipt_number;
-            document.getElementById('quantity_bags').value = record.quantity_bags;
-            document.getElementById('quantity_quintal').value = record.quantity_quintal;
-            document.getElementById('minimum').value = record.minimum;
-            document.getElementById('modal').value = record.modal;
-            document.getElementById('maximum').value = record.maximum;
-
-            document.getElementById('submitText').textContent = 'डेटा अपडेट करें';
-
-            // Highlight the row being edited
-            if (currentEditRow) {
-                currentEditRow.classList.remove('edit-row');
-            }
-            currentEditRow = document.getElementById('dataTableBody').children[index];
-            currentEditRow.classList.add('edit-row');
-
-            // Scroll to form
-            document.querySelector('.form-container').scrollIntoView({ behavior: 'smooth' });
-
-            showMessage('रिकॉर्ड संपादन के लिए लोड किया गया। अब फॉर्म में बदलाव करें और अपडेट करें।', 'success');
-        }
-
-        // Delete record function
-        function deleteRecord(id, index) {
-            if (confirm('क्या आप वाकई इस रिकॉर्ड को हटाना चाहते हैं?')) {
-                fetch(SCRIPT_URL, {
-                    method: 'POST',
-                    body: JSON.stringify({ action: 'delete', id: id }),
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                })
-                .then(response => response.json())
-                .then(result => {
-                    if (result.success) {
-                        showMessage('रिकॉर्ड सफलतापूर्वक हटा दिया गया!');
-                        loadAllData();
-                    } else {
-                        showMessage('रिकॉर्ड हटाने में त्रुटि: ' + result.message, 'error');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                    showMessage('रिकॉर्ड हटाने में त्रुटि हुई।', 'error');
-                });
-            }
-        }
-
-        // Search data function
-        function searchData() {
-            const searchDate = document.getElementById('searchDate').value;
-            const searchCommodity = document.getElementById('searchCommodity').value;
-
-            let filteredData = allData;
-
-            if (searchDate) {
-                filteredData = filteredData.filter(row => row.date === searchDate);
-            }
-
-            if (searchCommodity) {
-                filteredData = filteredData.filter(row => row.commodity === searchCommodity);
-            }
-
-            displayData(filteredData);
-
-            if (filteredData.length === 0) {
-                showMessage('खोज के अनुसार कोई डेटा नहीं मिला।', 'error');
-            } else {
-                showMessage(`${filteredData.length} रिकॉर्ड मिले।`, 'success');
-            }
-        }
-
-        // Clear search function
-        function clearSearch() {
-            document.getElementById('searchDate').value = '';
-            document.getElementById('searchCommodity').value = '';
-            displayData(allData);
-            showMessage('खोज साफ़ की गई। सभी डेटा दिखाया जा रहा है।', 'success');
-        }
-
-        // Auto-calculate quintal from bags (assuming 1 bag = 1 quintal, adjust as needed)
-        document.getElementById('quantity_bags').addEventListener('input', function() {
-            const bags = parseFloat(this.value) || 0;
-            // Adjust this ratio based on your requirements
-            document.getElementById('quantity_quintal').value = bags;
-        });
-
-        // Keyboard shortcuts
-        document.addEventListener('keydown', function(event) {
-            // Ctrl + S to save/submit
-            if (event.ctrlKey && event.key === 's') {
-                event.preventDefault();
-                submitData();
-            }
-            // Escape to clear form
-            if (event.key === 'Escape') {
-                clearForm();
-            }
-        });
-    </script>
+loadAll();
+</script>
 </body>
 </html>

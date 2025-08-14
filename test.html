@@ -58,14 +58,15 @@ tfoot td { font-weight: bold; background: #eee; }
     </tr>
   </thead>
   <tbody></tbody>
-  <tfoot>
-    <tr>
-      <td colspan="4">कुल</td>
-      <td id="totalBori">0</td>
-      <td id="totalKu">0</td>
-      <td colspan="4"></td>
-    </tr>
-  </tfoot>
+ <tfoot>
+  <tr>
+    <td colspan="3">कुल</td>
+    <td id="totalParche">0</td>
+    <td id="totalBori">0</td>
+    <td id="totalKu">0</td>
+    <td colspan="4"></td>
+  </tr>
+</tfoot>
 </table>
 
 <script>
@@ -113,10 +114,12 @@ function formatDateIndian(dateStr) {
 function renderTable(data) {
   const tbody = document.querySelector("#dataTable tbody");
   tbody.innerHTML = "";
+  let totalParche = 0;
   let totalBori = 0;
   let totalKu = 0;
 
   data.forEach(row => {
+    totalParche += Number(row["पर्चे संख्या"]) || 0;
     totalBori += Number(row["मात्रा (बोरी)"]) || 0;
     totalKu += Number(row["मात्रा (कु.)"]) || 0;
 
@@ -139,6 +142,7 @@ function renderTable(data) {
     tbody.appendChild(tr);
   });
 
+  document.getElementById("totalParche").innerText = totalParche;
   document.getElementById("totalBori").innerText = totalBori;
   document.getElementById("totalKu").innerText = totalKu;
 }

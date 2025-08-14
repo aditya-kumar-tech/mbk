@@ -12,39 +12,27 @@ th { background: #4CAF50; color: white; }
 tr:nth-child(even) { background: #f9f9f9; }
 input, select, button { padding: 6px; border: 1px solid #ccc; border-radius: 4px; }
 button { cursor: pointer; }
-.action-btn { padding: 4px 8px; margin: 0 2px; border-radius: 3px; font-size: 12px; }
-.edit-btn { background: orange; color: #fff; border: none; }
-.delete-btn { background: red; color: #fff; border: none; }
-.save-btn { background: green; color: #fff; border: none; }
+.edit-btn { background: orange; color: #fff; border: none; padding: 4px 8px; }
+.delete-btn { background: red; color: #fff; border: none; padding: 4px 8px; }
+.save-btn { background: green; color: #fff; border: none; padding: 6px 12px; }
 .form-box { background: #fff; padding: 12px; border: 1px solid #ccc; border-radius: 5px; margin-bottom: 10px; }
 tfoot td { font-weight: bold; background: #eee; }
-.spinner { display:none; text-align:center; margin:10px; }
-
-/* Mobile friendly form layout */
-.form-box form {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
+.spinner { display:none; text-align:center; margin:10px; font-weight:bold; }
+.form-box form { display: flex; flex-direction: column; gap: 8px; }
 @media (min-width: 768px) {
-  .form-box form {
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
-  .form-box form > * {
-    flex: 1 1 150px;
-  }
+  .form-box form { flex-direction: row; flex-wrap: wrap; }
+  .form-box form > * { flex: 1 1 150px; }
 }
 </style>
 </head>
 <body>
-<h2>SheopurMBK - नई एंट्री सेक्शन</h2>
-<!-- Entry Form -->
+
+<h2>SheopurMBK - नई एंट्री</h2>
 <div class="form-box">
   <form id="entryForm">
     <input type="date" id="दिनांक" required>
     <select id="जिन्स" required></select>
-    <input type="number" id="पर्चे संख्या" placeholder="पर्चे संख्या" step="1" required>
+    <input type="number" id="पर्चे संख्या" placeholder="पर्चे संख्या" required>
     <input type="number" id="मात्रा (बोरी)" placeholder="मात्रा (बोरी)" step="0.01" required>
     <input type="number" id="मात्रा (कु.)" placeholder="मात्रा (कु.)" step="0.01" required>
     <input type="number" id="न्यूनत्तम" placeholder="न्यूनत्तम" step="0.01" required>
@@ -53,7 +41,7 @@ tfoot td { font-weight: bold; background: #eee; }
     <button type="button" onclick="addToStaging()" class="save-btn">टेबल में जोड़ें</button>
   </form>
 </div>
-<!-- Staging Table -->
+
 <h3>लोकल Staging</h3>
 <table id="stagingTable">
   <thead>
@@ -66,11 +54,7 @@ tfoot td { font-weight: bold; background: #eee; }
   <tbody></tbody>
   <tfoot>
     <tr>
-      <td colspan="2">कुल</td>
-      <td id="stgParche">0</td>
-      <td id="stgBori">0</td>
-      <td id="stgKu">0</td>
-      <td colspan="4"></td>
+      <td colspan="2">कुल</td><td id="stgParche">0</td><td id="stgBori">0</td><td id="stgKu">0</td><td colspan="4"></td>
     </tr>
   </tfoot>
 </table>
@@ -78,23 +62,16 @@ tfoot td { font-weight: bold; background: #eee; }
 <button onclick="submitBulk()" class="save-btn">Bulk Save to Google Sheet</button>
 <hr>
 
-<h2>डेटा व्यू / एडिट सेक्शन</h2>
+<h2>डेटा व्यू / एडिट</h2>
 <div class="form-box">
   <label>जिन्स:</label>
   <select id="filterJins"><option value="">सभी</option></select>
-  
-  <label>डेट:</label>
-  <input type="date" id="viewDate">
-  
-  <label>से:</label>
-  <input type="date" id="startDate">
-  
-  <label>तक:</label>
-  <input type="date" id="endDate">
-  
-  <button onclick="loadByFilters()">फिल्टर के अनुसार लोड करें</button>
+  <label>एक तारीख:</label><input type="date" id="viewDate">
+  <label>से:</label><input type="date" id="startDate">
+  <label>तक:</label><input type="date" id="endDate">
+  <button onclick="loadByDate()">तारीख से लोड</button>
+  <button onclick="loadByFilters()">फिल्टर से लोड</button>
   <button onclick="loadAllData()">सभी डेटा</button>
-  
   <input type="text" id="localSearch" placeholder="लोकल सर्च...">
 </div>
 
@@ -111,32 +88,36 @@ tfoot td { font-weight: bold; background: #eee; }
   <tbody></tbody>
   <tfoot>
     <tr>
-      <td colspan="3">कुल</td>
-      <td id="viewParche">0</td>
-      <td id="viewBori">0</td>
-      <td id="viewKu">0</td>
-      <td colspan="4"></td>
+      <td colspan="3">कुल</td><td id="viewParche">0</td><td id="viewBori">0</td><td id="viewKu">0</td><td colspan="4"></td>
     </tr>
   </tfoot>
 </table>
+
 <script>
-const api = "https://script.google.com/macros/s/AKfycbwZjNymnBi7-yqhzMtHeHfsTiKUDZcngjaWL1GL7MsKjRwiyJaH9nU7D1hMiOKxFuhh/exec";
+const api = "https://script.google.com/macros/s/AKfycbwZjNymnBi7-yqhzMtHeHfsTiKUDZcngjaWL1GL7MsKjRwiyJaH9nU7D1hMiOKxFuhh/exec"; 
 let stagingData = [];
 let editIndex = -1;
 
-// Spinner helpers
 function showSpinner(){document.getElementById("spinner").style.display="block";}
 function hideSpinner(){document.getElementById("spinner").style.display="none";}
 
-// Load dropdown list
+// ========== Init ==========
+document.addEventListener("DOMContentLoaded", () => {
+  document.getElementById("दिनांक").value = new Date().toISOString().split('T')[0];
+  loadJinsList(); // सिर्फ dropdown भरना
+});
+
+// ---------- जिन्स लिस्ट ----------
 async function loadJinsList() {
   try {
     const res = await fetch(`${api}?action=getJinsList`);
     const jinsArray = await res.json();
+
     const jinsSelect = document.getElementById("जिन्स");
     const filterSelect = document.getElementById("filterJins");
     jinsSelect.innerHTML = "";
     filterSelect.innerHTML = "<option value=''>सभी</option>";
+
     jinsArray.forEach(jins => {
       const opt1 = document.createElement("option");
       opt1.value = jins; opt1.textContent = jins;
@@ -149,39 +130,35 @@ async function loadJinsList() {
   } catch (err) { console.error(err); }
 }
 
-// Add to staging with validation
+// ---------- Entry Add ----------
 function addToStaging(){
   const fields = ["दिनांक","जिन्स","पर्चे संख्या","मात्रा (बोरी)","मात्रा (कु.)","न्यूनत्तम","मॉडल","अधिकत्तम"];
-  for(let id of fields){
+  for (let id of fields) {
     const el = document.getElementById(id);
-    if(!el.value.trim()){
-      alert(`${id} खाली नहीं हो सकता`);
-      el.focus();
-      return;
-    }
+    if (!el.value.trim()) { alert(`${id} खाली नहीं हो सकता`); el.focus(); return; }
   }
   const record = {};
-  fields.forEach(id=>record[id]=document.getElementById(id).value);
-  if(editIndex===-1){ stagingData.push(record); } else { stagingData[editIndex]=record; editIndex=-1; }
+  fields.forEach(id => record[id] = document.getElementById(id).value);
+  if (editIndex === -1) stagingData.push(record); else { stagingData[editIndex] = record; editIndex = -1; }
   renderStaging();
   document.getElementById("entryForm").reset();
-  document.getElementById("दिनांक").value=new Date().toISOString().split('T')[0];
+  document.getElementById("दिनांक").value = new Date().toISOString().split('T')[0];
 }
 
 function renderStaging(){
-  const tb=document.querySelector("#stagingTable tbody");
-  tb.innerHTML="";
+  const tb = document.querySelector("#stagingTable tbody");
+  tb.innerHTML = "";
   let totP=0,totB=0,totK=0;
   stagingData.forEach((r,i)=>{
-    totP+=Number(r["पर्चे संख्या"])||0;
-    totB+=Number(r["मात्रा (बोरी)"])||0;
-    totK+=Number(r["मात्रा (कु.)"])||0;
-    tb.innerHTML+=`<tr>
+    totP+=+r["पर्चे संख्या"]||0;
+    totB+=+r["मात्रा (बोरी)"]||0;
+    totK+=+r["मात्रा (कु.)"]||0;
+    tb.innerHTML += `<tr>
       <td>${formatDate(r["दिनांक"])}</td>
       <td>${r["जिन्स"]}</td>
       <td>${r["पर्चे संख्या"]}</td>
-      <td>${r["मात्रा (बोरी)"])}</td>
-      <td>${r["मात्रा (कु.)"])}</td>
+      <td>${r["मात्रा (बोरी)"]}</td>
+      <td>${r["मात्रा (कु.)"]}</td>
       <td>${r["न्यूनत्तम"]}</td>
       <td>${r["मॉडल"]}</td>
       <td>${r["अधिकत्तम"]}</td>
@@ -198,8 +175,7 @@ function renderStaging(){
 
 function editLocal(i){
   const r=stagingData[i];
-  ["दिनांक","जिन्स","पर्चे संख्या","मात्रा (बोरी)","मात्रा (कु.)","न्यूनत्तम","मॉडल","अधिकत्तम"]
-    .forEach(id=>document.getElementById(id).value=r[id]);
+  ["दिनांक","जिन्स","पर्चे संख्या","मात्रा (बोरी)","मात्रा (कु.)","न्यूनत्तम","मॉडल","अधिकत्तम"].forEach(id => document.getElementById(id).value=r[id]);
   editIndex=i;
 }
 
@@ -208,37 +184,14 @@ function delLocal(i){ if(confirm("हटाएं?")){ stagingData.splice(i,1); 
 async function submitBulk(){
   if(stagingData.length===0){ alert("कुछ जोड़ें पहले"); return; }
   showSpinner();
-  const res=await fetch(`${api}?action=bulkAdd&data=${encodeURIComponent(JSON.stringify(stagingData))}`);
-  const result=await res.json();
+  const res = await fetch(`${api}?action=bulkAdd&data=${encodeURIComponent(JSON.stringify(stagingData))}`);
+  const result = await res.json();
   hideSpinner();
-  if(result.status==="success"){ 
-    alert(`${result.count} rows saved!`);
-    stagingData=[];renderStaging();
-    loadAllData();
-  } else { alert("Error: "+result.message); }
+  if(result.status==="success"){ alert(`${result.count} rows saved!`); stagingData=[]; renderStaging(); }
+  else alert("Error: "+result.message);
 }
 
-// Filters
-async function loadByFilters(){
-  const jins = document.getElementById("filterJins").value;
-  const viewDate = document.getElementById("viewDate").value;
-  const startDate = document.getElementById("startDate").value;
-  const endDate = document.getElementById("endDate").value;
-  showSpinner();
-  const params = new URLSearchParams();
-  params.append("action", "getFilteredData");
-  if(jins) params.append("jins", jins);
-  if(viewDate) params.append("date", viewDate);
-  if(startDate && endDate){
-    params.append("startDate", startDate);
-    params.append("endDate", endDate);
-  }
-  const res = await fetch(`${api}?${params.toString()}`);
-  const data = await res.json();
-  hideSpinner();
-  renderViewTable(data);
-}
-
+// ---------- View/Edit Data ----------
 async function loadAllData(){
   showSpinner();
   const res = await fetch(api);
@@ -247,42 +200,60 @@ async function loadAllData(){
   renderViewTable(data);
 }
 
+async function loadByDate(){
+  const date = document.getElementById("viewDate").value;
+  if(!date){ alert("कृपया डेट चुनें"); return; }
+  showSpinner();
+  const res = await fetch(`${api}?action=getDataByDate&date=${encodeURIComponent(date)}`);
+  const data = await res.json();
+  hideSpinner();
+  renderViewTable(data);
+}
+
+async function loadByFilters(){
+  const jins = document.getElementById("filterJins").value;
+  const from = document.getElementById("startDate").value;
+  const to   = document.getElementById("endDate").value;
+  showSpinner();
+  const res = await fetch(`${api}?action=getDataByFilter&from=${encodeURIComponent(from)}&to=${encodeURIComponent(to)}&jins=${encodeURIComponent(jins)}`);
+  const data = await res.json();
+  hideSpinner();
+  renderViewTable(data);
+}
+
 function renderViewTable(data){
   const tb=document.querySelector("#viewTable tbody");
   tb.innerHTML="";
-  let totalParche = 0, totalBori = 0, totalKu = 0;
+  let totalParche=0,totalBori=0,totalKu=0;
   data.forEach(row=>{
-    totalParche += Number(row["पर्चे संख्या"]) || 0;
-    totalBori  += Number(row["मात्रा (बोरी)"]) || 0;
-    totalKu    += Number(row["मात्रा (कु.)"]) || 0;
-    tb.innerHTML += `
-      <tr>
-        <td>${row.id}</td>
-        <td>${formatDate(row["दिनांक"])}</td>
-        <td>${row["जिन्स"]}</td>
-        <td>${row["पर्चे संख्या"]}</td>
-        <td>${row["मात्रा (बोरी)"])}</td>
-        <td>${row["मात्रा (कु.)"])}</td>
-        <td>${row["न्यूनत्तम"]}</td>
-        <td>${row["मॉडल"]}</td>
-        <td>${row["अधिकत्तम"]}</td>
-        <td>
-          <button class="edit-btn" onclick='editViewRow(${JSON.stringify(row)})'>Edit</button>
-          <button class="delete-btn" onclick='deleteViewRow("${row.id}")'>Delete</button>
-        </td>
-      </tr>
-    `;
+    totalParche+=+row["पर्चे संख्या"]||0;
+    totalBori+=+row["मात्रा (बोरी)"]||0;
+    totalKu+=+row["मात्रा (कु.)"]||0;
+    tb.innerHTML += `<tr>
+      <td>${row.id}</td>
+      <td>${formatDate(row["दिनांक"])}</td>
+      <td>${row["जिन्स"]}</td>
+      <td>${row["पर्चे संख्या"]}</td>
+      <td>${row["मात्रा (बोरी)"]}</td>
+      <td>${row["मात्रा (कु.)"]}</td>
+      <td>${row["न्यूनत्तम"]}</td>
+      <td>${row["मॉडल"]}</td>
+      <td>${row["अधिकत्तम"]}</td>
+      <td>
+        <button class="edit-btn" onclick='editViewRow(${JSON.stringify(row)})'>Edit</button>
+        <button class="delete-btn" onclick='deleteViewRow("${row.id}")'>Delete</button>
+      </td>
+    </tr>`;
   });
-  document.getElementById("viewParche").innerText = totalParche;
-  document.getElementById("viewBori").innerText   = totalBori;
-  document.getElementById("viewKu").innerText     = totalKu;
+  document.getElementById("viewParche").innerText=totalParche;
+  document.getElementById("viewBori").innerText=totalBori;
+  document.getElementById("viewKu").innerText=totalKu;
 }
 
-// Local search
+// ---------- Local Search ----------
 document.getElementById("localSearch").addEventListener("input", function(){
   const q = this.value.toLowerCase();
-  const rows = document.querySelectorAll("#viewTable tbody tr");
-  rows.forEach(row=>{
+  document.querySelectorAll("#viewTable tbody tr").forEach(row=>{
     row.style.display = row.innerText.toLowerCase().includes(q) ? "" : "none";
   });
 });
@@ -300,19 +271,15 @@ async function deleteViewRow(id){
   const res = await fetch(`${api}?action=delete&id=${id}`);
   const result = await res.json();
   hideSpinner();
-  if(result.status==="success"){ loadAllData(); }
+  if(result.status==="success"){ alert("Deleted"); }
 }
 
 function formatDate(d){
-  if(!d)return "";
+  if(!d) return "";
   let dt=new Date(d);
-  if(isNaN(dt))return d;
+  if(isNaN(dt)) return d;
   return dt.toLocaleDateString('en-GB');
 }
-
-// Init
-document.getElementById("दिनांक").value=new Date().toISOString().split('T')[0];
-loadJinsList();
 </script>
 </body>
 </html>

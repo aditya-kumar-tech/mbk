@@ -17,11 +17,31 @@ button:hover { background: #45a049; }
 tfoot td { font-weight: bold; background: #eee; }
 .action-btn { margin: 0 2px; padding: 4px 8px; font-size: 12px; }
 .editing { background: #fffae6; }
+.form-box {
+  background: #fff; padding: 10px; border: 1px solid #ccc; 
+  border-radius: 5px; margin-bottom: 15px;
+}
 </style>
 </head>
 <body>
 
 <h2>SheopurMBK डेटा</h2>
+
+<!-- 📌 New Entry Form -->
+<div class="form-box">
+  <h3>नई एंट्री</h3>
+  <form id="entryForm">
+    दिनांक: <input type="date" id="दिनांक" required>  
+    जिन्स: <select id="जिन्स"></select><br>
+    पर्चे संख्या: <input type="text" id="पर्चे संख्या">
+    मात्रा (बोरी): <input type="number" id="मात्रा (बोरी)" step="0.01">
+    मात्रा (कु.): <input type="number" id="मात्रा (कु.)" step="0.01"><br>
+    न्यूनत्तम: <input type="number" id="न्यूनत्तम" step="0.01">
+    मॉडल: <input type="number" id="मॉडल" step="0.01">
+    अधिकत्तम: <input type="number" id="अधिकत्तम" step="0.01"><br>
+    <button type="submit">Save</button>
+  </form>
+</div>
 
 <label>दिनांक से खोजें:</label>
 <input type="date" id="searchDate">
@@ -49,14 +69,30 @@ tfoot td { font-weight: bold; background: #eee; }
 </table>
 
 <script>
-const api = "https://script.google.com/macros/s/AKfycbwTeA-NGZDLF6kOpukq4xdFusnrW2YDdtqgzmhkIKX0eCjWl0N5wVbvjtpy3vPlh89m/exec"; // यहाँ अपना WebApp URL लगाएं
+const api = "https://script.google.com/macros/s/AKfycbwTeA-NGZDLF6kOpukq4xdFusnrW2YDdtqgzmhkIKX0eCjWl0N5wVbvjtpy3vPlh89m/exec"; // यहां अपना Web App URL डालें
 
+// -------- Load JINS Dropdown from Sheet --------
+async function loadJinsList() {
+  const res = await fetch(`${api}?action=getJinsList`);
+  const jinsArray = await res.json();
+  const jinsSelect = document.getElementById("जिन्स");
+  jinsSelect.innerHTML = "";
+  jinsArray.forEach(jins => {
+    const opt = document.createElement("option");
+    opt.value = jins;
+    opt.textContent = jins;
+    jinsSelect.appendChild(opt);
+  });
+}
+
+// -------- Load All Data --------
 async function loadAll() {
   const res = await fetch(api);
   const data = await res.json();
   renderTable(data);
 }
 
+// -------- Load Filtered Data --------
 async function loadFiltered() {
   const date = document.getElementById("searchDate").value;
   if (!date) return alert("कृपया दिनांक चुनें");
@@ -65,15 +101,15 @@ async function loadFiltered() {
   renderTable(data);
 }
 
-// तारीख Indian Format में
+// -------- Format Date Indian --------
 function formatDateIndian(dateStr) {
   if(!dateStr) return "";
   let dateObj = new Date(dateStr);
-  if (isNaN(dateObj)) return dateStr; // अगर गलत date है
-  return dateObj.toLocaleDateString('en-GB'); // DD/MM/YYYY
+  if (isNaN(dateObj)) return dateStr;
+  return dateObj.toLocaleDateString('en-GB');
 }
 
-// टेबल रेंडर करना
+// -------- Render Table --------
 function renderTable(data) {
   const tbody = document.querySelector("#dataTable tbody");
   tbody.innerHTML = "";
@@ -107,16 +143,16 @@ function renderTable(data) {
   document.getElementById("totalKu").innerText = totalKu;
 }
 
-// Inline edit
+// -------- Inline Edit --------
 function editRow(btn) {
   const tr = btn.closest("tr");
   if (tr.classList.contains("editing")) return;
-
   tr.classList.add("editing");
-  for (let i = 1; i <= 8; i++) { // ID को छोड़
+
+  for (let i = 1; i <= 8; i++) { 
     let cell = tr.cells[i];
     let val = cell.innerText;
-    if (i === 1) { // दिनांक
+    if (i === 1) { // date
       let parts = val.split("/");
       if (parts.length === 3) {
         val = `${parts[2]}-${parts[1].padStart(2,'0')}-${parts[0].padStart(2,'0')}`;
@@ -130,6 +166,7 @@ function editRow(btn) {
   btn.onclick = () => saveRow(tr, btn);
 }
 
+// -------- Save Edited Row --------
 async function saveRow(tr, btn) {
   const id = tr.cells[0].innerText;
   const record = {
@@ -154,6 +191,7 @@ async function saveRow(tr, btn) {
   }
 }
 
+// -------- Delete Row --------
 async function deleteRow(id) {
   if (!confirm("क्या आप वाकई delete करना चाहते हैं?")) return;
   const res = await fetch(`${api}?action=delete&id=${id}`);
@@ -165,6 +203,28 @@ async function deleteRow(id) {
   }
 }
 
+// -------- Handle New Entry Form Submit --------
+document.getElementById("entryForm").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const record = {};
+  ["दिनांक","जिन्स","पर्चे संख्या","मात्रा (बोरी)","मात्रा (कु.)","न्यूनत्तम","मॉडल","अधिकत्तम"].forEach(id => {
+    record[id] = document.getElementById(id).value;
+  });
+
+  const res = await fetch(`${api}?action=add&data=${encodeURIComponent(JSON.stringify(record))}`);
+  const result = await res.json();
+  if (result.status === "success") {
+    document.getElementById("entryForm").reset();
+    document.getElementById("दिनांक").value = new Date().toISOString().split('T')[0];
+    loadAll();
+  } else {
+    alert("Error saving data");
+  }
+});
+
+// -------- Init --------
+document.getElementById("दिनांक").value = new Date().toISOString().split('T')[0]; // default today
+loadJinsList();
 loadAll();
 </script>
 </body>

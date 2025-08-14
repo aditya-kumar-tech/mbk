@@ -74,17 +74,31 @@ const api = "https://script.google.com/macros/s/AKfycbwTeA-NGZDLF6kOpukq4xdFusnr
 
 // -------- Load JINS Dropdown from Sheet --------
 async function loadJinsList() {
-  const res = await fetch(`${api}?action=getJinsList`);
-  const jinsArray = await res.json();
-  const jinsSelect = document.getElementById("जिन्स");
-  jinsSelect.innerHTML = "";
-  jinsArray.forEach(jins => {
-    const opt = document.createElement("option");
-    opt.value = jins;
-    opt.textContent = jins;
-    jinsSelect.appendChild(opt);
-  });
+  try {
+    const res = await fetch(`${api}?action=getJinsList`);
+    console.log("Response status:", res.status);
+    const jinsArray = await res.json();
+
+    console.log("JINS List from backend:", jinsArray); // ✅ अब देखें data क्या आ रहा है
+
+    const jinsSelect = document.getElementById("जिन्स");
+    jinsSelect.innerHTML = "";
+    
+    if (Array.isArray(jinsArray) && jinsArray.length > 0) {
+      jinsArray.forEach(jins => {
+        const opt = document.createElement("option");
+        opt.value = jins;
+        opt.textContent = jins;
+        jinsSelect.appendChild(opt);
+      });
+    } else {
+      console.warn("JINS array empty या invalid");
+    }
+  } catch (err) {
+    console.error("Error fetching JINS list:", err);
+  }
 }
+
 
 // -------- Load All Data --------
 async function loadAll() {
@@ -189,7 +203,7 @@ async function saveRow(tr, btn) {
   const result = await res.json();
   if (result.status === "success") {
     tr.classList.remove("editing");
-    loadAll();
+    //loadAll();
   } else {
     alert("Error updating data");
   }

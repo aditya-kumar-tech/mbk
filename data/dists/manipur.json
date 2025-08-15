@@ -1,0 +1,57 @@
+[
+  {
+    "id": 21001,
+    "name": "बिष्णुपुर",
+    "slug": "bishnupur"
+  },
+  {
+    "id": 21002,
+    "name": "चंदेल",
+    "slug": "chandel"
+  },
+  {
+    "id": 21003,
+    "name": "चुराचांदपुर",
+    "slug": "churachandpur"
+  },
+  {
+    "id": 21004,
+    "name": "इंफाल पूर्व",
+    "slug": "imphal_east"
+  },
+  {
+    "id": 21005,
+    "name": "इंफाल पश्चिम",
+    "slug": "imphal_west"
+  },
+  {
+    "id": 21006,
+    "name": "काकचिंग",
+    "slug": "kakching"
+  },
+  {
+    "id": 21007,
+    "name": "सेनापति",
+    "slug": "senapati"
+  },
+  {
+    "id": 21008,
+    "name": "तामेंगलोंग",
+    "slug": "tamenglong"
+  },
+  {
+    "id": 21009,
+    "name": "तेंगनौपाल",
+    "slug": "tengnoupal"
+  },
+  {
+    "id": 21010,
+    "name": "थौबल",
+    "slug": "thoubal"
+  },
+  {
+    "id": 21011,
+    "name": "उखरूल",
+    "slug": "ukhrul"
+  }
+]

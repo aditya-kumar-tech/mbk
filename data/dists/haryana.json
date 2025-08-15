@@ -1,0 +1,107 @@
+[
+  {
+    "id": 12001,
+    "name": "अंबाला",
+    "slug": "ambala"
+  },
+  {
+    "id": 12002,
+    "name": "भिवानी",
+    "slug": "bhiwani"
+  },
+  {
+    "id": 12003,
+    "name": "फरीदाबाद",
+    "slug": "faridabad"
+  },
+  {
+    "id": 12004,
+    "name": "फतेहाबाद",
+    "slug": "fatehabad"
+  },
+  {
+    "id": 12005,
+    "name": "गुड़गांव",
+    "slug": "gurgaon"
+  },
+  {
+    "id": 12006,
+    "name": "हिसार",
+    "slug": "hissar"
+  },
+  {
+    "id": 12007,
+    "name": "झज्जर",
+    "slug": "jhajar"
+  },
+  {
+    "id": 12008,
+    "name": "जींद",
+    "slug": "jind"
+  },
+  {
+    "id": 12009,
+    "name": "कैथल",
+    "slug": "kaithal"
+  },
+  {
+    "id": 12010,
+    "name": "करनाल",
+    "slug": "karnal"
+  },
+  {
+    "id": 12011,
+    "name": "कुरुक्षेत्र",
+    "slug": "kurukshetra"
+  },
+  {
+    "id": 12012,
+    "name": "महेंद्रगढ़-नारनौल",
+    "slug": "mahendragarh-narnaul"
+  },
+  {
+    "id": 12013,
+    "name": "मेवात",
+    "slug": "mewat"
+  },
+  {
+    "id": 12014,
+    "name": "पलवल",
+    "slug": "palwal"
+  },
+  {
+    "id": 12015,
+    "name": "पंचकुला",
+    "slug": "panchkula"
+  },
+  {
+    "id": 12016,
+    "name": "पानीपत",
+    "slug": "panipat"
+  },
+  {
+    "id": 12017,
+    "name": "रेवाड़ी",
+    "slug": "rewari"
+  },
+  {
+    "id": 12018,
+    "name": "रोहतक",
+    "slug": "rohtak"
+  },
+  {
+    "id": 12019,
+    "name": "सिरसा",
+    "slug": "sirsa"
+  },
+  {
+    "id": 12020,
+    "name": "सोनीपत",
+    "slug": "sonipat"
+  },
+  {
+    "id": 12021,
+    "name": "यमुना नगर",
+    "slug": "yamuna_nagar"
+  }
+]

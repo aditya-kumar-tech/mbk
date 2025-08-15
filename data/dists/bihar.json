@@ -1,0 +1,197 @@
+[
+  {
+    "id": 5001,
+    "name": "अररिया",
+    "slug": "araria"
+  },
+  {
+    "id": 5002,
+    "name": "अरवल",
+    "slug": "arwal"
+  },
+  {
+    "id": 5003,
+    "name": "औरंगाबाद",
+    "slug": "aurangabad"
+  },
+  {
+    "id": 5004,
+    "name": "बांका",
+    "slug": "banka"
+  },
+  {
+    "id": 5005,
+    "name": "बेगूसराय",
+    "slug": "begusarai"
+  },
+  {
+    "id": 5006,
+    "name": "भागलपुर",
+    "slug": "bhagalpur"
+  },
+  {
+    "id": 5007,
+    "name": "भोजपुर",
+    "slug": "bhojpur"
+  },
+  {
+    "id": 5008,
+    "name": "बक्सर",
+    "slug": "buxar"
+  },
+  {
+    "id": 5009,
+    "name": "छपरा",
+    "slug": "chhapra"
+  },
+  {
+    "id": 5010,
+    "name": "दरभंगा",
+    "slug": "darbhanga"
+  },
+  {
+    "id": 5011,
+    "name": "पूर्वी चंपारण",
+    "slug": "east_champaran"
+  },
+  {
+    "id": 5012,
+    "name": "गया",
+    "slug": "gaya"
+  },
+  {
+    "id": 5013,
+    "name": "गोपालगंज",
+    "slug": "gopalganj"
+  },
+  {
+    "id": 5014,
+    "name": "जमुई",
+    "slug": "jamui"
+  },
+  {
+    "id": 5015,
+    "name": "जहानाबाद",
+    "slug": "jehanabad"
+  },
+  {
+    "id": 5016,
+    "name": "कैमूर",
+    "slug": "kaimur"
+  },
+  {
+    "id": 5017,
+    "name": "कटिहार",
+    "slug": "katihar"
+  },
+  {
+    "id": 5018,
+    "name": "खगड़िया",
+    "slug": "khagaria"
+  },
+  {
+    "id": 5019,
+    "name": "किशनगंज",
+    "slug": "kishanganj"
+  },
+  {
+    "id": 5020,
+    "name": "लखीसराय",
+    "slug": "lakhisarai"
+  },
+  {
+    "id": 5021,
+    "name": "मधेपुरा",
+    "slug": "madhepura"
+  },
+  {
+    "id": 5022,
+    "name": "मधुबनी",
+    "slug": "madhubani"
+  },
+  {
+    "id": 5023,
+    "name": "मुंगेर",
+    "slug": "munger"
+  },
+  {
+    "id": 5024,
+    "name": "मुजफ्फरपुर",
+    "slug": "muzaffarpur"
+  },
+  {
+    "id": 5025,
+    "name": "नालंदा",
+    "slug": "nalanda"
+  },
+  {
+    "id": 5026,
+    "name": "नवादा",
+    "slug": "nawada"
+  },
+  {
+    "id": 5027,
+    "name": "पटना",
+    "slug": "patna"
+  },
+  {
+    "id": 5028,
+    "name": "पूर्णिया",
+    "slug": "purnea"
+  },
+  {
+    "id": 5029,
+    "name": "रोहतास",
+    "slug": "rohtas"
+  },
+  {
+    "id": 5030,
+    "name": "सहरसा",
+    "slug": "saharsa"
+  },
+  {
+    "id": 5031,
+    "name": "समस्तीपुर",
+    "slug": "samastipur"
+  },
+  {
+    "id": 5032,
+    "name": "सारण",
+    "slug": "saran"
+  },
+  {
+    "id": 5033,
+    "name": "शेखपुरा",
+    "slug": "sheikhpura"
+  },
+  {
+    "id": 5034,
+    "name": "शिवहर",
+    "slug": "sheohar"
+  },
+  {
+    "id": 5035,
+    "name": "सीतामढ़ी",
+    "slug": "sitamarhi"
+  },
+  {
+    "id": 5036,
+    "name": "सीवान",
+    "slug": "siwan"
+  },
+  {
+    "id": 5037,
+    "name": "सुपौल",
+    "slug": "supaul"
+  },
+  {
+    "id": 5038,
+    "name": "वैशाली",
+    "slug": "vaishali"
+  },
+  {
+    "id": 5039,
+    "name": "पश्चिमी चंपारण",
+    "slug": "west_champaran"
+  }
+]

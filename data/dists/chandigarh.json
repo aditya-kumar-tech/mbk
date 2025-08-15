@@ -1,7 +1,14 @@
-[
-  {
-    "id": 6001,
-    "name": "चंडीगढ़",
-    "slug": "chandigarh"
-  }
-]
+{
+  "headers": [
+    "id",
+    "name",
+    "slug"
+  ],
+  "rows": [
+    [
+      "0601",
+      "चंडीगढ़",
+      "chandigarh"
+    ]
+  ]
+}

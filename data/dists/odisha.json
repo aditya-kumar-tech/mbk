@@ -1,0 +1,167 @@
+[
+  {
+    "id": 26001,
+    "name": "अंगुल",
+    "slug": "angul"
+  },
+  {
+    "id": 26002,
+    "name": "बालासोर",
+    "slug": "balasore"
+  },
+  {
+    "id": 26003,
+    "name": "बरगढ़",
+    "slug": "bargarh"
+  },
+  {
+    "id": 26004,
+    "name": "बेरहामपुर",
+    "slug": "berhampur"
+  },
+  {
+    "id": 26005,
+    "name": "भद्रक",
+    "slug": "bhadrak"
+  },
+  {
+    "id": 26006,
+    "name": "भुवनेश्वर",
+    "slug": "bhubaneswar"
+  },
+  {
+    "id": 26007,
+    "name": "बोलनगीर",
+    "slug": "bolangir"
+  },
+  {
+    "id": 26008,
+    "name": "बौध",
+    "slug": "boudh"
+  },
+  {
+    "id": 26009,
+    "name": "कटक",
+    "slug": "cuttack"
+  },
+  {
+    "id": 26010,
+    "name": "देवगढ़",
+    "slug": "deogarh"
+  },
+  {
+    "id": 26011,
+    "name": "ढेंकनाल",
+    "slug": "dhenkanal"
+  },
+  {
+    "id": 26012,
+    "name": "गजपति",
+    "slug": "gajapati"
+  },
+  {
+    "id": 26013,
+    "name": "गंजम",
+    "slug": "ganjam"
+  },
+  {
+    "id": 26014,
+    "name": "जगतसिंहपुर",
+    "slug": "jagatsinghpur"
+  },
+  {
+    "id": 26015,
+    "name": "जाजपुर",
+    "slug": "jajpur"
+  },
+  {
+    "id": 26016,
+    "name": "झारसुगुड़ा",
+    "slug": "jharsuguda"
+  },
+  {
+    "id": 26017,
+    "name": "कालाहांडी",
+    "slug": "kalahandi"
+  },
+  {
+    "id": 26018,
+    "name": "कंधमाल",
+    "slug": "kandhamal"
+  },
+  {
+    "id": 26019,
+    "name": "केंद्रापड़ा",
+    "slug": "kendrapara"
+  },
+  {
+    "id": 26020,
+    "name": "क्योंझर",
+    "slug": "keonjhar"
+  },
+  {
+    "id": 26021,
+    "name": "खुर्दा",
+    "slug": "khurda"
+  },
+  {
+    "id": 26022,
+    "name": "कोरापुट",
+    "slug": "koraput"
+  },
+  {
+    "id": 26023,
+    "name": "मलकानगिरी",
+    "slug": "malkangiri"
+  },
+  {
+    "id": 26024,
+    "name": "मयूरभंज",
+    "slug": "mayurbhanja"
+  },
+  {
+    "id": 26025,
+    "name": "नयागढ़",
+    "slug": "nayagarh"
+  },
+  {
+    "id": 26026,
+    "name": "नबरंगपुर",
+    "slug": "nowarangpur"
+  },
+  {
+    "id": 26027,
+    "name": "नुआपाड़ा",
+    "slug": "nuapada"
+  },
+  {
+    "id": 26028,
+    "name": "पुरी",
+    "slug": "puri"
+  },
+  {
+    "id": 26029,
+    "name": "रायगढ़ा",
+    "slug": "rayagada"
+  },
+  {
+    "id": 26030,
+    "name": "राउरकेला",
+    "slug": "rourkela"
+  },
+  {
+    "id": 26031,
+    "name": "संबलपुर",
+    "slug": "sambalpur"
+  },
+  {
+    "id": 26032,
+    "name": "सोनपुर",
+    "slug": "sonepur"
+  },
+  {
+    "id": 26033,
+    "name": "सुंदरगढ़",
+    "slug": "sundergarh"
+  }
+]

@@ -1,0 +1,42 @@
+[
+  {
+    "id": 33001,
+    "name": "धलाई",
+    "slug": "dhalai"
+  },
+  {
+    "id": 33002,
+    "name": "गोमती",
+    "slug": "gomati"
+  },
+  {
+    "id": 33003,
+    "name": "खोवाई",
+    "slug": "khowai"
+  },
+  {
+    "id": 33004,
+    "name": "उत्तरी त्रिपुरा",
+    "slug": "north_tripura"
+  },
+  {
+    "id": 33005,
+    "name": "सिपाहीजाला",
+    "slug": "sepahijala"
+  },
+  {
+    "id": 33006,
+    "name": "दक्षिण जिला",
+    "slug": "south_district"
+  },
+  {
+    "id": 33007,
+    "name": "उनोकोटी",
+    "slug": "unokoti"
+  },
+  {
+    "id": 33008,
+    "name": "पश्चिम जिला",
+    "slug": "west_district"
+  }
+]

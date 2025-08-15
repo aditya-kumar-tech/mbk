@@ -1,17 +1,24 @@
-[
-  {
-    "id": 1001,
-    "name": "निकोबार",
-    "slug": "nicobar"
-  },
-  {
-    "id": 1002,
-    "name": "उत्तर और मध्य अंडमान",
-    "slug": "north_and_middle_andaman"
-  },
-  {
-    "id": 1003,
-    "name": "दक्षिण अंडमान",
-    "slug": "south_andaman"
-  }
-]
+{
+  "headers": [
+    "id",
+    "name",
+    "slug"
+  ],
+  "rows": [
+    [
+      "0101",
+      "निकोबार",
+      "nicobar"
+    ],
+    [
+      "0102",
+      "उत्तर और मध्य अंडमान",
+      "north_and_middle_andaman"
+    ],
+    [
+      "0103",
+      "दक्षिण अंडमान",
+      "south_andaman"
+    ]
+  ]
+}

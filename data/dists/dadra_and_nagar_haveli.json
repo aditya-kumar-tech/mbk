@@ -1,12 +1,19 @@
-[
-  {
-    "id": 8001,
-    "name": "दादरा और नगर हवेली",
-    "slug": "dadra_and_nagar_haveli"
-  },
-  {
-    "id": 8002,
-    "name": "सिलवासा",
-    "slug": "silvassa"
-  }
-]
+{
+  "headers": [
+    "id",
+    "name",
+    "slug"
+  ],
+  "rows": [
+    [
+      "0801",
+      "दादरा और नगर हवेली",
+      "dadra_and_nagar_haveli"
+    ],
+    [
+      "0802",
+      "सिलवासा",
+      "silvassa"
+    ]
+  ]
+}

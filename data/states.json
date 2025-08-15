@@ -1,0 +1,182 @@
+[
+  {
+    "id": 1,
+    "name": "अंडमान और निकोबार",
+    "slug": "andaman_and_nicobar"
+  },
+  {
+    "id": 2,
+    "name": "आंध्र प्रदेश",
+    "slug": "andhra_pradesh"
+  },
+  {
+    "id": 3,
+    "name": "अरुणाचल प्रदेश",
+    "slug": "arunachal_pradesh"
+  },
+  {
+    "id": 4,
+    "name": "असम",
+    "slug": "assam"
+  },
+  {
+    "id": 5,
+    "name": "बिहार",
+    "slug": "bihar"
+  },
+  {
+    "id": 6,
+    "name": "चंडीगढ़",
+    "slug": "chandigarh"
+  },
+  {
+    "id": 7,
+    "name": "छत्तीसगढ़",
+    "slug": "chattisgarh"
+  },
+  {
+    "id": 8,
+    "name": "दादरा और नगर हवेली",
+    "slug": "dadra_and_nagar_haveli"
+  },
+  {
+    "id": 9,
+    "name": "दमन और दीव",
+    "slug": "daman_and_diu"
+  },
+  {
+    "id": 10,
+    "name": "गोवा",
+    "slug": "goa"
+  },
+  {
+    "id": 11,
+    "name": "गुजरात",
+    "slug": "gujarat"
+  },
+  {
+    "id": 12,
+    "name": "हरियाणा",
+    "slug": "haryana"
+  },
+  {
+    "id": 13,
+    "name": "हिमाचल प्रदेश",
+    "slug": "himachal_pradesh"
+  },
+  {
+    "id": 14,
+    "name": "जम्मू और कश्मीर",
+    "slug": "jammu_and_kashmir"
+  },
+  {
+    "id": 15,
+    "name": "झारखंड",
+    "slug": "jharkhand"
+  },
+  {
+    "id": 16,
+    "name": "कर्नाटक",
+    "slug": "karnataka"
+  },
+  {
+    "id": 17,
+    "name": "केरल",
+    "slug": "kerala"
+  },
+  {
+    "id": 18,
+    "name": "लक्षद्वीप",
+    "slug": "lakshadweep"
+  },
+  {
+    "id": 19,
+    "name": "मध्य प्रदेश",
+    "slug": "madhya_pradesh"
+  },
+  {
+    "id": 20,
+    "name": "महाराष्ट्र",
+    "slug": "maharashtra"
+  },
+  {
+    "id": 21,
+    "name": "मणिपुर",
+    "slug": "manipur"
+  },
+  {
+    "id": 22,
+    "name": "मेघालय",
+    "slug": "meghalaya"
+  },
+  {
+    "id": 23,
+    "name": "मिजोरम",
+    "slug": "mizoram"
+  },
+  {
+    "id": 24,
+    "name": "नागालैंड",
+    "slug": "nagaland"
+  },
+  {
+    "id": 25,
+    "name": "दिल्ली",
+    "slug": "nct_of_delhi"
+  },
+  {
+    "id": 26,
+    "name": "ओडिशा",
+    "slug": "odisha"
+  },
+  {
+    "id": 27,
+    "name": "पुडुचेरी",
+    "slug": "pondicherry"
+  },
+  {
+    "id": 28,
+    "name": "पंजाब",
+    "slug": "punjab"
+  },
+  {
+    "id": 29,
+    "name": "राजस्थान",
+    "slug": "rajasthan"
+  },
+  {
+    "id": 30,
+    "name": "सिक्किम",
+    "slug": "sikkim"
+  },
+  {
+    "id": 31,
+    "name": "तमिलनाडु",
+    "slug": "tamil_nadu"
+  },
+  {
+    "id": 32,
+    "name": "तेलंगाना",
+    "slug": "telangana"
+  },
+  {
+    "id": 33,
+    "name": "त्रिपुरा",
+    "slug": "tripura"
+  },
+  {
+    "id": 34,
+    "name": "उत्तर प्रदेश",
+    "slug": "uttar_pradesh"
+  },
+  {
+    "id": 35,
+    "name": "उत्तराखंड",
+    "slug": "uttrakhand"
+  },
+  {
+    "id": 36,
+    "name": "पश्चिम बंगाल",
+    "slug": "west_bengal"
+  }
+]

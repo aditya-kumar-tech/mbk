@@ -1,0 +1,112 @@
+[
+  {
+    "id": 28001,
+    "name": "अमृतसर",
+    "slug": "amritsar"
+  },
+  {
+    "id": 28002,
+    "name": "बरनाला",
+    "slug": "barnala"
+  },
+  {
+    "id": 28003,
+    "name": "बठिंडा",
+    "slug": "bhatinda"
+  },
+  {
+    "id": 28004,
+    "name": "फरीदकोट",
+    "slug": "faridkot"
+  },
+  {
+    "id": 28005,
+    "name": "फतेहगढ़",
+    "slug": "fatehgarh"
+  },
+  {
+    "id": 28006,
+    "name": "फाजिल्का",
+    "slug": "fazilka"
+  },
+  {
+    "id": 28007,
+    "name": "फिरोजपुर",
+    "slug": "ferozpur"
+  },
+  {
+    "id": 28008,
+    "name": "गुरदासपुर",
+    "slug": "gurdaspur"
+  },
+  {
+    "id": 28009,
+    "name": "होशियारपुर",
+    "slug": "hoshiarpur"
+  },
+  {
+    "id": 28010,
+    "name": "जालंधर",
+    "slug": "jalandhar"
+  },
+  {
+    "id": 28011,
+    "name": "कपूरथला",
+    "slug": "kapurthala"
+  },
+  {
+    "id": 28012,
+    "name": "लुधियाना",
+    "slug": "ludhiana"
+  },
+  {
+    "id": 28013,
+    "name": "मानसा",
+    "slug": "mansa"
+  },
+  {
+    "id": 28014,
+    "name": "मोगा",
+    "slug": "moga"
+  },
+  {
+    "id": 28015,
+    "name": "मोहाली",
+    "slug": "mohali"
+  },
+  {
+    "id": 28016,
+    "name": "मुक्तसर",
+    "slug": "muktsar"
+  },
+  {
+    "id": 28017,
+    "name": "नवांशहर",
+    "slug": "nawanshahr"
+  },
+  {
+    "id": 28018,
+    "name": "पठानकोट",
+    "slug": "pathankot"
+  },
+  {
+    "id": 28019,
+    "name": "पटियाला",
+    "slug": "patiala"
+  },
+  {
+    "id": 28020,
+    "name": "रोपड़ (रूपनगर)",
+    "slug": "ropar_rupnagar"
+  },
+  {
+    "id": 28021,
+    "name": "संगरूर",
+    "slug": "sangrur"
+  },
+  {
+    "id": 28022,
+    "name": "तरनतारन",
+    "slug": "tarntaran"
+  }
+]

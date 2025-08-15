@@ -1,0 +1,172 @@
+[
+  {
+    "id": 11001,
+    "name": "अहमदाबाद",
+    "slug": "ahmedabad"
+  },
+  {
+    "id": 11002,
+    "name": "अमरेली",
+    "slug": "amreli"
+  },
+  {
+    "id": 11003,
+    "name": "आणंद",
+    "slug": "anand"
+  },
+  {
+    "id": 11004,
+    "name": "अरावली",
+    "slug": "aravalli"
+  },
+  {
+    "id": 11005,
+    "name": "बनासकांठा",
+    "slug": "banaskanth"
+  },
+  {
+    "id": 11006,
+    "name": "भरूच",
+    "slug": "bharuch"
+  },
+  {
+    "id": 11007,
+    "name": "भावनगर",
+    "slug": "bhavnagar"
+  },
+  {
+    "id": 11008,
+    "name": "बोटाद",
+    "slug": "botad"
+  },
+  {
+    "id": 11009,
+    "name": "छोटा उदयपुर",
+    "slug": "chhota_udaipur"
+  },
+  {
+    "id": 11010,
+    "name": "दाहोद",
+    "slug": "dahod"
+  },
+  {
+    "id": 11011,
+    "name": "डांग",
+    "slug": "dang"
+  },
+  {
+    "id": 11012,
+    "name": "देवभूमि द्वारका",
+    "slug": "devbhumi_dwarka"
+  },
+  {
+    "id": 11013,
+    "name": "गांधीनगर",
+    "slug": "gandhinagar"
+  },
+  {
+    "id": 11014,
+    "name": "गिर सोमनाथ",
+    "slug": "gir_somnath"
+  },
+  {
+    "id": 11015,
+    "name": "जामनगर",
+    "slug": "jamnagar"
+  },
+  {
+    "id": 11016,
+    "name": "जूनागढ़",
+    "slug": "junagarh"
+  },
+  {
+    "id": 11017,
+    "name": "कच्छ",
+    "slug": "kachchh"
+  },
+  {
+    "id": 11018,
+    "name": "खेड़ा",
+    "slug": "kheda"
+  },
+  {
+    "id": 11019,
+    "name": "महीसागर",
+    "slug": "mahisagar"
+  },
+  {
+    "id": 11020,
+    "name": "मेहसाणा",
+    "slug": "mehsana"
+  },
+  {
+    "id": 11021,
+    "name": "मोरबी",
+    "slug": "morbi"
+  },
+  {
+    "id": 11022,
+    "name": "नर्मदा",
+    "slug": "narmada"
+  },
+  {
+    "id": 11023,
+    "name": "नवसारी",
+    "slug": "navsari"
+  },
+  {
+    "id": 11024,
+    "name": "पंचमहल",
+    "slug": "panchmahals"
+  },
+  {
+    "id": 11025,
+    "name": "पाटन",
+    "slug": "patan"
+  },
+  {
+    "id": 11026,
+    "name": "पोरबंदर",
+    "slug": "porbandar"
+  },
+  {
+    "id": 11027,
+    "name": "राजकोट",
+    "slug": "rajkot"
+  },
+  {
+    "id": 11028,
+    "name": "साबरकांठा",
+    "slug": "sabarkantha"
+  },
+  {
+    "id": 11029,
+    "name": "सूरत",
+    "slug": "surat"
+  },
+  {
+    "id": 11030,
+    "name": "सुरेंद्रनगर",
+    "slug": "surendranagar"
+  },
+  {
+    "id": 11031,
+    "name": "तापी",
+    "slug": "tapi"
+  },
+  {
+    "id": 11032,
+    "name": "द डांग्स",
+    "slug": "the_dangs"
+  },
+  {
+    "id": 11033,
+    "name": "वडोदरा (बड़ौदा)",
+    "slug": "vadodara(baroda)"
+  },
+  {
+    "id": 11034,
+    "name": "वलसाड",
+    "slug": "valsad"
+  }
+]

@@ -1,0 +1,122 @@
+[
+  {
+    "id": 36001,
+    "name": "अलीपुरद्वार",
+    "slug": "alipurduar"
+  },
+  {
+    "id": 36002,
+    "name": "बांकुड़ा",
+    "slug": "bankura"
+  },
+  {
+    "id": 36003,
+    "name": "बीरभूम",
+    "slug": "birbhum"
+  },
+  {
+    "id": 36004,
+    "name": "बर्दवान",
+    "slug": "burdwan"
+  },
+  {
+    "id": 36005,
+    "name": "कूचबिहार",
+    "slug": "coochbehar"
+  },
+  {
+    "id": 36006,
+    "name": "दक्षिण दिनाजपुर",
+    "slug": "dakshin_dinajpur"
+  },
+  {
+    "id": 36007,
+    "name": "दार्जिलिंग",
+    "slug": "darjeeling"
+  },
+  {
+    "id": 36008,
+    "name": "हुगली",
+    "slug": "hooghly"
+  },
+  {
+    "id": 36009,
+    "name": "हावड़ा",
+    "slug": "howrah"
+  },
+  {
+    "id": 36010,
+    "name": "जलपाईगुड़ी",
+    "slug": "jalpaiguri"
+  },
+  {
+    "id": 36011,
+    "name": "झारग्राम",
+    "slug": "jhargram"
+  },
+  {
+    "id": 36012,
+    "name": "कलिम्पोंग",
+    "slug": "kalimpong"
+  },
+  {
+    "id": 36013,
+    "name": "कोलकाता",
+    "slug": "kolkata"
+  },
+  {
+    "id": 36014,
+    "name": "मालदा",
+    "slug": "malda"
+  },
+  {
+    "id": 36015,
+    "name": "मेदिनीपुर (पूर्व)",
+    "slug": "medinipur_e"
+  },
+  {
+    "id": 36016,
+    "name": "मेदिनीपुर (पश्चिम)",
+    "slug": "medinipur_w"
+  },
+  {
+    "id": 36017,
+    "name": "मुर्शिदाबाद",
+    "slug": "murshidabad"
+  },
+  {
+    "id": 36018,
+    "name": "नदिया",
+    "slug": "nadia"
+  },
+  {
+    "id": 36019,
+    "name": "उत्तर 24 परगना",
+    "slug": "north_24_parganas"
+  },
+  {
+    "id": 36020,
+    "name": "पश्चिम बर्दवान",
+    "slug": "paschim_bardhaman"
+  },
+  {
+    "id": 36021,
+    "name": "पूर्व बर्दवान",
+    "slug": "purba_bardhaman"
+  },
+  {
+    "id": 36022,
+    "name": "पुरुलिया",
+    "slug": "puruliya"
+  },
+  {
+    "id": 36023,
+    "name": "दक्षिण 24 परगना",
+    "slug": "sounth_24_parganas"
+  },
+  {
+    "id": 36024,
+    "name": "उत्तर दिनाजपुर",
+    "slug": "uttar_dinajpur"
+  }
+]

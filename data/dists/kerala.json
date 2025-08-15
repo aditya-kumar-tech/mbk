@@ -1,0 +1,82 @@
+[
+  {
+    "id": 17001,
+    "name": "अलप्पुझा",
+    "slug": "alappuzha"
+  },
+  {
+    "id": 17002,
+    "name": "एलेप्पी",
+    "slug": "alleppey"
+  },
+  {
+    "id": 17003,
+    "name": "कालीकट",
+    "slug": "calicut"
+  },
+  {
+    "id": 17004,
+    "name": "एर्नाकुलम",
+    "slug": "ernakulam"
+  },
+  {
+    "id": 17005,
+    "name": "इडुक्की",
+    "slug": "idukki"
+  },
+  {
+    "id": 17006,
+    "name": "कन्नूर",
+    "slug": "kannur"
+  },
+  {
+    "id": 17007,
+    "name": "कासरगोड",
+    "slug": "kasargod"
+  },
+  {
+    "id": 17008,
+    "name": "कोल्लम",
+    "slug": "kollam"
+  },
+  {
+    "id": 17009,
+    "name": "कोट्टायम",
+    "slug": "kottayam"
+  },
+  {
+    "id": 17010,
+    "name": "कोझिकोड (कालीकट)",
+    "slug": "kozhikodecalicut"
+  },
+  {
+    "id": 17011,
+    "name": "मलप्पुरम",
+    "slug": "malappuram"
+  },
+  {
+    "id": 17012,
+    "name": "पालक्काड",
+    "slug": "palakad"
+  },
+  {
+    "id": 17013,
+    "name": "पतनमतिट्टा",
+    "slug": "pathanamthitta"
+  },
+  {
+    "id": 17014,
+    "name": "त्रिशूर",
+    "slug": "thirssur"
+  },
+  {
+    "id": 17015,
+    "name": "तिरुवनंतपुरम",
+    "slug": "thiruvananthapuram"
+  },
+  {
+    "id": 17016,
+    "name": "वायनाड",
+    "slug": "wayanad"
+  }
+]

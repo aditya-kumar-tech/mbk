@@ -1,0 +1,67 @@
+[
+  {
+    "id": 13001,
+    "name": "बिलासपुर",
+    "slug": "bilaspur"
+  },
+  {
+    "id": 13002,
+    "name": "चंबा",
+    "slug": "chamba"
+  },
+  {
+    "id": 13003,
+    "name": "हमीरपुर",
+    "slug": "hamirpur"
+  },
+  {
+    "id": 13004,
+    "name": "कांगड़ा",
+    "slug": "kangra"
+  },
+  {
+    "id": 13005,
+    "name": "कांगड़ा (धर्मशाला में)",
+    "slug": "kangra_at_dharmashala"
+  },
+  {
+    "id": 13006,
+    "name": "किन्नौर (कल्पा में)",
+    "slug": "kinnaur_at_kalpa"
+  },
+  {
+    "id": 13007,
+    "name": "कुल्लू",
+    "slug": "kullu"
+  },
+  {
+    "id": 13008,
+    "name": "लाहौल और स्पीति",
+    "slug": "lahul_and_spiti"
+  },
+  {
+    "id": 13009,
+    "name": "मंडी",
+    "slug": "mandi"
+  },
+  {
+    "id": 13010,
+    "name": "शिमला",
+    "slug": "shimla"
+  },
+  {
+    "id": 13011,
+    "name": "सिरमौर",
+    "slug": "sirmore"
+  },
+  {
+    "id": 13012,
+    "name": "सोलन",
+    "slug": "solan"
+  },
+  {
+    "id": 13013,
+    "name": "ऊना",
+    "slug": "una"
+  }
+]

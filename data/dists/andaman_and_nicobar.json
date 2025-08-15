@@ -1,0 +1,17 @@
+[
+  {
+    "id": 101,
+    "name": "निकोबार",
+    "slug": "nicobar"
+  },
+  {
+    "id": 102,
+    "name": "उत्तर और मध्य अंडमान",
+    "slug": "north_and_middle_andaman"
+  },
+  {
+    "id": 103,
+    "name": "दक्षिण अंडमान",
+    "slug": "south_andaman"
+  }
+]

@@ -1,67 +1,74 @@
-[
-  {
-    "id": 2001,
-    "name": "अनंतपुर",
-    "slug": "anantapur"
-  },
-  {
-    "id": 2002,
-    "name": "चित्तूर",
-    "slug": "chittor"
-  },
-  {
-    "id": 2003,
-    "name": "कडपा",
-    "slug": "cuddapah"
-  },
-  {
-    "id": 2004,
-    "name": "पूर्वी गोदावरी",
-    "slug": "east_godavari"
-  },
-  {
-    "id": 2005,
-    "name": "गुंटूर",
-    "slug": "guntur"
-  },
-  {
-    "id": 2006,
-    "name": "कृष्णा",
-    "slug": "krishna"
-  },
-  {
-    "id": 2007,
-    "name": "कुरनूल",
-    "slug": "kurnool"
-  },
-  {
-    "id": 2008,
-    "name": "नेल्लोर",
-    "slug": "nellore"
-  },
-  {
-    "id": 2009,
-    "name": "प्रकाशम",
-    "slug": "prakasam"
-  },
-  {
-    "id": 2010,
-    "name": "श्रीकाकुलम",
-    "slug": "srikakulam"
-  },
-  {
-    "id": 2011,
-    "name": "विजयनगरम",
-    "slug": "vijayanagaram"
-  },
-  {
-    "id": 2012,
-    "name": "विशाखापत्तनम",
-    "slug": "visakhapatnam"
-  },
-  {
-    "id": 2013,
-    "name": "पश्चिमी गोदावरी",
-    "slug": "west_godavari"
-  }
-]
+{
+  "headers": [
+    "id",
+    "name",
+    "slug"
+  ],
+  "rows": [
+    [
+      "0201",
+      "अनंतपुर",
+      "anantapur"
+    ],
+    [
+      "0202",
+      "चित्तूर",
+      "chittor"
+    ],
+    [
+      "0203",
+      "कडपा",
+      "cuddapah"
+    ],
+    [
+      "0204",
+      "पूर्वी गोदावरी",
+      "east_godavari"
+    ],
+    [
+      "0205",
+      "गुंटूर",
+      "guntur"
+    ],
+    [
+      "0206",
+      "कृष्णा",
+      "krishna"
+    ],
+    [
+      "0207",
+      "कुरनूल",
+      "kurnool"
+    ],
+    [
+      "0208",
+      "नेल्लोर",
+      "nellore"
+    ],
+    [
+      "0209",
+      "प्रकाशम",
+      "prakasam"
+    ],
+    [
+      "0210",
+      "श्रीकाकुलम",
+      "srikakulam"
+    ],
+    [
+      "0211",
+      "विजयनगरम",
+      "vijayanagaram"
+    ],
+    [
+      "0212",
+      "विशाखापत्तनम",
+      "visakhapatnam"
+    ],
+    [
+      "0213",
+      "पश्चिमी गोदावरी",
+      "west_godavari"
+    ]
+  ]
+}

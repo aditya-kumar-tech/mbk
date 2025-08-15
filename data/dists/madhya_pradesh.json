@@ -1,0 +1,257 @@
+[
+  {
+    "id": 19001,
+    "name": "आगर मालवा",
+    "slug": "agar_malwa"
+  },
+  {
+    "id": 19002,
+    "name": "अलीराजपुर",
+    "slug": "alirajpur"
+  },
+  {
+    "id": 19003,
+    "name": "अनूपपुर",
+    "slug": "anupur"
+  },
+  {
+    "id": 19004,
+    "name": "अशोकनगर",
+    "slug": "ashoknagar"
+  },
+  {
+    "id": 19005,
+    "name": "बड़वानी",
+    "slug": "badwani"
+  },
+  {
+    "id": 19006,
+    "name": "बालाघाट",
+    "slug": "balaghat"
+  },
+  {
+    "id": 19007,
+    "name": "बैतूल",
+    "slug": "betul"
+  },
+  {
+    "id": 19008,
+    "name": "भिंड",
+    "slug": "bhind"
+  },
+  {
+    "id": 19009,
+    "name": "भोपाल",
+    "slug": "bhopal"
+  },
+  {
+    "id": 19010,
+    "name": "बुरहानपुर",
+    "slug": "burhanpur"
+  },
+  {
+    "id": 19011,
+    "name": "छतरपुर",
+    "slug": "chhatarpur"
+  },
+  {
+    "id": 19012,
+    "name": "छिंदवाड़ा",
+    "slug": "chhindwara"
+  },
+  {
+    "id": 19013,
+    "name": "दमोह",
+    "slug": "damoh"
+  },
+  {
+    "id": 19014,
+    "name": "दतिया",
+    "slug": "datia"
+  },
+  {
+    "id": 19015,
+    "name": "देवास",
+    "slug": "dewas"
+  },
+  {
+    "id": 19016,
+    "name": "धार",
+    "slug": "dhar"
+  },
+  {
+    "id": 19017,
+    "name": "डिंडोरी",
+    "slug": "dindori"
+  },
+  {
+    "id": 19018,
+    "name": "गुना",
+    "slug": "guna"
+  },
+  {
+    "id": 19019,
+    "name": "ग्वालियर",
+    "slug": "gwalior"
+  },
+  {
+    "id": 19020,
+    "name": "हरदा",
+    "slug": "harda"
+  },
+  {
+    "id": 19021,
+    "name": "होशंगाबाद",
+    "slug": "hoshangabad"
+  },
+  {
+    "id": 19022,
+    "name": "इंदौर",
+    "slug": "indore"
+  },
+  {
+    "id": 19023,
+    "name": "जबलपुर",
+    "slug": "jabalpur"
+  },
+  {
+    "id": 19024,
+    "name": "झाबुआ",
+    "slug": "jhabua"
+  },
+  {
+    "id": 19025,
+    "name": "कटनी",
+    "slug": "katni"
+  },
+  {
+    "id": 19026,
+    "name": "खंडवा",
+    "slug": "khandwa"
+  },
+  {
+    "id": 19027,
+    "name": "खरगोन",
+    "slug": "khargone"
+  },
+  {
+    "id": 19028,
+    "name": "मंडला",
+    "slug": "mandla"
+  },
+  {
+    "id": 19029,
+    "name": "मंदसौर",
+    "slug": "mandsaur"
+  },
+  {
+    "id": 19030,
+    "name": "मुरैना",
+    "slug": "morena"
+  },
+  {
+    "id": 19031,
+    "name": "नरसिंहपुर",
+    "slug": "narsinghpur"
+  },
+  {
+    "id": 19032,
+    "name": "नीमच",
+    "slug": "neemuch"
+  },
+  {
+    "id": 19033,
+    "name": "पन्ना",
+    "slug": "panna"
+  },
+  {
+    "id": 19034,
+    "name": "रायसेन",
+    "slug": "raisen"
+  },
+  {
+    "id": 19035,
+    "name": "राजगढ़",
+    "slug": "rajgarh"
+  },
+  {
+    "id": 19036,
+    "name": "रतलाम",
+    "slug": "ratlam"
+  },
+  {
+    "id": 19037,
+    "name": "रीवा",
+    "slug": "rewa"
+  },
+  {
+    "id": 19038,
+    "name": "सागर",
+    "slug": "sagar"
+  },
+  {
+    "id": 19039,
+    "name": "सतना",
+    "slug": "satna"
+  },
+  {
+    "id": 19040,
+    "name": "सीहोर",
+    "slug": "sehore"
+  },
+  {
+    "id": 19041,
+    "name": "सिवनी",
+    "slug": "seoni"
+  },
+  {
+    "id": 19042,
+    "name": "शाजापुर",
+    "slug": "shajapur"
+  },
+  {
+    "id": 19043,
+    "name": "शहडोल",
+    "slug": "shehdol"
+  },
+  {
+    "id": 19044,
+    "name": "श्योपुर",
+    "slug": "sheopur"
+  },
+  {
+    "id": 19045,
+    "name": "शिवपुरी",
+    "slug": "shivpuri"
+  },
+  {
+    "id": 19046,
+    "name": "सीधी",
+    "slug": "sidhi"
+  },
+  {
+    "id": 19047,
+    "name": "सिंगरौली",
+    "slug": "singroli"
+  },
+  {
+    "id": 19048,
+    "name": "टीकमगढ़",
+    "slug": "tikamgarh"
+  },
+  {
+    "id": 19049,
+    "name": "उज्जैन",
+    "slug": "ujjain"
+  },
+  {
+    "id": 19050,
+    "name": "उमरिया",
+    "slug": "umariya"
+  },
+  {
+    "id": 19051,
+    "name": "विदिशा",
+    "slug": "vidisha"
+  }
+]

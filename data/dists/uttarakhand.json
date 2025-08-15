@@ -1,0 +1,72 @@
+[
+  {
+    "id": 35001,
+    "name": "अल्मोड़ा",
+    "slug": "almora"
+  },
+  {
+    "id": 35002,
+    "name": "बागेश्वर",
+    "slug": "bageshwar"
+  },
+  {
+    "id": 35003,
+    "name": "चमोली (गोपेश्वर)",
+    "slug": "chamoli_gopeshwar"
+  },
+  {
+    "id": 35004,
+    "name": "चम्पावत",
+    "slug": "champawat"
+  },
+  {
+    "id": 35005,
+    "name": "देहरादून",
+    "slug": "dehradoon"
+  },
+  {
+    "id": 35006,
+    "name": "गढ़वाल (पौड़ी)",
+    "slug": "garhwal_pauri"
+  },
+  {
+    "id": 35007,
+    "name": "हल्द्वानी",
+    "slug": "haldwani"
+  },
+  {
+    "id": 35008,
+    "name": "हरिद्वार",
+    "slug": "haridwar"
+  },
+  {
+    "id": 35009,
+    "name": "नैनीताल",
+    "slug": "nanital"
+  },
+  {
+    "id": 35010,
+    "name": "पिथौरागढ़",
+    "slug": "pithoragarh"
+  },
+  {
+    "id": 35011,
+    "name": "रुद्रप्रयाग",
+    "slug": "rudraprayag"
+  },
+  {
+    "id": 35012,
+    "name": "टिहरी गढ़वाल",
+    "slug": "tehri_garhwal"
+  },
+  {
+    "id": 35013,
+    "name": "उधम सिंह नगर",
+    "slug": "udhamsinghnagar"
+  },
+  {
+    "id": 35014,
+    "name": "उत्तरकाशी",
+    "slug": "uttarkashi"
+  }
+]

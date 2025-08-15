@@ -1,7 +1,14 @@
-[
-  {
-    "id": 18001,
-    "name": "कवरत्ती",
-    "slug": "kavaratti"
-  }
-]
+{
+  "headers": [
+    "id",
+    "name",
+    "slug"
+  ],
+  "rows": [
+    [
+      "1801",
+      "कवरत्ती",
+      "kavaratti"
+    ]
+  ]
+}

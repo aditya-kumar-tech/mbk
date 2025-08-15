@@ -1,0 +1,72 @@
+[
+  {
+    "id": 3001,
+    "name": "चांगलांग",
+    "slug": "changlang"
+  },
+  {
+    "id": 3002,
+    "name": "पूर्वी कामेंग",
+    "slug": "east_kameng"
+  },
+  {
+    "id": 3003,
+    "name": "पूर्वी सियांग",
+    "slug": "east_siang"
+  },
+  {
+    "id": 3004,
+    "name": "कुरुंग कुमे",
+    "slug": "kurung_kummey"
+  },
+  {
+    "id": 3005,
+    "name": "लोहित",
+    "slug": "lohit"
+  },
+  {
+    "id": 3006,
+    "name": "निचली दिबांग घाटी",
+    "slug": "lower_dibang_valley"
+  },
+  {
+    "id": 3007,
+    "name": "निचला सुबनसिरी",
+    "slug": "lower_subansiri"
+  },
+  {
+    "id": 3008,
+    "name": "पापुम पारे",
+    "slug": "papum_pore"
+  },
+  {
+    "id": 3009,
+    "name": "तवांग",
+    "slug": "tawang"
+  },
+  {
+    "id": 3010,
+    "name": "तिरप",
+    "slug": "tirap"
+  },
+  {
+    "id": 3011,
+    "name": "ऊपरी सियांग",
+    "slug": "upper_siang"
+  },
+  {
+    "id": 3012,
+    "name": "ऊपरी सुबनसिरी",
+    "slug": "upper_subansiri"
+  },
+  {
+    "id": 3013,
+    "name": "पश्चिम कामेंग",
+    "slug": "west_kameng"
+  },
+  {
+    "id": 3014,
+    "name": "पश्चिम सियांग",
+    "slug": "west_siang"
+  }
+]

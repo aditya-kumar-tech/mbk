@@ -1,0 +1,57 @@
+[
+  {
+    "id": 22001,
+    "name": "पूर्वी गारो हिल्स",
+    "slug": "east_garo_hills"
+  },
+  {
+    "id": 22002,
+    "name": "पूर्वी जयंतिया हिल्स",
+    "slug": "east_jaintia_hills"
+  },
+  {
+    "id": 22003,
+    "name": "पूर्वी खासी हिल्स",
+    "slug": "east_khasi_hills"
+  },
+  {
+    "id": 22004,
+    "name": "नोंगपोह (री-भोई)",
+    "slug": "nongpoh_r-bhoi"
+  },
+  {
+    "id": 22005,
+    "name": "उत्तरी गारो हिल्स",
+    "slug": "north_garo_hills"
+  },
+  {
+    "id": 22006,
+    "name": "दक्षिणी गारो हिल्स",
+    "slug": "south_garo_hills"
+  },
+  {
+    "id": 22007,
+    "name": "दक्षिण पश्चिम गारो हिल्स",
+    "slug": "south_west_garo_hills"
+  },
+  {
+    "id": 22008,
+    "name": "दक्षिण पश्चिम खासी हिल्स",
+    "slug": "south_west_khasi_hills"
+  },
+  {
+    "id": 22009,
+    "name": "पश्चिमी गारो हिल्स",
+    "slug": "west_garo_hills"
+  },
+  {
+    "id": 22010,
+    "name": "पश्चिमी जयंतिया हिल्स",
+    "slug": "west_jaintia_hills"
+  },
+  {
+    "id": 22011,
+    "name": "पश्चिमी खासी हिल्स",
+    "slug": "west_khasi_hills"
+  }
+]

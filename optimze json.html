@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>HTML Tables to District/Mandi JSON ZIP (Multi + Hindi mapping)</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+  body {
+    font-family: 'Roboto', sans-serif;
+    background: #f7f9fc;
+    margin: 0;
+    padding: 20px;
+    color: #333;
+    display: flex;
+    justify-content: center;
+  }
+  .container {
+    background: #fff;
+    max-width: 600px;
+    width: 100%;
+    padding: 25px 30px;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgb(0 0 0 / 0.1);
+  }
+  h2 {
+    margin-top: 0;
+    color: #005500;
+    text-align: center;
+  }
+  input[type="file"] {
+    width: 100%;
+    padding: 12px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    margin-bottom: 20px;
+  }
+  button#btnProcess {
+    width: 100%;
+    background-color: #2e7d32;
+    border: none;
+    color: white;
+    padding: 14px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-bottom: 20px;
+  }
+  button#btnProcess:hover {
+    background-color: #1b4d20;
+  }
+  #log {
+    background: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    font-family: monospace;
+    font-size: 0.9rem;
+    min-height: 100px;
+    white-space: pre-wrap;
+    color: #444;
+    overflow-y: auto;
+  }
+  @media (max-width: 480px) {
+    .container {
+      padding: 20px 15px;
+    }
+    button#btnProcess {
+      font-size: 1rem;
+      padding: 12px;
+    }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h2>HTML फ़ाइलें अपलोड करें (table + title)</h2>
+    <input type="file" id="fileInput" accept=".html,.htm" multiple />
+    <button id="btnProcess">Convert &amp; Download ZIP</button>
+
+    <pre id="log"></pre>
+  </div>
+
+<script>
+(() => {
+  const fileInput = document.getElementById("fileInput");
+  const btnProcess = document.getElementById("btnProcess");
+  const logEl = document.getElementById("log");
+
+  // English to Hindi mappings
+
+  const headerMap = {
+    "Commodity": "फसल",
+    "Variety": "किस्म",
+    "Grade": "ग्रेड",
+    "Min Price (Rs./Quintal)": "न्यूनतम मूल्य",
+    "Max Price (Rs./Quintal)": "अधिकतम मूल्य",
+    "Modal Price (Rs./Quintal)": "माध्य मूल्य",
+    "Price Date": "मूल्य दिनांक"
+  };
+
+  const engToHindiMap = {
+    "Bengal Gram(Gram)(Whole)": "बंगाल चना (चना) (पूरा)",
+    "Mustard": "सरसों",
+    "Wheat": "गेहूँ",
+    "Soyabean": "सोयाबीन",
+    "Gram": "चना",
+    "Other": "अन्य",
+    "PISSI": "पिस्सी",
+    "Sharbati": "शरबती",
+    // add more commodities here
+  };
+
+  const varietyMap = {
+    "Gram": "चना",
+    "Mustard": "सरसों",
+    "Other": "अन्य",
+    "PISSI": "पिस्सी",
+    "Sharbati": "शरबती",
+    "Soyabeen": "सोयाबीन",
+    "Wheat": "गेहूँ",
+    // add more varieties here
+  };
+
+  const gradeMap = {
+    "FAQ": "फैक",
+    "Best": "सर्वश्रेष्ठ",
+    "Average": "औसत",
+    // add more grades here
+  };
+
+  // Helper to extract title and state name from text
+  function extractTitleAndState(titleText) {
+    titleText = titleText.replace(/<[^>]*>/g, "").trim();
+    if (!titleText) titleText = "(कोई टाइटल नहीं मिला)";
+    const stateMatch = titleText.match(/from\s+(.+?)\s+from/i);
+    const stateName = stateMatch && stateMatch[1] ? stateMatch[1].trim() : "Unknown_State";
+    return { cleanTitle: titleText, stateName };
+  }
+
+  // Parse single HTML file content
+  function parseHTMLFileContent(content, filename) {
+    const divIndex = content.indexOf("<div");
+    if (divIndex === -1) throw new Error(`फ़ाइल "${filename}" में <div> टैग नहीं मिला, टेबल डेटा चाहिए।`);
+
+    const rawTitle = content.slice(0, divIndex).trim();
+    const { cleanTitle, stateName } = extractTitleAndState(rawTitle);
+
+    const htmlPart = content.slice(divIndex);
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(htmlPart, "text/html");
+
+    const table = doc.querySelector("table");
+    if (!table) throw new Error(`फ़ाइल "${filename}" में टेबल नहीं मिला`);
+
+    const rows = table.querySelectorAll("tr");
+    const tableRows = [];
+    rows.forEach(tr => {
+      const cells = [...tr.querySelectorAll("th, td")].map(td => td.textContent.trim());
+      if (cells.length) tableRows.push(cells);
+    });
+    if (tableRows.length < 2) throw new Error(`फ़ाइल "${filename}" की टेबल में पर्याप्त डेटा नहीं है`);
+
+    return { stateName, cleanTitle, tableRows };
+  }
+
+  async function readFileAsText(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = e => resolve(e.target.result);
+      reader.onerror = e => reject(e);
+      reader.readAsText(file);
+    });
+  }
+
+  btnProcess.addEventListener("click", async () => {
+    const files = fileInput.files;
+    if (!files.length) {
+      alert("कृपया कम से कम एक HTML फ़ाइल चुनें।");
+      return;
+    }
+
+    logEl.textContent = "🕐 फ़ाइलें पढ़ी जा रही हैं...\n";
+    const zip = new JSZip();
+
+    try {
+      for (const file of files) {
+        logEl.textContent += `\n📂 Processing: ${file.name}`;
+        const content = await readFileAsText(file);
+        let parsed;
+        try {
+          parsed = parseHTMLFileContent(content, file.name);
+        } catch (err) {
+          logEl.textContent += `\n❌ Error: ${err.message}`;
+          continue;
+        }
+
+        const { stateName, tableRows } = parsed;
+        const headers = tableRows[0].slice(3); // as per your logic slice(3)
+        if (headers.length === 0) {
+          logEl.textContent += `\n⚠️ ${file.name} में हेडर कम हैं या स्वरूप सही नहीं है। Skipping...`;
+          continue;
+        }
+
+        const dataByDistrictMandi = {};
+        tableRows.slice(1).forEach(row => {
+          if (row.length < 4) return;
+          const district = row[1];
+          const mandi = row[2];
+          const dataRow = row.slice(3);
+
+          if (!dataByDistrictMandi[district]) dataByDistrictMandi[district] = {};
+          if (!dataByDistrictMandi[district][mandi]) dataByDistrictMandi[district][mandi] = [];
+
+          dataByDistrictMandi[district][mandi].push(dataRow);
+        });
+
+        // Folder for state in ZIP
+        const stateFolder = zip.folder(stateName.replace(/\s+/g, '_'));
+
+        for (const district in dataByDistrictMandi) {
+          const distFolder = stateFolder.folder(district.replace(/\s+/g, '_'));
+          for (const mandi in dataByDistrictMandi[district]) {
+            // Map headers to Hindi keys
+            const mappedHeaders = headers.map(h => headerMap[h] || h);
+
+            // Map each row: 0=Commodity, 1=Variety, 2=Grade
+            const mappedRows = dataByDistrictMandi[district][mandi].map(row => {
+              const newRow = [...row];
+              if (engToHindiMap[newRow[0]]) newRow[0] = engToHindiMap[newRow[0]];
+              if (varietyMap[newRow[1]]) newRow[1] = varietyMap[newRow[1]];
+              if (gradeMap[newRow[2]]) newRow[2] = gradeMap[newRow[2]];
+              return newRow;
+            });
+
+            const mandiData = {
+              headers: mappedHeaders,
+              rows: mappedRows,
+            };
+            distFolder.file(`${mandi.replace(/\s+/g, '_')}.json`, JSON.stringify(mandiData, null, 2));
+          }
+        }
+
+        logEl.textContent += `\n✅ ${file.name} processed successfully.`;
+      }
+
+      logEl.textContent += `\n\n🕐 ZIP फ़ाइल बनाई जा रही है...`;
+
+      const content = await zip.generateAsync({ type: "blob" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(content);
+      a.download = `mandi_data_batch.zip`;
+      a.click();
+
+      logEl.textContent += `\n✅ ZIP फ़ाइल डाउनलोड हो गई।`;
+    } catch (err) {
+      logEl.textContent += `\n❌ कोई त्रुटि हुई: ${err.message}`;
+    }
+  });
+})();
+</script>
+</body>
+</html>

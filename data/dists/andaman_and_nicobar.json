@@ -1,16 +1,16 @@
 [
   {
-    "id": 101,
+    "id": 1001,
     "name": "निकोबार",
     "slug": "nicobar"
   },
   {
-    "id": 102,
+    "id": 1002,
     "name": "उत्तर और मध्य अंडमान",
     "slug": "north_and_middle_andaman"
   },
   {
-    "id": 103,
+    "id": 1003,
     "name": "दक्षिण अंडमान",
     "slug": "south_andaman"
   }

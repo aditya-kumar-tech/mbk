@@ -1,0 +1,192 @@
+[
+  {
+    "id": 31001,
+    "name": "अरियालुर",
+    "slug": "ariyalur"
+  },
+  {
+    "id": 31002,
+    "name": "चेंगलपट्टू",
+    "slug": "chengalpattu"
+  },
+  {
+    "id": 31003,
+    "name": "चेन्नई",
+    "slug": "chennai"
+  },
+  {
+    "id": 31004,
+    "name": "कोयंबटूर",
+    "slug": "coimbatore"
+  },
+  {
+    "id": 31005,
+    "name": "कुड्डालोर",
+    "slug": "cuddalore"
+  },
+  {
+    "id": 31006,
+    "name": "धर्मपुरी",
+    "slug": "dharmapuri"
+  },
+  {
+    "id": 31007,
+    "name": "डिंडीगुल",
+    "slug": "dindigul"
+  },
+  {
+    "id": 31008,
+    "name": "इरोड",
+    "slug": "erode"
+  },
+  {
+    "id": 31009,
+    "name": "कल्लाकुरिची",
+    "slug": "kallakuruchi"
+  },
+  {
+    "id": 31010,
+    "name": "कांचीपुरम",
+    "slug": "kancheepuram"
+  },
+  {
+    "id": 31011,
+    "name": "करूर",
+    "slug": "karur"
+  },
+  {
+    "id": 31012,
+    "name": "कृष्णागिरि",
+    "slug": "krishnagiri"
+  },
+  {
+    "id": 31013,
+    "name": "मदुरै",
+    "slug": "madurai"
+  },
+  {
+    "id": 31014,
+    "name": "मयिलादुथुराई",
+    "slug": "mayiladuthurai"
+  },
+  {
+    "id": 31015,
+    "name": "नागपट्टिनम",
+    "slug": "nagapattinam"
+  },
+  {
+    "id": 31016,
+    "name": "नागरकोइल (कन्याकुमारी)",
+    "slug": "nagercoil_kannyiakumari"
+  },
+  {
+    "id": 31017,
+    "name": "नमक्कल",
+    "slug": "namakkal"
+  },
+  {
+    "id": 31018,
+    "name": "पेरम्बलुर",
+    "slug": "perambalur"
+  },
+  {
+    "id": 31019,
+    "name": "पुदुक्कोट्टई",
+    "slug": "pudukkottai"
+  },
+  {
+    "id": 31020,
+    "name": "रामनाथपुरम",
+    "slug": "ramanathapuram"
+  },
+  {
+    "id": 31021,
+    "name": "रानीपेट",
+    "slug": "ranipet"
+  },
+  {
+    "id": 31022,
+    "name": "सेलम",
+    "slug": "salem"
+  },
+  {
+    "id": 31023,
+    "name": "शिवगंगा",
+    "slug": "sivaganga"
+  },
+  {
+    "id": 31024,
+    "name": "तेनकासी",
+    "slug": "tenkasi"
+  },
+  {
+    "id": 31025,
+    "name": "तंजावुर",
+    "slug": "thanjavur"
+  },
+  {
+    "id": 31026,
+    "name": "नीलगिरी",
+    "slug": "the_nilgiris"
+  },
+  {
+    "id": 31027,
+    "name": "थेनी",
+    "slug": "theni"
+  },
+  {
+    "id": 31028,
+    "name": "तिरुचिरापल्ली",
+    "slug": "thiruchirappalli"
+  },
+  {
+    "id": 31029,
+    "name": "तिरुनेलवेली",
+    "slug": "thirunelveli"
+  },
+  {
+    "id": 31030,
+    "name": "तिरुप्पत्तूर",
+    "slug": "thirupathur"
+  },
+  {
+    "id": 31031,
+    "name": "तिरुपुर",
+    "slug": "thirupur"
+  },
+  {
+    "id": 31032,
+    "name": "तिरुवन्नामलई",
+    "slug": "thiruvannamalai"
+  },
+  {
+    "id": 31033,
+    "name": "तिरुवरुर",
+    "slug": "thiruvarur"
+  },
+  {
+    "id": 31034,
+    "name": "तिरुवल्लूर",
+    "slug": "thiruvellore"
+  },
+  {
+    "id": 31035,
+    "name": "तूतीकोरिन",
+    "slug": "tuticorin"
+  },
+  {
+    "id": 31036,
+    "name": "वेल्लोर",
+    "slug": "vellore"
+  },
+  {
+    "id": 31037,
+    "name": "विल्लुपुरम",
+    "slug": "villupuram"
+  },
+  {
+    "id": 31038,
+    "name": "विरुधुनगर",
+    "slug": "virudhunagar"
+  }
+]

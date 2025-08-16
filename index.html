@@ -1,12 +1,84 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Page Title</title>
+  <meta charset="UTF-8" />
+  <title>Blogger Single View Demo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    body { font-family: 'Segoe UI', Arial, sans-serif; margin: 0; padding: 20px; background: #f7f9fa; }
+    header { text-align: center; margin-bottom: 40px; }
+    #posts, #fullpost { max-width: 700px; margin: 0 auto; background: #fff; padding: 20px 25px; border-radius: 8px; box-shadow: 0 2px 8px #ddd; }
+    #posts .entry { margin-bottom: 15px; }
+    .titlelink { cursor: pointer; color: #2262be; font-size: 1.15em; font-weight: 600; text-decoration: underline; }
+    .titlelink:hover { color: #c42b1c; }
+    #fullpost h3 a { text-decoration: none; color: #2262be; }
+    #fullpost h3 a:hover { color: #c42b1c; }
+    #backBtn { margin-top: 30px; cursor: pointer; color: #555; text-decoration: underline; font-size: 0.9em; display: inline-block; }
+    #backBtn:hover { color: #000; }
+  </style>
 </head>
 <body>
+  <header>
+    <h1>My Blogger Website</h1>
+    <p>Latest posts from my blog</p>
+  </header>
 
-<h1>This is a Heading</h1>
-<p>This is a paragraph.</p>
+  <div id="posts"></div>
+  <div id="fullpost" style="display:none;"></div>
 
+  <script>
+    const blogFeedUrl = "https://mandibhavkhabar.com/feeds/posts/default?alt=json&max-results=8";
+    let postsData = [];
+
+    function loadPosts() {
+      fetch(blogFeedUrl)
+        .then(response => response.json())
+        .then(data => {
+          const postsDiv = document.getElementById('posts');
+          postsDiv.innerHTML = '';
+          if (!data.feed || !data.feed.entry) {
+            postsDiv.innerHTML = '<p>No posts found or API issue.</p>';
+            return;
+          }
+          postsData = data.feed.entry;
+          postsData.forEach((post, idx) => {
+            const title = post.title?.$t || "No Title";
+            postsDiv.innerHTML += `
+              <div class="entry">
+                <span class="titlelink" onclick="showPost(${idx})">${title}</span>
+              </div>`;
+          });
+          document.getElementById('posts').style.display = 'block';
+          document.getElementById('fullpost').style.display = 'none';
+        })
+        .catch(() => {
+          document.getElementById('posts').innerHTML = '<p>Error loading posts or wrong feed URL.</p>';
+        });
+    }
+
+    function showPost(idx) {
+      const post = postsData[idx];
+      const title = post.title?.$t || "No Title";
+      const link = post.link?.find(l => l.rel === "alternate")?.href || "#";
+      const content = post.content?.$t || post.summary?.$t || "";
+
+      const fullpostDiv = document.getElementById('fullpost');
+      fullpostDiv.innerHTML = `
+        <h3><a href="${link}" target="_blank">${title}</a></h3>
+        <div>${content}</div>
+        <span id="backBtn" onclick="backToPosts()">← Back to posts</span>
+      `;
+
+      document.getElementById('posts').style.display = 'none';
+      fullpostDiv.style.display = 'block';
+    }
+
+    function backToPosts() {
+      document.getElementById('posts').style.display = 'block';
+      document.getElementById('fullpost').style.display = 'none';
+    }
+
+    window.onload = loadPosts;
+  </script>
 </body>
 </html>

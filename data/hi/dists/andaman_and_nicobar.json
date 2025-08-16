@@ -1,0 +1,8 @@
+{
+  "headers": ["id","name","slug"],
+  "rows": [
+  ["0101","निकोबार","nicobar"],
+  ["0102","उत्तर और मध्य अंडमान","north_and_middle_andaman"],
+  ["0103","दक्षिण अंडमान","south_andaman"]
+  ]
+}

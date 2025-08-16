@@ -1,0 +1,9 @@
+{
+  "headers": ["id","name","slug"],
+  "rows": [
+  ["3001","पूर्व","east"],
+  ["3002","उत्तरी सिक्किम (मंगन)","north_sikkim_mangan"],
+  ["3003","दक्षिणी सिक्किम (नामची)","south_sikkim_namchi"],
+  ["3004","पश्चिमी सिक्किम (ग्यालशिंग)","west_sikkim_gyalsing"]
+  ]
+}

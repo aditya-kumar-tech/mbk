@@ -1,0 +1,14 @@
+{
+  "headers": [
+    "id",
+    "name",
+    "slug"
+  ],
+  "rows": [
+    [
+      "06001",
+      "चंडीगढ़",
+      "chandigarh"
+    ]
+  ]
+}

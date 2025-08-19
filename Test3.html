@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>HTML Table → Google Sheet</title>
+</head>
+<body>
+<h2>Upload HTML File → Google Sheet</h2>
+
+<input type="file" id="fileInput" accept=".html,.htm,.xls,.xlsx,*/*" />
+<button onclick="uploadToGoogleSheet()">Upload To Google Sheet</button>
+
+<h4 id="titleState" style="color: darkgreen;"></h4>
+<pre id="log" style="border: 1px solid #ccc; padding: 10px; min-height: 50px; background-color: #f9f9f9;"></pre>
+
+<script>
+let tableRows2 = [];
+let stateName  = "";
+
+function extractTitleAndState(titleText) {
+  titleText = titleText.replace(/<[^>]*>/g, "").trim();
+  const match = titleText.match(/from\s+(.+?)\s+from/i);
+  return (match && match[1]) ? match[1].trim().replace(/\s+/g,"_") : "Unknown_State";
+}
+
+document.getElementById("fileInput").addEventListener("change", async (e) => {
+  const file = e.target.files[0];
+  if(!file) return;
+
+  const content = await file.text(); // यह आपके लिए काम करता है, इसलिए हम इसे रखेंगे
+  const divIndex = content.indexOf("<div");
+  if(divIndex === -1){
+    document.getElementById("log").textContent = "❌ <div> tag not found in file";
+    return;
+  }
+  const titlePart = content.slice(0, divIndex);
+  stateName       = extractTitleAndState(titlePart);
+  document.getElementById("titleState").textContent = "🗺 State: " + stateName;
+
+  const parser = new DOMParser();
+  const html   = parser.parseFromString(content.slice(divIndex), "text/html");
+  const table  = html.querySelector("table");
+  if(!table){
+    document.getElementById("log").textContent = "❌ table not found";
+    return;
+  }
+  tableRows2 = [...table.querySelectorAll("tr")].map(tr =>
+    [...tr.querySelectorAll("th,td")].map(td => td.textContent.trim())
+  );
+
+  document.getElementById("log").textContent =
+    `✅ File loaded (${tableRows2.length} rows)\nClick Upload to send to sheet: '${stateName}'`;
+});
+
+async function uploadToGoogleSheet(){
+  if(!tableRows2.length){
+    alert("Please upload a file first.");
+    return;
+  }
+
+  // ▼▼▼ महत्वपूर्ण: यहाँ अपना नया वाला Web App URL पेस्ट करें ▼▼▼
+  const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwN3y6BriIq-XDwFfR1UXOzTzhjnBBYEZ5vVYDKI_8/dev";
+
+  document.getElementById("log").textContent = "⏳ Uploading...";
+  try {
+    const res = await fetch(WEB_APP_URL, {
+      method: "POST",
+      redirect: "follow",
+      body: JSON.stringify({
+        func: "clearAndWrite",
+        sheet: stateName,
+        rows: tableRows2
+      }),
+      headers: {
+        "Content-Type": "text/plain;charset=utf-8",
+      },
+    });
+
+    const result = await res.json();
+    
+    if (result.status === 'success') {
+      document.getElementById("log").textContent = result.message;
+    } else {
+      document.getElementById("log").textContent = `❌ Error from server: ${result.message}`;
+    }
+
+  } catch(err) {
+    console.error("Fetch Error:", err);
+    document.getElementById("log").textContent = `❌ Client-side Error: ${err.message}. Check browser console (F12) for details.`;
+  }
+}
+</script>
+</body>
+</html>

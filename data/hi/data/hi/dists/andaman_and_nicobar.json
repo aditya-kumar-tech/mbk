@@ -1,8 +1,0 @@
-{
-  "headers": ["name","slug"],
-  "data": {
-    "01001": ["निकोबार", "nicobar"],
-    "01002": ["उत्तर और मध्य अंडमान", "north_and_middle_andaman"],
-    "01003": ["दक्षिण अंडमान", "south_andaman"]
-  }
-}

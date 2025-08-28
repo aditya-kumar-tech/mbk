@@ -2,10 +2,10 @@
   "schema_version": 1,
   "generated_at": "2025-08-27T01:53:00Z",
   "files": [
-    { "type": "static",   "name": "state.json",     "last_updated": "2025-08-25" },
-    { "type": "static",   "name": "commodity.json", "last_updated": "2025-08-24" },
-    { "type": "static",   "name": "variety.json",   "last_updated": "2025-08-24" },
-    { "type": "static",   "name": "grade.json",     "last_updated": "2025-08-23" },
+    { "type": "static",   "name": "states.json",     "last_updated": "2025-08-25" },
+    { "type": "static",   "name": "commodities.json", "last_updated": "2025-08-24" },
+    { "type": "static",   "name": "varieties.json",   "last_updated": "2025-08-24" },
+    { "type": "static",   "name": "grades.json",     "last_updated": "2025-08-23" },
 
     { "type": "district", "state": "madhya_pradesh", "last_updated": "2025-08-24" },
     { "type": "mandi",    "state": "madhya_pradesh", "last_updated": "2025-08-24" },

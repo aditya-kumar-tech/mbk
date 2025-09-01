@@ -132,7 +132,7 @@ btnProcess.addEventListener("click", async ()=>{
 
             // Commodity/Variety/Grade check
             const commodityId = Object.keys(commodityJson).find(k=>commodityJson[k]===commodityName);
-            let varId = "0", gradeId = "0";
+            let varId = 0, gradeId = 0;
             let missingStatus = "";
 
             if(!commodityId){

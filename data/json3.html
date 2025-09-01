@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HTML Tables to District-wise JSON ZIP</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+body { font-family: sans-serif; padding:20px; background:#f7f7f7; display:flex; justify-content:center; }
+.container { background:#fff; padding:25px; border-radius:8px; max-width:600px; width:100%; box-shadow:0 5px 15px rgba(0,0,0,0.1);}
+input,button { width:100%; padding:12px; margin-bottom:15px; font-size:1rem; border-radius:5px; }
+button { background:#2e7d32; color:white; border:none; cursor:pointer; font-weight:700; }
+button:hover { background:#1b4d20; }
+pre { background:#eee; padding:15px; border-radius:5px; min-height:100px; overflow:auto; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h2>HTML फ़ाइलें अपलोड करें</h2>
+  <input type="file" id="fileInput" accept=".xls,.xlsx,.html,.htm" multiple />
+  <button id="btnProcess">Convert & Download ZIP</button>
+  <pre id="log"></pre>
+</div>
+
+<script>
+(() => {
+const baseUrl = "https://aditya-kumar-tech.github.io/mbk";
+const fileInput = document.getElementById("fileInput");
+const btnProcess = document.getElementById("btnProcess");
+const logEl = document.getElementById("log");
+
+async function fetchJson(url){
+    const res = await fetch(url);
+    return res.json();
+}
+
+function toSlug(name){
+    name = name.replace(/[\u200B-\u200D\uFEFF]/g, "").trim();
+    if(/\(F&V\)/i.test(name)){
+        name = name.toLowerCase();
+        name = name.replace(/\s*\(F&V\)\s*/gi, "_fv");
+        name = name.replace(/[()]/g, "");
+        name = name.replace(/[^\w\s_]/g, "");
+        name = name.replace(/\s+/g, "_");
+        return name;
+    }
+    name = name.toLowerCase();
+    name = name.replace(/\(\s*([^)]+)\s*\)/g, "_$1");
+    name = name.replace(/[^\w\s_]/g, "");
+    name = name.replace(/\s+/g, "_");
+    return name;
+}
+
+function extractStateName(titleText){
+    titleText = titleText.replace(/<[^>]*>/g,"").trim();
+    const match = titleText.match(/from\s+(.+?)\s+from/i);
+    return match && match[1] ? match[1].trim() : "Unknown_State";
+}
+
+function parseHTML(content, filename){
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(content,"text/html");
+    const table = doc.querySelector("table");
+    if(!table) throw new Error(`Table not found in ${filename}`);
+    return [...table.querySelectorAll("tr")].map(tr=>[...tr.querySelectorAll("th,td")].map(td=>td.textContent.trim()));
+}
+
+function formatDate(dateStr){
+    if(!dateStr) return "";
+    const months = {
+        "Jan":"01","Feb":"02","Mar":"03","Apr":"04","May":"05","Jun":"06",
+        "Jul":"07","Aug":"08","Sep":"09","Oct":"10","Nov":"11","Dec":"12"
+    };
+    let parts = dateStr.split(" ");
+    if(parts.length!==3) return dateStr;
+    let day = parts[0].padStart(2,"0");
+    let month = months[parts[1]] || "01";
+    let year = parts[2];
+    return `${year}-${month}-${day}`;
+}
+
+btnProcess.addEventListener("click", async ()=>{
+    const files = fileInput.files;
+    if(!files.length){ alert("कम से कम एक फ़ाइल चुनें"); return; }
+
+    logEl.textContent = "🕐 Processing...\n";
+    const zip = new JSZip();
+    const missedRows = [];
+    const missingCVG = [];
+
+    const [commodityJson, varietyJson, gradeJson, statesJson] = await Promise.all([
+        fetchJson(`${baseUrl}/data/hi/commodityEng.json`),
+        fetchJson(`${baseUrl}/data/hi/varieties.json`),
+        fetchJson(`${baseUrl}/data/hi/grades.json`),
+        fetchJson(`${baseUrl}/data/hi/states.json`)
+    ]);
+
+    for(const file of files){
+        logEl.textContent += `\n📂 ${file.name}`;
+        const content = await file.text();
+        let tableRows;
+        try { tableRows = parseHTML(content,file.name); } 
+        catch(err){ logEl.textContent += `\n❌ ${err.message}`; continue; }
+
+        const titleText = content.slice(0,content.indexOf("<table"));
+        const stateName = extractStateName(titleText);
+        const stateSlug = toSlug(stateName);
+        const stateFolder = zip.folder(stateSlug);
+
+        let distJson = {}, mandiJson = {};
+        try {
+            distJson = await fetchJson(`${baseUrl}/data/hi/dists/${stateSlug}.json`);
+            mandiJson = await fetchJson(`${baseUrl}/data/hi/mandis/${stateSlug}_mandis.json`);
+        } catch(e){ logEl.textContent += `\n❌ JSON load error for ${stateName}`; continue; }
+
+        const headers = ["date","mandi_id","commodity_id","variety_id","grade_id","min_price","max_price","modal_price","arrival_quintal","arrival_bori"];
+        const districtDataMap = {};
+
+        tableRows.slice(1).forEach((row,index)=>{
+            if(row.length<5) return;
+            const date = row[9] || "";
+            const districtName = row[1];
+            const mandiName = row[2];
+            const commodityName = row[3];
+            const varietyName = row[4];
+            const gradeName = row[5];
+            const minPrice = row[6] || 0;
+            const maxPrice = row[7] || 0;
+            const modalPrice = row[8] || 0;
+
+            let reason = "";
+
+            // State/District/Mandi checks
+            const distSlug = toSlug(districtName);
+            const distEntry = Object.entries(distJson.data || {}).find(([k,v])=>v[1]===distSlug);
+            const distId = distEntry ? distEntry[0] : null;
+            if(!distId){ reason="District Missing"; missedRows.push({State:stateName,Row:index+1,District:districtName,Mandi:mandiName,Commodity:commodityName,Reason:reason}); return; }
+
+            const mandiSlug = toSlug(mandiName);
+            const mandiEntry = Object.entries(mandiJson.data || {}).find(([k,v])=>v[1]===mandiSlug);
+            const mandiId = mandiEntry ? mandiEntry[0] : null;
+            if(!mandiId){ reason="Mandi Missing"; missedRows.push({State:stateName,Row:index+1,District:districtName,Mandi:mandiName,Commodity:commodityName,Reason:reason}); return; }
+
+            // Commodity/Variety/Grade check
+            if(!Object.values(commodityJson).includes(commodityName)){
+                missingCVG.push([commodityName,"","","Missing Commodity"]);
+            } else {
+                const commodityId = Object.keys(commodityJson).find(k=>commodityJson[k]===commodityName);
+                const varietyEntry = Object.values(varietyJson).find(v=>v.n===varietyName && v.cid===commodityId);
+                if(!varietyEntry){
+                    missingCVG.push([commodityName,varietyName,"","Missing Variety"]);
+                } else {
+                    if(!Object.values(gradeJson).includes(gradeName)){
+                        missingCVG.push([commodityName,varietyName,gradeName,"Missing Grade"]);
+                    }
+                }
+            }
+
+            const commodityId = Object.keys(commodityJson).find(k=>commodityJson[k]===commodityName);
+            const varietyId = Object.keys(varietyJson).find(k=>varietyJson[k].n===varietyName && varietyJson[k].cid===commodityId) || "0";
+            const gradeId = Object.keys(gradeJson).find(k=>gradeJson[k]===gradeName) || "0";
+
+            if(!districtDataMap[districtName]) districtDataMap[districtName] = [];
+            districtDataMap[districtName].push([formatDate(date),mandiId,commodityId,varietyId,gradeId,
+                                               parseFloat(minPrice)||0,parseFloat(maxPrice)||0,parseFloat(modalPrice)||0,0,0]);
+        });
+
+        for(const district in districtDataMap){
+            const distFileName = `${toSlug(district)}_prices.json`;
+            const jsonContent = { headers: headers, rows: districtDataMap[district] };
+            stateFolder.file(distFileName, JSON.stringify(jsonContent));
+        }
+
+        logEl.textContent += `\n✅ ${file.name} done`;
+    }
+
+    // Generate ZIP
+    const blob = await zip.generateAsync({type:"blob"});
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "prices.zip";
+    a.click();
+    logEl.textContent += "\n\n📦 ZIP downloaded";
+
+    // Missed rows Excel (auto-download)
+    if(missedRows.length){
+        const wb = XLSX.utils.book_new();
+        const wsData = [["State","Row Number","District","Mandi","Commodity","Reason"],
+                        ...missedRows.map(r=>[r.State,r.Row,r.District||"0",r.Mandi||"0",r.Commodity||"0",r.Reason])];
+        const ws = XLSX.utils.aoa_to_sheet(wsData);
+        XLSX.utils.book_append_sheet(wb,ws,"Missed Rows");
+        XLSX.writeFile(wb,"missed_rows.xlsx");
+        logEl.textContent += "\n✅ Missed rows Excel downloaded";
+    }
+
+    // Missing CVG Excel (button click)
+    if(missingCVG.length){
+        logEl.textContent += "\n⚠️ Missing Commodity/Variety/Grade detected. Use button to download.";
+        const downloadBtn = document.createElement("button");
+        downloadBtn.textContent = "Download Missing CVG Excel";
+        downloadBtn.style.marginTop = "10px";
+        downloadBtn.onclick = () => {
+            const wb = XLSX.utils.book_new();
+            const wsData = [["Commodity Name","Variety Name","Grade Name","Missing Status"], ...missingCVG];
+            const ws = XLSX.utils.aoa_to_sheet(wsData);
+            XLSX.utils.book_append_sheet(wb,ws,"Missing CVG");
+            XLSX.writeFile(wb,"missing_cvg.xlsx");
+        };
+        logEl.parentNode.appendChild(downloadBtn);
+    }
+
+});
+})();
+</script>
+</body>
+</html>

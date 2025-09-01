@@ -150,7 +150,7 @@ btnProcess.addEventListener("click", async ()=>{
 
             // JSON rows
             if(!districtDataMap[districtName]) districtDataMap[districtName]=[];
-            districtDataMap[districtName].push([formatDate(date),mandiId,commodityId,varietyId||0,gradeId||0,parseFloat(minPrice)||0,parseFloat(maxPrice)||0,parseFloat(modalPrice)||0,0,0]);
+            districtDataMap[districtName].push([formatDate(date),mandiId,commodityId,varietyId||"0",gradeId||"0",parseFloat(minPrice)||0,parseFloat(maxPrice)||0,parseFloat(modalPrice)||0,0,0]);
         });
 
         for(const district in districtDataMap){

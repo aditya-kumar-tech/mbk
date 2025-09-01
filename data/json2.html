@@ -46,20 +46,23 @@ async function fetchJson(url){
   function toSlug(name){
     name = name.trim();
 
-    // Handle (F&V)
+    // Special F&V mapping
     if(/\(F&V\)/i.test(name)){
-        name = name.replace(/\(F&V\)/gi, "_fv");
+        name = name.toLowerCase();
+        name = name.replace(/\s*\(F&V\)\s*/gi, "_fv");  // remove space before/after
+        name = name.replace(/[()]/g, "");
+        name = name.replace(/[^\w\s_]/g, "");
+        name = name.replace(/\s+/g, "_");
+        return name;
     }
 
+    // Normal mapping with parentheses content preserved
     name = name.toLowerCase();
 
-    // Replace parentheses content with underscore
+    // Replace parentheses with underscore around content
     name = name.replace(/\(\s*([^)]+)\s*\)/g, "_$1");  // (Raisen) → _raisen
 
-    // Remove special chars except underscore
-    name = name.replace(/[^\w\s_]/g, ""); // remove & and other symbols
-
-    // Replace spaces with underscore
+    name = name.replace(/[^\w\s_]/g, ""); // remove other special chars
     name = name.replace(/\s+/g, "_");
 
     return name;

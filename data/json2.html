@@ -167,7 +167,16 @@ console.log("JSON entries:", Object.entries(mandiJson.data || {}).map(([k,v])=>v
             const gradeId = Object.keys(gradeJson).find(k=>gradeJson[k]===gradeName) || "0";
 
             if(!districtDataMap[districtName]) districtDataMap[districtName] = [];
-            districtDataMap[districtName].push([formatDate(date),mandiId,commodityId,varietyId,gradeId,minPrice,maxPrice,modalPrice,0,0]);
+            districtDataMap[districtName].push([formatDate(date),
+                                                mandiId,
+                                                commodityId,
+                                                varietyId,
+                                                gradeId,
+                                                parseFloat(minPrice) || 0,   // convert to number
+                                                parseFloat(maxPrice) || 0,   // convert to number
+                                                parseFloat(modalPrice) || 0, // convert to number,
+                                                0,
+                                                0]);
         });
 
         /* Create district-wise files

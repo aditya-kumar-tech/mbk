@@ -131,12 +131,17 @@ btnProcess.addEventListener("click", async ()=>{
             districtDataMap[districtName].push([date,mandiId,commodityId,varietyId,gradeId,minPrice,maxPrice,modalPrice,0,0]);
         });
 
-        // Create district-wise files
+        /* Create district-wise files
         for(const district in districtDataMap){
             const distFolder = stateFolder.folder(toSlug(district));
             const distFileName = `${toSlug(district)}_prices.json`;
             distFolder.file(distFileName, JSON.stringify({headers:headers,rows:districtDataMap[district]},null,2));
-        }
+        }*/
+      // अब सभी JSON files सीधे state folder के अंदर
+for(const district in districtDataMap){
+    const distFileName = `${toSlug(district)}_prices.json`;
+    stateFolder.file(distFileName, JSON.stringify({headers:headers,rows:districtDataMap[district]},null,2));
+}
 
         logEl.textContent += `\n✅ ${file.name} done`;
     }

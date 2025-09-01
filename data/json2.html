@@ -107,7 +107,7 @@ btnProcess.addEventListener("click", async ()=>{
 
     // Load master JSONs (commodities, varieties, grades, states)
     const [commodityJson, varietyJson, gradeJson, statesJson] = await Promise.all([
-        fetchJson(`${baseUrl}/data/hi/commodities.json`),
+        fetchJson(`${baseUrl}/data/hi/commodityEng.json`),
         fetchJson(`${baseUrl}/data/hi/varieties.json`),
         fetchJson(`${baseUrl}/data/hi/grades.json`),
         fetchJson(`${baseUrl}/data/hi/states.json`)

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HTML Tables to District-wise JSON ZIP (Live)</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+body { font-family: sans-serif; padding:20px; background:#f7f7f7; display:flex; justify-content:center; }
+.container { background:#fff; padding:25px; border-radius:8px; max-width:600px; width:100%; box-shadow:0 5px 15px rgba(0,0,0,0.1);}
+input,button { width:100%; padding:12px; margin-bottom:15px; font-size:1rem; border-radius:5px; }
+button { background:#2e7d32; color:white; border:none; cursor:pointer; font-weight:700; }
+button:hover { background:#1b4d20; }
+pre { background:#eee; padding:15px; border-radius:5px; min-height:100px; overflow:auto; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h2>HTML फ़ाइलें अपलोड करें</h2>
+  <input type="file" id="fileInput" accept=".xls,.xlsx,.html,.htm" multiple />
+  <button id="btnProcess">Convert & Download ZIP</button>
+  <pre id="log"></pre>
+</div>
+
+<script>
+(() => {
+  const fileInput = document.getElementById("fileInput");
+  const btnProcess = document.getElementById("btnProcess");
+  const logEl = document.getElementById("log");
+
+  const baseURL = "https://aditya-kumar-tech.github.io/mbk/data/hi"; // अपनी URL डालें
+
+  // Slug function
+  function toSlugAuto(name){
+      name = name.trim();
+      if(/\(F&V\)/i.test(name)){
+          name = name.toLowerCase().replace(/\(\s*F\s*&\s*V\s*\)/gi, "_fv");
+          name = name.replace(/[()]/g,"").replace(/[^\w\s_]/g,"").replace(/\s+/g,"_");
+          return name;
+      }
+      name = name.toLowerCase();
+      name = name.replace(/\(\s*([^)]+)\s*\)/g, "_$1");
+      name = name.replace(/&/g,"and").replace(/[^\w\s_]/g,"").replace(/\s+/g,"_");
+      return name;
+  }
+
+  async function fetchJSON(url){
+      const res = await fetch(url);
+      if(!res.ok) throw new Error(`Failed to fetch ${url}`);
+      return await res.json();
+  }
+
+  function extractStateName(titleText){
+    titleText = titleText.replace(/<[^>]*>/g,"").trim();
+    const stateMatch = titleText.match(/from\s+(.+?)\s+from/i);
+    return stateMatch && stateMatch[1] ? stateMatch[1].trim() : "Unknown_State";
+  }
+
+  function parseHTML(content,filename){
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(content,"text/html");
+    const table = doc.querySelector("table");
+    if(!table) throw new Error(`Table not found in ${filename}`);
+    return [...table.querySelectorAll("tr")].map(tr=>[...tr.querySelectorAll("th,td")].map(td=>td.textContent.trim()));
+  }
+
+  btnProcess.addEventListener("click", async ()=>{
+    const files = fileInput.files;
+    if(!files.length){ alert("कम से कम एक फ़ाइल चुनें"); return; }
+
+    logEl.textContent = "🕐 Processing...\n";
+    const zip = new JSZip();
+    const missedRows = [];
+
+    try{
+      const [stateJSON, commodityJSON, varietyJSON, gradeJSON] = await Promise.all([
+        fetchJSON(`${baseURL}/states.json`),
+        fetchJSON(`${baseURL}/commodities.json`),
+        fetchJSON(`${baseURL}/varieties.json`),
+        fetchJSON(`${baseURL}/grades.json`)
+      ]);
+
+      for(const file of files){
+        logEl.textContent += `\n📂 ${file.name}`;
+        const content = await file.text();
+        let tableRows;
+        try { tableRows = parseHTML(content,file.name); } 
+        catch(err){ logEl.textContent += `\n❌ ${err.message}`; continue; }
+
+        const titleText = content.slice(0,content.indexOf("<table"));
+        const stateName = extractStateName(titleText);
+        const stateSlug = toSlugAuto(stateName);
+
+        // Fetch state districts & mandis
+        const distJSON = await fetchJSON(`${baseURL}/dists/${stateSlug}.json`);
+        const mandiJSON = await fetchJSON(`${baseURL}/mandis/${stateSlug}_mandis.json`);
+
+        const stateFolder = zip.folder(stateSlug);
+        const headers = ["date","mandi_id","commodity_id","variety_id","grade_id","min_price","max_price","modal_price","arrival_quintal","arrival_bori"];
+        const stateData = [];
+
+        tableRows.slice(1).forEach((row,index)=>{
+          if(row.length<5) return;
+          const date = row[9] || "";
+          const districtName = row[1];
+          const mandiName = row[2];
+          const commodityName = row[3];
+          const varietyName = row[4];
+          const gradeName = row[5];
+          const minPrice = row[6] || 0;
+          const maxPrice = row[7] || 0;
+          const modalPrice = row[8] || 0;
+
+          let reason = "";
+          const stateId = Object.keys(stateJSON.data).find(k=>toSlugAuto(stateJSON.data[k][0])===stateSlug);
+          if(!stateId){ reason="State Missing"; missedRows.push({State:stateName,Row:index+1,District:districtName,Mandi:mandiName,Commodity:commodityName,Reason:reason}); return; }
+
+          const mandiSlug = toSlugAuto(mandiName);
+          const mandiId = Object.keys(mandiJSON.data).find(k=>mandiJSON.data[k][1]===mandiSlug);
+          if(!mandiId){ reason="Mandi Missing"; missedRows.push({State:stateName,Row:index+1,District:districtName,Mandi:mandiName,Commodity:commodityName,Reason:reason}); return; }
+
+          const commodityId = Object.keys(commodityJSON.data).find(k=>commodityJSON.data[k]===commodityName) || "0";
+          const varietyId = Object.keys(varietyJSON.data).find(k=>varietyJSON.data[k].n===varietyName && varietyJSON.data[k].cid===commodityId) || "0";
+          const gradeId = Object.keys(gradeJSON.data).find(k=>gradeJSON.data[k]===gradeName) || "0";
+
+          stateData.push([date,mandiId,commodityId,varietyId,gradeId,minPrice,maxPrice,modalPrice,0,0]);
+        });
+
+        stateFolder.file(`${stateSlug}_prices.json`, JSON.stringify({headers:headers,rows:stateData},null,2));
+        logEl.textContent += `\n✅ ${file.name} done`;
+      }
+
+      const blob = await zip.generateAsync({type:"blob"});
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "mandi_data_states.zip";
+      a.click();
+      logEl.textContent += "\n\n📦 ZIP downloaded";
+
+      if(missedRows.length){
+        const wb = XLSX.utils.book_new();
+        const wsData = [["State","Row Number","District","Mandi","Commodity","Reason"],
+                        ...missedRows.map(r=>[r.State,r.Row,r.District||"0",r.Mandi||"0",r.Commodity||"0",r.Reason])];
+        const ws = XLSX.utils.aoa_to_sheet(wsData);
+        XLSX.utils.book_append_sheet(wb,ws,"Missed Rows");
+        XLSX.writeFile(wb,"missed_rows.xlsx");
+        logEl.textContent += "\n✅ Missed rows Excel downloaded";
+      }
+
+    } catch(err){
+      logEl.textContent += `\n❌ Error: ${err.message}`;
+    }
+  });
+})();
+</script>
+</body>
+</html>

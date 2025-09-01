@@ -29,12 +29,14 @@ pre { background:#eee; padding:15px; border-radius:5px; min-height:100px; overfl
   const btnProcess = document.getElementById("btnProcess");
   const logEl = document.getElementById("log");
 
-  const stateJson = { "19":["मध्य प्रदेश","madhya_pradesh"],"20":["महाराष्ट्र","maharashtra"] /* add rest */ };
-  const distJson = { "19001":["आगर मालवा","agar_malwa"],"19009":["भोपाल","bhopal"] /* add rest */ };
-  const mandiJson = { "19001001":["आगर मंडी (फल-सब्जी)","agar_mandi_fv"],"19001002":["बड़ोद मंडी (फल-सब्जी)","badod_mandi_fv"] /* add rest */ };
-  const commodityJson = { "001":"गेहूँ","101":"बासमती" /* add rest */ };
-  const varietyJson = { "00101":{"cid":"001","n":"शरबती"},"10101":{"cid":"101","n":"बासमती"} /* add rest */ };
-  const gradeJson = { "01":"ग्रेड - A","02":"FAQ" };
+  const baseUrl = "baseurl"; // अपना base url यहाँ डालें
+
+  // Helper: fetch JSON
+  async function fetchJson(url) {
+    const res = await fetch(url);
+    if(!res.ok) throw new Error(`Failed to load ${url}`);
+    return await res.json();
+  }
 
   function extractStateName(titleText){
     titleText = titleText.replace(/<[^>]*>/g,"").trim();
@@ -58,6 +60,14 @@ pre { background:#eee; padding:15px; border-radius:5px; min-height:100px; overfl
     const zip = new JSZip();
     const missedRows = [];
 
+    // Load master data (commodities, varieties, grades)
+    const [commodityJson, varietyJson, gradeJson, statesJson] = await Promise.all([
+      fetchJson(`${baseUrl}/data/hi/commodities.json`),
+      fetchJson(`${baseUrl}/data/hi/varieties.json`),
+      fetchJson(`${baseUrl}/data/hi/grades.json`),
+      fetchJson(`${baseUrl}/data/hi/states.json`)
+    ]);
+
     for(const file of files){
       logEl.textContent += `\n📂 ${file.name}`;
       const content = await file.text();
@@ -67,7 +77,24 @@ pre { background:#eee; padding:15px; border-radius:5px; min-height:100px; overfl
 
       const titleText = content.slice(0,content.indexOf("<table"));
       const stateName = extractStateName(titleText);
-      const stateFolder = zip.folder(stateName.replace(/\s+/g,"_").toLowerCase());
+
+      // Find state slug from states JSON
+      const stateEntry = Object.entries(statesJson).find(([k,v])=>v[0]===stateName);
+      const stateId = stateEntry ? stateEntry[0] : null;
+      const stateSlug = stateEntry ? stateEntry[1][1] || stateEntry[1] : null;
+
+      if(!stateSlug){
+        logEl.textContent += `\n❌ State not found in JSON: ${stateName}`;
+        continue;
+      }
+
+      // Load district and mandi JSON for this state
+      const [distJson, mandiJson] = await Promise.all([
+        fetchJson(`${baseUrl}/data/hi/dists/${stateSlug}.json`),
+        fetchJson(`${baseUrl}/data/hi/mandis/${stateSlug}_mandis.json`)
+      ]);
+
+      const stateFolder = zip.folder(stateSlug);
 
       const headers = ["date","mandi_id","commodity_id","variety_id","grade_id","min_price","max_price","modal_price","arrival_quintal","arrival_bori"];
       const districtDataMap = {}; // district-wise
@@ -84,11 +111,9 @@ pre { background:#eee; padding:15px; border-radius:5px; min-height:100px; overfl
         const maxPrice = row[7] || 0;
         const modalPrice = row[8] || 0;
 
-        // Mapping IDs
         let reason = "";
-        const stateId = Object.keys(stateJson).find(k=>stateJson[k][0]===stateName);
-        if(!stateId){ reason="State Missing"; missedRows.push({State:stateName,Row:index+1,District:districtName,Mandi:mandiName,Commodity:commodityName,Reason:reason}); return; }
 
+        // Mapping using JSON slug
         const distId = Object.keys(distJson).find(k=>distJson[k][0]===districtName);
         if(!distId){ reason="District Missing"; missedRows.push({State:stateName,Row:index+1,District:districtName,Mandi:mandiName,Commodity:commodityName,Reason:reason}); return; }
 

@@ -175,7 +175,7 @@ for(const district in districtDataMap){
     const blob = await zip.generateAsync({type:"blob"});
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
-    a.download = "mandi_data_distwise.zip";
+    a.download = "prices.zip";
     a.click();
     logEl.textContent += "\n\n📦 ZIP downloaded";
 

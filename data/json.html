@@ -37,11 +37,38 @@ async function fetchJson(url){
 }
 
 // Convert name to slug
-function toSlug(name){
+/* function toSlug(name){
     return name.toLowerCase()
                .replace(/\s+/g,"_")
                .replace(/[^\w_]/g,"");
+}*/
+//new function for slug
+  function toSlug(name){
+    name = name.trim();
+
+    // Special F&V mapping
+    if(/\(F&V\)/i.test(name)){
+        name = name.toLowerCase();
+        name = name.replace(/\(F&V\)/gi, "_fv");
+        name = name.replace(/[()]/g, "");
+        name = name.replace(/[^\w\s_]/g, "");
+        name = name.replace(/\s+/g, "_");
+        return name;
+    }
+
+    // Normal mapping with parentheses content preserved
+    name = name.toLowerCase();
+
+    // Replace parentheses with underscore around content
+    name = name.replace(/\(\s*([^)]+)\s*\)/g, "_$1");  // (Raisen) → _raisen
+
+    name = name.replace(/&/g, "and");
+    name = name.replace(/[^\w\s_]/g, ""); // remove other special chars
+    name = name.replace(/\s+/g, "_");
+
+    return name;
 }
+
 
 // Extract state name from file content
 function extractStateName(titleText){

@@ -81,6 +81,20 @@ function parseHTML(content, filename){
     if(!table) throw new Error(`Table not found in ${filename}`);
     return [...table.querySelectorAll("tr")].map(tr=>[...tr.querySelectorAll("th,td")].map(td=>td.textContent.trim()));
 }
+// Convert date like "28 Aug 2025" → "2025-08-28"
+function formatDate(dateStr){
+    if(!dateStr) return "";
+    const months = {
+        "Jan":"01","Feb":"02","Mar":"03","Apr":"04","May":"05","Jun":"06",
+        "Jul":"07","Aug":"08","Sep":"09","Oct":"10","Nov":"11","Dec":"12"
+    };
+    let parts = dateStr.split(" "); // ["28","Aug","2025"]
+    if(parts.length!==3) return dateStr; // fallback
+    let day = parts[0].padStart(2,"0");
+    let month = months[parts[1]] || "01";
+    let year = parts[2];
+    return `${year}-${month}-${day}`;
+}
 
 // Button click
 btnProcess.addEventListener("click", async ()=>{
@@ -153,7 +167,7 @@ console.log("JSON entries:", Object.entries(mandiJson.data || {}).map(([k,v])=>v
             const gradeId = Object.keys(gradeJson).find(k=>gradeJson[k]===gradeName) || "0";
 
             if(!districtDataMap[districtName]) districtDataMap[districtName] = [];
-            districtDataMap[districtName].push([date,mandiId,commodityId,varietyId,gradeId,minPrice,maxPrice,modalPrice,0,0]);
+            districtDataMap[districtName].push([formatDate(date),mandiId,commodityId,varietyId,gradeId,minPrice,maxPrice,modalPrice,0,0]);
         });
 
         /* Create district-wise files

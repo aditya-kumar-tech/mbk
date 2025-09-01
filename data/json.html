@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HTML Tables to District-wise JSON ZIP</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+body { font-family: sans-serif; padding:20px; background:#f7f7f7; display:flex; justify-content:center; }
+.container { background:#fff; padding:25px; border-radius:8px; max-width:600px; width:100%; box-shadow:0 5px 15px rgba(0,0,0,0.1);}
+input,button { width:100%; padding:12px; margin-bottom:15px; font-size:1rem; border-radius:5px; }
+button { background:#2e7d32; color:white; border:none; cursor:pointer; font-weight:700; }
+button:hover { background:#1b4d20; }
+pre { background:#eee; padding:15px; border-radius:5px; min-height:100px; overflow:auto; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h2>HTML फ़ाइलें अपलोड करें</h2>
+  <input type="file" id="fileInput" accept=".xls,.xlsx,.html,.htm" multiple />
+  <button id="btnProcess">Convert & Download ZIP</button>
+  <pre id="log"></pre>
+</div>
+
+<script>
+(() => {
+  const fileInput = document.getElementById("fileInput");
+  const btnProcess = document.getElementById("btnProcess");
+  const logEl = document.getElementById("log");
+
+  const stateJson = { "19":["मध्य प्रदेश","madhya_pradesh"],"20":["महाराष्ट्र","maharashtra"] /* add rest */ };
+  const distJson = { "19001":["आगर मालवा","agar_malwa"],"19009":["भोपाल","bhopal"] /* add rest */ };
+  const mandiJson = { "19001001":["आगर मंडी (फल-सब्जी)","agar_mandi_fv"],"19001002":["बड़ोद मंडी (फल-सब्जी)","badod_mandi_fv"] /* add rest */ };
+  const commodityJson = { "001":"गेहूँ","101":"बासमती" /* add rest */ };
+  const varietyJson = { "00101":{"cid":"001","n":"शरबती"},"10101":{"cid":"101","n":"बासमती"} /* add rest */ };
+  const gradeJson = { "01":"ग्रेड - A","02":"FAQ" };
+
+  function extractStateName(titleText){
+    titleText = titleText.replace(/<[^>]*>/g,"").trim();
+    const stateMatch = titleText.match(/from\s+(.+?)\s+from/i);
+    return stateMatch && stateMatch[1] ? stateMatch[1].trim() : "Unknown_State";
+  }
+
+  function parseHTML(content,filename){
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(content,"text/html");
+    const table = doc.querySelector("table");
+    if(!table) throw new Error(`Table not found in ${filename}`);
+    return [...table.querySelectorAll("tr")].map(tr=>[...tr.querySelectorAll("th,td")].map(td=>td.textContent.trim()));
+  }
+
+  btnProcess.addEventListener("click", async ()=>{
+    const files = fileInput.files;
+    if(!files.length){ alert("कम से कम एक फ़ाइल चुनें"); return; }
+
+    logEl.textContent = "🕐 Processing...\n";
+    const zip = new JSZip();
+    const missedRows = [];
+
+    for(const file of files){
+      logEl.textContent += `\n📂 ${file.name}`;
+      const content = await file.text();
+      let tableRows;
+      try { tableRows = parseHTML(content,file.name); } 
+      catch(err){ logEl.textContent += `\n❌ ${err.message}`; continue; }
+
+      const titleText = content.slice(0,content.indexOf("<table"));
+      const stateName = extractStateName(titleText);
+      const stateFolder = zip.folder(stateName.replace(/\s+/g,"_").toLowerCase());
+
+      const headers = ["date","mandi_id","commodity_id","variety_id","grade_id","min_price","max_price","modal_price","arrival_quintal","arrival_bori"];
+      const districtDataMap = {}; // district-wise
+
+      tableRows.slice(1).forEach((row,index)=>{
+        if(row.length<5) return;
+        const date = row[9] || "";
+        const districtName = row[1];
+        const mandiName = row[2];
+        const commodityName = row[3];
+        const varietyName = row[4];
+        const gradeName = row[5];
+        const minPrice = row[6] || 0;
+        const maxPrice = row[7] || 0;
+        const modalPrice = row[8] || 0;
+
+        // Mapping IDs
+        let reason = "";
+        const stateId = Object.keys(stateJson).find(k=>stateJson[k][0]===stateName);
+        if(!stateId){ reason="State Missing"; missedRows.push({State:stateName,Row:index+1,District:districtName,Mandi:mandiName,Commodity:commodityName,Reason:reason}); return; }
+
+        const distId = Object.keys(distJson).find(k=>distJson[k][0]===districtName);
+        if(!distId){ reason="District Missing"; missedRows.push({State:stateName,Row:index+1,District:districtName,Mandi:mandiName,Commodity:commodityName,Reason:reason}); return; }
+
+        const mandiId = Object.keys(mandiJson).find(k=>mandiJson[k][0]===mandiName);
+        if(!mandiId){ reason="Mandi Missing"; missedRows.push({State:stateName,Row:index+1,District:districtName,Mandi:mandiName,Commodity:commodityName,Reason:reason}); return; }
+
+        const commodityId = Object.keys(commodityJson).find(k=>commodityJson[k]===commodityName);
+        if(!commodityId){ reason="Commodity Missing"; missedRows.push({State:stateName,Row:index+1,District:districtName,Mandi:mandiName,Commodity:commodityName,Reason:reason}); return; }
+
+        const varietyId = Object.keys(varietyJson).find(k=>varietyJson[k].n===varietyName && varietyJson[k].cid===commodityId) || "0";
+        const gradeId = Object.keys(gradeJson).find(k=>gradeJson[k]===gradeName) || "0";
+
+        if(!districtDataMap[districtName]) districtDataMap[districtName] = [];
+        districtDataMap[districtName].push([date,mandiId,commodityId,varietyId,gradeId,minPrice,maxPrice,modalPrice,0,0]);
+      });
+
+      // Create district-wise files
+      for(const district in districtDataMap){
+        const distFolder = stateFolder.folder(district.replace(/\s+/g,"_").toLowerCase());
+        const distFileName = `${district.replace(/\s+/g,"_").toLowerCase()}_prices.json`;
+        distFolder.file(distFileName, JSON.stringify({headers:headers,rows:districtDataMap[district]},null,2));
+      }
+
+      logEl.textContent += `\n✅ ${file.name} done`;
+    }
+
+    // Generate ZIP
+    const blob = await zip.generateAsync({type:"blob"});
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "mandi_data_distwise.zip";
+    a.click();
+    logEl.textContent += "\n\n📦 ZIP downloaded";
+
+    // Missed rows Excel
+    if(missedRows.length){
+      const wb = XLSX.utils.book_new();
+      const wsData = [["State","Row Number","District","Mandi","Commodity","Reason"],
+                      ...missedRows.map(r=>[r.State,r.Row,r.District||"0",r.Mandi||"0",r.Commodity||"0",r.Reason])];
+      const ws = XLSX.utils.aoa_to_sheet(wsData);
+      XLSX.utils.book_append_sheet(wb,ws,"Missed Rows");
+      XLSX.writeFile(wb,"missed_rows.xlsx");
+      logEl.textContent += "\n✅ Missed rows Excel downloaded";
+    }
+  });
+})();
+</script>
+</body>
+</html>

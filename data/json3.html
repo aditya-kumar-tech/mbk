@@ -13,6 +13,8 @@ input,button { width:100%; padding:12px; margin-bottom:15px; font-size:1rem; bor
 button { background:#2e7d32; color:white; border:none; cursor:pointer; font-weight:700; }
 button:hover { background:#1b4d20; }
 pre { background:#eee; padding:15px; border-radius:5px; min-height:100px; overflow:auto; }
+.download-btn { display:none; margin-top:10px; background:#1565c0; }
+.download-btn:hover { background:#0d3c7a; }
 </style>
 </head>
 <body>
@@ -21,6 +23,8 @@ pre { background:#eee; padding:15px; border-radius:5px; min-height:100px; overfl
   <input type="file" id="fileInput" accept=".xls,.xlsx,.html,.htm" multiple />
   <button id="btnProcess">Convert & Download ZIP</button>
   <pre id="log"></pre>
+  <button id="btnDownloadSDM" class="download-btn">Download Missing SDM Excel</button>
+  <button id="btnDownloadCVG" class="download-btn">Download Missing Commodity/Variety/Grade Excel</button>
 </div>
 
 <script>
@@ -29,35 +33,31 @@ const baseUrl = "https://aditya-kumar-tech.github.io/mbk";
 const fileInput = document.getElementById("fileInput");
 const btnProcess = document.getElementById("btnProcess");
 const logEl = document.getElementById("log");
+const btnDownloadSDM = document.getElementById("btnDownloadSDM");
+const btnDownloadCVG = document.getElementById("btnDownloadCVG");
 
-async function fetchJson(url){
-    const res = await fetch(url);
-    return res.json();
-}
+let missedSDM = [];
+let missedCVG = [];
 
+// Fetch JSON
+async function fetchJson(url){ const res = await fetch(url); return res.json(); }
+
+// Slug function
 function toSlug(name){
-    name = name.replace(/[\u200B-\u200D\uFEFF]/g, "").trim();
-    if(/\(F&V\)/i.test(name)){
-        name = name.toLowerCase();
-        name = name.replace(/\s*\(F&V\)\s*/gi, "_fv");
-        name = name.replace(/[()]/g, "");
-        name = name.replace(/[^\w\s_]/g, "");
-        name = name.replace(/\s+/g, "_");
-        return name;
-    }
-    name = name.toLowerCase();
-    name = name.replace(/\(\s*([^)]+)\s*\)/g, "_$1");
-    name = name.replace(/[^\w\s_]/g, "");
-    name = name.replace(/\s+/g, "_");
+    name = name.replace(/[\u200B-\u200D\uFEFF]/g,"").trim();
+    if(/\(F&V\)/i.test(name)){ name = name.toLowerCase().replace(/\s*\(F&V\)\s*/gi,"_fv").replace(/[()]/g,"").replace(/[^\w\s_]/g,"").replace(/\s+/g,"_"); return name; }
+    name = name.toLowerCase().replace(/\(\s*([^)]+)\s*\)/g,"_$1").replace(/[^\w\s_]/g,"").replace(/\s+/g,"_");
     return name;
 }
 
+// Extract state
 function extractStateName(titleText){
     titleText = titleText.replace(/<[^>]*>/g,"").trim();
     const match = titleText.match(/from\s+(.+?)\s+from/i);
     return match && match[1] ? match[1].trim() : "Unknown_State";
 }
 
+// Parse HTML table
 function parseHTML(content, filename){
     const parser = new DOMParser();
     const doc = parser.parseFromString(content,"text/html");
@@ -66,28 +66,24 @@ function parseHTML(content, filename){
     return [...table.querySelectorAll("tr")].map(tr=>[...tr.querySelectorAll("th,td")].map(td=>td.textContent.trim()));
 }
 
+// Format date
 function formatDate(dateStr){
     if(!dateStr) return "";
-    const months = {
-        "Jan":"01","Feb":"02","Mar":"03","Apr":"04","May":"05","Jun":"06",
-        "Jul":"07","Aug":"08","Sep":"09","Oct":"10","Nov":"11","Dec":"12"
-    };
+    const months = {"Jan":"01","Feb":"02","Mar":"03","Apr":"04","May":"05","Jun":"06","Jul":"07","Aug":"08","Sep":"09","Oct":"10","Nov":"11","Dec":"12"};
     let parts = dateStr.split(" ");
     if(parts.length!==3) return dateStr;
-    let day = parts[0].padStart(2,"0");
-    let month = months[parts[1]] || "01";
-    let year = parts[2];
-    return `${year}-${month}-${day}`;
+    return `${parts[2]}-${months[parts[1]]||"01"}-${parts[0].padStart(2,"0")}`;
 }
 
+// Main processing
 btnProcess.addEventListener("click", async ()=>{
     const files = fileInput.files;
     if(!files.length){ alert("कम से कम एक फ़ाइल चुनें"); return; }
 
     logEl.textContent = "🕐 Processing...\n";
     const zip = new JSZip();
-    const missedRows = [];
-    const missingCVG = [];
+    missedSDM = [];
+    missedCVG = [];
 
     const [commodityJson, varietyJson, gradeJson, statesJson] = await Promise.all([
         fetchJson(`${baseUrl}/data/hi/commodityEng.json`),
@@ -129,53 +125,44 @@ btnProcess.addEventListener("click", async ()=>{
             const maxPrice = row[7] || 0;
             const modalPrice = row[8] || 0;
 
-            let reason = "";
-
-            // State/District/Mandi checks
+            // SDM check
             const distSlug = toSlug(districtName);
-            const distEntry = Object.entries(distJson.data || {}).find(([k,v])=>v[1]===distSlug);
-            const distId = distEntry ? distEntry[0] : null;
-            if(!distId){ reason="District Missing"; missedRows.push({State:stateName,Row:index+1,District:districtName,Mandi:mandiName,Commodity:commodityName,Reason:reason}); return; }
-
+            const distEntry = Object.entries(distJson.data||{}).find(([k,v])=>v[1]===distSlug);
+            const distId = distEntry?distEntry[0]:null;
             const mandiSlug = toSlug(mandiName);
-            const mandiEntry = Object.entries(mandiJson.data || {}).find(([k,v])=>v[1]===mandiSlug);
-            const mandiId = mandiEntry ? mandiEntry[0] : null;
-            if(!mandiId){ reason="Mandi Missing"; missedRows.push({State:stateName,Row:index+1,District:districtName,Mandi:mandiName,Commodity:commodityName,Reason:reason}); return; }
+            const mandiEntry = Object.entries(mandiJson.data||{}).find(([k,v])=>v[1]===mandiSlug);
+            const mandiId = mandiEntry?mandiEntry[0]:null;
 
-            // Commodity/Variety/Grade check
-            if(!Object.values(commodityJson).includes(commodityName)){
-                missingCVG.push([commodityName,"","","Missing Commodity"]);
-            } else {
-                const commodityId = Object.keys(commodityJson).find(k=>commodityJson[k]===commodityName);
-                const varietyEntry = Object.values(varietyJson).find(v=>v.n===varietyName && v.cid===commodityId);
-                if(!varietyEntry){
-                    missingCVG.push([commodityName,varietyName,"","Missing Variety"]);
-                } else {
-                    if(!Object.values(gradeJson).includes(gradeName)){
-                        missingCVG.push([commodityName,varietyName,gradeName,"Missing Grade"]);
-                    }
-                }
+            if(!distId || !mandiId){
+                missedSDM.push({State:stateName,Row:index+1,District:districtName,Mandi:mandiName,Reason:!distId?"District Missing":"Mandi Missing"});
+                return;
             }
 
+            // CVG check
             const commodityId = Object.keys(commodityJson).find(k=>commodityJson[k]===commodityName);
-            const varietyId = Object.keys(varietyJson).find(k=>varietyJson[k].n===varietyName && varietyJson[k].cid===commodityId) || "0";
-            const gradeId = Object.keys(gradeJson).find(k=>gradeJson[k]===gradeName) || "0";
+            if(!commodityId){ missedCVG.push({Commodity:commodityName,Variety:varietyName,Grade:gradeName,Status:"Missing Commodity"}); return; }
 
-            if(!districtDataMap[districtName]) districtDataMap[districtName] = [];
-            districtDataMap[districtName].push([formatDate(date),mandiId,commodityId,varietyId,gradeId,
-                                               parseFloat(minPrice)||0,parseFloat(maxPrice)||0,parseFloat(modalPrice)||0,0,0]);
+            const varietyId = Object.keys(varietyJson).find(k=>varietyJson[k].n===varietyName && varietyJson[k].cid===commodityId);
+            if(!varietyId){ missedCVG.push({Commodity:commodityName,Variety:varietyName,Grade:gradeName,Status:"Missing Variety"}); return; }
+
+            const gradeId = Object.keys(gradeJson).find(k=>gradeJson[k]===gradeName);
+            if(!gradeId){ missedCVG.push({Commodity:commodityName,Variety:varietyName,Grade:gradeName,Status:"Missing Grade"}); return; }
+
+            // JSON rows
+            if(!districtDataMap[districtName]) districtDataMap[districtName]=[];
+            districtDataMap[districtName].push([formatDate(date),mandiId,commodityId,varietyId||0,gradeId||0,parseFloat(minPrice)||0,parseFloat(maxPrice)||0,parseFloat(modalPrice)||0,0,0]);
         });
 
         for(const district in districtDataMap){
             const distFileName = `${toSlug(district)}_prices.json`;
-            const jsonContent = { headers: headers, rows: districtDataMap[district] };
+            const jsonContent = {headers, rows:districtDataMap[district]};
             stateFolder.file(distFileName, JSON.stringify(jsonContent));
         }
 
         logEl.textContent += `\n✅ ${file.name} done`;
     }
 
-    // Generate ZIP
+    // ZIP download (JSON)
     const blob = await zip.generateAsync({type:"blob"});
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
@@ -183,33 +170,35 @@ btnProcess.addEventListener("click", async ()=>{
     a.click();
     logEl.textContent += "\n\n📦 ZIP downloaded";
 
-    // Missed rows Excel (auto-download)
-    if(missedRows.length){
-        const wb = XLSX.utils.book_new();
-        const wsData = [["State","Row Number","District","Mandi","Commodity","Reason"],
-                        ...missedRows.map(r=>[r.State,r.Row,r.District||"0",r.Mandi||"0",r.Commodity||"0",r.Reason])];
-        const ws = XLSX.utils.aoa_to_sheet(wsData);
-        XLSX.utils.book_append_sheet(wb,ws,"Missed Rows");
-        XLSX.writeFile(wb,"missed_rows.xlsx");
-        logEl.textContent += "\n✅ Missed rows Excel downloaded";
+    // Show SDM download button
+    if(missedSDM.length){ 
+        logEl.textContent += `\n⚠️ ${missedSDM.length} State/District/Mandi missing. Click button to download Excel.`;
+        btnDownloadSDM.style.display="block";
     }
 
-    // Missing CVG Excel (button click)
-    if(missingCVG.length){
-        logEl.textContent += "\n⚠️ Missing Commodity/Variety/Grade detected. Use button to download.";
-        const downloadBtn = document.createElement("button");
-        downloadBtn.textContent = "Download Missing CVG Excel";
-        downloadBtn.style.marginTop = "10px";
-        downloadBtn.onclick = () => {
-            const wb = XLSX.utils.book_new();
-            const wsData = [["Commodity Name","Variety Name","Grade Name","Missing Status"], ...missingCVG];
-            const ws = XLSX.utils.aoa_to_sheet(wsData);
-            XLSX.utils.book_append_sheet(wb,ws,"Missing CVG");
-            XLSX.writeFile(wb,"missing_cvg.xlsx");
-        };
-        logEl.parentNode.appendChild(downloadBtn);
+    // Show CVG download button
+    if(missedCVG.length){
+        logEl.textContent += `\n⚠️ ${missedCVG.length} Commodity/Variety/Grade missing. Click button to download Excel.`;
+        btnDownloadCVG.style.display="block";
     }
+});
 
+// SDM Excel download
+btnDownloadSDM.addEventListener("click", ()=>{
+    const wb = XLSX.utils.book_new();
+    const wsData = [["State","Row Number","District","Mandi","Reason"], ...missedSDM.map(r=>[r.State,r.Row,r.District||"0",r.Mandi||"0",r.Reason])];
+    const ws = XLSX.utils.aoa_to_sheet(wsData);
+    XLSX.utils.book_append_sheet(wb,ws,"Missing SDM");
+    XLSX.writeFile(wb,"missing_sdm.xlsx");
+});
+
+// CVG Excel download
+btnDownloadCVG.addEventListener("click", ()=>{
+    const wb = XLSX.utils.book_new();
+    const wsData = [["Commodity","Variety","Grade","Status"], ...missedCVG.map(r=>[r.Commodity,r.Variety,r.Grade,r.Status])];
+    const ws = XLSX.utils.aoa_to_sheet(wsData);
+    XLSX.utils.book_append_sheet(wb,ws,"Missing CVG");
+    XLSX.writeFile(wb,"missing_cvg.xlsx");
 });
 })();
 </script>

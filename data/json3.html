@@ -143,8 +143,8 @@ btnProcess.addEventListener("click", async ()=>{
             const varietyId = Object.keys(varietyJson).find(k=>varietyJson[k].n===varietyName && varietyJson[k].cid===commodityId);
             const gradeIdChk = Object.keys(gradeJson).find(k=>gradeJson[k]===gradeName);
 
-            if(!varietyId){ varId="0"; missingStatus += "Variety Missing; "; } else varId = varietyId;
-            if(!gradeIdChk){ gradeId="0"; missingStatus += "Grade Missing"; } else gradeId=gradeIdChk;
+            if(!varietyId){ varId=0; missingStatus += "Variety Missing; "; } else varId = varietyId;
+            if(!gradeIdChk){ gradeId=0; missingStatus += "Grade Missing"; } else gradeId=gradeIdChk;
 
             if(missingStatus) commVarGradeMissing.push({Commodity:commodityName, Variety:varietyName, Grade:gradeName, Status:missingStatus});
 

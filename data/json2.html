@@ -143,6 +143,8 @@ btnProcess.addEventListener("click", async ()=>{
 
             const mandiSlug = toSlug(mandiName);
             const mandiEntry = Object.entries(mandiJson.data || {}).find(([k,v])=>v[1]===mandiSlug);
+          console.log("Input Name:", mandiName, "→ slug:", mandiSlug);
+console.log("JSON entries:", Object.entries(mandiJson.data || {}).map(([k,v])=>v[1]));
             const mandiId = mandiEntry ? mandiEntry[0] : null;
             if(!mandiId){ reason="Mandi Missing"; missedRows.push({State:stateName,Row:index+1,District:districtName,Mandi:mandiName,Commodity:commodityName,Reason:reason}); return; }
 

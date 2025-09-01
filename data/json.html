@@ -29,9 +29,8 @@ pre { background:#eee; padding:15px; border-radius:5px; min-height:100px; overfl
   const btnProcess = document.getElementById("btnProcess");
   const logEl = document.getElementById("log");
 
-  const baseUrl = "https://aditya-kumar-tech.github.io/mbk"; // अपना base url यहाँ डालें
+  const baseUrl = "https://aditya-kumar-tech.github.io/mbk"; // अपना base URL यहाँ डालें
 
-  // Helper: fetch JSON
   async function fetchJson(url) {
     const res = await fetch(url);
     if(!res.ok) throw new Error(`Failed to load ${url}`);
@@ -52,6 +51,10 @@ pre { background:#eee; padding:15px; border-radius:5px; min-height:100px; overfl
     return [...table.querySelectorAll("tr")].map(tr=>[...tr.querySelectorAll("th,td")].map(td=>td.textContent.trim()));
   }
 
+  function toSlug(name){
+    return name.trim().toLowerCase().replace(/\s+/g,"_").replace(/[^\w_]/g,"");
+  }
+
   btnProcess.addEventListener("click", async ()=>{
     const files = fileInput.files;
     if(!files.length){ alert("कम से कम एक फ़ाइल चुनें"); return; }
@@ -60,7 +63,7 @@ pre { background:#eee; padding:15px; border-radius:5px; min-height:100px; overfl
     const zip = new JSZip();
     const missedRows = [];
 
-    // Load master data (commodities, varieties, grades)
+    // Load master data
     const [commodityJson, varietyJson, gradeJson, statesJson] = await Promise.all([
       fetchJson(`${baseUrl}/data/hi/commodities.json`),
       fetchJson(`${baseUrl}/data/hi/varieties.json`),
@@ -77,16 +80,11 @@ pre { background:#eee; padding:15px; border-radius:5px; min-height:100px; overfl
 
       const titleText = content.slice(0,content.indexOf("<table"));
       const stateName = extractStateName(titleText);
+      const stateSlug = toSlug(stateName);
 
-      // Find state slug from states JSON
-      const stateEntry = Object.entries(statesJson).find(([k,v])=>v[0]===stateName);
-      const stateId = stateEntry ? stateEntry[0] : null;
-      const stateSlug = stateEntry ? stateEntry[1][1] || stateEntry[1] : null;
-
-      if(!stateSlug){
-        logEl.textContent += `\n❌ State not found in JSON: ${stateName}`;
-        continue;
-      }
+      const stateEntry = Object.entries(statesJson.data).find(([k,v])=>v[1]===stateSlug);
+      if(!stateEntry){ logEl.textContent += `\n❌ State not found: ${stateName}`; continue; }
+      const stateId = stateEntry[0];
 
       // Load district and mandi JSON for this state
       const [distJson, mandiJson] = await Promise.all([
@@ -95,9 +93,8 @@ pre { background:#eee; padding:15px; border-radius:5px; min-height:100px; overfl
       ]);
 
       const stateFolder = zip.folder(stateSlug);
-
       const headers = ["date","mandi_id","commodity_id","variety_id","grade_id","min_price","max_price","modal_price","arrival_quintal","arrival_bori"];
-      const districtDataMap = {}; // district-wise
+      const districtDataMap = {};
 
       tableRows.slice(1).forEach((row,index)=>{
         if(row.length<5) return;
@@ -113,13 +110,19 @@ pre { background:#eee; padding:15px; border-radius:5px; min-height:100px; overfl
 
         let reason = "";
 
-        // Mapping using JSON slug
-        const distId = Object.keys(distJson).find(k=>distJson[k][0]===districtName);
+        // District mapping by slug
+        const distSlug = toSlug(districtName);
+        const distEntry = Object.entries(distJson.data).find(([k,v])=>v[1]===distSlug);
+        const distId = distEntry ? distEntry[0] : null;
         if(!distId){ reason="District Missing"; missedRows.push({State:stateName,Row:index+1,District:districtName,Mandi:mandiName,Commodity:commodityName,Reason:reason}); return; }
 
-        const mandiId = Object.keys(mandiJson).find(k=>mandiJson[k][0]===mandiName);
+        // Mandi mapping by slug
+        const mandiSlug = toSlug(mandiName);
+        const mandiEntry = Object.entries(mandiJson.data).find(([k,v])=>v[1]===mandiSlug);
+        const mandiId = mandiEntry ? mandiEntry[0] : null;
         if(!mandiId){ reason="Mandi Missing"; missedRows.push({State:stateName,Row:index+1,District:districtName,Mandi:mandiName,Commodity:commodityName,Reason:reason}); return; }
 
+        // Commodity, variety, grade (unchanged)
         const commodityId = Object.keys(commodityJson).find(k=>commodityJson[k]===commodityName);
         if(!commodityId){ reason="Commodity Missing"; missedRows.push({State:stateName,Row:index+1,District:districtName,Mandi:mandiName,Commodity:commodityName,Reason:reason}); return; }
 
@@ -132,8 +135,8 @@ pre { background:#eee; padding:15px; border-radius:5px; min-height:100px; overfl
 
       // Create district-wise files
       for(const district in districtDataMap){
-        const distFolder = stateFolder.folder(district.replace(/\s+/g,"_").toLowerCase());
-        const distFileName = `${district.replace(/\s+/g,"_").toLowerCase()}_prices.json`;
+        const distFolder = stateFolder.folder(toSlug(district));
+        const distFileName = `${toSlug(district)}_prices.json`;
         distFolder.file(distFileName, JSON.stringify({headers:headers,rows:districtDataMap[district]},null,2));
       }
 

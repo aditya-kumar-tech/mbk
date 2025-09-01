@@ -179,7 +179,19 @@ console.log("JSON entries:", Object.entries(mandiJson.data || {}).map(([k,v])=>v
       // अब सभी JSON files सीधे state folder के अंदर
 for(const district in districtDataMap){
     const distFileName = `${toSlug(district)}_prices.json`;
-    stateFolder.file(distFileName, JSON.stringify({headers:headers,rows:districtDataMap[district]},null,2));
+   // old code stateFolder.file(distFileName, JSON.stringify({headers:headers,rows:districtDataMap[district]},null,2));
+  // Compact JSON with single-line headers and each row on one line
+const jsonContent = {
+    headers: headers,
+    rows: districtDataMap[district].map(r => [
+        formatDate(r[0]), // date converted to YYYY-MM-DD
+        r[1], r[2], r[3], r[4], r[5], r[6], r[7], r[8], r[9]
+    ])
+};
+
+// Save JSON without extra spaces
+stateFolder.file(distFileName, JSON.stringify(jsonContent));
+
 }
 
         logEl.textContent += `\n✅ ${file.name} done`;

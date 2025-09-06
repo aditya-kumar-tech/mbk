@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HTML/Excel to District-wise JSON ZIP (Merged with Google Sheet)</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+body { font-family: sans-serif; padding:20px; background:#f7f7f7; display:flex; justify-content:center; }
+.container { background:#fff; padding:25px; border-radius:8px; max-width:600px; width:100%; box-shadow:0 5px 15px rgba(0,0,0,0.1);}
+input,button { width:100%; padding:12px; margin-bottom:15px; font-size:1rem; border-radius:5px; }
+button { background:#2e7d32; color:white; border:none; cursor:pointer; font-weight:700; }
+button:hover { background:#1b4d20; }
+pre { background:#eee; padding:15px; border-radius:5px; min-height:150px; overflow:auto; }
+</style>
+</head>
+<body>
+<div class="container">
+  <h2>HTML/Excel फ़ाइलें अपलोड करें</h2>
+  <input type="file" id="fileInput" accept=".xls,.xlsx,.html,.htm" multiple />
+  <button id="btnProcess">Convert & Download ZIP</button>
+  <pre id="log"></pre>
+</div>
+
+<script>
+(() => {
+const baseUrl = "https://aditya-kumar-tech.github.io/mbk";
+const fileInput = document.getElementById("fileInput");
+const btnProcess = document.getElementById("btnProcess");
+const logEl = document.getElementById("log");
+
+async function fetchJson(url){ const res = await fetch(url); return res.json(); }
+function toSlug(name){ name = name.replace(/[\u200B-\u200D\uFEFF]/g,"").trim(); return name.toLowerCase().replace(/\s+/g,"_").replace(/[^\w_]/g,""); }
+function parseHTML(content){ const parser = new DOMParser(); const doc = parser.parseFromString(content,"text/html"); const table = doc.querySelector("table"); if(!table) throw new Error("Table not found"); return [...table.querySelectorAll("tr")].map(tr=>[...tr.querySelectorAll("th,td")].map(td=>td.textContent.trim())); }
+function formatDate(dateStr){ if(!dateStr) return ""; let parts=dateStr.split("-"); if(parts.length===3){ return `${parts[2]}-${parts[1].padStart(2,"0")}-${parts[0].padStart(2,"0")}`; } return dateStr; }
+function downloadExcel(data, headers, filename, sheetname){ const wb = XLSX.utils.book_new(); const ws = XLSX.utils.aoa_to_sheet([headers, ...data]); XLSX.utils.book_append_sheet(wb, ws, sheetname); XLSX.writeFile(wb, filename); }
+
+btnProcess.addEventListener("click", async ()=>{
+    const files = fileInput.files;
+    if(!files.length){ alert("कम से कम एक फ़ाइल चुनें"); return; }
+
+    logEl.textContent = "🕐 Processing...\n";
+    const zip = new JSZip();
+    const missedSDM = [];
+    const missedCVG = [];
+    const skippedRows = [];
+
+    // Load master JSONs
+    const [commodityJson, varietyJson, gradeJson, googleSheetMandis] = await Promise.all([
+        fetchJson(`${baseUrl}/data/hi/commodityEng.json`),
+        fetchJson(`${baseUrl}/data/hi/varieties.json`),
+        fetchJson(`${baseUrl}/data/hi/grades.json`),
+        fetchJson(`${baseUrl}/data/hi/googleSheetMandis.json`)
+    ]);
+
+    // Fetch Google Sheet Data for all mandis
+    const sheetDataMap = {};
+    for(const mandiId in googleSheetMandis.googleSheetMandis){
+        try{
+            const sheetInfo = googleSheetMandis.googleSheetMandis[mandiId];
+            const sheetUrl = `https://docs.google.com/spreadsheets/d/${sheetInfo.sheetId}/gviz/tq?tqx=out:json&sheet=${sheetInfo.sheetName}`;
+            const res = await fetch(sheetUrl);
+            let text = await res.text();
+            text = text.substring(text.indexOf("{")+0,text.lastIndexOf("}")+1);
+            const json = JSON.parse(text);
+            sheetDataMap[mandiId] = {json, columnMap: sheetInfo.columnMap};
+        }catch(e){ logEl.textContent += `\n❌ Google Sheet load failed for Mandi ${mandiId}`; }
+    }
+
+    for(const file of files){
+        logEl.textContent += `\n📂 ${file.name}`;
+        let tableRows;
+        try { tableRows = parseHTML(await file.text()); } catch(err){ logEl.textContent += `\n❌ ${err.message}`; continue; }
+
+        const stateName = "Unknown_State";
+        const stateSlug = toSlug(stateName);
+        const stateFolder = zip.folder(stateSlug);
+        let distJson={}, mandiJson={};
+        try {
+            distJson = await fetchJson(`${baseUrl}/data/hi/dists/${stateSlug}.json`);
+            mandiJson = await fetchJson(`${baseUrl}/data/hi/mandis/${stateSlug}_mandis.json`);
+        } catch(e){ logEl.textContent += `\n❌ JSON load error for ${stateName}`; continue; }
+
+        const headers = ["date","mandi_id","commodity_id","variety_id","grade_id","min_price","max_price","modal_price","arrival_quintal","arrival_bori"];
+        const districtDataMap = {};
+
+        tableRows.slice(1).forEach((row,index)=>{
+            if(row.length<5) return;
+            const date = row[0] || "";
+            const districtName = row[1] || "";
+            const mandiName = row[2] || "";
+            const commodityName = row[3] || "";
+            const varietyName = row[4] || "";
+            const gradeName = row[5] || "";
+            const arrivalBori = row[6] || 0;
+            const arrivalQuintal = row[7] || 0;
+            const minPrice = row[8] || 0;
+            const modalPrice = row[9] || 0;
+            const maxPrice = row[10] || 0;
+
+            // Mandi ID check
+            const mandiSlug = toSlug(mandiName);
+            const mandiEntry = Object.entries(mandiJson.data||{}).find(([k,v])=>v[1]===mandiSlug);
+            const mandiId = mandiEntry?mandiEntry[0]:null;
+            if(!mandiId){ missedSDM.push([stateName,index+1,districtName||"0",mandiName||"0","Mandi Missing"]); return; }
+
+            // Skip if Google Sheet provides this mandi
+            if(sheetDataMap[mandiId]){ skippedRows.push([stateName,index+1,districtName,mandiName,"Skipped (Google Sheet)"]); return; }
+
+            // Commodity mapping
+            const commodityId = Object.keys(commodityJson).find(k=>commodityJson[k]===commodityName);
+            if(!commodityId){ missedCVG.push([commodityName,varietyName,gradeName,"Missing Commodity"]); return; }
+
+            // Variety / Grade mapping
+            let varietyId = Object.keys(varietyJson).find(k=>varietyJson[k].n===varietyName && varietyJson[k].cid===commodityId) || 0;
+            let gradeId = Object.keys(gradeJson).find(k=>gradeJson[k]===gradeName) || 0;
+
+            if(!districtDataMap[districtName]) districtDataMap[districtName]=[];
+            districtDataMap[districtName].push([formatDate(date),mandiId,commodityId,varietyId,gradeId,parseFloat(minPrice)||0,parseFloat(maxPrice)||0,parseFloat(modalPrice)||0,parseFloat(arrivalQuintal)||0,parseFloat(arrivalBori)||0]);
+        });
+
+        // Add HTML/Excel rows JSON
+        for(const district in districtDataMap){
+            const distFileName = `${toSlug(district)}_prices.json`;
+            stateFolder.file(distFileName, JSON.stringify({headers,rows:districtDataMap[district]}));
+        }
+        logEl.textContent += `\n✅ ${file.name} done`;
+    }
+
+    // Merge Google Sheet data (last 3 days)
+    const today = new Date();
+    for(const mandiId in sheetDataMap){
+        const {json, columnMap} = sheetDataMap[mandiId];
+        const rows = [];
+        try{
+            const tableRows = json.table.rows || [];
+            tableRows.forEach(r=>{
+                const c = r.c || [];
+                const dateStr = c.find((v,i)=>columnMap.date && v && v.v)?c.find((v,i)=>columnMap.date && v && v.v).v:"";
+                if(!dateStr) return; // skip primary missing
+                const rowDate = new Date(dateStr);
+                const diffDays = (today - rowDate)/(1000*3600*24);
+                if(diffDays>3) return; // only last 3 days
+                const commodityName = c.find((v,i)=>columnMap.commodity && v && v.v)?.v||"";
+                const varietyName = c.find((v,i)=>columnMap.variety && v && v.v)?.v||"";
+                const gradeName = c.find((v,i)=>columnMap.grade && v && v.v)?.v||"";
+                const arrivalBori = parseFloat(c.find((v,i)=>columnMap.arrival_bori && v && v.v)?.v)||0;
+                const arrivalQuintal = parseFloat(c.find((v,i)=>columnMap.arrival_quintal && v && v.v)?.v)||0;
+                const minPrice = parseFloat(c.find((v,i)=>columnMap.min_price && v && v.v)?.v)||0;
+                const modalPrice = parseFloat(c.find((v,i)=>columnMap.modal_price && v && v.v)?.v)||0;
+                const maxPrice = parseFloat(c.find((v,i)=>columnMap.max_price && v && v.v)?.v)||0;
+
+                const commodityId = Object.keys(commodityJson).find(k=>commodityJson[k]===commodityName);
+                if(!commodityId){ skippedRows.push(["GoogleSheet","-",mandiId,commodityName,"Missing Commodity"]); return; }
+                const varietyId = Object.keys(var const varietyId = Object.keys(varietyJson).find(k=>varietyJson[k].n===varietyName && varietyJson[k].cid===commodityId) || 0;
+                const gradeId = Object.keys(gradeJson).find(k=>gradeJson[k]===gradeName) || 0;
+
+                if(!districtDataMap[mandiId]) districtDataMap[mandiId]=[];
+                districtDataMap[mandiId].push([formatDate(dateStr),mandiId,commodityId,varietyId,gradeId,minPrice,maxPrice,modalPrice,arrivalQuintal,arrivalBori]);
+            });
+        }catch(e){ logEl.textContent += `\n❌ Error processing Google Sheet for Mandi ${mandiId}`; }
+    }
+
+    // Add Google Sheet rows JSON
+    for(const mandiId in districtDataMap){
+        const distFileName = `${toSlug(mandiId)}_prices.json`;
+        stateFolder.file(distFileName, JSON.stringify({headers,rows:districtDataMap[mandiId]}));
+    }
+
+    // ZIP download
+    const blob = await zip.generateAsync({type:"blob"});
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "prices_merged.zip";
+    a.click();
+    logEl.textContent += "\n📦 prices_merged.zip downloaded";
+
+    // Missed SDM
+    if(missedSDM.length){
+        logEl.textContent += "\n⚠️ Missing District/Mandi found. Use button to download Excel.";
+        const btnSDM = document.createElement("button");
+        btnSDM.textContent = "Download Missing SDM Excel";
+        btnSDM.onclick = ()=> downloadExcel(missedSDM,["State","Row Number","District","Mandi","Reason"],"missing_sdm.xlsx","Missing SDM");
+        logEl.parentNode.appendChild(btnSDM);
+    }
+
+    // Missed CVG
+    if(missedCVG.length){
+        logEl.textContent += "\n⚠️ Missing Commodity/Variety/Grade found. Use button to download Excel.";
+        const btnCVG = document.createElement("button");
+        btnCVG.textContent = "Download Missing CVG Excel";
+        btnCVG.onclick = ()=> downloadExcel(missedCVG,["Commodity","Variety","Grade","Status"],"missing_cvg.xlsx","Missing CVG");
+        logEl.parentNode.appendChild(btnCVG);
+    }
+
+    // Skipped rows
+    if(skippedRows.length){
+        logEl.textContent += "\n⚠️ Some rows skipped due to Google Sheet override. Use button to download Excel.";
+        const btnSkip = document.createElement("button");
+        btnSkip.textContent = "Download Skipped Rows Excel";
+        btnSkip.onclick = ()=> downloadExcel(skippedRows,["Source","Row Number","Mandi","Commodity","Reason"],"skipped_rows.xlsx","Skipped Rows");
+        logEl.parentNode.appendChild(btnSkip);
+    }
+});
+})();
+</script>
+</body>
+</html>

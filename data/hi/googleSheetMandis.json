@@ -26,7 +26,6 @@
         "district": "श्योपुरकलां",
         "mandi": "श्योपुरकलां"
       }
-      // no columns → uses defaults.columns
     }
   ]
 }

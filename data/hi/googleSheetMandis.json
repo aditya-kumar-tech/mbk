@@ -1,19 +1,32 @@
 {
-    "googleSheetMandis": {
-        "19044003": {
-            "sheetId": "11jG8vukIAKXuUK7R6nxh_SdxuH6GTOYVJDs19TMsLk4",
-            "sheetName": "SheopurMBK",
-            "columnMap": {
-                "date": "दिनांक",
-                "commodity": "जिन्स",
-                "variety": "वैरायटी",
-                "grade": "ग्रेड",
-                "arrival_bori": "मात्रा (बोरी)",
-                "arrival_quintal": "मात्रा (कु.)",
-                "min_price": "न्यूनत्तम",
-                "modal_price": "मॉडल",
-                "max_price": "अधिकत्तम"
-            }
-        }
+  "defaults": {
+    "date_window_days": 3,
+    "columns": {
+      "required": ["date", "commodity", "min", "modal", "max"],
+      "optional": ["arrival_quintal", "arrival_bori", "variety", "grade"],
+      "aliases": {
+        "date": ["दिनांक", "date", "price date"],
+        "commodity": ["जिन्स", "commodity", "item"],
+        "min": ["न्यूनत्तम", "न्यूनतम", "min", "min price (rs./quintal)"],
+        "modal": ["मॉडल", "modal", "modal price (rs./quintal)"],
+        "max": ["अधिकत्तम", "अधिकतम", "max", "max price (rs./quintal)"],
+        "arrival_quintal": ["मात्रा (कु.)", "quintal", "arrival (qtls)"],
+        "arrival_bori": ["मात्रा (बोरी)", "bori", "sacks"]
+      },
+      "date_formats": ["DD-MM-YYYY", "DD/MM/YYYY", "DD-MMM-YY", "DD-MMM-YYYY"]
     }
+  },
+  "mandis": [
+        {
+      "mandi_id": "19044003",
+      "sheet_csv_url": "https://docs.google.com/spreadsheets/d/11jG8vukIAKXuUK7R6nxh_SdxuH6GTOYVJDs19TMsLk4/export?format=csv&gid=239722355",
+      "enabled": true,
+      "names": {
+        "state": "मध्य प्रदेश",
+        "district": "श्योपुरकलां",
+        "mandi": "श्योपुरकलां"
+      }
+      // no columns → uses defaults.columns
+    }
+  ]
 }

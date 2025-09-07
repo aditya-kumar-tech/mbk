@@ -1,32 +1,19 @@
 {
-  "googleSheetMandis": {
-    "19044001": {
-      "sheetId": "1aBcDxyzPQ12345",
-      "sheetName": "Sheet1",
-      "columnMap": {
-        "date": "दिनांक",
-        "commodity": "जिन्स",
-        "variety": "वैरायटी",
-        "grade": "ग्रेड",
-        "arrival_bori": "मात्रा (बोरी)",
-        "arrival_quintal": "मात्रा (कु.)",
-        "min_price": "न्यूनत्तम",
-        "modal_price": "मॉडल",
-        "max_price": "अधिकत्तम"
-      }
-    },
-    "19044004": {
-      "sheetId": "1EfGhijkLMN67890",
-      "sheetName": "MandiData",
-      "columnMap": {
-        "date": "दिनांक",
-        "commodity": "जिन्स",
-        "arrival_bori": "मात्रा (बोरी)",
-        "arrival_quintal": "मात्रा (कु.)",
-        "min_price": "न्यूनतम",
-        "modal_price": "मॉडल",
-        "max_price": "अधिकतम"
-      }
+    "googleSheetMandis": {
+        "19044003": {
+            "sheetId": "11jG8vukIAKXuUK7R6nxh_SdxuH6GTOYVJDs19TMsLk4",
+            "sheetName": "SheopurMBK",
+            "columnMap": {
+                "date": "दिनांक",
+                "commodity": "जिन्स",
+                "variety": "वैरायटी",
+                "grade": "ग्रेड",
+                "arrival_bori": "मात्रा (बोरी)",
+                "arrival_quintal": "मात्रा (कु.)",
+                "min_price": "न्यूनत्तम",
+                "modal_price": "मॉडल",
+                "max_price": "अधिकत्तम"
+            }
+        }
     }
-  }
 }

@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Advanced Hybrid Data Aggregator</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; padding: 20px; background: #f1f5f9; display: flex; justify-content: center; }
+    .container { background: #fff; padding: 25px; border-radius: 8px; max-width: 700px; width: 100%; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+    h2 { color: #1e293b; border-bottom: 2px solid #cbd5e1; padding-bottom: 10px; }
+    input, button { width: 100%; padding: 12px; margin-bottom: 15px; font-size: 1rem; border-radius: 6px; border: 1px solid #cbd5e1; box-sizing: border-box; }
+    button { background: #4f46e5; color: white; border: none; cursor: pointer; font-weight: 700; transition: background 0.3s; }
+    button:hover { background: #4338ca; }
+    button:disabled { background: #a5b4fc; cursor: not-allowed; }
+    pre { background: #f8fafc; padding: 15px; border-radius: 5px; min-height: 150px; max-height: 400px; overflow: auto; white-space: pre-wrap; border: 1px solid #e2e8f0; font-size: 0.875rem; }
+    .btn-download { background: #16a34a; margin-top: 10px; }
+    .btn-download:hover { background: #15803d; }
+    #download-buttons { margin-top: 15px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .switch-container { display: flex; align-items: center; margin-bottom: 15px; }
+    .switch-container input { width: auto; margin-right: 10px; margin-bottom: 0; }
+    .switch-container label { font-size: 0.9rem; color: #475569; }
+</style>
+</head>
+<body>
+<div class="container">
+ <h2>Advanced Price Data Aggregator</h2>
+ <p>यह टूल HTML और Google Sheets से डेटा को प्रोसेस, वैलिडेट और एग्रीगेट करता है।</p>
+ <label for="baseUrlInput">Base URL:</label>
+ <input type="text" id="baseUrlInput" value="https://aditya-kumar-tech.github.io/mbk">
+ 
+ <label for="fileInput">HTML फ़ाइलें अपलोड करें (वैकल्पिक):</label>
+ <input type="file" id="fileInput" accept=".html,.htm,.xls" multiple />
+
+ <div class="switch-container">
+    <input type="checkbox" id="syncPricesCheckbox" checked>
+    <label for="syncPricesCheckbox">ऑनलाइन मूल्य डेटा सिंक करें (Sync online price data)</label>
+ </div>
+
+ <button id="btnProcess">Process Files & Generate Downloads</button>
+ 
+ <pre id="log">Awaiting files...</pre>
+ <div id="download-buttons"></div>
+</div>
+<script>
+class HybridPriceAggregator {
+    constructor() {
+        this.fileInput = document.getElementById("fileInput");
+        this.btnProcess = document.getElementById("btnProcess");
+        this.logEl = document.getElementById("log");
+        this.downloadButtonsContainer = document.getElementById("download-buttons");
+        this.baseUrlInput = document.getElementById("baseUrlInput");
+        this.syncPricesCheckbox = document.getElementById("syncPricesCheckbox"); // Get the checkbox
+        this.btnProcess.addEventListener("click", this.run.bind(this));
+        this.initRunState();
+        this.logs = ["Tool initialized. Ready to process."];
+        this.updateLog();
+    }
+
+    initRunState() {
+        this.outputFiles = { prices: new JSZip(), reports: {} };
+        this.processingErrors = [];
+        this.missingDataHTML = { states: new Set(), distMandis: new Map(), commodities: new Set(), varieties: new Map(), grades: new Map() };
+        this.missingDataGS = { commodities: new Set(), varieties: new Map(), grades: new Map() };
+    }
+
+    async run() {
+        this.btnProcess.disabled = true;
+        this.logs = ['Starting process...'];
+        this.updateLog();
+        this.downloadButtonsContainer.innerHTML = '';
+        this.initRunState();
+
+        const syncOnlinePrices = this.syncPricesCheckbox.checked; // Check the state of the checkbox
+
+        try {
+            const baseUrl = this.baseUrlInput.value;
+            this.log("Fetching all base lookup data...");
+            const globalData = await this.fetchAllData(baseUrl);
+            this.log("Base data loaded successfully.");
+            
+            const { gsOnlyMandis } = this.classifyMandis(globalData.googleSheetConfig);
+            const allDistrictData = {};
+            const processedStates = new Set();
+            const files = this.fileInput.files;
+            const hasHtmlFiles = files && files.length > 0;
+
+            if (hasHtmlFiles) {
+                this.log("\n--- Processing Uploaded HTML Files ---");
+                for (const file of files) {
+                    const fileStateSlug = await this.processHtmlFile(file, globalData, allDistrictData, gsOnlyMandis);
+                    if (fileStateSlug) processedStates.add(fileStateSlug);
+                }
+            } else {
+                this.log("\n--- No HTML files uploaded, processing all configured Google Sheets ---");
+            }
+
+            this.log("\n--- Processing Google Sheet Mandis ---");
+            await this.processGoogleSheetMandis(processedStates, globalData, allDistrictData, hasHtmlFiles);
+            
+            this.log("\n--- Finalizing Data ---");
+            await this.finalizeData(allDistrictData, syncOnlinePrices); // Pass the switch state
+            
+            this.createMissingDataReports();
+            this.createDownloadButtons();
+
+            if (this.processingErrors.length > 0) { this.createErrorExcelButton(); }
+        } catch (error) {
+            this.log(`❌ CRITICAL ERROR: ${error.message}\n${error.stack || ''}`);
+            this.addError('System', 'N/A', 'Critical', error.message);
+        } finally {
+            this.btnProcess.disabled = false;
+        }
+    }
+
+    async processHtmlFile(file, globalData, allDistrictData, gsOnlyMandis) {
+        this.log(`\n📄 Processing file: ${file.name}`);
+        const content = await file.text();
+        let tableRows;
+        try { tableRows = this.parseHTML(content); } 
+        catch(e) { this.log(`   ❌ ${e.message}`); return null; }
+        
+        const stateName = this.extractStateName(content);
+        if (!stateName) { this.missingDataHTML.states.add(`Unknown State in ${file.name}`); return null; }
+        
+        const stateSlugInFile = this.toSlug(stateName);
+        const stateSlug = globalData.lookups.en.stateSlugMap.get(stateSlugInFile);
+        if (!stateSlug) { this.missingDataHTML.states.add(stateName); return null; }
+        
+        this.log(`   - State detected: ${stateName} -> ${stateSlug}`);
+        const [districts, mandis] = await this.fetchStateSpecificData(stateSlug);
+        const lookups = this.createLookupMaps({ ...globalData, districts, mandis }, 'en');
+
+        for (const [index, row] of tableRows.slice(1).entries()) {
+            if (row.length < 9) continue;
+            const [ , districtName, mandiName, commodityName, varietyName, gradeName, minPrice, maxPrice, modalPrice, date] = row;
+            
+            const distSlug = this.toSlug(districtName);
+            const mandiId = lookups.mandiSlugToId.get(this.toSlug(mandiName));
+            if (!lookups.districtSlugToId.has(distSlug) || !mandiId) {
+                if (!this.missingDataHTML.distMandis.has(stateName)) this.missingDataHTML.distMandis.set(stateName, new Set());
+                this.missingDataHTML.distMandis.get(stateName).add(`${districtName} / ${mandiName}`);
+                continue;
+            }
+            if (gsOnlyMandis.has(mandiId)) continue;
+            
+            const commodityId = lookups.commodityNameToId.get(commodityName);
+            if (!commodityId) { if(commodityName) this.missingDataHTML.commodities.add(commodityName); continue; }
+
+            let varietyId = lookups.varietyMap.get(`${varietyName}_${commodityId}`);
+            if (varietyId === undefined) { if(varietyName) this.missingDataHTML.varieties.set(varietyName, commodityName); varietyId = 0; }
+
+            let gradeId = lookups.gradeNameToId.get(gradeName);
+            if (gradeId === undefined) { if(gradeName) this.missingDataHTML.grades.set(gradeName, commodityName); gradeId = 0; }
+
+            const standardDate = this.toStandardDate(date);
+            if (!standardDate) { this.addError(file.name, index + 2, 'Date', `Invalid date format: ${date}`); continue; }
+
+            const districtKey = `${stateSlug}_${distSlug}`;
+            if (!allDistrictData[districtKey]) allDistrictData[districtKey] = { rows: [], stateSlug, distSlug };
+            allDistrictData[districtKey].rows.push([standardDate, mandiId, commodityId, varietyId, gradeId, parseFloat(minPrice.replace(/,/g, '')) || 0, parseFloat(maxPrice.replace(/,/g, '')) || 0, parseFloat(modalPrice.replace(/,/g, '')) || 0, 0, 0]);
+        }
+        return stateSlug;
+    }
+    
+    async processGoogleSheetMandis(processedStates, globalData, allDistrictData, hasHtmlFiles) {
+        if (!globalData.googleSheetConfig?.mandis) { this.log("   - No Google Sheet configuration found."); return; }
+        const { lookups, googleSheetConfig } = globalData;
+
+        for (const mandiConfig of googleSheetConfig.mandis) {
+            if (!mandiConfig.enabled) continue;
+            const stateId = mandiConfig.mandi_id.substring(0, 2);
+            const mandiStateSlug = lookups.hi.stateIdToSlugMap.get(stateId);
+            if (!mandiStateSlug) { this.addError(`GS:${mandiConfig.mandi_id}`, 'N/A', 'Config', `State slug for ID ${stateId} not found.`); continue; }
+            if (hasHtmlFiles && !processedStates.has(mandiStateSlug)) continue;
+            
+            this.log(`\n📄 Processing Google Sheet for Mandi ID: ${mandiConfig.mandi_id}`);
+            const gvizJson = await this.fetchSheetData(mandiConfig.sheet_csv_url);
+            if (!gvizJson) { this.addError(`GS:${mandiConfig.mandi_id}`, 'N/A', 'Fetch', 'Could not fetch Gviz data.'); continue; }
+            
+            const { data: parsedData, errors: parseErrors } = this.parseGvizResponse(gvizJson);
+            parseErrors.forEach(err => this.addError(`GS:${mandiConfig.mandi_id}`, err.row, 'Gviz Parse', err.message));
+            this.log(`   - Found ${parsedData.length} total rows in the Google Sheet (last 10 days).`);
+            
+            const rules = { ...googleSheetConfig.defaults, ...mandiConfig };
+            this.logDatewiseCounts(parsedData, rules.columns.aliases.date || ['date']);
+
+            const aliases = { ...rules.columns.aliases, ...(mandiConfig.columns?.aliases || {}) };
+            const aliasMap = this.createAliasMap(aliases);
+            const distId = mandiConfig.mandi_id.substring(0, 5);
+            const [districts] = await this.fetchStateSpecificData(mandiStateSlug);
+            const distSlug = districts?.data[distId]?.[1];
+            if(!distSlug) { this.addError(`GS:${mandiConfig.mandi_id}`, 'N/A', 'Config', `District slug for ID ${distId} not found.`); continue; }
+
+            let processedCount = 0;
+            for(const [index, row] of parsedData.entries()) {
+                const mappedRow = this.mapAliases(row, aliasMap);
+                const standardDate = this.toStandardDate(mappedRow.date);
+                if (!standardDate) { this.addError(`GS:${mandiConfig.mandi_id}`, index + 2, 'Date', `Invalid date: ${mappedRow.date}`); continue; }
+                
+                const commodityId = lookups.hi.commodityNameToId.get(mappedRow.commodity);
+                if (!commodityId) { if(mappedRow.commodity) this.missingDataGS.commodities.add(mappedRow.commodity); continue; }
+                
+                let varietyId = lookups.hi.varietyMap.get(`${mappedRow.variety}_${commodityId}`);
+                if(varietyId === undefined) { if(mappedRow.variety) this.missingDataGS.varieties.set(mappedRow.variety, mappedRow.commodity); varietyId = 0; }
+                
+                let gradeId = lookups.hi.gradeNameToId.get(mappedRow.grade);
+                if(gradeId === undefined) { if(mappedRow.grade) this.missingDataGS.grades.set(mappedRow.grade, mappedRow.commodity); gradeId = 0; }
+
+                const districtKey = `${mandiStateSlug}_${distSlug}`;
+                if (!allDistrictData[districtKey]) allDistrictData[districtKey] = { rows: [], stateSlug: mandiStateSlug, distSlug };
+                allDistrictData[districtKey].rows.push([standardDate, mandiConfig.mandi_id, commodityId, varietyId, gradeId, parseFloat(String(mappedRow.min).replace(/,/g, '')) || 0, parseFloat(String(mappedRow.max).replace(/,/g, '')) || 0, parseFloat(String(mappedRow.modal).replace(/,/g, '')) || 0, parseFloat(String(mappedRow.arrival_quintal).replace(/,/g, '')) || 0, parseFloat(String(mappedRow.arrival_bori).replace(/,/g, '')) || 0]);
+                processedCount++;
+            }
+            this.log(`   - Successfully processed and added ${processedCount} valid rows to district '${distSlug}'.`);
+        }
+    }
+    
+    logDatewiseCounts(data, dateAliases) {
+        const dateCounts = {};
+        for (const row of data) {
+            let dateStr = '';
+            for (const alias of dateAliases) { if (row[alias]) { dateStr = row[alias]; break; } }
+            const standardDate = this.toStandardDate(dateStr);
+            if (standardDate) dateCounts[standardDate] = (dateCounts[standardDate] || 0) + 1;
+        }
+        const sortedDates = Object.keys(dateCounts).sort((a, b) => new Date(b) - new Date(a));
+        const lastThreeAvailableDates = sortedDates.slice(0, 3);
+        const logParts = lastThreeAvailableDates.map(date => `${date} (${dateCounts[date]} rows)`);
+        if (logParts.length > 0) {
+            this.log(`   - Raw rows received for the last ${logParts.length} available dates: ${logParts.join(', ')}`);
+        } else {
+            this.log(`   - No raw rows received in the last 10 days.`);
+        }
+    }
+    
+    async finalizeData(allDistrictData, syncOnlinePrices) {
+        for (const districtKey in allDistrictData) {
+            const { rows, stateSlug, distSlug } = allDistrictData[districtKey];
+            this.log(`\n   - Aggregating for District: ${distSlug}`);
+            
+            let existingData = null;
+            if (syncOnlinePrices) {
+                this.log(`     - Online price sync is ON. Fetching historical data...`);
+                const existingDataUrl = `${this.baseUrlInput.value}/data/hi/prices/${stateSlug}/${distSlug}_prices.json`;
+                existingData = await this.fetchJson(existingDataUrl, true);
+            } else {
+                this.log(`     - Online price sync is OFF. Skipping historical data fetch.`);
+            }
+
+            let combinedRows = existingData && existingData.rows ? existingData.rows : [];
+            this.log(`     - Found ${combinedRows.length} existing rows online.`);
+            
+            combinedRows.push(...rows);
+            this.log(`     - Total rows before filtering: ${combinedRows.length}`);
+            if (combinedRows.length === 0) { this.log(`     - No data to process. Skipping.`); continue; }
+
+            const allDates = [...new Set(combinedRows.map(row => this.toStandardDate(row[0])).filter(Boolean))];
+            allDates.sort((a, b) => new Date(b) - new Date(a));
+            const lastThreeAvailableDates = allDates.slice(0, 3);
+            let cutoffDate = null;
+            if (lastThreeAvailableDates.length > 0) {
+                cutoffDate = new Date(lastThreeAvailableDates[lastThreeAvailableDates.length - 1]);
+                this.log(`     - Keeping data for the last ${lastThreeAvailableDates.length} available dates. Oldest date to keep: ${cutoffDate.toISOString().split('T')[0]}`);
+            } else { this.log(`     - No valid dates found. No rows will be kept.`); }
+
+            const uniqueRows = new Map();
+            let outdatedCount = 0, duplicateCount = 0;
+            for (const row of combinedRows) {
+                const standardDate = this.toStandardDate(row[0]);
+                if (!standardDate) continue; 
+                if (cutoffDate && new Date(standardDate) < cutoffDate) { outdatedCount++; continue; }
+                const uniqueKey = `${standardDate}-${row[1]}-${row[2]}-${row[3]}-${row[4]}`;
+                if (uniqueRows.has(uniqueKey)) { duplicateCount++; } else { uniqueRows.set(uniqueKey, row); }
+            }
+            
+            this.log(`     - Filtered out ${outdatedCount} outdated and ${duplicateCount} duplicate rows.`);
+            const finalRows = Array.from(uniqueRows.values()).sort((a, b) => new Date(this.toStandardDate(b[0])) - new Date(this.toStandardDate(a[0])));
+            this.log(`     - Final row count for ${distSlug}: ${finalRows.length}`);
+            if (finalRows.length > 0) {
+                const fileName = `${distSlug}_prices.json`;
+                const fileContent = JSON.stringify({ headers: ["date", "mandi_id", "commodity_id", "variety_id", "grade_id", "min_price", "max_price", "modal_price", "arrival_quintal", "arrival_bori"], rows: finalRows }, null, 2);
+                this.outputFiles.prices.folder(stateSlug).file(fileName, fileContent);
+            }
+        }
+    }
+
+    createMissingDataReports() {
+        this.log("\n--- Creating Missing Data Reports ---");
+        const createExcel = (data, suffix) => {
+            const sdmWb = XLSX.utils.book_new();
+            let sdmHasData = false;
+            if (data.states && data.states.size > 0) {
+                XLSX.utils.book_append_sheet(sdmWb, XLSX.utils.aoa_to_sheet([["Missing State Name"], ...[...data.states].map(s => [s])]), "Missing States");
+                sdmHasData = true;
+            }
+            const distMandiData = [["State", "Missing District / Mandi"]];
+            if (data.distMandis) data.distMandis.forEach((dms, state) => dms.forEach(dm => distMandiData.push([state, dm])));
+            if (distMandiData.length > 1) {
+                XLSX.utils.book_append_sheet(sdmWb, XLSX.utils.aoa_to_sheet(distMandiData), "Missing Districts-Mandis");
+                sdmHasData = true;
+            }
+            if(sdmHasData) {
+                const fileName = `SDM_Missing_${suffix}.xlsx`;
+                this.outputFiles.reports[fileName] = new Blob([XLSX.write(sdmWb, { bookType: 'xlsx', type: 'array' })], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+                this.log(`   - ${fileName} report created.`);
+            }
+
+            const cvgWb = XLSX.utils.book_new();
+            let cvgHasData = false;
+            if (data.commodities && data.commodities.size > 0) {
+                XLSX.utils.book_append_sheet(cvgWb, XLSX.utils.aoa_to_sheet([["Missing Commodity Name"], ...[...data.commodities].map(c => [c])]), "Missing Commodities");
+                cvgHasData = true;
+            }
+            const varietyData = [["Missing Variety Name", "Associated Commodity"]];
+            if (data.varieties) data.varieties.forEach((comm, variety) => varietyData.push([variety, comm]));
+            if (varietyData.length > 1) {
+                XLSX.utils.book_append_sheet(cvgWb, XLSX.utils.aoa_to_sheet(varietyData), "Missing Varieties");
+                cvgHasData = true;
+            }
+            const gradeData = [["Missing Grade Name", "Associated Commodity"]];
+            if (data.grades) data.grades.forEach((comm, grade) => gradeData.push([grade, comm]));
+            if (gradeData.length > 1) {
+                XLSX.utils.book_append_sheet(cvgWb, XLSX.utils.aoa_to_sheet(gradeData), "Missing Grades");
+                cvgHasData = true;
+            }
+            if(cvgHasData) {
+                const fileName = `CVG_Missing_${suffix}.xlsx`;
+                this.outputFiles.reports[fileName] = new Blob([XLSX.write(cvgWb, { bookType: 'xlsx', type: 'array' })], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+                this.log(`   - ${fileName} report created.`);
+            }
+        };
+        createExcel(this.missingDataHTML, "HTML");
+        createExcel(this.missingDataGS, "GS");
+    }
+
+    async createDownloadButtons() {
+        this.log('\n--- Generating Download Buttons ---');
+        this.downloadButtonsContainer.innerHTML = '';
+        
+        if (Object.keys(this.outputFiles.prices.files).length > 0) {
+            const blob = await this.outputFiles.prices.generateAsync({ type: 'blob' });
+            this.createButton("Prices.zip", blob);
+        }
+
+        for (const [fileName, blob] of Object.entries(this.outputFiles.reports)) {
+            this.createButton(fileName, blob);
+        }
+
+        if (Object.keys(this.outputFiles.prices.files).length === 0 && Object.keys(this.outputFiles.reports).length === 0) {
+            this.log('No files were generated for download.');
+        }
+    }
+    
+    createButton(fileName, blob) {
+        const btn = document.createElement("button");
+        btn.textContent = `Download ${fileName}`;
+        btn.className = 'btn-download';
+        btn.onclick = () => {
+            const a = document.createElement("a");
+            a.href = URL.createObjectURL(blob);
+            a.download = fileName;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(a.href);
+        };
+        this.downloadButtonsContainer.appendChild(btn);
+    }
+    
+    async fetchSheetData(csvUrl) {
+        const urlMatch = csvUrl.match(/docs\.google\.com\/spreadsheets\/d\/([a-zA-Z0-9_-]+)\/.*gid=([0-9]+)/);
+        if (!urlMatch) { this.log("   - ❌ Invalid Google Sheet URL format."); return null; }
+        const [sheetId, gid] = [urlMatch[1], urlMatch[2]];
+        const tenDaysAgo = new Date(); tenDaysAgo.setDate(tenDaysAgo.getDate() - 10);
+        const [yyyy, mm, dd] = [tenDaysAgo.getFullYear(), tenDaysAgo.getMonth() + 1, tenDaysAgo.getDate()];
+        const dateQuery = `B >= date '${yyyy}-${mm}-${dd}'`;
+        const encodedQuery = encodeURIComponent(`select * where ${dateQuery}`);
+        const gvizUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&gid=${gid}&tq=${encodedQuery}`;
+        this.log(`   - Fetching live data via gviz...`);
+        this.log(`   - Query: Filtering for dates >= ${yyyy}-${mm}-${dd} (in column B)`);
+        try {
+            const response = await fetch(gvizUrl);
+            if (!response.ok) throw new Error(`Network response not ok: ${response.statusText}`);
+            const text = await response.text();
+            const jsonMatch = text.match(/google\.visualization\.Query\.setResponse\((.*)\);/s);
+            if (!jsonMatch || !jsonMatch[1]) throw new Error("Could not parse gviz JSONP response.");
+            return JSON.parse(jsonMatch[1]);
+        } catch (error) { this.log(`   - ❌ Failed to fetch gviz data: ${error.message}`); return null; }
+    }
+    parseGvizResponse(gvizJson) {
+        const data = [], errors = [];
+        if (!gvizJson.table || !gvizJson.table.cols || !gvizJson.table.rows) { errors.push({ row: 'N/A', message: 'Invalid gviz response structure.' }); return { data, errors }; }
+        const headers = gvizJson.table.cols.map(col => col.label || col.id).filter(h => h);
+        gvizJson.table.rows.forEach((row, rowIndex) => {
+            if(!row.c || row.c.length !== headers.length) { errors.push({row: rowIndex + 1, message: "Row has incorrect cell count."}); return; }
+            const rowObject = {};
+            row.c.forEach((cell, cellIndex) => {
+                const header = headers[cellIndex];
+                if (header) rowObject[header] = cell ? (cell.f ?? cell.v) : null;
+            });
+            data.push(rowObject);
+        });
+        return { data, errors };
+    }
+    toStandardDate(dateStr) {
+        if (!dateStr || typeof dateStr !== 'string') return null;
+        let match;
+        match = dateStr.match(/Date\((\d{4}),(\d{1,2}),(\d{1,2})\)/);
+        if (match) {
+            const year = match[1];
+            const month = String(parseInt(match[2], 10) + 1).padStart(2, '0');
+            const day = String(match[3]).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        }
+        match = dateStr.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+        if (match) return dateStr;
+        match = dateStr.match(/^(\d{2})[-/](\d{2})[-/](\d{4})$/);
+        if (match) return `${match[3]}-${match[2]}-${match[1]}`;
+        match = dateStr.match(/^(\d{2})[ -]([A-Za-z]{3})[ -](\d{4})$/);
+        if (match) {
+            const months = { Jan: '01', Feb: '02', Mar: '03', Apr: '04', May: '05', Jun: '06', Jul: '07', Aug: '08', Sep: '09', Oct: '10', Nov: '11', Dec: '12' };
+            const month = months[match[2].charAt(0).toUpperCase() + match[2].slice(1).toLowerCase()];
+            if (month) return `${match[3]}-${month}-${match[1].padStart(2, '0')}`;
+        }
+        return null;
+    }
+    log(message) { this.logs.push(message); this.updateLog(); }
+    updateLog() { this.logEl.textContent = this.logs.join('\n'); this.logEl.scrollTop = this.logEl.scrollHeight; }
+    addError(source, row, type, reason) { this.log(`     - ⚠️ Error in ${source} (Row ${row}, Type: ${type}): ${reason}`); this.processingErrors.push([source, row, type, reason]); }
+    async fetchJson(url, ignoreNotFound = false) { try { const res = await fetch(url); if (!res.ok) { if (res.status === 404 && ignoreNotFound) return null; throw new Error(`Failed to fetch ${url}`); } return res.json(); } catch (error) { if (ignoreNotFound) return null; throw error; } }
+    async fetchAllData(baseUrl) { const [c, v, g, s, gs, ce, ve, ge] = await Promise.all([this.fetchJson(`${baseUrl}/data/hi/commodities.json`), this.fetchJson(`${baseUrl}/data/hi/varieties.json`), this.fetchJson(`${baseUrl}/data/hi/grades.json`), this.fetchJson(`${baseUrl}/data/hi/states.json`), this.fetchJson(`${baseUrl}/data/hi/googleSheetMandis.json`, true), this.fetchJson(`${baseUrl}/data/hi/commodityEng.json`), this.fetchJson(`${baseUrl}/data/hi/varietiesEng.json`), this.fetchJson(`${baseUrl}/data/hi/gradesEng.json`)]); return { commodities:c, varieties:v, grades:g, states:s, googleSheetConfig:gs, commoditiesEng:ce, varietiesEng:ve, gradesEng:ge, lookups: { hi: this.createLookupMaps({commodities:c, varieties:v, grades:g, states:s}, 'hi'), en: this.createLookupMaps({commodities:ce, varieties:ve, grades:ge, states:s}, 'en') } }; }
+    async fetchStateSpecificData(stateSlug) { return Promise.all([this.fetchJson(`${this.baseUrlInput.value}/data/hi/dists/${stateSlug}.json`), this.fetchJson(`${this.baseUrlInput.value}/data/hi/mandis/${stateSlug}_mandis.json`)]); }
+    createLookupMaps(data, lang) { const c = lang === 'en' ? data.commoditiesEng : data.commodities; const v = lang === 'en' ? data.varietiesEng : data.varieties; const g = lang === 'en' ? data.gradesEng : data.grades; const stateSlugMap = new Map(), stateIdToSlugMap = new Map(); if(data.states?.data) for(const[id,val]of Object.entries(data.states.data)) { const slug=val[1]; if(slug){stateSlugMap.set(slug,slug);stateIdToSlugMap.set(id,slug);} } const commodityNameToId = new Map(Object.entries(c||{}).map(([id,name])=>[name,id])); const varietyMap = new Map(Object.entries(v||{}).map(([id,val])=>[`${val.n}_${val.cid}`,id])); const gradeNameToId = new Map(Object.entries(g||{}).map(([id,name])=>[name,id])); const districtSlugToId = new Map(Object.entries(data.districts?.data||{}).map(([id,val])=>[val[1],id])); const mandiSlugToId = new Map(Object.entries(data.mandis?.data||{}).map(([id,val])=>[val[1],id])); return {stateSlugMap,stateIdToSlugMap,commodityNameToId,varietyMap,gradeNameToId,districtSlugToId,mandiSlugToId}; }
+    classifyMandis(config) { const gsOnlyMandis = new Set(); if (config?.mandis) config.mandis.forEach(m => { if (m.enabled) gsOnlyMandis.add(m.mandi_id); }); return { gsOnlyMandis }; }
+    createErrorExcelButton() { this.log('\n⚠️ Some rows were skipped due to errors.'); const btn = document.createElement("button"); btn.textContent = `Download Error Log (${this.processingErrors.length} issues)`; btn.className = 'btn-download'; btn.style.background = '#dc2626'; btn.onclick = () => { const wb = XLSX.utils.book_new(); const ws = XLSX.utils.aoa_to_sheet([["Source File", "Row Number", "Type", "Reason"], ...this.processingErrors]); XLSX.utils.book_append_sheet(wb, ws, "Errors"); XLSX.writeFile(wb, "processing_log.xlsx"); }; this.downloadButtonsContainer.appendChild(btn); }
+    toSlug(name) { return typeof name === 'string' ? name.toLowerCase().replace(/\s*\(f&v\)\s*/gi, "_fv").replace(/\(\s*([^)]+)\s*\)/g, "_$1").replace(/[^\w\s_]/g, "").replace(/\s+/g, "_") : ''; }
+    extractStateName(text) { const match = text.slice(0, 1000).replace(/<[^>]*>/g, " ").match(/from\s+([\w\s]+?)\s+from/i); return match ? match[1].trim() : null; }
+    parseHTML(content) { const doc = new DOMParser().parseFromString(content, "text/html"); const table = doc.querySelector("table"); if (!table) throw new Error(`Table not found.`); return [...table.querySelectorAll("tr")].map(tr => [...tr.querySelectorAll("th,td")].map(td => td.textContent.trim())); }
+    createAliasMap(aliases) { const map = new Map(); for(const [canonical, aliasList] of Object.entries(aliases)) aliasList.forEach(alias => map.set(alias, canonical)); return map; }
+    mapAliases(row, aliasMap) { const mapped = {}; for(const [key, value] of Object.entries(row)) mapped[aliasMap.get(key) || key] = value; return mapped; }
+}
+new HybridPriceAggregator();
+</script>
+</body>
+</html>

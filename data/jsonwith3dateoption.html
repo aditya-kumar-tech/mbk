@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Advanced Hybrid Data Aggregator</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<style>
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+      "Helvetica Neue", Arial, sans-serif;
+    padding: 20px;
+    background: #f1f5f9;
+    display: flex;
+    justify-content: center;
+  }
+  .container {
+    background: #fff;
+    padding: 25px;
+    border-radius: 8px;
+    max-width: 700px;
+    width: 100%;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  }
+  h2 {
+    color: #1e293b;
+    border-bottom: 2px solid #cbd5e1;
+    padding-bottom: 10px;
+  }
+  input[type="text"],
+  input[type="file"],
+  button {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: 1px solid #cbd5e1;
+    box-sizing: border-box;
+  }
+  button {
+    background: #4f46e5;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+    transition: background 0.3s;
+  }
+  button:hover {
+    background: #4338ca;
+  }
+  button:disabled {
+    background: #a5b4fc;
+    cursor: not-allowed;
+  }
+  pre {
+    background: #f8fafc;
+    padding: 15px;
+    border-radius: 5px;
+    min-height: 150px;
+    max-height: 400px;
+    overflow: auto;
+    white-space: pre-wrap;
+    border: 1px solid #e2e8f0;
+    font-size: 0.875rem;
+  }
+  .btn-download {
+    background: #16a34a;
+    margin-top: 10px;
+  }
+  .btn-download:hover {
+    background: #15803d;
+  }
+  #download-buttons {
+    margin-top: 15px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .switch-container,
+  fieldset {
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    padding: 10px 15px;
+    margin-bottom: 15px;
+  }
+  fieldset {
+    padding-bottom: 15px;
+  }
+  legend {
+    font-weight: 600;
+    padding: 0 5px;
+    color: #334155;
+    font-size: 0.95rem;
+  }
+  .switch-container label,
+  .radio-option label {
+    font-size: 0.9rem;
+    color: #475569;
+    display: flex;
+    align-items: center;
+  }
+  .switch-container input,
+  .radio-option input {
+    width: auto;
+    margin-right: 10px;
+    margin-bottom: 0;
+  }
+  .radio-option {
+    margin-bottom: 8px;
+  }
+  .radio-option:last-child {
+    margin-bottom: 0;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h2>Advanced Price Data Aggregator</h2>
+    <p>यह टूल HTML और Google Sheets से डेटा को प्रोसेस, वैलिडेट और एग्रीगेट करता है।</p>
+
+    <label for="baseUrlInput">Base URL:</label>
+    <input type="text" id="baseUrlInput" value="https://aditya-kumar-tech.github.io/mbk" />
+
+    <label for="fileInput">HTML फ़ाइलें अपलोड करें (वैकल्पिक):</label>
+    <input type="file" id="fileInput" accept=".html,.htm,.xls" multiple />
+
+    <div class="switch-container">
+      <label><input type="checkbox" id="syncPricesCheckbox" checked />ऑनलाइन मूल्य डेटा सिंक करें (Sync online price data)</label>
+    </div>
+
+    <fieldset>
+      <legend>Google Sheet डेटा फ़िल्टर</legend>
+      <div class="radio-option">
+        <label>
+          <input type="radio" name="gsDateLogic" value="available" checked />
+          उपलब्ध अंतिम 3 दिन (डिफ़ॉल्ट)
+        </label>
+      </div>
+      <div class="radio-option">
+        <label>
+          <input type="radio" name="gsDateLogic" value="per-mandi-available" />
+          मंडी-वार स्वतंत्र उपलब्ध अंतिम 3 दिन (अवकाश सुरक्षित)
+        </label>
+      </div>
+      <div class="radio-option">
+        <label>
+          <input type="radio" name="gsDateLogic" value="relative-system" />
+          सिस्टम की वर्तमान तारीख से पिछले 3 दिन
+        </label>
+      </div>
+      <div class="radio-option">
+        <label>
+          <input type="radio" name="gsDateLogic" value="relative-upload" />
+          अपलोड की गई फ़ाइलों से नवीनतम तारीख से पिछले 3 दिन
+        </label>
+      </div>
+    </fieldset>
+
+    <fieldset>
+      <legend>अंतिम डेटा फ़िल्टर (HTML/ऑनलाइन)</legend>
+      <div class="radio-option">
+        <label>
+          <input type="radio" name="finalDateLogic" value="per-mandi-available" checked />
+          मंडी-वार स्वतंत्र उपलब्ध अंतिम 3 दिन (अवकाश सुरक्षित, डिफ़ॉल्ट)
+        </label>
+      </div>
+      <div class="radio-option">
+        <label>
+          <input type="radio" name="finalDateLogic" value="relative-system" />
+          सिस्टम की वर्तमान तारीख से पिछले 3 दिन
+        </label>
+      </div>
+      <div class="radio-option">
+        <label>
+          <input type="radio" name="finalDateLogic" value="relative-upload" />
+          अपलोड की गई फ़ाइलों से नवीनतम तारीख से पिछले 3 दिन
+        </label>
+      </div>
+    </fieldset>
+
+    <button id="btnProcess">Process Files & Generate Downloads</button>
+
+    <pre id="log">Awaiting files...</pre>
+    <div id="download-buttons"></div>
+  </div>
+
+  <script>
+    class HybridPriceAggregator {
+      constructor() {
+        this.fileInput = document.getElementById("fileInput");
+        this.btnProcess = document.getElementById("btnProcess");
+        this.logEl = document.getElementById("log");
+        this.downloadButtonsContainer = document.getElementById("download-buttons");
+        this.baseUrlInput = document.getElementById("baseUrlInput");
+        this.syncPricesCheckbox = document.getElementById("syncPricesCheckbox");
+
+        this.btnProcess.addEventListener("click", this.run.bind(this));
+        this.initRunState();
+        this.logs = ["Tool initialized. Ready to process."];
+        this.updateLog();
+      }
+
+      initRunState() {
+        this.outputFiles = { prices: new JSZip(), reports: {} };
+        this.processingErrors = [];
+        this.missingDataHTML = {
+          states: new Set(),
+          distMandis: new Map(),
+          commodities: new Set(),
+          varieties: new Map(),
+          grades: new Map(),
+        };
+        this.missingDataGS = {
+          commodities: new Set(),
+          varieties: new Map(),
+          grades: new Map(),
+        };
+        this.latestUploadDate = null;
+      }
+
+      getLogicDescription(logic) {
+        switch (logic) {
+          case "available":
+            return "Last 3 Available Days";
+          case "per-mandi-available":
+            return "Per Mandi Last 3 Available Days (custom)";
+          case "relative-system":
+            return "Last 3 Days from System Date";
+          case "relative-upload":
+            return "Last 3 Days from Uploads' Latest Date";
+          default:
+            return "Unknown";
+        }
+      }
+
+      async run() {
+        this.btnProcess.disabled = true;
+        this.logs = ["Starting process..."];
+        this.downloadButtonsContainer.innerHTML = "";
+        this.initRunState();
+
+        const syncOnlinePrices = this.syncPricesCheckbox.checked;
+        const gsDateLogic = document.querySelector(
+          'input[name="gsDateLogic"]:checked'
+        ).value;
+        const finalDateLogic = document.querySelector(
+          'input[name="finalDateLogic"]:checked'
+        ).value;
+
+        this.log(`\n--- Settings ---`);
+        this.log(`- Online Price Sync: ${syncOnlinePrices ? "ON" : "OFF"}`);
+        this.log(`- Google Sheet Filter: ${this.getLogicDescription(gsDateLogic)}`);
+        this.log(`- Final Data Filter: ${this.getLogicDescription(finalDateLogic)}`);
+
+        const files = this.fileInput.files;
+        const hasHtmlFiles = files && files.length > 0;
+
+        try {
+          if (
+            gsDateLogic === "relative-upload" ||
+            finalDateLogic === "relative-upload"
+          ) {
+            if (hasHtmlFiles) {
+              this.log("\n--- Finding latest date from uploaded files... ---");
+              await this.findLatestDateInFiles(files);
+            } else {
+              this.log(
+                "⚠️ 'Latest from Upload' selected but no files uploaded. This option will default to using the system's current date."
+              );
+            }
+          }
+
+          this.log("\n--- Fetching Base Lookups ---");
+          const globalData = await this.fetchAllData(this.baseUrlInput.value);
+          this.log("Base data loaded successfully.");
+
+          const { gsOnlyMandis } = this.classifyMandis(globalData.googleSheetConfig);
+          const allDistrictData = {};
+          const processedStates = new Set();
+
+          if (hasHtmlFiles) {
+            this.log("\n--- Processing Uploaded HTML Files ---");
+            for (const file of files) {
+              const fileStateSlug = await this.processHtmlFile(
+                file,
+                globalData,
+                allDistrictData,
+                gsOnlyMandis
+              );
+              if (fileStateSlug) processedStates.add(fileStateSlug);
+            }
+          } else {
+            this.log(
+              "\n--- No HTML files uploaded, processing all configured Google Sheets ---"
+            );
+          }
+
+          this.log("\n--- Processing Google Sheet Mandis ---");
+          await this.processGoogleSheetMandis(
+            processedStates,
+            globalData,
+            allDistrictData,
+            hasHtmlFiles,
+            gsDateLogic
+          );
+
+          this.log("\n--- Finalizing Data ---");
+          await this.finalizeData(allDistrictData, syncOnlinePrices, finalDateLogic);
+
+          this.createMissingDataReports();
+          this.createDownloadButtons();
+
+          if (this.processingErrors.length > 0) {
+            this.createErrorExcelButton();
+          }
+        } catch (error) {
+          this.log(`❌ CRITICAL ERROR: ${error.message}\n${error.stack || ""}`);
+          this.addError("System", "N/A", "Critical", error.message);
+        } finally {
+          this.btnProcess.disabled = false;
+        }
+      }
+
+      async findLatestDateInFiles(files) {
+        for (const file of files) {
+          const content = await file.text();
+          const tableRows = this.parseHTML(content, true);
+          for (const row of tableRows.slice(1)) {
+            if (row.length < 10) continue;
+            const date = row[9];
+            const standardDate = this.toStandardDate(date);
+            if (standardDate) {
+              const currentDate = new Date(standardDate);
+              if (!this.latestUploadDate || currentDate > this.latestUploadDate) {
+                this.latestUploadDate = currentDate;
+              }
+            }
+          }
+        }
+        if (this.latestUploadDate) {
+          this.log(
+            `Latest date found in uploads: ${this.latestUploadDate
+              .toISOString()
+              .split("T")[0]}`
+          );
+        } else {
+          this.log("No valid dates found in uploaded files.");
+        }
+      }
+
+      async processHtmlFile(file, globalData, allDistrictData, gsOnlyMandis) {
+        this.log(`\n📄 Processing file: ${file.name}`);
+        const content = await file.text();
+        let tableRows;
+        try {
+          tableRows = this.parseHTML(content);
+        } catch (e) {
+          this.log(`   ❌ ${e.message}`);
+          return null;
+        }
+        const stateName = this.extractStateName(content);
+        if (!stateName) {
+          this.missingDataHTML.states.add(`Unknown State in ${file.name}`);
+          return null;
+        }
+        const stateSlugInFile = this.toSlug(stateName);
+        const stateSlug = globalData.lookups.en.stateSlugMap.get(stateSlugInFile);
+        if (!stateSlug) {
+          this.missingDataHTML.states.add(stateName);
+          return null;
+        }
+        this.log(`   - State detected: ${stateName} -> ${stateSlug}`);
+        const [districts, mandis] = await this.fetchStateSpecificData(stateSlug);
+        const lookups = this.createLookupMaps({ ...globalData, districts, mandis }, "en");
+        for (const [index, row] of tableRows.slice(1).entries()) {
+          if (row.length < 10) continue;
+          const [
+            ,
+            districtName,
+            mandiName,
+            commodityName,
+            varietyName,
+            gradeName,
+            minPrice,
+            maxPrice,
+            modalPrice,
+            date,
+          ] = row;
+          const distSlug = this.toSlug(districtName);
+          const mandiId = lookups.mandiSlugToId.get(this.toSlug(mandiName));
+          if (!lookups.districtSlugToId.has(distSlug) || !mandiId) {
+            if (!this.missingDataHTML.distMandis.has(stateName))
+              this.missingDataHTML.distMandis.set(stateName, new Set());
+            this.missingDataHTML.distMandis
+              .get(stateName)
+              .add(`${districtName} / ${mandiName}`);
+            continue;
+          }
+          if (gsOnlyMandis.has(mandiId)) continue;
+          const commodityId = lookups.commodityNameToId.get(commodityName);
+          if (!commodityId) {
+            if (commodityName) this.missingDataHTML.commodities.add(commodityName);
+            continue;
+          }
+          let varietyId = lookups.varietyMap.get(`${varietyName}_${commodityId}`);
+          if (varietyId === undefined) {
+            if (varietyName) this.missingDataHTML.varieties.set(varietyName, commodityName);
+            varietyId = 0;
+          }
+          let gradeId = lookups.gradeNameToId.get(gradeName);
+          if (gradeId === undefined) {
+            if (gradeName) this.missingDataHTML.grades.set(gradeName, commodityName);
+            gradeId = 0;
+          }
+          const standardDate = this.toStandardDate(date);
+          if (!standardDate) {
+            this.addError(file.name, index + 2, "Date", `Invalid date format: ${date}`);
+            continue;
+          }
+          const districtKey = `${stateSlug}_${distSlug}`;
+          if (!allDistrictData[districtKey])
+            allDistrictData[districtKey] = { rows: [], stateSlug, distSlug };
+          allDistrictData[districtKey].rows.push([
+            standardDate,
+            mandiId,
+            commodityId,
+            varietyId,
+            gradeId,
+            parseFloat(minPrice.replace(/,/g, "")) || 0,
+            parseFloat(maxPrice.replace(/,/g, "")) || 0,
+            parseFloat(modalPrice.replace(/,/g, "")) || 0,
+            0,
+            0,
+          ]);
+        }
+        return stateSlug;
+      }
+
+      async processGoogleSheetMandis(processedStates, globalData, allDistrictData, hasHtmlFiles, gsDateLogic) {
+        if (!globalData.googleSheetConfig?.mandis) {
+          this.log("   - No Google Sheet configuration found.");
+          return;
+        }
+        const { lookups, googleSheetConfig } = globalData;
+        for (const mandiConfig of googleSheetConfig.mandis) {
+          if (!mandiConfig.enabled) continue;
+          const stateId = mandiConfig.mandi_id.substring(0, 2);
+          const mandiStateSlug = lookups.hi.stateIdToSlugMap.get(stateId);
+          if (!mandiStateSlug) {
+            this.addError(
+              `GS:${mandiConfig.mandi_id}`,
+              "N/A",
+              "Config",
+              `State slug for ID ${stateId} not found.`
+            );
+            continue;
+          }
+          if (hasHtmlFiles && !processedStates.has(mandiStateSlug)) continue;
+          this.log(`\n📄 Processing Google Sheet for Mandi ID: ${mandiConfig.mandi_id}`);
+          const gvizJson = await this.fetchSheetData(mandiConfig.sheet_csv_url);
+          if (!gvizJson) {
+            this.addError(
+              `GS:${mandiConfig.mandi_id}`,
+              "N/A",
+              "Fetch",
+              "Could not fetch Gviz data."
+            );
+            continue;
+          }
+          let { data: parsedData, errors: parseErrors } = this.parseGvizResponse(gvizJson);
+          parseErrors.forEach((err) =>
+            this.addError(`GS:${mandiConfig.mandi_id}`, err.row, "Gviz Parse", err.message)
+          );
+          this.log(`   - Found ${parsedData.length} total rows in the Google Sheet (last 10 days).`);
+          if (gsDateLogic === "per-mandi-available") {
+            // मंडी-वार स्वतंत्र उपलब्ध अंतिम 3 दिन Google Sheets के लिए भी लागू करें
+            // पहले मंडी-वार तारीखों का सेट बनाएँ
+            const mandiDatesMap = new Map();
+            parsedData.forEach((row) => {
+              const dateStr = this.toStandardDate(row["दिनांक"] || row["Date"]);
+              if (!dateStr) return;
+              // मंडी योजना पहचानें या हर मंडी के लिए एक कुंजी (यहाँ सिर्फ 1 मंडी चूनी गई है इसलिए साधारण) 
+              // क्योंकि Google Sheets अलग-अलग मंडी के लिए हो सकते हैं — यहाँ पूरे शीट के लिए लागू
+              if (!mandiDatesMap.has("all")) mandiDatesMap.set("all", new Set());
+              mandiDatesMap.get("all").add(dateStr);
+            });
+            // उपलब्ध तिथियां छाँटें
+            const allDates = mandiDatesMap.has("all")
+              ? Array.from(mandiDatesMap.get("all")).sort((a, b) => new Date(b) - new Date(a))
+              : [];
+            const latestThree = new Set(allDates.slice(0, 3));
+            const originalCount = parsedData.length;
+            parsedData = parsedData.filter((row) => {
+              const d = this.toStandardDate(row["दिनांक"] || row["Date"]);
+              return d && latestThree.has(d);
+            });
+            this.log(
+              `   - Filtered Google Sheet data to last 3 available days: ${[...latestThree].join(
+                ", "
+              )}, from ${originalCount} rows to ${parsedData.length} rows.`
+            );
+          } else if (gsDateLogic.startsWith("relative")) {
+            let refDate = new Date();
+            if (gsDateLogic === "relative-upload" && this.latestUploadDate) {
+              refDate = this.latestUploadDate;
+            }
+            const threeDaysAgo = new Date(refDate);
+            threeDaysAgo.setDate(refDate.getDate() - 2);
+            threeDaysAgo.setHours(0, 0, 0, 0);
+            const originalCount = parsedData.length;
+            parsedData = parsedData.filter((row) => {
+              const dateVal = this.toStandardDate(row["दिनांक"] || row["Date"]);
+              return dateVal && new Date(dateVal) >= threeDaysAgo;
+            });
+            this.log(
+              `   - Filtered for relative dates (Ref: ${refDate
+                .toISOString()
+                .split("T")[0]}). Kept ${parsedData.length} of ${originalCount} rows.`
+            );
+          }
+          const rules = { ...googleSheetConfig.defaults, ...mandiConfig };
+          this.logDatewiseCounts(parsedData, rules.columns.aliases.date || ["date"]);
+          const aliases = { ...rules.columns.aliases, ...(mandiConfig.columns?.aliases || {}) };
+          const aliasMap = this.createAliasMap(aliases);
+          const distId = mandiConfig.mandi_id.substring(0, 5);
+          const [districts] = await this.fetchStateSpecificData(mandiStateSlug);
+          const distSlug = districts?.data[distId]?.[1];
+          if (!distSlug) {
+            this.addError(
+              `GS:${mandiConfig.mandi_id}`,
+              "N/A",
+              "Config",
+              `District slug for ID ${distId} not found.`
+            );
+            continue;
+          }
+          let processedCount = 0;
+          for (const [index, row] of parsedData.entries()) {
+            const mappedRow = this.mapAliases(row, aliasMap);
+            const standardDate = this.toStandardDate(mappedRow.date);
+            if (!standardDate) {
+              this.addError(
+                `GS:${mandiConfig.mandi_id}`,
+                index + 2,
+                "Date",
+                `Invalid date: ${mappedRow.date}`
+              );
+              continue;
+            }
+            const commodityId = lookups.hi.commodityNameToId.get(mappedRow.commodity);
+            if (!commodityId) {
+              if (mappedRow.commodity)
+                this.missingDataGS.commodities.add(mappedRow.commodity);
+              continue;
+            }
+            let varietyId = lookups.hi.varietyMap.get(`${mappedRow.variety}_${commodityId}`);
+            if (varietyId === undefined) {
+              if (mappedRow.variety)
+                

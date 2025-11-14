@@ -18,7 +18,7 @@
     <div class="container">
         <h2>CSV से जिले-वार JSON बनाएं</h2>
         <p>Market-wise Daily Report CSV फ़ाइल चुनें और टूल स्वचालित रूप से जिले-वार JSON बनाकर डाउनलोड के लिए तैयार कर देगा।</p>
-        <input type="file" id="csv-file" accept=".csv">
+        <input type="file" id="csv-file" accept=".csv,*/*">
         <button onclick="processFile()">Process File & Generate JSON</button>
         <div id="status"></div>
         <a id="download-link" download="district_wise_prices.json">Download JSON</a>

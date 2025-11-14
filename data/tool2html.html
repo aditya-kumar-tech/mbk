@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <title>District-wise Price JSON Generator</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; background-color: #f4f4f9; display: flex; justify-content: center; }
+        .container { background: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); max-width: 600px; width: 100%; }
+        h2 { color: #333; border-bottom: 2px solid #ddd; padding-bottom: 10px; }
+        input[type="file"] { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ccc; border-radius: 6px; }
+        button { width: 100%; padding: 12px; background-color: #007bff; color: white; border: none; border-radius: 6px; font-size: 1rem; cursor: pointer; transition: background-color 0.3s; }
+        button:hover { background-color: #0056b3; }
+        #status { margin-top: 15px; font-weight: bold; }
+        #download-link { display: none; margin-top: 20px; padding: 12px; background: #28a745; color: white; text-align: center; border-radius: 6px; text-decoration: none; font-size: 1rem; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>CSV से जिले-वार JSON बनाएं</h2>
+        <p>Market-wise Daily Report CSV फ़ाइल चुनें और टूल स्वचालित रूप से जिले-वार JSON बनाकर डाउनलोड के लिए तैयार कर देगा।</p>
+        <input type="file" id="csv-file" accept=".csv">
+        <button onclick="processFile()">Process File & Generate JSON</button>
+        <div id="status"></div>
+        <a id="download-link" download="district_wise_prices.json">Download JSON</a>
+    </div>
+
+    <script>
+        async function processFile() {
+            const fileInput = document.getElementById('csv-file');
+            const statusDiv = document.getElementById('status');
+            const downloadLink = document.getElementById('download-link');
+
+            if (fileInput.files.length === 0) {
+                statusDiv.textContent = 'कृपया पहले एक CSV फ़ाइल चुनें।';
+                statusDiv.style.color = 'red';
+                return;
+            }
+
+            statusDiv.textContent = 'प्रोसेसिंग शुरू...';
+            statusDiv.style.color = 'blue';
+            downloadLink.style.display = 'none';
+
+            try {
+                // Step 1: Fetch Mandi-District mapping
+                statusDiv.textContent = 'मंडी और जिलों की सूची डाउनलोड हो रही है...';
+                const distsResponse = await fetch('https://aditya-kumar-tech.github.io/mbk/data/hi/dists/madhya-pradesh.json');
+                const mandisResponse = await fetch('https://aditya-kumar-tech.github.io/mbk/data/hi/mandis/madhya-pradeshmandis.json');
+
+                if (!distsResponse.ok || !mandisResponse.ok) {
+                    throw new Error('मंडी-जिले की मैपिंग फ़ाइल डाउनलोड करने में विफल।');
+                }
+
+                const distsData = (await distsResponse.json()).data;
+                const mandisData = (await mandisResponse.json()).data;
+
+                const mandiToDistrictMap = {};
+                for (const mandiId in mandisData) {
+                    const districtId = mandiId.substring(0, 5);
+                    if (distsData[districtId]) {
+                        const districtNameHi = distsData[districtId][0];
+                        const mandiNameHi = mandisData[mandiId][0];
+                        mandiToDistrictMap[mandiNameHi] = districtNameHi;
+                    }
+                }
+                 // Add special cases for names that might not match perfectly
+                mandiToDistrictMap["A lot"] = mandiToDistrictMap["Alot"];
+
+
+                // Step 2: Read and parse the CSV file
+                statusDiv.textContent = 'CSV फ़ाइल पढ़ी जा रही है...';
+                const file = fileInput.files[0];
+                const fileText = await file.text();
+                const lines = fileText.split('\
+');
+
+                let currentMarket = "";
+                const processedData = [];
+
+                for (const line of lines) {
+                    const trimmedLine = line.trim();
+                    if (trimmedLine.startsWith('Market Name :')) {
+                        currentMarket = trimmedLine.split(':')[1].replace(/APMC/g, '').trim();
+                        continue;
+                    }
+
+                    // Assuming commodity lines have 9 comma-separated values
+                    const parts = trimmedLine.split(',');
+                    if (parts.length === 9 && !trimmedLine.includes("Commodity")) {
+                        const [commodity, arrivals, unitOfArrivals, variety, grade, minPrice, maxPrice, modalPrice, unitOfPrice] = parts;
+                        
+                        // Find district for the current market
+                        const district = mandiToDistrictMap[currentMarket] || "Unknown";
+
+                        // Convert Arrivals to Quintal (1 Metric Tonne = 10 Quintals)
+                        const arrivalsInQuintal = unitOfArrivals.includes('Metric Tonnes') 
+                            ? parseFloat(arrivals) * 10 
+                            : parseFloat(arrivals);
+
+                        if(district !== "Unknown") {
+                            processedData.push({
+                                district: district,
+                                market: currentMarket,
+                                commodity: commodity.trim(),
+                                variety: variety.trim(),
+                                arrivals_quintal: isNaN(arrivalsInQuintal) ? 0 : arrivalsInQuintal,
+                                min_price: parseFloat(minPrice) || 0,
+                                max_price: parseFloat(maxPrice) || 0,
+                                modal_price: parseFloat(modalPrice) || 0,
+                            });
+                        }
+                    }
+                }
+
+                // Step 3: Group by district
+                statusDiv.textContent = 'डेटा को जिले के अनुसार समूहीकृत किया जा रहा है...';
+                const districtJson = {};
+                for (const item of processedData) {
+                    const district = item.district;
+                    if (!districtJson[district]) {
+                        districtJson[district] = [];
+                    }
+                    // Remove the district key from the item before pushing
+                    const { district: _, ...rest } = item;
+                    districtJson[district].push(rest);
+                }
+
+                // Step 4: Generate JSON and create download link
+                statusDiv.textContent = 'JSON फ़ाइल तैयार है!';
+                statusDiv.style.color = 'green';
+
+                const jsonString = JSON.stringify(districtJson, null, 2);
+                const blob = new Blob([jsonString], { type: 'application/json' });
+                downloadLink.href = URL.createObjectURL(blob);
+                downloadLink.style.display = 'block';
+
+            } catch (error) {
+                statusDiv.textContent = `एक त्रुटि हुई: ${error.message}`;
+                statusDiv.style.color = 'red';
+                console.error(error);
+            }
+        }
+    </script>
+</body>
+</html>

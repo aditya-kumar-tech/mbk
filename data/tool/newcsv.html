@@ -176,7 +176,7 @@ function downloadCSV() {
     let csv = "State,Market,Commodity,Arrivals,Variety,Grade,Minimum Price,Maximum Price,Modal Price,Date\n";
 
     window.cleanedData.forEach(r => {
-        csv += `${r.state},${r.market},${r.commodity},${r.arrivals},${r.variety},${r.grade},${r.minP},${r.maxP},${r.modal},${r.date}\n`;
+        csv += `"${r.state}","${r.market}","${r.commodity}","${r.arrivals}","${r.variety}","${r.grade}",${r.minP},${r.maxP},${r.modal},"${r.date}"\n`;
     });
 
     const blob = new Blob([csv], { type: "text/csv" });

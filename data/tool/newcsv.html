@@ -1,0 +1,192 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Mandi Data Cleaner Tool</title>
+<style>
+    body { font-family: Arial; padding: 20px; }
+    textarea { width: 100%; height: 180px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid #666; padding: 8px; font-size: 14px; }
+    th { background: #e7e7e7; }
+    button { padding: 10px 18px; margin: 5px; font-size: 15px; cursor: pointer; }
+</style>
+</head>
+<body>
+<h2>🌾 Mandi Data Auto Cleaner Tool</h2>
+
+<input type="file" id="fileInput" accept=".txt,.csv,*/*" />
+<button onclick="loadFile()">Upload & Preview Raw</button>
+<button onclick="processData()">Process</button>
+<button onclick="downloadCSV()">Download CSV</button><br><br>
+
+<textarea id="rawInput" placeholder="Paste raw mandi data here OR upload a file above..."></textarea>
+
+<div id="output"></div>
+
+<script>
+
+// ---------------- OLD DATE EXTRACT FUNCTION (RESTORED) ----------------
+function extractDate(text) {
+    const dateMatch = text.match(/Report on:\s*([0-9]{1,2}-[A-Za-z]{3}-[0-9]{4})/);
+    return dateMatch ? dateMatch[1] : "";
+}
+
+// ---------- READ FILE ----------
+function loadFile() {
+    const file = document.getElementById("fileInput").files[0];
+    if (!file) return alert("Please select a file");
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        document.getElementById("rawInput").value = e.target.result;
+    };
+    reader.readAsText(file);
+}
+
+// ---------- SAFE CSV SPLITTER ----------
+function safeSplit(line) {
+    const result = [];
+    let current = "";
+    let insideQuotes = false;
+
+    for (let i = 0; i < line.length; i++) {
+        let char = line[i];
+
+        if (char === '"' && line[i+1] !== '"') {
+            insideQuotes = !insideQuotes;
+            continue;
+        }
+        if (char === '"' && line[i+1] === '"') {
+            current += '"';
+            i++;
+            continue;
+        }
+        if (char === ',' && !insideQuotes) {
+            result.push(current);
+            current = "";
+        } else {
+            current += char;
+        }
+    }
+    result.push(current);
+    return result;
+}
+
+function processData() {
+
+    const raw = document.getElementById("rawInput").value;
+    const lines = raw.split(/\r?\n/).filter(x => x.trim() !== "");
+
+    let date = extractDate(raw);      // ← OLD DATE EXTRACT USED
+    let state = "";
+    let market = "";
+
+    const rows = [];
+
+    for (let line of lines) {
+
+        line = line.trim();
+
+        // State
+        if (line.startsWith("State Name")) {
+            state = line.split(":")[1].trim();
+            continue;
+        }
+
+        // Market
+        if (line.startsWith("Market Name")) {
+            market = line.split(":")[1].trim().replace(/APMC/gi, "").trim();
+            continue;
+        }
+
+        if (line.startsWith("Commodity,")) continue;
+
+        const parts = safeSplit(line);
+
+        if (parts.length >= 9) {
+
+            let commodity = parts[0].trim();
+            let arrivals = parseFloat(parts[1]) || 0;
+            let unitArrival = parts[2].trim();
+            let variety = parts[3].trim();
+            let grade = parts[4].trim();
+
+            // Prices
+            let minP = parseFloat(parts[5]) || 0;
+            let maxP = parseFloat(parts[6]) || 0;
+            let modal = parseFloat(parts[7]) || 0;
+
+            // Remove .0 → (8500.0 → 8500)
+            minP = Number.isInteger(minP) ? minP : minP.toFixed(0);
+            maxP = Number.isInteger(maxP) ? maxP : maxP.toFixed(0);
+            modal = Number.isInteger(modal) ? modal : modal.toFixed(0);
+
+            // Convert arrivals tonne → quintal
+            if (unitArrival.toLowerCase().includes("tonne"))
+                arrivals = (arrivals * 10).toFixed(2);
+            else
+                arrivals = arrivals.toFixed(2);
+
+            rows.push({
+                state,
+                market,
+                commodity,
+                arrivals,
+                variety,
+                grade,
+                minP,
+                maxP,
+                modal,
+                date
+            });
+        }
+    }
+
+    window.cleanedData = rows;
+
+    let html = "<h3>Processed Data Preview</h3>";
+    html += "<table><tr>" +
+        "<th>State</th><th>Market</th><th>Commodity</th><th>Arrivals (Quintal)</th>" +
+        "<th>Variety</th><th>Grade</th><th>Min</th><th>Max</th><th>Modal</th><th>Date</th></tr>";
+
+    rows.forEach(r => {
+        html += `<tr>
+            <td>${r.state}</td>
+            <td>${r.market}</td>
+            <td>${r.commodity}</td>
+            <td>${r.arrivals}</td>
+            <td>${r.variety}</td>
+            <td>${r.grade}</td>
+            <td>${r.minP}</td>
+            <td>${r.maxP}</td>
+            <td>${r.modal}</td>
+            <td>${r.date}</td>
+        </tr>`;
+    });
+
+    html += "</table>";
+    document.getElementById("output").innerHTML = html;
+}
+
+// ---------- CSV DOWNLOAD ----------
+function downloadCSV() {
+
+    if (!window.cleanedData) return alert("Process data first");
+
+    let csv = "State,Market,Commodity,Arrivals,Variety,Grade,Minimum Price,Maximum Price,Modal Price,Date\n";
+
+    window.cleanedData.forEach(r => {
+        csv += `${r.state},${r.market},${r.commodity},${r.arrivals},${r.variety},${r.grade},${r.minP},${r.maxP},${r.modal},${r.date}\n`;
+    });
+
+    const blob = new Blob([csv], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "cleaned_mandi_data.csv";
+    a.click();
+}
+</script>
+</body>
+</html>

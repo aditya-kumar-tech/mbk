@@ -1,5 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>Mandi Data Cleaner Tool</title>
@@ -13,21 +12,25 @@
 </style>
 </head>
 <body>
-
-<h2>🌾 Mandi Data Auto Cleaner Tool</h2>
+<h2> Mandi Data Auto Cleaner Tool</h2>
 
 <input type="file" id="fileInput" accept=".txt,.csv,*/*" />
 <button onclick="loadFile()">Upload & Preview Raw</button>
 <button onclick="processData()">Process</button>
-<button onclick="downloadCSV()">Download CSV</button>
-
-<br><br>
+<button onclick="downloadCSV()">Download CSV</button><br><br>
 
 <textarea id="rawInput" placeholder="Paste raw mandi data here OR upload a file above..."></textarea>
 
 <div id="output"></div>
 
 <script>
+
+// ---------------- OLD DATE EXTRACT FUNCTION (RESTORED) ----------------
+function extractDate(text) {
+    const dateMatch = text.match(/Report on:\s*([0-9]{1,2}-[A-Za-z]{3}-[0-9]{4})/);
+    return dateMatch ? dateMatch[1] : "";
+}
+
 // ---------- READ FILE ----------
 function loadFile() {
     const file = document.getElementById("fileInput").files[0];
@@ -40,7 +43,7 @@ function loadFile() {
     reader.readAsText(file);
 }
 
-// ---------- Safe Split ----------
+// ---------- SAFE CSV SPLITTER ----------
 function safeSplit(line) {
     const result = [];
     let current = "";
@@ -74,7 +77,7 @@ function processData() {
     const raw = document.getElementById("rawInput").value;
     const lines = raw.split(/\r?\n/).filter(x => x.trim() !== "");
 
-    let date = "";
+    let date = extractDate(raw);      // ← OLD DATE EXTRACT USED
     let state = "";
     let market = "";
 
@@ -83,13 +86,6 @@ function processData() {
     for (let line of lines) {
 
         line = line.trim();
-
-        // Extract date
-        if (line.startsWith("Market-wise")) {
-            const match = line.match(/(\d{1,2}-[A-Za-z]{3}-\d{4})/);
-            if (match) date = match[1];
-            continue;
-        }
 
         // State
         if (line.startsWith("State Name")) {
@@ -115,20 +111,21 @@ function processData() {
             let variety = parts[3].trim();
             let grade = parts[4].trim();
 
-            // ----------- PRICE FIX (.0 remove) ----------
-            let minP = parseFloat(parts[5]).toString();
-            let maxP = parseFloat(parts[6]).toString();
-            let modal = parseFloat(parts[7]).toString();
+            // Prices
+            let minP = parseFloat(parts[5]) || 0;
+            let maxP = parseFloat(parts[6]) || 0;
+            let modal = parseFloat(parts[7]) || 0;
 
-            // ----------- ARRIVALS FIX (ton → quintal) ----------
-            if (
-                unitArrival.toLowerCase().includes("tonne") ||
-                unitArrival.toLowerCase().includes("metric")
-            ) {
+            // Remove .0 → (8500.0 → 8500)
+            minP = Number.isInteger(minP) ? minP : minP.toFixed(0);
+            maxP = Number.isInteger(maxP) ? maxP : maxP.toFixed(0);
+            modal = Number.isInteger(modal) ? modal : modal.toFixed(0);
+
+            // Convert arrivals tonne → quintal
+            if (unitArrival.toLowerCase().includes("tonne"))
                 arrivals = (arrivals * 10).toFixed(2);
-            } else {
+            else
                 arrivals = arrivals.toFixed(2);
-            }
 
             rows.push({
                 state,
@@ -191,6 +188,5 @@ function downloadCSV() {
     a.click();
 }
 </script>
-
 </body>
 </html>

@@ -131,13 +131,13 @@ function processData() {
                 state,
                 market,
                 commodity,
-                arrivals,
                 variety,
                 grade,
                 minP,
                 maxP,
                 modal,
-                date
+                date,
+                arrivals,
             });
         }
     }
@@ -146,21 +146,21 @@ function processData() {
 
     let html = "<h3>Processed Data Preview</h3>";
     html += "<table><tr>" +
-        "<th>State</th><th>Market</th><th>Commodity</th><th>Arrivals (Quintal)</th>" +
-        "<th>Variety</th><th>Grade</th><th>Min</th><th>Max</th><th>Modal</th><th>Date</th></tr>";
+        "<th>State</th><th>Market</th><th>Commodity</th>" +
+        "<th>Variety</th><th>Grade</th><th>Min</th><th>Max</th><th>Modal</th><th>Date</th><th>Arrivals (Quintal)</th></tr>";
 
     rows.forEach(r => {
         html += `<tr>
             <td>${r.state}</td>
             <td>${r.market}</td>
             <td>${r.commodity}</td>
-            <td>${r.arrivals}</td>
             <td>${r.variety}</td>
             <td>${r.grade}</td>
             <td>${r.minP}</td>
             <td>${r.maxP}</td>
             <td>${r.modal}</td>
-            <td>${r.date}</td>
+            <td>${r.date}</td>            
+            <td>${r.arrivals}</td>
         </tr>`;
     });
 
@@ -173,10 +173,10 @@ function downloadCSV() {
 
     if (!window.cleanedData) return alert("Process data first");
 
-    let csv = "State,Market,Commodity,Arrivals,Variety,Grade,Minimum Price,Maximum Price,Modal Price,Date\n";
+    let csv = "State,Market,Commodity,Variety,Grade,Minimum Price,Maximum Price,Modal Price,Date,Arrivals\n";
 
     window.cleanedData.forEach(r => {
-        csv += `"${r.state}","${r.market}","${r.commodity}","${r.arrivals}","${r.variety}","${r.grade}",${r.minP},${r.maxP},${r.modal},"${r.date}"\n`;
+        csv += `"${r.state}","${r.market}","${r.commodity}","${r.variety}","${r.grade}",${r.minP},${r.maxP},${r.modal},"${r.date}","${r.arrivals}"\n`;
     });
 
     const blob = new Blob([csv], { type: "text/csv" });

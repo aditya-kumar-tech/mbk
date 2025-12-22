@@ -19,6 +19,7 @@
   "mandis": [
         {
       "mandi_id": "19044003",
+      "mode": "googleSheetOnly",
       "sheet_csv_url": "https://docs.google.com/spreadsheets/d/11jG8vukIAKXuUK7R6nxh_SdxuH6GTOYVJDs19TMsLk4/export?format=csv&gid=239722355",
       "enabled": true,
       "names": {

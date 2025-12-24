@@ -1,15 +1,15 @@
 {
   "headers": [
     "date",
-    "mandiid",
-    "commodityid",
-    "varietyid",
-    "gradeid",
-    "minprice",
-    "maxprice",
-    "modalprice",
-    "arrivalquintal",
-    "arrivalbori"
+    "mandi_id",
+    "commodity_id",
+    "variety_id",
+    "grade_id",
+    "min_price",
+    "max_price",
+    "modal_price",
+    "arrival_quintal",
+    "arrival_bori"
   ],
   "rows": [
     [
@@ -5780,6 +5780,18 @@
       "0",
       2500,
       2500,
+      2500,
+      "0.00",
+      0
+    ],
+    [
+      "2025-12-24",
+      "19019002",
+      "001",
+      0,
+      "02",
+      2470,
+      2525,
       2500,
       "0.00",
       0

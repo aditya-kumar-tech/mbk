@@ -537,5 +537,23 @@ function applyAllDecodes() {
   decodeTextNodes(document.body);
   decodeAttrs(document.body);
 }
+let __MBK_INIT_DONE = false;
+
+async function mbkInit() {
+  if (__MBK_INIT_DONE) return;
+  __MBK_INIT_DONE = true;
+
+  // aapka existing init flow
+  debugLog('🌐 Ready!', 'success');
+  await loadCommodities();
+  await loadStates();
+}
+
+// expose for loader + inline onclick
+window.MBK = {
+  init: mbkInit,
+  loadMandiBhav,
+  toggleViewMode
+};
 
     </script>

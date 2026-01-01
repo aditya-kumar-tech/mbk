@@ -327,8 +327,8 @@
         }
 
         .card-label {
-            color: #999;
-            font-size: 12px;
+            color: #000;
+            font-size: 15px;
             margin-bottom: 3px;
             font-weight: 600;
         }
@@ -365,8 +365,8 @@
         }
 
         .card-price-label {
-            color: #999;
-            font-size: 9px;
+            color: #000;
+            font-size: 15px;
             margin-bottom: 2px;
         }
 

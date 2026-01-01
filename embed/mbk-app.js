@@ -17,7 +17,7 @@
   let currentDate = '';
   let isDistrictView = false;
   let pricesData = null;
-  let viewMode = 'card';
+  let viewMode = 'table';
   let visibleColumns = [];
 
   // DOM refs (init में set होंगी)
@@ -385,7 +385,7 @@
   }
 
   function toggleViewMode() {
-    viewMode = viewMode === 'card' ? 'card' : 'table';
+    viewMode = viewMode === 'table' ? 'card' : 'table';
     el.toggleBtn.textContent = viewMode === 'table' ? '📊 टेबल' : '🃏 कार्ड';
     if (mandiData.length > 0) renderContent(mandiData, isDistrictView);
   }

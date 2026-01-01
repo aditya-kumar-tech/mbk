@@ -2,13 +2,9 @@
   const CSS_URL = "https://aditya-kumar-tech.github.io/mbk/embed/mbk-ui.css?v=1";
   const JS_URL  = "https://aditya-kumar-tech.github.io/mbk/embed/mbk-app.js?v=1";
 
-  // ✅ read config from <script ... data-mandi="19044003" data-autoload="1">
-  // document.currentScript works while the script is being processed (not a module). [web:321]
-  const scriptEl = document.currentScript;
-  const cfg = (scriptEl && scriptEl.dataset) ? scriptEl.dataset : {};
-
-  const DEFAULT_MANDI = (cfg.mandi || "").trim();     // e.g. "19044003"
-  const AUTOLOAD = (cfg.autoload || "") === "1";      // "1" => autoload
+  const cs = document.currentScript;
+  const mandiDefault = (cs && cs.dataset && cs.dataset.mandi) ? cs.dataset.mandi.trim() : "";
+  const autoload = (cs && cs.dataset && cs.dataset.autoload) === "1";
 
   let bootPromise = null;
 
@@ -30,7 +26,7 @@
       if (document.querySelector('script[data-mbk="js"]')) return resolve();
       const s = document.createElement("script");
       s.src = src;
-      s.defer = true;
+      s.async = true; // dynamic load
       s.setAttribute("data-mbk", "js");
       s.onload = () => resolve();
       s.onerror = () => reject(new Error("MBK JS load failed"));
@@ -40,19 +36,19 @@
 
   async function ensureBoot() {
     if (window.MBK && window.MBK.loadMandiBhav) {
-      if (window.MBK.init) await window.MBK.init();
+      await window.MBK.init();
       return;
     }
     if (!bootPromise) bootPromise = Promise.all([loadCssOnce(CSS_URL), loadJsOnce(JS_URL)]);
     await bootPromise;
-    if (window.MBK && window.MBK.init) await window.MBK.init();
+    await window.MBK.init();
   }
 
-  // ✅ same names as your HTML onclick uses
+  // same names used by your HTML onclick
   window.mandibhavloadfresh = async function (mandiId) {
     await ensureBoot();
-    const id = (mandiId || DEFAULT_MANDI || "").trim();
-    if (!id) throw new Error("No mandi id provided. Use mandibhavloadfresh('19044003') or set data-mandi.");
+    const id = (mandiId || mandiDefault || "").trim();
+    if (!id) throw new Error("No mandi id. Set data-mandi or pass mandibhavloadfresh('19044003').");
     return window.MBK.loadMandiBhav(id);
   };
 
@@ -61,14 +57,7 @@
     return window.MBK.toggleViewMode();
   };
 
-  // ✅ optional: direct API too
-  window.loadMandiBhav = async function (id) {
-    return window.mandibhavloadfresh(id);
-  };
-
-  // ✅ optional autoload (per page)
-  if (AUTOLOAD) {
-    // defer script runs after parsing; safe to call immediately here
+  if (autoload) {
     window.mandibhavloadfresh().catch(() => {});
   }
 })();

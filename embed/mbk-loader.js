@@ -2,6 +2,14 @@
   const CSS_URL = "https://aditya-kumar-tech.github.io/mbk/embed/mbk-ui.css?v=1";
   const JS_URL  = "https://aditya-kumar-tech.github.io/mbk/embed/mbk-app.js?v=1";
 
+  // ✅ read config from <script ... data-mandi="19044003" data-autoload="1">
+  // document.currentScript works while the script is being processed (not a module). [web:321]
+  const scriptEl = document.currentScript;
+  const cfg = (scriptEl && scriptEl.dataset) ? scriptEl.dataset : {};
+
+  const DEFAULT_MANDI = (cfg.mandi || "").trim();     // e.g. "19044003"
+  const AUTOLOAD = (cfg.autoload || "") === "1";      // "1" => autoload
+
   let bootPromise = null;
 
   function loadCssOnce(href) {
@@ -35,21 +43,16 @@
       if (window.MBK.init) await window.MBK.init();
       return;
     }
-    if (!bootPromise) {
-      bootPromise = Promise.all([loadCssOnce(CSS_URL), loadJsOnce(JS_URL)]);
-    }
+    if (!bootPromise) bootPromise = Promise.all([loadCssOnce(CSS_URL), loadJsOnce(JS_URL)]);
     await bootPromise;
     if (window.MBK && window.MBK.init) await window.MBK.init();
   }
 
-  // ✅ SAME function names as your HTML uses
-  window.mandibhavloadfresh = async function () {
+  // ✅ same names as your HTML onclick uses
+  window.mandibhavloadfresh = async function (mandiId) {
     await ensureBoot();
-    return window.MBK.loadMandiBhav("19044003");
-  };
-
-  window.loadMandiBhav = async function (id) {
-    await ensureBoot();
+    const id = (mandiId || DEFAULT_MANDI || "").trim();
+    if (!id) throw new Error("No mandi id provided. Use mandibhavloadfresh('19044003') or set data-mandi.");
     return window.MBK.loadMandiBhav(id);
   };
 
@@ -57,4 +60,15 @@
     await ensureBoot();
     return window.MBK.toggleViewMode();
   };
+
+  // ✅ optional: direct API too
+  window.loadMandiBhav = async function (id) {
+    return window.mandibhavloadfresh(id);
+  };
+
+  // ✅ optional autoload (per page)
+  if (AUTOLOAD) {
+    // defer script runs after parsing; safe to call immediately here
+    window.mandibhavloadfresh().catch(() => {});
+  }
 })();

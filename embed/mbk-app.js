@@ -2,6 +2,9 @@
   const BASE_URL = 'https://aditya-kumar-tech.github.io/mbk/data/hi/';
   const MANIFEST_URL = 'https://aditya-kumar-tech.github.io/mbk/embed/manifest.json';
 
+const APP_VER = "2026-01-01_01"; // 🔁 jab bhi code update karo, isko change kar dena
+const APP_VER_KEY = "mbk:app_ver";
+
   // cache keys
   const MAPS_VER_KEY = 'mbk:maps_ver';
   const MAP_PREFIX = 'mbk:map:';
@@ -82,6 +85,28 @@
     keys.forEach(k => sessionStorage.removeItem(k));
   }
 
+
+function resetAllMbkCache() {
+  const prefixes = ["mbk:map:", "mbk:prices:", "mbk:maps_ver"];
+  prefixes.forEach(p => {
+    if (p === "mbk:maps_ver") {
+      sessionStorage.removeItem("mbk:maps_ver");
+      return;
+    }
+    const keys = [];
+    for (let i = 0; i < sessionStorage.length; i++) {
+      const k = sessionStorage.key(i);
+      if (k && k.startsWith(p)) keys.push(k);
+    }
+    keys.forEach(k => sessionStorage.removeItem(k));
+  });
+}
+
+const oldVer = sessionStorage.getItem(APP_VER_KEY) || "";
+if (oldVer !== APP_VER) {
+  resetAllMbkCache();
+  sessionStorage.setItem(APP_VER_KEY, APP_VER);
+}
   async function syncManifestAndInvalidate() {
     try {
       const mf = await loadManifest();
@@ -117,7 +142,8 @@
 
     try {
       const cached = JSON.parse(sessionStorage.getItem(key) || 'null');
-      if (cached?.data && cached?.t && (now - cached.t) < PRICES_TTL_MS) return cached.data;
+if (cached?.data?.rows && cached?.t && (now - cached.t) < PRICES_TTL_MS) return cached.data;
+     /* if (cached?.data && cached?.t && (now - cached.t) < PRICES_TTL_MS) return cached.data;*/
     } catch {}
 
     const res = await fetch(pricesUrl);

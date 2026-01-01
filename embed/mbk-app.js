@@ -43,9 +43,19 @@
     el.debugPanel.scrollTop = el.debugPanel.scrollHeight;
   }
 
-  function showLoading(show) {
+ /* function showLoading(show) {
     if (el.loadingMsg) el.loadingMsg.style.display = show ? 'block' : 'none';
-  }
+  }*/
+  function showLoading(show) {
+  const loader = document.getElementById('loadingMsg');
+  const app = document.getElementById('mbkApp');
+
+  if (loader) loader.style.display = show ? 'block' : 'none';
+
+  // ✅ only show app when loading finished
+  if (app) app.style.display = show ? 'none' : 'block';
+}
+
 
   function isValid(v){
     return !(v === null || v === undefined || v === '' || v === 0 || v === '-');

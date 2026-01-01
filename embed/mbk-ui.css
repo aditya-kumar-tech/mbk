@@ -301,10 +301,10 @@
         }
 
         .card-date-label {
-            font-size: 11px;
-            color: #999;
-            margin-bottom: 4px;
-        }
+    font-size: 15px;
+    color: #000;
+    margin-bottom: 4px;
+}
 
         .card-date {
             font-size: 14px;

@@ -1,5 +1,12 @@
 (function () {
   const BASE_URL = 'https://aditya-kumar-tech.github.io/mbk/data/hi/';
+  const MANIFEST_URL = 'https://aditya-kumar-tech.github.io/mbk/embed/manifest.json';
+
+  // cache keys
+  const MAPS_VER_KEY = 'mbk:maps_ver';
+  const MAP_PREFIX = 'mbk:map:';      // mapping json cache
+  const PRICES_PREFIX = 'mbk:prices:'; // prices cache
+  const PRICES_TTL_MS = 5 * 60 * 1000; // ✅ strict 5 minutes
 
   // data stores
   let commodities = {};
@@ -20,7 +27,7 @@
   let viewMode = 'table';
   let visibleColumns = [];
 
-  // DOM refs (init में set होंगी)
+  // DOM refs
   const el = {};
   let __inited = false;
 
@@ -43,19 +50,13 @@
     el.debugPanel.scrollTop = el.debugPanel.scrollHeight;
   }
 
- /* function showLoading(show) {
-    if (el.loadingMsg) el.loadingMsg.style.display = show ? 'block' : 'none';
-  }*/
   function showLoading(show) {
-  const loader = document.getElementById('loadingMsg');
-  const app = document.getElementById('mbkApp');
+    const loader = document.getElementById('loadingMsg');
+    const app = document.getElementById('mbkApp');
 
-  if (loader) loader.style.display = show ? 'block' : 'none';
-
-  // ✅ only show app when loading finished
-  if (app) app.style.display = show ? 'none' : 'block';
-}
-
+    if (loader) loader.style.display = show ? 'block' : 'none';
+    if (app) app.style.display = show ? 'none' : 'block';
+  }
 
   function isValid(v){
     return !(v === null || v === undefined || v === '' || v === 0 || v === '-');
@@ -78,18 +79,90 @@
     return vData?.n || varieties[varietyId] || varietyId || '-';
   }
 
+  // ---------- Manifest + cache helpers ----------
+  async function loadManifest() {
+    // always try to get fresh manifest [1]
+    const res = await fetch(MANIFEST_URL, { cache: 'no-store' });
+    return await res.json();
+  }
+
+  function clearByPrefix(prefix) {
+    const keys = [];
+    for (let i = 0; i < sessionStorage.length; i++) {
+      const k = sessionStorage.key(i);
+      if (k && k.startsWith(prefix)) keys.push(k);
+    }
+    keys.forEach(k => sessionStorage.removeItem(k));
+  }
+
+  async function syncManifestAndInvalidate() {
+    try {
+      const mf = await loadManifest();
+      const newMapsVer = String(mf.maps_ver || '');
+      const oldMapsVer = sessionStorage.getItem(MAPS_VER_KEY) || '';
+
+      if (newMapsVer && newMapsVer !== oldMapsVer) {
+        clearByPrefix(MAP_PREFIX);
+        sessionStorage.setItem(MAPS_VER_KEY, newMapsVer);
+        debugLog(`🔁 Maps updated: ${oldMapsVer} → ${newMapsVer}`, 'info');
+      } else {
+        debugLog(`✅ Maps cache ok (ver: ${oldMapsVer || newMapsVer || '-'})`, 'success');
+      }
+    } catch (e) {
+      // manifest fail => do nothing, app still works
+      debugLog(`⚠️ Manifest load failed: ${e.message}`, 'info');
+    }
+  }
+
+  async function cachedMapJson(url) {
+    const key = MAP_PREFIX + url;
+
+    const raw = sessionStorage.getItem(key);
+    if (raw) {
+      try { return JSON.parse(raw); } catch {}
+    }
+
+    const res = await fetch(url);
+    const data = await res.json();
+
+    try { sessionStorage.setItem(key, JSON.stringify(data)); } catch {}
+    return data;
+  }
+
+  async function cachedPricesJson(pricesUrl, districtKey) {
+    const key = PRICES_PREFIX + districtKey;
+    const now = Date.now();
+
+    try {
+      const cached = JSON.parse(sessionStorage.getItem(key) || 'null');
+      if (cached?.data && cached?.t && (now - cached.t) < PRICES_TTL_MS) {
+        debugLog(`💾 Prices cache (≤5 min)`, 'success');
+        return cached.data;
+      }
+    } catch {}
+
+    const res = await fetch(pricesUrl);
+    const data = await res.json();
+
+    try { sessionStorage.setItem(key, JSON.stringify({ t: now, data })); } catch {}
+    debugLog(`📡 Prices fetched`, 'success');
+    return data;
+  }
+
+  // ---------- Loads (updated to use cachedMapJson) ----------
   async function loadCommodities() {
     try {
-      const [cRes, vRes, vEngRes, gRes] = await Promise.all([
-        fetch(`${BASE_URL}commodities.json`),
-        fetch(`${BASE_URL}varieties.json`),
-        fetch(`${BASE_URL}varietiesEng.json`),
-        fetch(`${BASE_URL}grades.json`)
+      const [c, v, vEng, g] = await Promise.all([
+        cachedMapJson(`${BASE_URL}commodities.json`),
+        cachedMapJson(`${BASE_URL}varieties.json`),
+        cachedMapJson(`${BASE_URL}varietiesEng.json`),
+        cachedMapJson(`${BASE_URL}grades.json`)
       ]);
-      commodities = await cRes.json();
-      varieties = await vRes.json().catch(() => ({}));
-      varietiesEng = await vEngRes.json().catch(() => ({}));
-      grades = await gRes.json().catch(() => ({}));
+
+      commodities = c || {};
+      varieties = v || {};
+      varietiesEng = vEng || {};
+      grades = g || {};
       debugLog('✅ Commodity/Variety/Grade mapping ready', 'success');
     } catch (e) {
       debugLog('⚠️ Mapping files optional', 'info');
@@ -98,8 +171,7 @@
 
   async function loadStates() {
     try {
-      const response = await fetch(`${BASE_URL}states.json`);
-      states = await response.json();
+      states = await cachedMapJson(`${BASE_URL}states.json`);
       debugLog('✅ States लोड', 'success');
     } catch (e) {
       debugLog('States error', 'error');
@@ -108,8 +180,7 @@
 
   async function loadMandiNamesForState(stateSlug) {
     try {
-      const response = await fetch(`${BASE_URL}mandis/${stateSlug}_mandis.json`);
-      const data = await response.json();
+      const data = await cachedMapJson(`${BASE_URL}mandis/${stateSlug}_mandis.json`);
       mandiNames = data.data || {};
       debugLog(`✅ ${stateSlug} के लिए ${Object.keys(mandiNames).length} मंडी names लोड`, 'success');
     } catch (e) {
@@ -122,17 +193,16 @@
     const distId = mandiId.slice(0, 5);
 
     const stateInfo = states?.data?.[stateId];
-    const stateSlug = stateInfo?.[1];
+    const stateSlug = stateInfo?.[3];
 
     if (Object.keys(mandiNames).length === 0) {
       await loadMandiNamesForState(stateSlug);
     }
 
     const distMappingUrl = `${BASE_URL}dists/${stateSlug}.json`;
-    const distResponse = await fetch(distMappingUrl);
-    const distData = await distResponse.json();
+    const distData = await cachedMapJson(distMappingUrl);
     const distInfo = distData?.data?.[distId];
-    const distSlug = distInfo?.[1] || distId;
+    const distSlug = distInfo?.[3] || distId;
 
     const pricesUrl = `${BASE_URL}prices/${stateSlug}/${distSlug}_prices.json`;
     return { pricesUrl, stateSlug, distSlug, stateInfo, distInfo };
@@ -140,12 +210,14 @@
 
   async function loadAvailableDates(pricesUrl, mandiId) {
     try {
+      // Dates निकालने के लिए pricesUrl JSON चाहिए; TTL handled by cachedPricesJson in loadMandiBhav
+      // यहाँ direct fetch OK है, क्योंकि loadMandiBhav में वही pricesData cache करेगा
       const response = await fetch(pricesUrl);
       const data = await response.json();
 
       const dateSet = new Set();
       (data.rows || []).forEach(row => {
-        if (row[1] === mandiId && row[0]) dateSet.add(row[0]);
+        if (row[3] === mandiId && row) dateSet.add(row);
       });
 
       allDates = Array.from(dateSet).sort().reverse();
@@ -161,7 +233,7 @@
       });
 
       if (allDates.length > 0) {
-        el.dateSelect.value = allDates.includes(previousValue) ? previousValue : allDates[0];
+        el.dateSelect.value = allDates.includes(previousValue) ? previousValue : allDates;
         currentDate = el.dateSelect.value;
         el.dateSelect.style.display = 'inline-block';
       }
@@ -191,7 +263,7 @@
 
     allCols.forEach(col => {
       const hasData = mandiData.some(row => {
-        if (col.idx === 10) return isValid(row[1]) || isValid(row[10]);
+        if (col.idx === 10) return isValid(row[3]) || isValid(row);
         return isValid(row[col.idx]);
       });
       if (hasData) visibleColumns.push(col);
@@ -228,12 +300,12 @@
         let cellValue = safeVal(row[col.idx]);
 
         if (col.idx === 10) {
-          const mandiId = row[1];
-          cellValue = (mandiNames?.[mandiId]?.[0]) || row[10] || mandiId || '-';
-        } else if (col.idx === 2) cellValue = commodities[row[2]] || row[2] || '-';
-        else if (col.idx === 3) cellValue = getVarietyName(row[3]);
-        else if (col.idx === 4) cellValue = grades[row[4]] || row[4] || '-';
-        else if (col.idx === 0) cellValue = formatDate(row[0]);
+          const mandiId = row[3];
+          cellValue = (mandiNames?.[mandiId]?.) || row || mandiId || '-';
+        } else if (col.idx === 2) cellValue = commodities[row] || row || '-';
+        else if (col.idx === 3) cellValue = getVarietyName(row);
+        else if (col.idx === 4) cellValue = grades[row] || row || '-';
+        else if (col.idx === 0) cellValue = formatDate(row);
 
         const td = tr.insertCell();
         td.textContent = cellValue;
@@ -253,10 +325,10 @@
   function renderCards(data) {
     let html = '';
     data.slice(0, 200).forEach((row, index) => {
-      const commodityName = commodities[row[2]] || row[2] || '-';
-      const varietyName = getVarietyName(row[3]);
-      const gradeName = grades[row[4]] || row[4] || '-';
-      const dateDisplay = formatDate(row[0]);
+      const commodityName = commodities[row] || row || '-';
+      const varietyName = getVarietyName(row);
+      const gradeName = grades[row] || row || '-';
+      const dateDisplay = formatDate(row);
 
       html += `
         <div class="card">
@@ -272,24 +344,24 @@
           </div>
 
           <div class="card-grid">
-            ${row[3] ? `<div class="card-field"><div class="card-label">वैरायटी</div><div class="card-value">${varietyName}</div></div>` : ''}
-            ${row[4] ? `<div class="card-field"><div class="card-label">ग्रेड</div><div class="card-value">${gradeName}</div></div>` : ''}
+            ${row ? `<div class="card-field"><div class="card-label">वैरायटी</div><div class="card-value">${varietyName}</div></div>` : ''}
+            ${row ? `<div class="card-field"><div class="card-label">ग्रेड</div><div class="card-value">${gradeName}</div></div>` : ''}
           </div>
 
-          ${(row[5] && row[5] !== 0) || (row[6] && row[6] !== 0) || (row[7] && row[7] !== 0) ? `
+          ${(row && row !== 0) || (row && row !== 0) || (row && row !== 0) ? `
             <div class="card-prices">
               <div class="card-prices-label">💰 मूल्य विवरण</div>
               <div class="card-prices-grid">
-                ${row[5] && row[5] !== 0 ? `<div class="card-price-item"><div class="card-price-label">न्यूनतम</div><div class="card-price-value">₹${row[5]}</div></div>` : ''}
-                ${row[6] && row[6] !== 0 ? `<div class="card-price-item"><div class="card-price-label">अधिकतम</div><div class="card-price-value">₹${row[6]}</div></div>` : ''}
-                ${row[7] && row[7] !== 0 ? `<div class="card-price-item"><div class="card-price-label">मॉडल</div><div class="card-price-value">₹${row[7]}</div></div>` : ''}
+                ${row && row !== 0 ? `<div class="card-price-item"><div class="card-price-label">न्यूनतम</div><div class="card-price-value">₹${row[4]}</div></div>` : ''}
+                ${row && row !== 0 ? `<div class="card-price-item"><div class="card-price-label">अधिकतम</div><div class="card-price-value">₹${row[5]}</div></div>` : ''}
+                ${row && row !== 0 ? `<div class="card-price-item"><div class="card-price-label">मॉडल</div><div class="card-price-value">₹${row[6]}</div></div>` : ''}
               </div>
             </div>
           ` : ''}
 
           <div class="card-grid">
-            ${isValid(row[8]) ? `<div class="card-field"><div class="card-label">आवक (क्विंटल)</div><div class="card-value">${row[8]}</div></div>` : ''}
-            ${isValid(row[9]) ? `<div class="card-field"><div class="card-label">आवक (बोरी)</div><div class="card-value">${row[9]}</div></div>` : ''}
+            ${isValid(row) ? `<div class="card-field"><div class="card-label">आवक (क्विंटल)</div><div class="card-value">${row[8]}</div></div>` : ''}
+            ${isValid(row) ? `<div class="card-field"><div class="card-label">आवक (बोरी)</div><div class="card-value">${row[9]}</div></div>` : ''}
           </div>
         </div>
       `;
@@ -309,14 +381,14 @@
     el.distName.textContent = currentDistName;
 
     el.totalRecords.textContent = mandiData.length;
-    const uniqueCommodities = new Set(mandiData.map(row => row[2]));
+    const uniqueCommodities = new Set(mandiData.map(row => row));
     el.uniqueCommodities.textContent = uniqueCommodities.size;
     el.selectedDate.textContent = formattedDate;
 
     el.stats.style.display = 'flex';
     el.mandiInfo.style.display = 'block';
     el.searchInput.style.display = 'block';
-    el.watermark.style.display = 'block';
+    if (el.watermark) el.watermark.style.display = 'block';
   }
 
   async function loadMandiBhav(mandiInput) {
@@ -334,33 +406,23 @@
     try {
       const { pricesUrl, stateInfo, distInfo, distSlug } = await getPricesUrl(currentMandiId);
 
-      currentMandiName = mandiNames[currentMandiId]?.[0] || currentMandiId;
-      currentStateName = stateInfo?.[0] || '-';
-      currentDistName = distInfo?.[0] || distSlug;
+      currentMandiName = mandiNames[currentMandiId]?. || currentMandiId;
+      currentStateName = stateInfo?. || '-';
+      currentDistName = distInfo?. || distSlug;
 
       el.pageTitle.textContent = `🌱 ${currentMandiName}`;
 
       const latestDate = await loadAvailableDates(pricesUrl, currentMandiId);
 
-      const cacheKey = `prices_${currentMandiId.slice(0,5)}`;
-      const now = Date.now();
-      const cached = JSON.parse(sessionStorage.getItem(cacheKey) || '{}');
-
-      if (cached.data && (now - cached.timestamp) < 300000) {
-        pricesData = cached.data;
-        debugLog(`💾 Cache से डेटा`, 'success');
-      } else {
-        const response = await fetch(pricesUrl);
-        pricesData = await response.json();
-        sessionStorage.setItem(cacheKey, JSON.stringify({ data: pricesData, timestamp: now }));
-        debugLog(`📡 नया डेटा fetch`, 'success');
-      }
+      // ✅ prices cache: strict 5 minutes
+      const districtKey = currentMandiId.slice(0, 5);
+      pricesData = await cachedPricesJson(pricesUrl, districtKey);
 
       const selectedDate = el.dateSelect.value || latestDate || currentDate;
       currentDate = selectedDate;
 
       mandiData = (pricesData.rows || []).filter(row =>
-        row[1] === currentMandiId && row[0] === selectedDate
+        row[3] === currentMandiId && row === selectedDate
       );
 
       if (mandiData.length === 0) {
@@ -372,7 +434,7 @@
 
       const formattedDate = formatDate(selectedDate);
       el.pageTitle.textContent = `🌱 ${currentMandiName} मंडी`;
-      el.pageSubtitle.textContent = `जिला ${currentDistName} | ${currentStateName} | ${formattedDate}`;
+      if (el.pageSubtitle) el.pageSubtitle.textContent = `जिला ${currentDistName} | ${currentStateName} | ${formattedDate}`;
 
       renderContent(mandiData, false);
       updateStats();
@@ -408,13 +470,14 @@
     el.stateName = mustGet('stateName');
     el.searchInput = mustGet('searchInput');
     el.pageTitle = mustGet('pageTitle');
-    el.pageSubtitle = mustGet('pageSubtitle');
+    // subtitle & watermark optional (don’t hard fail)
+    el.pageSubtitle = document.getElementById('pageSubtitle');
     el.loadingMsg = mustGet('loadingMsg');
     el.dataArea = mustGet('dataArea');
     el.cardsContainer = mustGet('cardsContainer');
     el.mandiTable = mustGet('mandiTable');
     el.tableBody = mustGet('tableBody');
-    el.watermark = mustGet('watermark');
+    el.watermark = document.getElementById('watermark');
 
     // bind events (once)
     el.dateSelect.addEventListener('change', function () {
@@ -426,15 +489,15 @@
         try {
           if (!isDistrictView) {
             mandiData = (pricesData.rows || []).filter(row =>
-              row[1] === currentMandiId && row[0] === currentDate
+              row[3] === currentMandiId && row === currentDate
             );
           } else {
-            mandiData = (pricesData.rows || []).filter(row => row[0] === currentDate);
+            mandiData = (pricesData.rows || []).filter(row => row === currentDate);
           }
 
           if (mandiData.length > 0) {
             detectVisibleColumns();
-            el.pageSubtitle.textContent = `${currentStateName} | ${currentDistName} | ${formatDate(currentDate)}`;
+            if (el.pageSubtitle) el.pageSubtitle.textContent = `${currentStateName} | ${currentDistName} | ${formatDate(currentDate)}`;
             renderContent(mandiData, isDistrictView);
             updateStats();
             debugLog(`✅ अपडेट`, 'success');
@@ -450,9 +513,9 @@
     el.searchInput.addEventListener('input', function (e) {
       const query = e.target.value.toLowerCase();
       const filtered = mandiData.filter(row => {
-        const c = (commodities[row[2]] || row[2] || '').toLowerCase();
-        const v = (varieties[row[3]] || row[3] || '').toLowerCase();
-        const g = (grades[row[4]] || row[4] || '').toLowerCase();
+        const c = (commodities[row] || row || '').toLowerCase();
+        const v = (varieties[row] || row || '').toLowerCase();
+        const g = (grades[row] || row || '').toLowerCase();
         return c.includes(query) || v.includes(query) || g.includes(query);
       });
       el.totalRecords.textContent = filtered.length;
@@ -460,6 +523,10 @@
     });
 
     debugLog('🌐 Ready!', 'success');
+
+    // ✅ IMPORTANT: manifest sync first (clears mapping cache when you bump maps_ver)
+    await syncManifestAndInvalidate();
+
     await loadCommodities();
     await loadStates();
   }

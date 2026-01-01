@@ -386,7 +386,7 @@
 
   function toggleViewMode() {
     viewMode = viewMode === 'table' ? 'card' : 'table';
-    el.toggleBtn.textContent = viewMode === 'table' ? '📊 टेबल' : '🃏 कार्ड';
+    el.toggleBtn.textContent = viewMode === 'table' ? '🃏 कार्ड' : '📊 टेबल';
     if (mandiData.length > 0) renderContent(mandiData, isDistrictView);
   }
 

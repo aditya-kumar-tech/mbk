@@ -183,7 +183,7 @@
       { idx: 4, label: 'ग्रेड' },
       { idx: 5, label: 'न्यूनतम ₹' },
       { idx: 6, label: 'अधिकतम ₹' },
-      { idx: 7, label: 'मोडल ₹' },
+      { idx: 7, label: 'मॉडल ₹' },
       { idx: 8, label: 'आवक (क्विंटल)' },
       { idx: 9, label: 'आवक (बोरी)' },
       { idx: 0, label: 'तारीख' }
@@ -282,7 +282,7 @@
               <div class="card-prices-grid">
                 ${row[5] && row[5] !== 0 ? `<div class="card-price-item"><div class="card-price-label">न्यूनतम</div><div class="card-price-value">₹${row[5]}</div></div>` : ''}
                 ${row[6] && row[6] !== 0 ? `<div class="card-price-item"><div class="card-price-label">अधिकतम</div><div class="card-price-value">₹${row[6]}</div></div>` : ''}
-                ${row[7] && row[7] !== 0 ? `<div class="card-price-item"><div class="card-price-label">मोडल</div><div class="card-price-value">₹${row[7]}</div></div>` : ''}
+                ${row[7] && row[7] !== 0 ? `<div class="card-price-item"><div class="card-price-label">मॉडल</div><div class="card-price-value">₹${row[7]}</div></div>` : ''}
               </div>
             </div>
           ` : ''}

@@ -286,7 +286,7 @@
 
         .card-title {
             color: #1B5E20;
-            font-size: 16px;
+            font-size: clamp(18px, 2.2vw, 22px);
             font-weight: bold;
             margin: 0;
         }
@@ -329,7 +329,7 @@
 
         .card-label {
             color: #999;
-            font-size: 10px;
+            font-size: 12px;
             margin-bottom: 3px;
             font-weight: 600;
         }
@@ -337,7 +337,7 @@
         .card-value {
             color: #1B5E20;
             font-weight: 700;
-            font-size: 14px;
+            font-size: 16px;
         }
 
         .card-prices {
@@ -374,7 +374,7 @@
         .card-price-value {
             color: #d32f2f;
             font-weight: 700;
-            font-size: 15px;
+            font-size: 17px;
         }
 
         .watermark {
@@ -497,6 +497,10 @@
 }
 @media (max-width: 640px){
   #dataArea::before{ background-size: 520px 380px; }
+       .card-title{ font-size: 19px; }
+.card-value{ font-size: 16px; }
+.card-label{ font-size: 12px; }
+.card-price-value{ font-size: 17px; }
 }
 
 /* watermark overlay only on cards+table area */

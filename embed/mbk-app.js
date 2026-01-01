@@ -4,8 +4,8 @@
 
   // cache keys
   const MAPS_VER_KEY = 'mbk:maps_ver';
-  const MAP_PREFIX = 'mbk:map:';      // mapping json cache
-  const PRICES_PREFIX = 'mbk:prices:'; // prices cache
+  const MAP_PREFIX = 'mbk:map:';
+  const PRICES_PREFIX = 'mbk:prices:';
   const PRICES_TTL_MS = 5 * 60 * 1000; // ✅ strict 5 minutes
 
   // data stores
@@ -22,7 +22,6 @@
   let currentStateName = '';
   let currentDistName = '';
   let currentDate = '';
-  let isDistrictView = false;
   let pricesData = null;
   let viewMode = 'table';
   let visibleColumns = [];
@@ -37,28 +36,17 @@
     return node;
   }
 
-  function debugLog(message, type = 'info') {
-    if (!el.debugPanel) return;
-    const div = document.createElement('div');
-    div.style.padding = '6px 8px';
-    div.style.margin = '2px 0';
-    div.style.background = type === 'error' ? '#fee' : type === 'success' ? '#efe' : '#eef';
-    div.style.borderLeft = `4px solid ${type === 'error' ? '#f44' : type === 'success' ? '#4f4' : '#44f'}`;
-    div.style.fontSize = '12px';
-    div.innerHTML = `<strong>${new Date().toLocaleTimeString('hi-IN')}:</strong> ${message}`;
-    el.debugPanel.appendChild(div);
-    el.debugPanel.scrollTop = el.debugPanel.scrollHeight;
-  }
+  // ✅ Production: debug disabled (no debug panel needed)
+  function debugLog() {}
 
   function showLoading(show) {
     const loader = document.getElementById('loadingMsg');
     const app = document.getElementById('mbkApp');
-
     if (loader) loader.style.display = show ? 'block' : 'none';
     if (app) app.style.display = show ? 'none' : 'block';
   }
 
-  function isValid(v){
+  function isValid(v) {
     return !(v === null || v === undefined || v === '' || v === 0 || v === '-');
   }
 
@@ -81,8 +69,7 @@
 
   // ---------- Manifest + cache helpers ----------
   async function loadManifest() {
-    // always try to get fresh manifest [1]
-    const res = await fetch(MANIFEST_URL, { cache: 'no-store' });
+    const res = await fetch(MANIFEST_URL, { cache: 'no-store' }); // keep fresh [web:580]
     return await res.json();
   }
 
@@ -100,17 +87,12 @@
       const mf = await loadManifest();
       const newMapsVer = String(mf.maps_ver || '');
       const oldMapsVer = sessionStorage.getItem(MAPS_VER_KEY) || '';
-
       if (newMapsVer && newMapsVer !== oldMapsVer) {
-        clearByPrefix(MAP_PREFIX);
+        clearByPrefix(MAP_PREFIX); // clear only mapping cache
         sessionStorage.setItem(MAPS_VER_KEY, newMapsVer);
-        debugLog(`🔁 Maps updated: ${oldMapsVer} → ${newMapsVer}`, 'info');
-      } else {
-        debugLog(`✅ Maps cache ok (ver: ${oldMapsVer || newMapsVer || '-'})`, 'success');
       }
-    } catch (e) {
-      // manifest fail => do nothing, app still works
-      debugLog(`⚠️ Manifest load failed: ${e.message}`, 'info');
+    } catch {
+      // manifest fail => ignore
     }
   }
 
@@ -135,57 +117,37 @@
 
     try {
       const cached = JSON.parse(sessionStorage.getItem(key) || 'null');
-      if (cached?.data && cached?.t && (now - cached.t) < PRICES_TTL_MS) {
-        debugLog(`💾 Prices cache (≤5 min)`, 'success');
-        return cached.data;
-      }
+      if (cached?.data && cached?.t && (now - cached.t) < PRICES_TTL_MS) return cached.data;
     } catch {}
 
     const res = await fetch(pricesUrl);
     const data = await res.json();
 
     try { sessionStorage.setItem(key, JSON.stringify({ t: now, data })); } catch {}
-    debugLog(`📡 Prices fetched`, 'success');
     return data;
   }
 
-  // ---------- Loads (updated to use cachedMapJson) ----------
+  // ---------- Loads ----------
   async function loadCommodities() {
-    try {
-      const [c, v, vEng, g] = await Promise.all([
-        cachedMapJson(`${BASE_URL}commodities.json`),
-        cachedMapJson(`${BASE_URL}varieties.json`),
-        cachedMapJson(`${BASE_URL}varietiesEng.json`),
-        cachedMapJson(`${BASE_URL}grades.json`)
-      ]);
-
-      commodities = c || {};
-      varieties = v || {};
-      varietiesEng = vEng || {};
-      grades = g || {};
-      debugLog('✅ Commodity/Variety/Grade mapping ready', 'success');
-    } catch (e) {
-      debugLog('⚠️ Mapping files optional', 'info');
-    }
+    const [c, v, vEng, g] = await Promise.all([
+      cachedMapJson(`${BASE_URL}commodities.json`),
+      cachedMapJson(`${BASE_URL}varieties.json`),
+      cachedMapJson(`${BASE_URL}varietiesEng.json`),
+      cachedMapJson(`${BASE_URL}grades.json`)
+    ]);
+    commodities = c || {};
+    varieties = v || {};
+    varietiesEng = vEng || {};
+    grades = g || {};
   }
 
   async function loadStates() {
-    try {
-      states = await cachedMapJson(`${BASE_URL}states.json`);
-      debugLog('✅ States लोड', 'success');
-    } catch (e) {
-      debugLog('States error', 'error');
-    }
+    states = await cachedMapJson(`${BASE_URL}states.json`);
   }
 
   async function loadMandiNamesForState(stateSlug) {
-    try {
-      const data = await cachedMapJson(`${BASE_URL}mandis/${stateSlug}_mandis.json`);
-      mandiNames = data.data || {};
-      debugLog(`✅ ${stateSlug} के लिए ${Object.keys(mandiNames).length} मंडी names लोड`, 'success');
-    } catch (e) {
-      debugLog(`⚠️ Mandi names नहीं मिले: ${stateSlug}`, 'info');
-    }
+    const data = await cachedMapJson(`${BASE_URL}mandis/${stateSlug}_mandis.json`);
+    mandiNames = data.data || {};
   }
 
   async function getPricesUrl(mandiId) {
@@ -193,7 +155,7 @@
     const distId = mandiId.slice(0, 5);
 
     const stateInfo = states?.data?.[stateId];
-    const stateSlug = stateInfo?.[3];
+    const stateSlug = stateInfo?.[1];
 
     if (Object.keys(mandiNames).length === 0) {
       await loadMandiNamesForState(stateSlug);
@@ -202,54 +164,16 @@
     const distMappingUrl = `${BASE_URL}dists/${stateSlug}.json`;
     const distData = await cachedMapJson(distMappingUrl);
     const distInfo = distData?.data?.[distId];
-    const distSlug = distInfo?.[3] || distId;
+    const distSlug = distInfo?.[1] || distId;
 
     const pricesUrl = `${BASE_URL}prices/${stateSlug}/${distSlug}_prices.json`;
-    return { pricesUrl, stateSlug, distSlug, stateInfo, distInfo };
-  }
-
-  async function loadAvailableDates(pricesUrl, mandiId) {
-    try {
-      // Dates निकालने के लिए pricesUrl JSON चाहिए; TTL handled by cachedPricesJson in loadMandiBhav
-      // यहाँ direct fetch OK है, क्योंकि loadMandiBhav में वही pricesData cache करेगा
-      const response = await fetch(pricesUrl);
-      const data = await response.json();
-
-      const dateSet = new Set();
-      (data.rows || []).forEach(row => {
-        if (row[3] === mandiId && row) dateSet.add(row);
-      });
-
-      allDates = Array.from(dateSet).sort().reverse();
-
-      const previousValue = el.dateSelect.value;
-      el.dateSelect.innerHTML = '';
-
-      allDates.forEach(date => {
-        const option = document.createElement('option');
-        option.value = date;
-        option.textContent = `📅 ${formatDate(date)}`;
-        el.dateSelect.appendChild(option);
-      });
-
-      if (allDates.length > 0) {
-        el.dateSelect.value = allDates.includes(previousValue) ? previousValue : allDates;
-        currentDate = el.dateSelect.value;
-        el.dateSelect.style.display = 'inline-block';
-      }
-
-      debugLog(`✅ ${allDates.length} तारीखें मिलीं`, 'success');
-      return currentDate;
-    } catch (e) {
-      debugLog(`⚠️ Dates error: ${e.message}`, 'error');
-      return null;
-    }
+    return { pricesUrl, stateInfo, distInfo, distSlug };
   }
 
   function detectVisibleColumns() {
     visibleColumns = [];
     const allCols = [
-      { idx: 10, label: 'मंडी' },
+      // ✅ single mandi mode => no "मंडी" column needed
       { idx: 2, label: 'कमोडिटी' },
       { idx: 3, label: 'वैरायटी' },
       { idx: 4, label: 'ग्रेड' },
@@ -262,20 +186,17 @@
     ];
 
     allCols.forEach(col => {
-      const hasData = mandiData.some(row => {
-        if (col.idx === 10) return isValid(row[3]) || isValid(row);
-        return isValid(row[col.idx]);
-      });
+      const hasData = mandiData.some(row => isValid(row[col.idx]));
       if (hasData) visibleColumns.push(col);
     });
   }
 
-  function renderContent(data, showMarket) {
-    if (viewMode === 'table') renderTable(data, showMarket);
-    else renderCards(data, showMarket);
+  function renderContent(data) {
+    if (viewMode === 'table') renderTable(data);
+    else renderCards(data);
   }
 
-  function renderTable(data, showMarket) {
+  function renderTable(data) {
     const tbody = el.tableBody;
     const theadRow = el.mandiTable.querySelector('thead tr');
 
@@ -285,10 +206,6 @@
     visibleColumns.forEach(col => {
       const th = document.createElement('th');
       th.textContent = col.label;
-      if (col.idx === 10) {
-        th.id = 'thMarket';
-        th.style.display = showMarket ? '' : 'none';
-      }
       theadRow.appendChild(th);
     });
 
@@ -298,19 +215,14 @@
 
       visibleColumns.forEach(col => {
         let cellValue = safeVal(row[col.idx]);
-
-        if (col.idx === 10) {
-          const mandiId = row[3];
-          cellValue = (mandiNames?.[mandiId]?.) || row || mandiId || '-';
-        } else if (col.idx === 2) cellValue = commodities[row] || row || '-';
-        else if (col.idx === 3) cellValue = getVarietyName(row);
-        else if (col.idx === 4) cellValue = grades[row] || row || '-';
-        else if (col.idx === 0) cellValue = formatDate(row);
+        if (col.idx === 2) cellValue = commodities[row[2]] || row[2] || '-';
+        else if (col.idx === 3) cellValue = getVarietyName(row[3]);
+        else if (col.idx === 4) cellValue = grades[row[4]] || row[4] || '-';
+        else if (col.idx === 0) cellValue = formatDate(row[0]);
 
         const td = tr.insertCell();
         td.textContent = cellValue;
 
-        if (col.idx === 10 && !showMarket) td.style.display = 'none';
         if ((col.idx === 5 || col.idx === 6 || col.idx === 7) && cellValue !== '-') td.classList.add('price');
         if (col.idx === 2) td.classList.add('commodity');
       });
@@ -325,10 +237,10 @@
   function renderCards(data) {
     let html = '';
     data.slice(0, 200).forEach((row, index) => {
-      const commodityName = commodities[row] || row || '-';
-      const varietyName = getVarietyName(row);
-      const gradeName = grades[row] || row || '-';
-      const dateDisplay = formatDate(row);
+      const commodityName = commodities[row[2]] || row[2] || '-';
+      const varietyName = getVarietyName(row[3]);
+      const gradeName = grades[row[4]] || row[4] || '-';
+      const dateDisplay = formatDate(row[0]);
 
       html += `
         <div class="card">
@@ -344,24 +256,24 @@
           </div>
 
           <div class="card-grid">
-            ${row ? `<div class="card-field"><div class="card-label">वैरायटी</div><div class="card-value">${varietyName}</div></div>` : ''}
-            ${row ? `<div class="card-field"><div class="card-label">ग्रेड</div><div class="card-value">${gradeName}</div></div>` : ''}
+            ${row[3] ? `<div class="card-field"><div class="card-label">वैरायटी</div><div class="card-value">${varietyName}</div></div>` : ''}
+            ${row[4] ? `<div class="card-field"><div class="card-label">ग्रेड</div><div class="card-value">${gradeName}</div></div>` : ''}
           </div>
 
-          ${(row && row !== 0) || (row && row !== 0) || (row && row !== 0) ? `
+          ${(row[5] && row[5] !== 0) || (row[6] && row[6] !== 0) || (row[7] && row[7] !== 0) ? `
             <div class="card-prices">
               <div class="card-prices-label">💰 मूल्य विवरण</div>
               <div class="card-prices-grid">
-                ${row && row !== 0 ? `<div class="card-price-item"><div class="card-price-label">न्यूनतम</div><div class="card-price-value">₹${row[4]}</div></div>` : ''}
-                ${row && row !== 0 ? `<div class="card-price-item"><div class="card-price-label">अधिकतम</div><div class="card-price-value">₹${row[5]}</div></div>` : ''}
-                ${row && row !== 0 ? `<div class="card-price-item"><div class="card-price-label">मॉडल</div><div class="card-price-value">₹${row[6]}</div></div>` : ''}
+                ${row[5] && row[5] !== 0 ? `<div class="card-price-item"><div class="card-price-label">न्यूनतम</div><div class="card-price-value">₹${row[5]}</div></div>` : ''}
+                ${row[6] && row[6] !== 0 ? `<div class="card-price-item"><div class="card-price-label">अधिकतम</div><div class="card-price-value">₹${row[6]}</div></div>` : ''}
+                ${row[7] && row[7] !== 0 ? `<div class="card-price-item"><div class="card-price-label">मॉडल</div><div class="card-price-value">₹${row[7]}</div></div>` : ''}
               </div>
             </div>
           ` : ''}
 
           <div class="card-grid">
-            ${isValid(row) ? `<div class="card-field"><div class="card-label">आवक (क्विंटल)</div><div class="card-value">${row[8]}</div></div>` : ''}
-            ${isValid(row) ? `<div class="card-field"><div class="card-label">आवक (बोरी)</div><div class="card-value">${row[9]}</div></div>` : ''}
+            ${isValid(row[8]) ? `<div class="card-field"><div class="card-label">आवक (क्विंटल)</div><div class="card-value">${row[8]}</div></div>` : ''}
+            ${isValid(row[9]) ? `<div class="card-field"><div class="card-label">आवक (बोरी)</div><div class="card-value">${row[9]}</div></div>` : ''}
           </div>
         </div>
       `;
@@ -376,12 +288,12 @@
 
   function updateStats() {
     const formattedDate = formatDate(el.dateSelect.value || currentDate);
-    el.mandiName.textContent = isDistrictView ? `📊 पूरा जिला` : currentMandiName;
+    el.mandiName.textContent = currentMandiName;
     el.stateName.textContent = currentStateName;
     el.distName.textContent = currentDistName;
 
     el.totalRecords.textContent = mandiData.length;
-    const uniqueCommodities = new Set(mandiData.map(row => row));
+    const uniqueCommodities = new Set(mandiData.map(row => row[2]));
     el.uniqueCommodities.textContent = uniqueCommodities.size;
     el.selectedDate.textContent = formattedDate;
 
@@ -399,48 +311,53 @@
       return;
     }
 
-    debugLog(`🚀 लोड: ${currentMandiId}`);
     showLoading(true);
-    isDistrictView = false;
 
     try {
       const { pricesUrl, stateInfo, distInfo, distSlug } = await getPricesUrl(currentMandiId);
 
-      currentMandiName = mandiNames[currentMandiId]?. || currentMandiId;
-      currentStateName = stateInfo?. || '-';
-      currentDistName = distInfo?. || distSlug;
+      currentMandiName = mandiNames[currentMandiId]?.[0] || currentMandiId;
+      currentStateName = stateInfo?.[0] || '-';
+      currentDistName = distInfo?.[0] || distSlug;
 
       el.pageTitle.textContent = `🌱 ${currentMandiName}`;
 
-      const latestDate = await loadAvailableDates(pricesUrl, currentMandiId);
-
-      // ✅ prices cache: strict 5 minutes
+      // ✅ prices cache: strict 5 min
       const districtKey = currentMandiId.slice(0, 5);
       pricesData = await cachedPricesJson(pricesUrl, districtKey);
 
-      const selectedDate = el.dateSelect.value || latestDate || currentDate;
+      // ✅ build dates from pricesData (no extra fetch)
+      const dateSet = new Set();
+      (pricesData.rows || []).forEach(row => {
+        if (row[1] === currentMandiId && row[0]) dateSet.add(row[0]);
+      });
+      allDates = Array.from(dateSet).sort().reverse();
+
+      el.dateSelect.innerHTML = '';
+      allDates.forEach(d => {
+        const option = document.createElement('option');
+        option.value = d;
+        option.textContent = `📅 ${formatDate(d)}`;
+        el.dateSelect.appendChild(option);
+      });
+
+      if (!allDates.length) return;
+
+      const selectedDate = el.dateSelect.value || allDates[0];
       currentDate = selectedDate;
 
+      // ✅ SINGLE MANDI ONLY filter
       mandiData = (pricesData.rows || []).filter(row =>
-        row[3] === currentMandiId && row === selectedDate
+        row[1] === currentMandiId && row[0] === selectedDate
       );
 
-      if (mandiData.length === 0) {
-        debugLog('⚠️ इस मंडी का डेटा नहीं मिला', 'error');
-        return;
-      }
+      if (!mandiData.length) return;
 
       detectVisibleColumns();
+      if (el.pageSubtitle) el.pageSubtitle.textContent = `जिला ${currentDistName} | ${currentStateName} | ${formatDate(selectedDate)}`;
 
-      const formattedDate = formatDate(selectedDate);
-      el.pageTitle.textContent = `🌱 ${currentMandiName} मंडी`;
-      if (el.pageSubtitle) el.pageSubtitle.textContent = `जिला ${currentDistName} | ${currentStateName} | ${formattedDate}`;
-
-      renderContent(mandiData, false);
+      renderContent(mandiData);
       updateStats();
-      debugLog(`✅ ${mandiData.length} भाव लोड`, 'success');
-    } catch (e) {
-      debugLog(`❌ ${e.message}`, 'error');
     } finally {
       showLoading(false);
     }
@@ -449,28 +366,26 @@
   function toggleViewMode() {
     viewMode = viewMode === 'table' ? 'card' : 'table';
     el.toggleBtn.textContent = viewMode === 'table' ? '🃏 कार्ड' : '📊 टेबल';
-    if (mandiData.length > 0) renderContent(mandiData, isDistrictView);
+    if (mandiData.length > 0) renderContent(mandiData);
   }
 
   async function init() {
     if (__inited) return;
     __inited = true;
 
-    // cache DOM refs
     el.dateSelect = mustGet('dateSelect');
     el.toggleBtn = mustGet('toggleBtn');
     el.stats = mustGet('stats');
     el.totalRecords = mustGet('totalRecords');
     el.uniqueCommodities = mustGet('uniqueCommodities');
     el.selectedDate = mustGet('selectedDate');
-    el.debugPanel = mustGet('debugPanel');
+    // ✅ debugPanel removed from required list
     el.mandiInfo = mustGet('mandiInfo');
     el.mandiName = mustGet('mandiName');
     el.distName = mustGet('distName');
     el.stateName = mustGet('stateName');
     el.searchInput = mustGet('searchInput');
     el.pageTitle = mustGet('pageTitle');
-    // subtitle & watermark optional (don’t hard fail)
     el.pageSubtitle = document.getElementById('pageSubtitle');
     el.loadingMsg = mustGet('loadingMsg');
     el.dataArea = mustGet('dataArea');
@@ -479,58 +394,45 @@
     el.tableBody = mustGet('tableBody');
     el.watermark = document.getElementById('watermark');
 
-    // bind events (once)
     el.dateSelect.addEventListener('change', function () {
       if (!this.value) return;
       currentDate = this.value;
-      showLoading(true);
 
+      showLoading(true);
       setTimeout(() => {
         try {
-          if (!isDistrictView) {
-            mandiData = (pricesData.rows || []).filter(row =>
-              row[3] === currentMandiId && row === currentDate
-            );
-          } else {
-            mandiData = (pricesData.rows || []).filter(row => row === currentDate);
-          }
-
+          mandiData = (pricesData.rows || []).filter(row =>
+            row[1] === currentMandiId && row[0] === currentDate
+          );
           if (mandiData.length > 0) {
             detectVisibleColumns();
-            if (el.pageSubtitle) el.pageSubtitle.textContent = `${currentStateName} | ${currentDistName} | ${formatDate(currentDate)}`;
-            renderContent(mandiData, isDistrictView);
+            if (el.pageSubtitle) el.pageSubtitle.textContent = `जिला ${currentDistName} | ${currentStateName} | ${formatDate(currentDate)}`;
+            renderContent(mandiData);
             updateStats();
-            debugLog(`✅ अपडेट`, 'success');
           }
-        } catch (e) {
-          debugLog(`❌ Error: ${e.message}`, 'error');
         } finally {
           showLoading(false);
         }
-      }, 100);
+      }, 60);
     });
 
     el.searchInput.addEventListener('input', function (e) {
       const query = e.target.value.toLowerCase();
       const filtered = mandiData.filter(row => {
-        const c = (commodities[row] || row || '').toLowerCase();
-        const v = (varieties[row] || row || '').toLowerCase();
-        const g = (grades[row] || row || '').toLowerCase();
+        const c = (commodities[row[2]] || row[2] || '').toLowerCase();
+        const v = (varieties[row[3]] || row[3] || '').toLowerCase();
+        const g = (grades[row[4]] || row[4] || '').toLowerCase();
         return c.includes(query) || v.includes(query) || g.includes(query);
       });
       el.totalRecords.textContent = filtered.length;
-      renderContent(filtered, isDistrictView);
+      renderContent(filtered);
     });
 
-    debugLog('🌐 Ready!', 'success');
-
-    // ✅ IMPORTANT: manifest sync first (clears mapping cache when you bump maps_ver)
+    // ✅ manifest sync first, then load mapping jsons
     await syncManifestAndInvalidate();
-
     await loadCommodities();
     await loadStates();
   }
 
-  // expose API for loader
   window.MBK = { init, loadMandiBhav, toggleViewMode };
 })();

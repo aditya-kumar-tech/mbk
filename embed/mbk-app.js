@@ -346,7 +346,7 @@ if (cached?.data?.rows && cached?.t && (now - cached.t) < PRICES_TTL_MS) return 
       currentStateName = stateInfo?.[0] || '-';
       currentDistName = distInfo?.[0] || distSlug;
 
-      el.pageTitle.textContent = `🌱 ${currentMandiName}`;
+      el.pageTitle.textContent = `🌱 ${currentMandiName} मंडी का भाव`;
 
       // ✅ prices cache: strict 5 min
       const districtKey = currentMandiId.slice(0, 5);

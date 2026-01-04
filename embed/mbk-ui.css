@@ -576,3 +576,7 @@ background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000
   .card-label, .card-date-label, .card-price-label{ font-size: 15px; }
 }
 
+.header h1,
+.header #pageTitle {
+  color: #fff !important;
+}

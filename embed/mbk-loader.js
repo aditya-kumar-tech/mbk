@@ -65,14 +65,20 @@
   }
 
   async function ensureBoot() {
-    if (window.MBK && window.MBK.loadMandiBhav) {
-      if (window.MBK.init) await window.MBK.init();
-      return;
-    }
-    if (!bootPromise) bootPromise = Promise.all([loadCssOnce(CSS_URL), loadJsOnce(JS_URL)]);
-    await bootPromise;
-    if (window.MBK && window.MBK.init) await window.MBK.init();
+  if (window.MBK && window.MBK.loadMandiBhav) {
+    if (window.MBK.init) await window.MBK.init();
+    return;
   }
+  if (!bootPromise) {
+    bootPromise = (async () => {
+      await loadCssOnce(CSS_URL);   // ✅ CSS first to avoid FOUC
+      await loadJsOnce(JS_URL);
+    })();
+  }
+  await bootPromise;
+  if (window.MBK && window.MBK.init) await window.MBK.init();
+}
+
 
   // ✅ same names used in Blogger HTML onclick
   window.mandibhavloadfresh = async function (mandiId) {

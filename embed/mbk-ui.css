@@ -1,72 +1,428 @@
-/* Only MBK area */
-#mbkRoot, 
+/* =========================
+   MBK Scoped UI (Blogger-safe)
+   Applies only inside #mbkRoot
+   ========================= */
+
+/* Scope + base */
+#mbkRoot,
 #mbkRoot * { box-sizing: border-box; }
 
 #mbkRoot{
   font-family: 'Noto Sans Devanagari','Segoe UI',Arial,sans-serif;
-  padding: 16px;
-  background: linear-gradient(135deg,#fff3e0,#e1f5fe);
-  color:#333;
-  font-size:14px;
+  margin: 0;
+  padding: 15px;
+  background: linear-gradient(135deg, #fff3e0, #e1f5fe);
+  font-size: 14px;
+  color: #333;
+}
+
+/* Loading */
+#loadingMsg.loading{
+  text-align: center;
+  padding: 40px 10px;
+  color: #666;
+  background: white;
+  border-radius: 10px;
+  margin: 15px 0;
+  display: none;
+  font-size: 18px;
+  font-weight: 500;
 }
 
 /* Header */
 #mbkRoot .header{
-  text-align:center;
-  background: linear-gradient(135deg,#ff7043,#d84315);
-  color:#fff;
-  padding:22px 16px;
-  border-radius:14px;
-  margin-bottom:16px;
-  box-shadow:0 4px 14px rgba(0,0,0,.18);
+  text-align: center;
+  background: linear-gradient(135deg, #ff7043, #d84315);
+  color: #fff;
+  padding: 25px 20px;
+  border-radius: 15px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
 }
 #mbkRoot .header h1,
 #mbkRoot .header #pageTitle{
-  color:#fff !important;
-  margin:0 0 6px 0;
-  font-size:28px;
-  font-weight:800;
+  margin: 0 0 5px 0;
+  font-size: 32px;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+  font-weight: bold;
+  color: #fff !important; /* force white title */
 }
 #mbkRoot .header p{
-  margin:0;
-  font-size:16px;
-  font-weight:600;
+  margin: 5px 0;
+  font-size: 16px;
+  font-weight: 500;
+  color: #fff;
 }
 
-/* Table only inside MBK */
-#mbkRoot .table-wrapper{ position:relative; overflow-x:auto; }
+/* Controls row */
+#mbkRoot .input-row{
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+#mbkRoot .input-row input,
+#mbkRoot .input-row select{
+  flex: 1;
+  min-width: 150px;
+  padding: 12px 15px;
+  border-radius: 8px;
+  border: 2px solid #ddd;
+  font-size: 16px;
+  font-family: 'Noto Sans Devanagari', sans-serif;
+  background: white;
+  color: #333;
+}
+#mbkRoot .input-row input:focus,
+#mbkRoot .input-row select:focus{
+  outline: none;
+  border-color: #ff7043;
+  box-shadow: 0 0 8px rgba(255, 112, 67, 0.3);
+}
+#mbkRoot .input-row button{
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #ff7043, #d84315);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+#mbkRoot .input-row button:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+#mbkRoot .input-row button:active{ transform: translateY(0); }
 
-#mbkRoot table{
-  width:100%;
-  border-collapse:separate;
-  border-spacing:0 8px;
-  background:transparent;
+/* Info + search (you keep hidden via JS) */
+#mbkRoot .mandi-info{
+  background: white;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  margin-bottom: 15px;
+  display: none;
+  border-left: 5px solid #ff7043;
 }
-#mbkRoot thead th{
-  background:linear-gradient(90deg,#ff7043,#d84315);
-  color:#fff;
-  font-size:15px;
-  padding:12px;
-  text-align:center;
-  font-weight:800;
+#mbkRoot .search-box{
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 20px;
+  border: 2px solid #ddd;
+  border-radius: 25px;
+  font-size: 16px;
+  background: white;
+  display: none;
+  font-family: 'Noto Sans Devanagari', sans-serif;
+  transition: border-color 0.3s;
 }
-#mbkRoot tbody td{
-  background:#fff;
-  padding:12px;
-  text-align:center;
-  font-size:15px;
-  font-weight:700;
-  color:#00695c;
-  box-shadow:0 2px 8px rgba(0,0,0,0.08);
+#mbkRoot .search-box:focus{
+  outline: none;
+  border-color: #ff7043;
 }
-#mbkRoot tbody tr:nth-child(even) td{ background:#e0f7fa; }
-#mbkRoot tbody tr:nth-child(odd)  td{ background:#f1f8e9; }
 
-#mbkRoot tbody td:first-child{
-  border-radius:10px 0 0 10px;
-  background:#ffe0b2;
-  color:#e65100;
-  font-weight:800;
+/* Stats (currently hidden in your HTML) */
+#mbkRoot .stats{
+  display: none;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  justify-content: center;
 }
-#mbkRoot tbody td:last-child{ border-radius:0 10px 10px 0; }
-#mbkRoot .commodity{ text-align:left; font-weight:800; color:#1B5E20; }
+#mbkRoot .stat-card{
+  background: white;
+  padding: 15px 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  text-align: center;
+  min-width: 140px;
+  border-top: 4px solid #ff7043;
+}
+#mbkRoot .stat-number{
+  font-size: 28px;
+  font-weight: bold;
+  color: #d84315;
+  margin-bottom: 5px;
+}
+#mbkRoot .stat-label{
+  font-size: 14px;
+  color: #666;
+  font-weight: 500;
+}
+
+/* ===== TABLE ===== */
+#mbkRoot .table-wrapper{
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 0 -15px;
+  padding: 0 15px;
+}
+
+/* keep table hidden until JS adds .show */
+#mbkRoot #mandiTable{
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 8px;
+  background: transparent;
+  display: none;
+}
+#mbkRoot #mandiTable.show{
+  display: table;
+}
+
+#mbkRoot #mandiTable thead tr th{
+  background: linear-gradient(90deg, #ff7043, #d84315);
+  color: #fff;
+  font-size: 16px;
+  padding: 14px;
+  text-align: center;
+  font-weight: bold;
+  letter-spacing: 0.5px;
+}
+#mbkRoot #mandiTable thead tr th:first-child{ border-radius: 10px 0 0 10px; }
+#mbkRoot #mandiTable thead tr th:last-child { border-radius: 0 10px 10px 0; }
+
+#mbkRoot #mandiTable tbody tr{
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+#mbkRoot #mandiTable tbody tr:hover{
+  transform: translateY(-2px);
+}
+#mbkRoot #mandiTable tbody tr td{
+  background: #ffffff;
+  padding: 14px;
+  text-align: center;
+  font-size: 15px;
+  font-weight: 600;
+  color: #00695c;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+#mbkRoot #mandiTable tbody tr:nth-child(even) td{ background: #e0f7fa; }
+#mbkRoot #mandiTable tbody tr:nth-child(odd)  td{ background: #f1f8e9; }
+
+#mbkRoot #mandiTable tbody tr td:first-child{
+  border-radius: 10px 0 0 10px;
+  background: #ffe0b2;
+  color: #e65100;
+  font-weight: bold;
+}
+#mbkRoot #mandiTable tbody tr td:last-child{
+  border-radius: 0 10px 10px 0;
+}
+#mbkRoot #mandiTable tbody tr:nth-child(even) td:first-child{
+  background: #ffd54f;
+  color: #f57f17;
+}
+
+#mbkRoot .commodity{
+  font-weight: 700;
+  color: #1B5E20;
+  text-align: left;
+}
+#mbkRoot .price{
+  font-weight: 700;
+  color: #d32f2f;
+  font-size: 16px;
+}
+
+/* ===== CARDS (same as your old) ===== */
+#mbkRoot #cardsContainer{
+  display: none;
+  grid-template-columns: 1fr;
+  gap: 15px;
+}
+#mbkRoot #cardsContainer.show{
+  display: grid;
+}
+
+#mbkRoot .card{
+  background: white;
+  border-radius: 12px;
+  border-left: 6px solid #ff7043;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  padding: 16px;
+  overflow: hidden;
+}
+#mbkRoot .card-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #f0f0f0;
+}
+#mbkRoot .card-title{
+  color: #1B5E20;
+  font-size: clamp(18px, 2.2vw, 22px);
+  font-weight: bold;
+  margin: 0;
+}
+#mbkRoot .card-serial{
+  color: #999;
+  font-size: 12px;
+  margin-top: 4px;
+}
+#mbkRoot .card-date-box{ text-align: right; }
+
+#mbkRoot .card-date-label{
+  font-size: 15px;
+  color: #000;
+  margin-bottom: 4px;
+}
+#mbkRoot .card-date{
+  font-size: 14px;
+  color: #d84315;
+  font-weight: 600;
+}
+#mbkRoot .card-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+#mbkRoot .card-field{
+  background: #f5f5f5;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 13px;
+}
+#mbkRoot .card-label{
+  color: #000;
+  font-size: 15px;
+  margin-bottom: 3px;
+  font-weight: 600;
+}
+#mbkRoot .card-value{
+  color: #1B5E20;
+  font-weight: 700;
+  font-size: 16px;
+}
+#mbkRoot .card-prices{
+  background: #fff3e0;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+#mbkRoot .card-prices-label{
+  font-size: 10px;
+  color: #d84315;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+#mbkRoot .card-prices-grid{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+  font-size: 12px;
+}
+#mbkRoot .card-price-item{ text-align: center; }
+#mbkRoot .card-price-label{
+  color: #000;
+  font-size: 15px;
+  margin-bottom: 2px;
+}
+#mbkRoot .card-price-value{
+  color: #d32f2f;
+  font-weight: 700;
+  font-size: 17px;
+}
+
+/* Watermark */
+#mbkRoot .watermark{
+  text-align: center;
+  font-size: 14px;
+  color: #00695c;
+  margin-top: 30px;
+  font-style: italic;
+  font-weight: 500;
+}
+
+/* Data area watermark overlay (scoped) */
+#mbkRoot #dataArea{ position: relative; }
+#mbkRoot #dataArea::before{
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  pointer-events: none;
+  opacity: 0.30;
+  background-repeat: repeat;
+  background-size: 320px 220px;
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='900'%20height='650'%20viewBox='0%200%20900%20650'%3E%3Cstyle%3Etext%7Bfont-family:Arial%2C%20sans-serif%3B%20font-size:50px%3B%20font-weight:700%3B%20fill:%23d84315%3B%7D%3C/style%3E%3Cg%20transform='translate(80%2C360)%20rotate(-25)'%3E%3Ctext%20x='0'%20y='0'%3Emandibhavkhabar.com%3C/text%3E%3Ctext%20x='0'%20y='60'%3EFollow%20on%20FB%20%40MandiBhavKhabar%3C/text%3E%3C/g%3E%3C/svg%3E");
+}
+#mbkRoot #cardsContainer,
+#mbkRoot .table-wrapper{
+  position: relative;
+  z-index: 1;
+}
+
+/* Readability patch (kept) */
+#mbkRoot .card,
+#mbkRoot .card-field,
+#mbkRoot .card-prices { line-height: 1.5; }
+
+#mbkRoot .card-title{ font-size: 22px; line-height: 1.25; }
+#mbkRoot .card-value{ font-size: 18px; line-height: 1.3; }
+#mbkRoot .card-label,
+#mbkRoot .card-date-label,
+#mbkRoot .card-price-label{ font-size: 14px; color: #444; }
+#mbkRoot .card-date{ font-size: 16px; color: #8a2f10; font-weight: 700; }
+#mbkRoot .card-price-value{ font-size: 20px; }
+#mbkRoot .card-serial{ font-size: 14px; color: #555; }
+
+/* Responsive */
+@media (max-width: 640px){
+  #mbkRoot .header h1{ font-size: 24px; }
+
+  #mbkRoot .input-row{ flex-direction: column; }
+  #mbkRoot .input-row input,
+  #mbkRoot .input-row select,
+  #mbkRoot .input-row button{ min-width: 100%; }
+
+  #mbkRoot .stats{ flex-direction: column; align-items: stretch; }
+  #mbkRoot .stat-card{ min-width: unset; }
+
+  /* table: allow scroll */
+  #mbkRoot #mandiTable{
+    border-spacing: 0 4px;
+    width: 100%;
+    min-width: 600px;
+  }
+  #mbkRoot #mandiTable thead tr th{
+    padding: 10px 6px;
+    font-size: 12px;
+    min-width: 70px;
+  }
+  #mbkRoot #mandiTable tbody tr td{
+    padding: 8px 6px;
+    font-size: 12px;
+    min-width: 70px;
+  }
+
+  #mbkRoot #cardsContainer{ grid-template-columns: 1fr; }
+  #mbkRoot .card-grid{ grid-template-columns: 1fr 1fr; }
+  #mbkRoot .card-prices-grid{ grid-template-columns: 1fr 1fr 1fr; }
+
+  /* keep your mobile readability boost */
+  #mbkRoot #dataArea::before{ background-size: 520px 380px; }
+  #mbkRoot .card-title{ font-size: 24px; }
+  #mbkRoot .card-value{ font-size: 19px; }
+  #mbkRoot .card-price-value{ font-size: 22px; }
+  #mbkRoot .card-label,
+  #mbkRoot .card-date-label,
+  #mbkRoot .card-price-label{ font-size: 15px; }
+}
+
+@media (min-width: 641px) and (max-width: 1024px){
+  #mbkRoot #cardsContainer{ grid-template-columns: repeat(2, 1fr); }
+  #mbkRoot #mandiTable thead tr th{ padding: 10px; font-size: 13px; }
+  #mbkRoot #mandiTable tbody tr td{ padding: 10px; font-size: 13px; }
+}
+
+@media (min-width: 1025px){
+  #mbkRoot #cardsContainer{ grid-template-columns: repeat(2, 1fr); }
+}

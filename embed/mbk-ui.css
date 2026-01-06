@@ -351,7 +351,7 @@
   pointer-events: none;
   opacity: 0.30;
   background-repeat: repeat;
-  background-size: 250px 200px; /*---change 320px 220px to ---*/
+  background-size: 400px 400px; /*---change 320px 220px to ---*/
   background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='900'%20height='650'%20viewBox='0%200%20900%20650'%3E%3Cstyle%3Etext%7Bfont-family:Arial%2C%20sans-serif%3B%20font-size:40px%3B%20font-weight:700%3B%20fill:%23d84315%3B%7D%3C/style%3E%3Cg%20transform='translate(80%2C360)%20rotate(-25)'%3E%3Ctext%20x='0'%20y='0'%3Emandibhavkhabar.com%3C/text%3E%3Ctext%20x='0'%20y='60'%3EFollow%20on%20FB%20%40MandiBhavKhabar%3C/text%3E%3C/g%3E%3C/svg%3E");
 }
 #mbkRoot #cardsContainer,

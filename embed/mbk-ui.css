@@ -419,8 +419,8 @@
 
 @media (min-width: 641px) and (max-width: 1024px){
   #mbkRoot #cardsContainer{ grid-template-columns: repeat(2, 1fr); }
-  #mbkRoot #mandiTable thead tr th{ padding: 10px; font-size: 13px; }
-  #mbkRoot #mandiTable tbody tr td{ padding: 10px; font-size: 13px; }
+  #mbkRoot #mandiTable thead tr th{ padding: 10px; font-size: 16px; }
+  #mbkRoot #mandiTable tbody tr td{ padding: 10px; font-size: 16px; }
 }
 
 @media (min-width: 1025px){

@@ -408,7 +408,7 @@
   #mbkRoot .card-prices-grid{ grid-template-columns: 1fr 1fr 1fr; }
 
   /* keep your mobile readability boost */
-  #mbkRoot #dataArea::before{ background-size: 520px 380px; }
+  /*--#mbkRoot #dataArea::before{ background-size: 520px 380px; }--*/ /*-- background-size: 520px 380px;--*/
   #mbkRoot .card-title{ font-size: 24px; }
   #mbkRoot .card-value{ font-size: 19px; }
   #mbkRoot .card-price-value{ font-size: 22px; }

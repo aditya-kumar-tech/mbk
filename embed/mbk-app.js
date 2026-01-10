@@ -167,6 +167,7 @@
             ${isValid(r[4]) ? `<div class="card-field"><div class="card-label">ग्रेड</div><div class="card-value">${getGradeName(r[4])}</div></div>`:''}
           </div>
           <div class="card-prices">
+          <div class="card-prices-label">💰 मूल्य विवरण</div>
             <div class="card-prices-grid">
               ${isValid(r[5]) ? `<div class="card-price-item"><div class="card-price-label">न्यूनतम</div><div class="card-price-value">₹${r[5]}</div></div>`:''}
               ${isValid(r[6]) ? `<div class="card-price-item"><div class="card-price-label">अधिकतम</div><div class="card-price-value">₹${r[6]}</div></div>`:''}
@@ -190,7 +191,7 @@
     document.getElementById('mandiName').textContent = currentMandiName;
     document.getElementById('distName').textContent = currentDistName;
     document.getElementById('stateName').textContent = currentStateName;
-    document.getElementById('pageTitle').textContent = `🌱 ${currentMandiName} मंडी भाव`;
+    document.getElementById('pageTitle').textContent = `🌱 ${currentMandiName} मंडी का भाव`;
     document.getElementById('pageSubtitle').textContent = `जिला ${currentDistName} | ${currentStateName} | ${formatDate(currentDate)}`;
     
     ['statsSection', 'infoSearchSection', 'watermark'].forEach(id => {

@@ -3,8 +3,8 @@
   "app_ver": "2026-01-10_01",
   "css_ver": "2026-01-10_01",
   "js_ver": "2026-01-10_01",
-  "force_reload_on_button": true,
   "force_reload": true,
-  "last_update_hour": "2026-01-10T12", 
-  "note": "Change maps_ver/app_ver/css_ver/js_ver when updates occur. force_reload_on_button=true to force refresh everything when reload button is pressed. force_reload=true triggers full reload on page load. last_update_hour used for hour-level freshness check."
+  "force_reload_on_button": true,
+  "timestamp": "2026-01-10T12:00",
+  "note": "Change maps_ver/app_ver/css_ver/js_ver when updates occur. force_reload=true to clear cache on first load. force_reload_on_button=true to force refresh everything when reload button is pressed."
 }

@@ -90,3 +90,20 @@
     document.getElementById('loadingMsg').innerHTML = 'लोड करने में त्रुटि... फिर से कोशिश करें ⏳';
   }
 })();
+
+// Add this at the END of mbk-loader-init.js (before final })
+document.addEventListener('DOMContentLoaded', async () => {
+  const configDiv = document.getElementById('mbk-config');
+  const autoLoad = configDiv?.dataset.autoload === '1';
+  const mandiId = configDiv?.dataset.mandi;
+  
+  if (autoLoad && mandiId) {
+    // Auto trigger after init completes
+    setTimeout(() => {
+      if (typeof mandibhavloadfresh === 'function') {
+        mandibhavloadfresh(mandiId);
+      }
+    }, 500);
+  }
+});
+

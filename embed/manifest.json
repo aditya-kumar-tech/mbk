@@ -1,4 +1,23 @@
-{
-  "maps_ver": "2026-01-05",
-  "note": "Change maps_ver when any mapping JSON updates (states/commodities/varieties/grades/dists/mandis)."
+// manifest.json se version read karke auto cache-bust
+const manifestVer = "2026-01-05"; // embed/manifest.json se
+CSS_URL = `mbk-ui.css?v=${manifestVer}`;
+JS_URL  = `mbk-app.js?v=${manifestVer}`;
+
+// "फिर से लोड करें" button par:
+function refreshAll() {
+  // 1. LocalStorage clear
+  localStorage.removeItem("mandiDataCache");
+  
+  // 2. manifest.json check - agar nayi version, to CSS/JS reload
+  fetch('/embed/manifest.json')
+    .then(r=>r.json())
+    .then(data => {
+      if (data.maps_ver !== manifestVer) {
+        // Auto version bump - nayi files reload
+        location.reload(); 
+      } else {
+        // Same version - sirf data reload
+        window.mandibhavloadfresh();
+      }
+    });
 }

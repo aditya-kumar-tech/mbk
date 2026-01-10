@@ -54,32 +54,21 @@
     });
   }
 
-  // Main initialization
-  window.MBK.init = async function() {
-    try {
-      const config = readConfig();
-      
-      // Load CSS with version
-      const cssUrl = `${BASE_URL}mbk-ui.css?v=${config.manifest.css_ver}&t=${config.manifest.timestamp}`;
-      await loadCss(cssUrl);
-      
-      // Load main app JS with version  
-      const jsUrl = `${BASE_URL}mbk-app.js?v=${config.manifest.js_ver}&t=${config.manifest.timestamp}`;
-      await loadJs(jsUrl);
-      
-      // Auto-load if configured
-      if (config.autoLoad && config.mandiId) {
-        setShellLoading(true);
+  / Replace the auto-load section in mbk-loader.js
+window.MBK.init = async function() {
+  // ... existing CSS/JS loading code ...
+  
+  // Auto-load if configured (AFTER JS loads)
+  if (config.autoLoad && config.mandiId) {
+    setTimeout(async () => {
+      try {
         await window.MBK.loadMandiBhav(config.mandiId, config.needPriceReload);
-        setShellLoading(false);
+      } catch (e) {
+        console.error('Auto-load failed:', e);
       }
-      
-    } catch (error) {
-      console.error('MBK init failed:', error);
-      setShellLoading(false);
-      document.getElementById('loadingMsg').innerHTML = 'लोड करने में त्रुटि...';
-    }
-  };
+    }, 100);
+  }
+};
 
   // Public API - same names for onclick handlers
   window.mandibhavloadfresh = async function(mandiId) {

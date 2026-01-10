@@ -1,109 +1,74 @@
-(async()=>{
+(async () => {
   const MANIFEST_URL = 'https://aditya-kumar-tech.github.io/mbk/embed/manifest.json';
   const BASE_URL = 'https://aditya-kumar-tech.github.io/mbk/embed/';
   
   try {
-    // Fetch latest manifest with no cache
-    const manifest = await fetch(MANIFEST_URL, {cache: 'no-store'}).then(r => r.json());
+    // 1. Fetch Latest Manifest (Hamesha fresh fetch karega)
+    const manifest = await fetch(MANIFEST_URL, { cache: 'no-store' }).then(r => r.json());
 
-    // Extract config from page
+    // 2. Config & Elements read karein
     const configDiv = document.getElementById('mbk-config');
-    const mandiId = configDiv?.dataset.mandi || '19044003';
+    const mandiId = configDiv?.dataset.mandi || '';
     const autoLoad = configDiv?.dataset.autoload === '1';
 
-    // Check cached versions (sessionStorage for UI/cache, localStorage for prices)
-    const cached = {
-      loader: sessionStorage.getItem('mbk:ver:loader') || '',
-      app: sessionStorage.getItem('mbk:ver:app') || '',
-      css: sessionStorage.getItem('mbk:ver:css') || '',
-      js: sessionStorage.getItem('mbk:ver:js') || '',
-      prices: localStorage.getItem('mbk:prices:' + mandiId) || ''
+    // 3. Cache Checking Logic
+    const cachedVer = {
+      app: localStorage.getItem('mbk:ver:app') || '',
+      css: localStorage.getItem('mbk:ver:css') || '',
+      js: localStorage.getItem('mbk:ver:js') || ''
     };
 
-    // Prices TTL check (5 minutes = 300000 ms)
-    const pricesTime = localStorage.getItem('mbk:prices:time:' + mandiId);
-    const pricesStale = !pricesTime || (Date.now() - parseInt(pricesTime) > 300000);
-
-    // Full reload conditions
+    // Full Reload tab hoga jab Manifest force kare ya versions match na karein
     const needFullReload = manifest.force_reload || 
-                          cached.loader !== manifest.js_ver ||
-                          cached.app !== manifest.app_ver ||
-                          cached.css !== manifest.css_ver ||
-                          cached.js !== manifest.js_ver;
+                           cachedVer.app !== manifest.app_ver ||
+                           cachedVer.css !== manifest.css_ver ||
+                           cachedVer.js !== manifest.js_ver;
 
-    const needPriceReload = pricesStale || needFullReload;
-
-    // Clear cache if full reload needed
     if (needFullReload) {
-      ['loader', 'app', 'css', 'js'].forEach(key => {
-        sessionStorage.removeItem('mbk:ver:' + key);
-      });
-      // Clear prices only if forced
-      if (manifest.force_reload) {
-        localStorage.removeItem('mbk:prices:' + mandiId);
-        localStorage.removeItem('mbk:prices:time:' + mandiId);
-      }
+      console.log("MBK: Updating files to latest version...");
+      // Purane app-related cache clear karein (Prices ko chhod kar)
+      localStorage.setItem('mbk:ver:app', manifest.app_ver);
+      localStorage.setItem('mbk:ver:css', manifest.css_ver);
+      localStorage.setItem('mbk:ver:js', manifest.js_ver);
     }
 
-    // Hide loading when starting
-    const loadingMsg = document.getElementById('loadingMsg');
-    loadingMsg.style.opacity = '0.7';
+    // 4. CSS Load (Agar reload chahiye to timestamp ke saath, warna normal)
+    const cssLink = document.createElement('link');
+    cssLink.rel = 'stylesheet';
+    cssLink.href = `${BASE_URL}mbk-ui.css?v=${manifest.css_ver}${needFullReload ? '&t=' + Date.now() : ''}`;
+    document.head.appendChild(cssLink);
 
-    // Load CSS first (if needed)
-    if (needFullReload || !cached.css) {
-      const cssLink = document.createElement('link');
-      cssLink.rel = 'stylesheet';
-      cssLink.href = `${BASE_URL}mbk-styles.css?v=${manifest.css_ver}&t=${manifest.timestamp}`;
-      cssLink.onload = () => sessionStorage.setItem('mbk:ver:css', manifest.css_ver);
-      document.head.appendChild(cssLink);
-    }
-
-    // Load HTML template
-    const htmlTemplate = await fetch(`${BASE_URL}mbk-template.html?v=${manifest.app_ver}`, 
-                                   {cache: needFullReload ? 'no-store' : 'default'})
-                              .then(r => r.text());
-    
-    document.getElementById('mbkRoot').innerHTML = htmlTemplate;
-    sessionStorage.setItem('mbk:ver:app', manifest.app_ver);
-
-    // Load main JS
+    // 5. Main JS Load (mbk-app.js)
     const mainScript = document.createElement('script');
-    mainScript.src = `${BASE_URL}mbk-loader.js?v=${manifest.js_ver}`;
+    mainScript.src = `${BASE_URL}mbk-app.js?v=${manifest.js_ver}${needFullReload ? '&t=' + Date.now() : ''}`;
     mainScript.onload = () => {
-      sessionStorage.setItem('mbk:ver:js', manifest.js_ver);
+      // Global configuration pass karein
+      window.MBK_CONFIG = { 
+        mandiId, 
+        autoLoad, 
+        manifest, 
+        forceReload: needFullReload 
+      };
       
-      // Initialize with config
-      window.MBK_CONFIG = { mandiId, autoLoad, manifest, needPriceReload };
-      
-      if (window.MBK?.init) {
+      if (window.MBK && window.MBK.init) {
         window.MBK.init();
       }
     };
-    
     document.head.appendChild(mainScript);
 
-    // Update versions
-    sessionStorage.setItem('mbk:ver:loader', manifest.js_ver);
-
-  } catch(error) {
-    console.error('MBK Init failed:', error);
-    document.getElementById('loadingMsg').innerHTML = 'लोड करने में त्रुटि... फिर से कोशिश करें ⏳';
+  } catch (error) {
+    console.error('MBK Initialization failed:', error);
+    const loader = document.getElementById('loadingMsg');
+    if (loader) loader.innerHTML = 'कनेक्शन एरर! कृपया रिफ्रेश करें। ❌';
   }
 })();
 
-// Add this at the END of mbk-loader-init.js (before final })
-document.addEventListener('DOMContentLoaded', async () => {
-  const configDiv = document.getElementById('mbk-config');
-  const autoLoad = configDiv?.dataset.autoload === '1';
-  const mandiId = configDiv?.dataset.mandi;
-  
-  if (autoLoad && mandiId) {
-    // Auto trigger after init completes
-    setTimeout(() => {
-      if (typeof mandibhavloadfresh === 'function') {
-        mandibhavloadfresh(mandiId);
-      }
-    }, 500);
-  }
-});
-
+// Global Refresh Function for Blogger Button
+window.mandibhavloadfresh = function() {
+    if (window.MBK && window.MBK.loadMandiBhav) {
+        const id = document.getElementById('mbk-config')?.dataset.mandi;
+        window.MBK.loadMandiBhav(id);
+    } else {
+        location.reload(); // Fallback agar logic load na hua ho
+    }
+};

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MBK Template</title>
+</head>
+<body>
+<div id="mbkRoot">
+  <!-- Stats (initially hidden) -->
+  <div style="display: none;">
+    <div class="stats" id="stats">
+      <div class="stat-card">
+        <div class="stat-number" id="totalRecords">-</div>
+        <div class="stat-label">कुल भाव</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="uniqueCommodities">-</div>
+        <div class="stat-label">कमोडिटीज</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number" id="selectedDate">-</div>
+        <div class="stat-label">तारीख</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Controls -->
+  <div class="input-row">
+    <select id="dateSelect"></select>
+    <button onclick="mandibhavloadfresh()">🔄 लोड करें</button>
+    <button id="toggleBtn" onclick="toggleViewMode()">🃏 कार्ड</button>
+  </div>
+
+  <!-- Hidden elements -->
+  <div style="display: none;">
+    <div class="debug-panel" id="debugPanel"></div>
+    
+    <div class="mandi-info" id="mandiInfo">
+      <strong>📍 मंडी:</strong> <span id="mandiName">-</span> |
+      <strong>🌆 जिला:</strong> <span id="distName">-</span> |
+      <strong>🏛️ राज्य:</strong> <span id="stateName">-</span>
+    </div>
+
+    <input class="search-box" id="searchInput" placeholder="🔍 गेहूं, प्याज, टमाटर, सोयाबीन..." type="text" />
+  </div>
+
+  <!-- Header -->
+  <div class="header">
+    <h1 id="pageTitle">🌱 मंडी भाव - Mandi Bhav Khabar</h1>
+    <p id="pageSubtitle">रियल टाइम कृषि मंडी भाव</p>
+  </div>
+
+  <!-- Data Area -->
+  <div id="dataArea">
+    <div id="cardsContainer"></div>
+    
+    <div class="table-wrapper">
+      <table id="mandiTable">
+        <thead>
+          <tr>
+            <th>क्रम</th>
+            <th id="thMarket" style="display: none;">मंडी</th>
+            <th>कमोडिटी</th>
+            <th>वैरायटी</th>
+            <th>ग्रेड</th>
+            <th>न्यूनतम ₹</th>
+            <th>अधिकतम ₹</th>
+            <th>मॉडल ₹</th>
+            <th>क्विंटल</th>
+            <th>तारीख</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Watermark -->
+  <div class="watermark" id="watermark" style="display: none;">
+    📱 Follow @MandiBhavKhabar for Latest Updates
+  </div>
+</div>
+</body>
+</html>

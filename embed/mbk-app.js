@@ -10,8 +10,6 @@
 
   const el = {};
 
-  // --- Helpers ---
-  // 0, null, "-" ko invalid maane taaki hide ho sake
   function isValid(v) { return v !== null && v !== undefined && v !== '' && v !== 0 && v !== '0' && v !== '-'; }
   function safeVal(v) { return isValid(v) ? v : '-'; }
   
@@ -21,7 +19,6 @@
     return parts.length === 3 ? `${parts[2]}-${parts[1]}-${parts[0]}` : dateStr;
   }
 
-  // Naya Variety Name Logic (.n property ke liye)
   function getVarietyName(vId) {
     if (!isValid(vId)) return '-';
     const vObj = varieties[vId];
@@ -29,11 +26,43 @@
     return vObj || vId;
   }
 
-  // Naya Grade Name Logic (01, 02 padding ke liye)
   function getGradeName(gId) {
     if (!isValid(gId)) return '-';
     const paddedId = String(gId).padStart(2, '0');
     return grades[paddedId] || grades[gId] || gId;
+  }
+
+  // --- Naya Trend Calculation Logic ---
+  function getTrend(row) {
+    if (!pricesData || allDates.length < 2) return '';
+    
+    // Agli available date dhundho (jo current date se purani ho)
+    const currentIndex = allDates.indexOf(currentDate);
+    if (currentIndex === -1 || currentIndex === allDates.length - 1) return '';
+    
+    const prevDate = allDates[currentIndex + 1];
+    
+    // Pichli date ka wahi commodity + variety + grade wala record dhundho
+    const prevRecord = pricesData.rows.find(r => 
+      r[0] === prevDate && 
+      r[1] === currentMandiId && 
+      r[2] === row[2] && // Commodity ID
+      r[3] === row[3] && // Variety ID
+      r[4] === row[4]    // Grade ID
+    );
+
+    if (!prevRecord || !isValid(row[7]) || !isValid(prevRecord[7])) return '';
+
+    const currentModal = parseFloat(row[7]);
+    const prevModal = parseFloat(prevRecord[7]);
+    const diff = currentModal - prevModal;
+
+    if (diff > 0) {
+      return `<span style="color: #28a745; font-size: 0.85em; font-weight: bold; margin-left: 5px;">▲ ${diff}</span>`;
+    } else if (diff < 0) {
+      return `<span style="color: #dc3545; font-size: 0.85em; font-weight: bold; margin-left: 5px;">▼ ${Math.abs(diff)}</span>`;
+    }
+    return '';
   }
 
   function injectUI() {
@@ -136,7 +165,6 @@
       { idx: 5, label: 'न्यूनतम ₹' }, { idx: 6, label: 'अधिकतम ₹' }, { idx: 7, label: 'मॉडल ₹' },
       { idx: 8, label: 'क्विंटल' }, { idx: 9, label: 'बोरी' }, { idx: 0, label: 'तारीख' }
     ];
-    // Sirf wahi column dikhayega jisme valid data ho (not 0, -, null)
     visibleColumns = cols.filter(c => mandiData.some(r => isValid(r[c.idx])));
   }
 
@@ -151,7 +179,12 @@
           if(c.idx===3) v = getVarietyName(r[3]);
           if(c.idx===4) v = getGradeName(r[4]);
           if(c.idx===0) v = formatDate(v);
-          return `<td class="${c.idx===2?'commodity':''} ${[5,6,7].includes(c.idx)?'price':''}">${v}</td>`;
+          
+          // Modal Price (Index 7) ke liye trend add karein
+          let displayVal = v;
+          if(c.idx === 7) displayVal = v + getTrend(r);
+          
+          return `<td class="${c.idx===2?'commodity':''} ${[5,6,7].includes(c.idx)?'price':''}">${displayVal}</td>`;
         }).join('')}</tr>`).join('');
       el.mandiTable.style.display = 'table';
       el.cardsContainer.style.display = 'none';
@@ -171,7 +204,7 @@
             <div class="card-prices-grid">
               ${isValid(r[5]) ? `<div class="card-price-item"><div class="card-price-label">न्यूनतम</div><div class="card-price-value">₹${r[5]}</div></div>`:''}
               ${isValid(r[6]) ? `<div class="card-price-item"><div class="card-price-label">अधिकतम</div><div class="card-price-value">₹${r[6]}</div></div>`:''}
-              ${isValid(r[7]) ? `<div class="card-price-item"><div class="card-price-label">मॉडल</div><div class="card-price-value">₹${r[7]}</div></div>`:''}
+              ${isValid(r[7]) ? `<div class="card-price-item"><div class="card-price-label">मॉडल</div><div class="card-price-value">₹${r[7]}${getTrend(r)}</div></div>`:''}
             </div>
           </div>
           <div class="card-grid">
@@ -235,7 +268,6 @@
       renderContent(filtered);
     };
 
-    // Load Maps
     const [c, v, g] = await Promise.all([
       cachedJson(`${BASE_URL}commodities.json`, 'mbk:map:commodities'),
       cachedJson(`${BASE_URL}varieties.json`, 'mbk:map:varieties'),

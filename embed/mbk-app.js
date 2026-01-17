@@ -195,32 +195,55 @@
       el.mandiTable.style.display = 'table';
       el.cardsContainer.style.display = 'none';
     } else {
-      el.cardsContainer.innerHTML = data.map((r, i) => `
-        <div class="card">
-          <div class="card-header">
-            <div><p class="card-title">${commodities[r[2]] || r[2]}</p><div class="card-serial">#${i+1}</div></div>
-            <div class="card-date-box"><div class="card-date">${formatDate(r[0])}</div></div>
-          </div>
-          <div class="card-grid">
-            ${isValid(r[3]) ? `<div class="card-field"><div class="card-label">वैरायटी</div><div class="card-value">${getVarietyName(vid)}</div></div>`:''}
-            ${isValid(r[4]) ? `<div class="card-field"><div class="card-label">ग्रेड</div><div class="card-value">${getGradeName(r[4])}</div></div>`:''}
-          </div>
-          <div class="card-prices">
-          <div class="card-prices-label">💰 मूल्य विवरण</div>
-            <div class="card-prices-grid">
-              ${isValid(r[5]) ? `<div class="card-price-item"><div class="card-price-label">न्यूनतम</div><div class="card-price-value">₹${r[5]}</div></div>`:''}
-              ${isValid(r[6]) ? `<div class="card-price-item"><div class="card-price-label">अधिकतम</div><div class="card-price-value">₹${r[6]}</div></div>`:''}
-              ${isValid(r[7]) ? `<div class="card-price-item"><div class="card-price-label">मॉडल</div><div class="card-price-value">₹${r[7]}${getTrend(r)}</div></div>`:''}
-            </div>
-          </div>
-          <div class="card-grid">
-            ${isValid(r[8]) ? `<div class="card-field"><div class="card-label">आवक (क्विंटल)</div><div class="card-value">${r[8]}</div></div>`:''}
-            ${isValid(r[9]) ? `<div class="card-field"><div class="card-label">आवक (बोरी)</div><div class="card-value">${r[9]}</div></div>`:''}
-          </div>
-        </div>`).join('');
-      el.cardsContainer.style.display = 'grid';
-      el.mandiTable.style.display = 'none';
-    }
+  el.cardsContainer.innerHTML = data.map((r, i) => {
+    const vid = r[2] + r[3];   // ✅ FIX HERE
+
+    return `
+    <div class="card">
+      <div class="card-header">
+        <div>
+          <p class="card-title">${commodities[r[2]] || r[2]}</p>
+          <div class="card-serial">#${i+1}</div>
+        </div>
+        <div class="card-date-box">
+          <div class="card-date">${formatDate(r[0])}</div>
+        </div>
+      </div>
+
+      <div class="card-grid">
+        ${isValid(r[3]) ? `
+        <div class="card-field">
+          <div class="card-label">वैरायटी</div>
+          <div class="card-value">${getVarietyName(vid)}</div>
+        </div>` : ''}
+
+        ${isValid(r[4]) ? `
+        <div class="card-field">
+          <div class="card-label">ग्रेड</div>
+          <div class="card-value">${getGradeName(r[4])}</div>
+        </div>` : ''}
+      </div>
+
+      <div class="card-prices">
+        <div class="card-prices-label">💰 मूल्य विवरण</div>
+        <div class="card-prices-grid">
+          ${isValid(r[5]) ? `<div class="card-price-item"><div class="card-price-label">न्यूनतम</div><div class="card-price-value">₹${r[5]}</div></div>`:''}
+          ${isValid(r[6]) ? `<div class="card-price-item"><div class="card-price-label">अधिकतम</div><div class="card-price-value">₹${r[6]}</div></div>`:''}
+          ${isValid(r[7]) ? `<div class="card-price-item"><div class="card-price-label">मॉडल</div><div class="card-price-value">₹${r[7]}${getTrend(r)}</div></div>`:''}
+        </div>
+      </div>
+
+      <div class="card-grid">
+        ${isValid(r[8]) ? `<div class="card-field"><div class="card-label">आवक (क्विंटल)</div><div class="card-value">${r[8]}</div></div>`:''}
+        ${isValid(r[9]) ? `<div class="card-field"><div class="card-label">आवक (बोरी)</div><div class="card-value">${r[9]}</div></div>`:''}
+      </div>
+    </div>`;
+  }).join('');
+
+  el.cardsContainer.style.display = 'grid';
+  el.mandiTable.style.display = 'none';
+}
+
   }
 
   function updateStats() {
@@ -269,6 +292,7 @@
       const filtered = mandiData.filter(r => {
           const cName = (commodities[r[2]]||r[2]||'').toLowerCase();
           //const vName = getVarietyName(r[3]).toLowerCase();
+        const vid = r[2] + r[3]; // ✅ FIX
         const vName = getVarietyName(vid).toLowerCase();
           return cName.includes(q) || vName.includes(q);
       });

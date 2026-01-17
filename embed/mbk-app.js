@@ -268,7 +268,8 @@
       const q = e.target.value.toLowerCase();
       const filtered = mandiData.filter(r => {
           const cName = (commodities[r[2]]||r[2]||'').toLowerCase();
-          const vName = getVarietyName(r[3]).toLowerCase();
+          //const vName = getVarietyName(r[3]).toLowerCase();
+        const vName = getVarietyName(vid).toLowerCase();
           return cName.includes(q) || vName.includes(q);
       });
       renderContent(filtered);

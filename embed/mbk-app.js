@@ -176,7 +176,9 @@
         <tr><td>${i+1}</td>${visibleColumns.map(c => {
           let v = safeVal(r[c.idx]);
           if(c.idx===2) v = commodities[r[2]] || r[2];
-          if(c.idx===3) v = getVarietyName(r[3]);
+          let vid = r[2]+r[3]
+         // if(c.idx===3) v = getVarietyName(r[3]);
+          if(c.idx===3) v = getVarietyName(vid);
           if(c.idx===4) v = getGradeName(r[4]);
           if(c.idx===0) v = formatDate(v);
           

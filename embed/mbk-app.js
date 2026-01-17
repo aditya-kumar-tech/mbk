@@ -176,6 +176,10 @@
         <tr><td>${i+1}</td>${visibleColumns.map(c => {
           let v = safeVal(r[c.idx]);
           if(c.idx===2) v = commodities[r[2]] || r[2];
+
+       //   let vid = String(r[2]) + String(r[3]).padStart(2, "0");
+//if(c.idx===3) v = getVarietyName(vid);
+
           let vid = r[2]+r[3]
          // if(c.idx===3) v = getVarietyName(r[3]);
           if(c.idx===3) v = getVarietyName(vid);
@@ -198,7 +202,7 @@
             <div class="card-date-box"><div class="card-date">${formatDate(r[0])}</div></div>
           </div>
           <div class="card-grid">
-            ${isValid(r[3]) ? `<div class="card-field"><div class="card-label">वैरायटी</div><div class="card-value">${getVarietyName(r[3])}</div></div>`:''}
+            ${isValid(r[3]) ? `<div class="card-field"><div class="card-label">वैरायटी</div><div class="card-value">${getVarietyName(vid)}</div></div>`:''}
             ${isValid(r[4]) ? `<div class="card-field"><div class="card-label">ग्रेड</div><div class="card-value">${getGradeName(r[4])}</div></div>`:''}
           </div>
           <div class="card-prices">

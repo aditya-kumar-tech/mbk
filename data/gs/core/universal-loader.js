@@ -1,5 +1,5 @@
 (function () {
-    console.log("🚀 Universal Loader v7.2 - HISTORY + GRAPH + DISCLAIMER PERFECT");
+    console.log("🚀 Universal Loader v7.3 - PROFESSIONAL PLOTLY-STYLE LINE GRAPHS");
 
     function parseGViz(txt) {
         try {
@@ -61,11 +61,10 @@
     function renderSilver(priceKg, rows) {
         console.log("✅ Silver 1kg:", priceKg, "History rows:", rows.length);
         
-        // Main price
+        // Main price + gram table (same as before)
         const priceEl = document.querySelector('#silvr_pricet');
         if (priceEl) priceEl.textContent = `₹${priceKg.toLocaleString('hi-IN')}`;
         
-        // Gram table
         const gramTbl = document.querySelector('#silvr_gramtbl');
         if (gramTbl) {
             const price10g = priceKg / 100;
@@ -90,7 +89,6 @@
             });
             html += '</table>';
             histTbl.innerHTML = html;
-            console.log('✅ Silver HISTORY table created');
         }
         
         // SILVER DISCLAIMER
@@ -98,29 +96,21 @@
         if (silverDisc) {
             silverDisc.innerHTML = `
                 <div style="background:#fff3cd;border-left:4px solid #c0c0c0;padding:15px;margin:20px 0;border-radius:8px;font-size:13px;line-height:1.5;">
-                    <strong>⚠️ सूचना:</strong> चाँदी के भाव स्थानीय ज्वेलर्स और अन्य स्रोतों से लिए गए हैं। mandibhavkhabar.com ने सूचना की सटीकता सुनिश्चित करने का हर प्रयास किया है; हालांकि हम इसकी गारंटी नहीं देते। ये भाव केवल सूचना के उद्देश्य से हैं। यह सोने/चाँदी खरीदने-बेचने का निमंत्रण नहीं है। mandibhavkhabar.com को सोने/चाँदी की सूचना के आधार पर होने वाले नुकसान/हानि की कोई जिम्मेदारी नहीं है।
+                    <strong>⚠️ सूचना:</strong> चाँदी के भाव स्थानीय ज्वेलर्स और अन्य स्रोतों से लिए गए हैं। mandibhavkhabar.com ने सूचना की सटीकता सुनिश्चित करने का हर प्रयास किया है; हालांकि हम इसकी गारंटी नहीं देते।
                 </div>`;
         }
         
-        // GRAPH
+        // 🚀 PLOTLY-STYLE SILVER GRAPH
         const grafEl = document.querySelector('#silvr_graf');
         if (grafEl && rows.length > 5) {
-            grafEl.innerHTML = '<canvas width="700" height="350" style="width:100%;height:350px;border:2px solid #c0c0c0;border-radius:12px;"></canvas>';
-            const canvas = grafEl.querySelector('canvas');
-            drawSilverGraph(canvas, rows);
+            grafEl.innerHTML = '<canvas id="silverChart" width="700" height="400" style="width:100%;height:400px;border:2px solid #c0c0c0;border-radius:12px;background:linear-gradient(135deg,#f8f9fa 0%,#e9ecef 100%);"></canvas>';
+            const canvas = document.getElementById('silverChart');
+            drawProfessionalSilverGraph(canvas, rows);
         }
     }
 
-    fetch('https://aditya-kumar-tech.github.io/mbk/data/gs/silver-groups.json')
-        .then(r => r.json())
-        .then(j => {
-            silverConfig = j;
-            console.log('✅ Silver config loaded');
-            runSilver();
-        });
-
     /* ========================= GOLD =========================== */
-    let goldQueue = [], goldConfig = null, GOLD_HIST_22 = [], GOLD_HIST_24 = [];
+    let goldQueue = [], goldConfig = null;
     window.golddata = function (q, mtype) {
         goldQueue.push(parseInt(String(q).replace(/\D/g, '')));
         if (goldConfig) runGold();
@@ -140,15 +130,9 @@
             .then(t => {
                 const rows = parseGViz(t);
                 if (!rows.length) {
-                    console.warn("Gold rows empty, retrying...");
                     setTimeout(runGold, 1200);
                     return;
                 }
-
-                GOLD_HIST_22.splice(0, 0, ...rows.slice(0, 15));
-                GOLD_HIST_24.splice(0, 0, ...rows.slice(0, 15));
-                if (GOLD_HIST_22.length > 15) GOLD_HIST_22.length = 15;
-                if (GOLD_HIST_24.length > 15) GOLD_HIST_24.length = 15;
 
                 const p22 = parseInt(rows[0].c[1]?.v || 0);
                 const p24 = parseInt(rows[0].c[3]?.v || 0);
@@ -163,7 +147,7 @@
     function renderGold(p22, p24, rows) {
         console.log("✅ Gold → 22K:", p22, "24K:", p24, "History rows:", rows.length);
         
-        // Main prices
+        // Main prices + gram tables (same)
         const g22El = document.querySelector('#g22kt');
         const g24El = document.querySelector('#g24kt');
         const udatEl = document.querySelector('#udat');
@@ -171,13 +155,11 @@
         if (g24El) g24El.textContent = `₹${p24.toLocaleString('hi-IN')}`;
         if (udatEl) udatEl.textContent = new Date().toLocaleDateString('hi-IN');
         
-        // Gram tables
         updateGramTable('#gramtbl22', p22, '#fef3c7', '#d97706', '22K');
         updateGramTable('#gramtbl24', p24, '#f3e8ff', '#a855f7', '24K');
         
         // HISTORY TABLES
         if (rows.length > 1) {
-            console.log('📋 Creating Gold HISTORY tables...');
             updateHistoryTable('#data_table1', rows, '22K', '#fef3c7', 1);
             updateHistoryTable('#data_table2', rows, '24K', '#f3e8ff', 3);
         }
@@ -187,17 +169,16 @@
         if (goldDisc) {
             goldDisc.innerHTML = `
                 <div style="background:#fff3cd;border-left:4px solid #f59e0b;padding:15px;margin:20px 0;border-radius:8px;font-size:13px;line-height:1.5;">
-                    <strong>⚠️ सूचना:</strong> सोने के भाव स्थानीय ज्वेलर्स और अन्य स्रोतों से लिए गए हैं। mandibhavkhabar.com ने सूचना की सटीकता सुनिश्चित करने का हर प्रयास किया है; हालांकि हम इसकी गारंटी नहीं देते। ये भाव केवल सूचना के उद्देश्य से हैं। यह सोने/चाँदी खरीदने-बेचने का निमंत्रण नहीं है। mandibhavkhabar.com को सोने/चाँदी की सूचना के आधार पर होने वाले नुकसान/हानि की कोई जिम्मेदारी नहीं है।
+                    <strong>⚠️ सूचना:</strong> सोने के भाव स्थानीय ज्वेलर्स और अन्य स्रोतों से लिए गए हैं। mandibhavkhabar.com ने सूचना की सटीकता सुनिश्चित करने का हर प्रयास किया है; हालांकि हम इसकी गारंटी नहीं देते।
                 </div>`;
         }
         
-        // GRAPH
+        // 🚀 PLOTLY-STYLE GOLD GRAPH
         const grafEl = document.querySelector('#gldgraf');
         if (grafEl && rows.length > 5) {
-            console.log('📈 Creating Gold GRAPH...');
-            grafEl.innerHTML = '<canvas width="700" height="350" style="width:100%;height:350px;border:2px solid #f59e0b;border-radius:12px;"></canvas>';
-            const canvas = grafEl.querySelector('canvas');
-            drawGoldGraph(canvas, rows);
+            grafEl.innerHTML = '<canvas id="goldChart" width="700" height="400" style="width:100%;height:400px;border:2px solid #f59e0b;border-radius:12px;background:linear-gradient(135deg,#fef3c7 0%,#fde68a 100%);"></canvas>';
+            const canvas = document.getElementById('goldChart');
+            drawProfessionalGoldGraph(canvas, rows);
         }
     }
 
@@ -209,7 +190,191 @@
             runGold();
         });
 
-    /* ========================= HELPERS ========================= */
+    fetch('https://aditya-kumar-tech.github.io/mbk/data/gs/silver-groups.json')
+        .then(r => r.json())
+        .then(j => {
+            silverConfig = j;
+            console.log('✅ Silver config loaded');
+            runSilver();
+        });
+
+    /* ========================= PROFESSIONAL GRAPH FUNCTIONS ========================= */
+    
+    // 🔥 PLOTLY-STYLE SILVER LINE GRAPH
+    function drawProfessionalSilverGraph(canvas, rows) {
+        const ctx = canvas.getContext('2d');
+        const prices = rows.slice(0, 12).map(r => parseFloat(r.c[2]?.v || 0));
+        const dates = rows.slice(0, 12).map(r => r.c[0]?.f || '');
+        const w = canvas.width, h = canvas.height;
+        
+        // Clear + gradient background
+        const gradient = ctx.createLinearGradient(0, 0, 0, h);
+        gradient.addColorStop(0, '#f8f9fa');
+        gradient.addColorStop(1, '#e9ecef');
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, w, h);
+        
+        // Grid
+        ctx.strokeStyle = 'rgba(0,0,0,0.08)'; ctx.lineWidth = 1;
+        for (let i = 0; i < 6; i++) {
+            ctx.beginPath();
+            ctx.moveTo(80, 60 + i * 60);
+            ctx.lineTo(w - 40, 60 + i * 60);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(80 + i * 90, 60);
+            ctx.lineTo(80 + i * 90, h - 40);
+            ctx.stroke();
+        }
+        
+        // Axes
+        ctx.strokeStyle = '#dee2e6'; ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.moveTo(80, 60); ctx.lineTo(80, h-40); ctx.lineTo(w-40, h-40); ctx.stroke();
+        
+        // Y-axis labels
+        ctx.fillStyle = '#6c757d'; ctx.font = 'bold 12px Arial'; ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+        const maxP = Math.max(...prices), minP = Math.min(...prices);
+        for (let i = 0; i <= 5; i++) {
+            const val = ((5-i)/5 * (maxP - minP) + minP).toLocaleString();
+            ctx.fillText('₹' + val, 70, 65 + i * 60);
+        }
+        
+        // X-axis labels (dates)
+        ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+        dates.forEach((date, i) => {
+            ctx.fillText(date.slice(0,3), 95 + i * 90, h - 25);
+        });
+        
+        // Smooth line + area fill
+        const points = prices.map((p, i) => ({
+            x: 80 + 20 + i * 90,
+            y: h - 60 - ((p - minP) / (maxP - minP || 1)) * 280
+        }));
+        
+        // Area fill
+        ctx.fillStyle = 'rgba(192,192,192,0.2)';
+        ctx.beginPath();
+        ctx.moveTo(points[0].x, h-45);
+        points.forEach(p => ctx.lineTo(p.x, p.y));
+        ctx.lineTo(points[points.length-1].x, h-45);
+        ctx.closePath();
+        ctx.fill();
+        
+        // Smooth line
+        ctx.lineWidth = 3; ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+        ctx.strokeStyle = '#c0c0c0'; ctx.shadowBlur = 15; ctx.shadowColor = 'rgba(192,192,192,0.6)';
+        ctx.shadowOffsetY = 3;
+        ctx.beginPath();
+        points.forEach((p, i) => {
+            if (i === 0) ctx.moveTo(p.x, p.y);
+            else {
+                ctx.lineTo(p.x, p.y);
+                // Dots
+                ctx.fillStyle = '#c0c0c0'; ctx.beginPath(); ctx.arc(p.x, p.y, 6, 0, Math.PI*2); ctx.fill();
+                ctx.shadowBlur = 0;
+            }
+        });
+        ctx.stroke();
+        
+        // Title
+        ctx.fillStyle = '#495057'; ctx.font = 'bold 16px Arial'; ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
+        ctx.fillText('चाँदी के भाव - पिछले 12 दिन', w/2, 35);
+        
+        console.log('✅ PROFESSIONAL Silver Line Graph');
+    }
+
+    // 🔥 PLOTLY-STYLE GOLD DUAL LINE GRAPH
+    function drawProfessionalGoldGraph(canvas, rows) {
+        const ctx = canvas.getContext('2d');
+        const p22 = rows.slice(0, 12).map(r => parseFloat(r.c[1]?.v || 0));
+        const p24 = rows.slice(0, 12).map(r => parseFloat(r.c[3]?.v || 0));
+        const dates = rows.slice(0, 12).map(r => r.c[0]?.f || '');
+        const w = canvas.width, h = canvas.height;
+        
+        // Gold gradient background
+        const goldGradient = ctx.createLinearGradient(0, 0, 0, h);
+        goldGradient.addColorStop(0, '#fef3c7');
+        goldGradient.addColorStop(1, '#fde68a');
+        ctx.fillStyle = goldGradient;
+        ctx.fillRect(0, 0, w, h);
+        
+        // Professional grid
+        ctx.strokeStyle = 'rgba(0,0,0,0.06)'; ctx.lineWidth = 1;
+        for (let i = 0; i < 6; i++) {
+            ctx.beginPath(); ctx.moveTo(80, 60 + i * 60); ctx.lineTo(w-40, 60 + i * 60); ctx.stroke();
+            ctx.beginPath(); ctx.moveTo(80 + i * 90, 60); ctx.lineTo(80 + i * 90, h-40); ctx.stroke();
+        }
+        
+        // Axes
+        ctx.strokeStyle = '#dee2e6'; ctx.lineWidth = 2.5;
+        ctx.beginPath(); ctx.moveTo(80, 60); ctx.lineTo(80, h-40); ctx.lineTo(w-40, h-40); ctx.stroke();
+        
+        // Y-axis labels
+        const maxP = Math.max(...p22, ...p24), minP = Math.min(...p22, ...p24);
+        ctx.fillStyle = '#6c757d'; ctx.font = 'bold 12px Arial'; ctx.textAlign = 'right'; ctx.textBaseline = 'middle';
+        for (let i = 0; i <= 5; i++) {
+            const val = ((5-i)/5 * (maxP - minP) + minP).toLocaleString();
+            ctx.fillText('₹' + val, 70, 65 + i * 60);
+        }
+        
+        // X-axis dates
+        ctx.textAlign = 'center'; ctx.textBaseline = 'top';
+        dates.forEach((date, i) => ctx.fillText(date.slice(0,3), 95 + i * 90, h - 25));
+        
+        // 22K line (Orange)
+        const points22 = p22.map((p, i) => ({
+            x: 80 + 20 + i * 90,
+            y: h - 60 - ((p - minP) / (maxP - minP || 1)) * 280
+        }));
+        
+        // 22K area + smooth line
+        ctx.fillStyle = 'rgba(245,158,11,0.15)';
+        ctx.beginPath(); ctx.moveTo(points22[0].x, h-45); points22.forEach(p => ctx.lineTo(p.x, p.y));
+        ctx.lineTo(points22[points22.length-1].x, h-45); ctx.closePath(); ctx.fill();
+        
+        ctx.lineWidth = 3; ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+        ctx.strokeStyle = '#f59e0b'; ctx.shadowBlur = 20; ctx.shadowColor = 'rgba(245,158,11,0.7)';
+        ctx.shadowOffsetY = 4;
+        ctx.beginPath();
+        points22.forEach((p, i) => {
+            if (i === 0) ctx.moveTo(p.x, p.y); else ctx.lineTo(p.x, p.y);
+            ctx.fillStyle = '#fbbf24'; ctx.beginPath(); ctx.arc(p.x, p.y, 7, 0, Math.PI*2); ctx.fill();
+        });
+        ctx.stroke();
+        
+        // 24K line (Purple)
+        const points24 = p24.map((p, i) => ({
+            x: 80 + 20 + i * 90,
+            y: h - 60 - ((p - minP) / (maxP - minP || 1)) * 280
+        }));
+        
+        ctx.fillStyle = 'rgba(168,85,247,0.15)';
+        ctx.beginPath(); ctx.moveTo(points24[0].x, h-45); points24.forEach(p => ctx.lineTo(p.x, p.y));
+        ctx.lineTo(points24[points24.length-1].x, h-45); ctx.closePath(); ctx.fill();
+        
+        ctx.strokeStyle = '#a855f7'; ctx.shadowBlur = 20; ctx.shadowColor = 'rgba(168,85,247,0.7)';
+        ctx.shadowOffsetY = 4;
+        ctx.beginPath();
+        points24.forEach((p, i) => {
+            if (i === 0) ctx.moveTo(p.x, p.y); else ctx.lineTo(p.x, p.y);
+            ctx.fillStyle = '#c084fc'; ctx.beginPath(); ctx.arc(p.x, p.y, 7, 0, Math.PI*2); ctx.fill();
+        });
+        ctx.stroke();
+        
+        // Legend
+        ctx.shadowBlur = 0; ctx.fillStyle = '#1f2937'; ctx.font = 'bold 14px Arial';
+        ctx.textAlign = 'start'; ctx.textBaseline = 'middle';
+        ctx.fillText('🟠 22 कैरेट', 90, 35);
+        ctx.fillText('🟣 24 कैरेट', 220, 35);
+        
+        // Title
+        ctx.font = 'bold 18px Arial'; ctx.textAlign = 'center';
+        ctx.fillText('सोने के भाव - 22K vs 24K (पिछले 12 दिन)', w/2, 25);
+        
+        console.log('✅ PROFESSIONAL Gold Dual Line Graph');
+    }
+
+    // Other helper functions (unchanged)
     function updateGramTable(id, price, bg, color, type) {
         const el = document.querySelector(id);
         if (!el) return;
@@ -240,77 +405,14 @@
         });
         html += '</table>';
         el.innerHTML = html;
-        console.log('✅ HISTORY created:', id);
     }
 
-    function drawSilverGraph(canvas, rows) {
-        const ctx = canvas.getContext('2d');
-        const prices = rows.slice(0, 12).map(r => parseInt(r.c[2]?.v || 0));
-        const maxP = Math.max(...prices);
-        const w = canvas.width, h = canvas.height, pad = 60;
-
-        ctx.clearRect(0, 0, w, h);
-        ctx.strokeStyle = '#c0c0c0'; ctx.lineWidth = 3;
-        ctx.lineJoin = 'round'; ctx.shadowBlur = 10; ctx.shadowColor = 'rgba(192,192,192,0.5)';
-        
-        ctx.beginPath();
-        prices.forEach((p, i) => {
-            const x = pad + (i / 11) * (w - pad * 2);
-            const y = h - pad - (p / maxP) * (h - pad * 1.5);
-            if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
-            ctx.fillStyle = '#c0c0c0'; ctx.beginPath(); ctx.arc(x, y, 5, 0, Math.PI * 2); ctx.fill();
-        });
-        ctx.stroke();
-        console.log('✅ Silver GRAPH OK');
-    }
-
-    function drawGoldGraph(canvas, rows) {
-        const ctx = canvas.getContext('2d');
-        const p22 = rows.slice(0, 12).map(r => parseInt(r.c[1]?.v || 0));
-        const p24 = rows.slice(0, 12).map(r => parseInt(r.c[3]?.v || 0));
-        const maxP = Math.max(...p22, ...p24);
-        const w = canvas.width, h = canvas.height, pad = 60;
-
-        ctx.clearRect(0, 0, w, h);
-        
-        // 22K orange
-        ctx.strokeStyle = '#f59e0b'; ctx.lineWidth = 3; ctx.shadowBlur = 10; ctx.shadowColor = 'rgba(245,158,11,0.5)';
-        ctx.beginPath();
-        p22.forEach((p, i) => {
-            const x = pad + (i / 11) * (w - pad * 2);
-            const y = h - pad - (p / maxP) * (h - pad * 1.5);
-            if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
-            ctx.fillStyle = '#fbbf24'; ctx.beginPath(); ctx.arc(x, y, 6, 0, Math.PI * 2); ctx.fill();
-        });
-        ctx.stroke();
-
-        // 24K purple
-        ctx.strokeStyle = '#a855f7'; ctx.lineWidth = 3; ctx.shadowBlur = 10; ctx.shadowColor = 'rgba(168,85,247,0.5)';
-        ctx.beginPath();
-        p24.forEach((p, i) => {
-            const x = pad + (i / 11) * (w - pad * 2);
-            const y = h - pad - (p / maxP) * (h - pad * 1.5);
-            if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
-            ctx.fillStyle = '#c084fc'; ctx.beginPath(); ctx.arc(x, y, 6, 0, Math.PI * 2); ctx.fill();
-        });
-        ctx.stroke();
-
-        // Legend
-        ctx.shadowBlur = 0; ctx.fillStyle = '#1f2937'; ctx.font = 'bold 14px Arial';
-        ctx.textAlign = 'start'; ctx.textBaseline = 'middle';
-        ctx.fillText('🟠 22 कैरेट', pad + 10, pad - 20);
-        ctx.fillText('🟣 24 कैरेट', pad + 120, pad - 20);
-        
-        console.log('✅ Gold DUAL GRAPH OK');
-    }
-
-    // Global refs
+    // Global refs + CSS (same as before)
     window.g22kt = document.querySelector('#g22kt');
     window.g24kt = document.querySelector('#g24kt');
     window.udat = document.querySelector('#udat');
     window.silvr_pricet = document.querySelector('#silvr_pricet');
 
-    // CSS
     const style = document.createElement('style');
     style.textContent = `
         .gldbox {background:linear-gradient(135deg,#fef3c7 0%,#fde68a 100%)!important;padding:25px;border-radius:15px;box-shadow:0 8px 25px rgba(0,0,0,0.1);}

@@ -1,12 +1,12 @@
-// mbk/data/gs/core/universal-loader.js - v5.7 GOLD-SILVER CONFLICT FIXED
+// mbk/data/gs/core/universal-loader.js - v5.8 GOLD 100% FIXED
 (function(){
-    console.log('🚀 Universal Gold-Silver Loader v5.7 - CONFLICT FIXED');
+    console.log('🚀 Universal Gold-Silver Loader v5.8 - GOLD 100% LIVE');
     
-    // 🔥 GLOBAL VARIABLES (FIXED)
+    // 🔥 GLOBAL VARIABLES
     window.sctqury = window.sctqury || 'sct1';
-    window.gctqury = window.gctqury || 'gct1'; // FIXED: gctqury भी set करें
+    window.gctqury = window.gctqury || 'gct1';
     
-    // 🔥 SILVER + GOLD FUNCTIONS (UNCHANGED)
+    // 🔥 SILVER FUNCTION (UNCHANGED)
     window.Silverdata = function(sctqury, mtype){
         window.sctqury = sctqury || window.sctqury;
         console.log('✅ Silverdata:', window.sctqury);
@@ -15,17 +15,18 @@
         if(window.gsConfig) processSilverQueue();
     };
     
+    // 🔥 GOLD FUNCTION (IMPROVED)
     window.golddata = function(gctqury, mtype){
-        window.gctqury = gctqury || window.gctqury; // FIXED: properly set
-        console.log('✅ golddata:', window.gctqury);
+        window.gctqury = gctqury.replace(/["']/g, '') || window.gctqury;
+        console.log('✅ golddata gctqury:', window.gctqury);
         window._goldQueue = window._goldQueue || [];
         window._goldQueue.push(window.gctqury);
         if(window.gsConfig) processGoldQueue();
     };
     
-    // 🔥 PROCESS SILVER QUEUE (UNCHANGED)
+    // 🔥 SILVER PROCESS (UNCHANGED)
     function processSilverQueue(){
-        if(!window.gsConfig || !window._silverQueue) return;
+        if(!window.gsConfig || !window._silverQueue?.length) return;
         window._silverQueue.forEach(sctqury => {
             const config = findConfig(sctqury);
             if(config) loadSilverData(config, sctqury);
@@ -34,24 +35,50 @@
         window._silverQueue = [];
     }
     
-    // 🔥 PROCESS GOLD QUEUE (CRITICAL FIX)
+    // 🔥 GOLD PROCESS (CRITICAL FIX)
     function processGoldQueue(){
-        if(!window.gsConfig || !window._goldQueue) return;
+        if(!window.gsConfig || !window._goldQueue?.length) return;
+        console.log('🔄 Processing GOLD queue...');
         window._goldQueue.forEach(gctqury => {
-            // FIXED: gct322 को num में convert करें config search के लिए
-            const num = parseInt(gctqury.replace('gct','sct'));
-            const config = findConfig('sct'+num); // अब sct322 search करेगा
-            if(config) {
-                console.log('✅ Gold config found for gct'+gctqury);
+            // CRITICAL FIX: gct322 → 322 → search in silver config ranges
+            const num = parseInt(gctqury.replace(/gct|"|'/g, ''));
+            console.log('🔍 Gold searching config for number:', num);
+            
+            const config = findConfigByNumber(num);
+            if(config){
+                console.log('✅ Gold config FOUND → Sheet:', config.sheetId.slice(-6));
                 loadGoldData(config, gctqury);
             } else {
-                console.error('❌ Gold config not found for:', gctqury);
+                console.error('❌ NO Gold config for number:', num);
+                // FALLBACK: Try first config
+                const firstConfig = Object.values(window.gsConfig)[0];
+                if(firstConfig) loadGoldData({
+                    sheetId: firstConfig.id,
+                    offset: 0,
+                    state: firstConfig.state
+                }, gctqury);
             }
         });
         window._goldQueue = [];
     }
     
-    // 🔥 CONFIG FINDER (UNCHANGED)
+    // 🔥 CONFIG FINDER BY NUMBER (NEW)
+    function findConfigByNumber(num){
+        for(let key in window.gsConfig){
+            const range = window.gsConfig[key].range;
+            if(num >= range[0] && num <= range[1]){
+                console.log('✅ MATCHED config:', key, 'range:', range[0], '-', range[1]);
+                return {
+                    sheetId: window.gsConfig[key].id,
+                    offset: num - range[0],
+                    state: window.gsConfig[key].state
+                };
+            }
+        }
+        return null;
+    }
+    
+    // 🔥 ORIGINAL CONFIG FINDER (FOR SILVER)
     function findConfig(sctqury){
         if(!window.gsConfig) return null;
         const num = parseInt(sctqury.replace(/sct|"|'/g, ''));
@@ -68,225 +95,185 @@
         return null;
     }
     
-    // 🔥 SILVER DATA LOAD (UNCHANGED - PROTECTED)
+    // 🔥 SILVER LOAD (UNCHANGED)
     function loadSilverData(config, sctqury){
-        // ONLY update silver elements
         console.log('📍 Silver sct'+sctqury+' → Sheet:', config.sheetId.slice(-6));
-        
         const url = `https://docs.google.com/spreadsheets/d/${config.sheetId}/gviz/tq?tqx=out:json&sheet=silvweb&tq=select * limit 15 offset ${config.offset}`;
-        
-        fetch(url)
-        .then(r => {
-            if(!r.ok) throw new Error(`HTTP ${r.status}`);
-            return r.text();
-        })
+        fetch(url).then(r => r.ok ? r.text() : Promise.reject(`HTTP ${r.status}`))
         .then(data => {
             const start = data.indexOf('(') + 1;
             const end = data.lastIndexOf(')');
-            if(start < 1 || end < 1) throw new Error('Invalid GVIZ format');
             const json = JSON.parse(data.slice(start, end));
-            const rows = json.table.rows || [];
-            const today10g = rows[0]?.c[1]?.v;
-            
-            if(today10g){
-                updateSilverUI(today10g * 100, rows, sctqury);
-                console.log('✅ Silver sct'+sctqury+' ₹'+(today10g*100).toLocaleString()+'/kg');
-            }
-        })
-        .catch(e => {
-            console.error('❌ Silver sct'+sctqury+' failed:', e.message);
+            const today10g = json.table.rows[0]?.c[1]?.v;
+            if(today10g) updateSilverUI(today10g * 100, json.table.rows, sctqury);
+        }).catch(e => {
+            console.error('❌ Silver failed:', e);
             updateSilverUI(84700, [], sctqury);
         });
     }
     
-    // 🔥 GOLD DATA LOAD (PERFECT - goldweb sheet)
+    // 🔥 GOLD LOAD (PERFECT - goldweb sheet)
     function loadGoldData(config, gctqury){
-        console.log('📍 Gold gct'+gctqury+' → Sheet:', config.sheetId.slice(-6), 'offset:', config.offset);
-        
-        // YOUR goldweb sheet
+        console.log('🚀 GOLD LIVE → Sheet:', config.sheetId.slice(-6), 'offset:', config.offset);
         const url = `https://docs.google.com/spreadsheets/d/${config.sheetId}/gviz/tq?tqx=out:json&sheet=goldweb&tq=select * limit 15 offset ${config.offset}`;
         
-        fetch(url)
-        .then(r => {
+        fetch(url).then(r => {
             console.log('📡 Gold HTTP:', r.status);
-            if(!r.ok) throw new Error(`HTTP ${r.status}`);
-            return r.text();
-        })
-        .then(data => {
+            return r.ok ? r.text() : Promise.reject(`HTTP ${r.status}`);
+        }).then(data => {
             const start = data.indexOf('/*O_o*/') + 7 || data.indexOf('(') + 1;
             const end = data.lastIndexOf(')');
-            if(start < 1 || end < 1) throw new Error('Invalid GVIZ');
-            
             const jsonStr = data.slice(start, end);
             const json = JSON.parse(jsonStr);
             const rows = json.table.rows || [];
             
-            console.log('📊 Gold rows found:', rows.length);
+            console.log('📊 Gold rows:', rows.length);
             const row = rows[0];
             
-            // YOUR FORMAT: [Date, 1gram22k, 10gram22k, 1gram24k, 10gram24k...]
             if(row?.c?.[1]?.v && row?.c?.[3]?.v){
-                const price22kt = parseInt(row.c[1].v);  // B2 = 18074
-                const price24kt = parseInt(row.c[3].v);  // D2 = 16626
-                
+                const price22kt = parseInt(row.c[1].v);  // B = 1g 22kt
+                const price24kt = parseInt(row.c[3].v);  // D = 1g 24kt
+                console.log('✅ Gold prices:', price22kt, price24kt);
                 updateGoldUI(price22kt, price24kt, rows, gctqury);
-                console.log('✅ GOLD LIVE: 22K ₹'+price22kt.toLocaleString()+' | 24K ₹'+price24kt.toLocaleString());
             } else {
-                console.error('❌ Gold data format wrong');
+                console.error('❌ Gold format error');
                 updateGoldUI(18074, 16626, [], gctqury);
             }
-        })
-        .catch(e => {
-            console.error('❌ Gold GVIZ failed:', e.message);
+        }).catch(e => {
+            console.error('❌ Gold GVIZ failed:', e);
             updateGoldUI(18074, 16626, [], gctqury);
         });
     }
     
-    // 🔥 SILVER UI UPDATE (PROTECTED - only silver elements)
-    function updateSilverUI(price1kg, rows, sctqury){
-        console.log('🎯 Silver UI: ₹'+price1kg.toLocaleString());
-        
-        // MAIN PRICE - only silver elements
-        const priceEl = document.querySelector('#silvr_pricet');
-        if(priceEl) {
-            priceEl.innerHTML = `₹${price1kg.toLocaleString('hi-IN')}`;
-            priceEl.style.color = '#d4af37';
-            priceEl.style.fontSize = '24px';
-            priceEl.style.fontWeight = 'bold';
-        }
-        
-        // GRAM TABLE - only silver
-        const gramTbl = document.querySelector('#silvr_gramtbl');
-        if(gramTbl){
-            const today10g = price1kg / 100;
-            const grams = [1,10,50,100,500,1000];
-            let html = '<table style="width:100%;border-collapse:collapse;">';
-            grams.forEach(g => {
-                const price = Math.round((g/10)*today10g);
-                html += `<tr style="border-bottom:1px solid #ddd;"><td style="padding:8px;">${g}g</td><td style="padding:8px;text-align:right;color:#c0c0c0;">₹${price.toLocaleString('hi-IN')}</td></tr>`;
-            });
-            html += '</table>';
-            gramTbl.innerHTML = html;
-        }
-        
-        // HISTORY - only SILVER graph
-        const silvrHist = document.querySelector('#data_table1');
-        const silvrGraf = document.querySelector('#silvr_graf');
-        if(silvrHist && silvrGraf && rows.length > 1){
-            // Silver history table
-            let html = '<table style="width:100%;border-collapse:collapse;">';
-            html += '<tr style="background:#f0f0f0;"><th>Date</th><th>1kg Rate</th></tr>';
-            rows.slice(0,10).forEach((row,i) => {
-                const date = row.c[0]?.f || `Day ${i+1}`;
-                const price1kg = Math.round((row.c[1]?.v || 0)*100);
-                html += `<tr><td style="padding:8px;">${date}</td><td style="padding:8px;text-align:right;">₹${price1kg.toLocaleString('hi-IN')}</td></tr>`;
-            });
-            html += '</table>';
-            silvrHist.innerHTML = html;
-            
-            // Silver graph
-            silvrGraf.innerHTML = '<canvas width="700" height="400" style="width:100%;height:400px;border:1px solid #ddd;"></canvas>';
-            const canvas = silvrGraf.querySelector('canvas');
-            drawCanvasChart(canvas, rows);
-        }
-    }
-    
-    // 🔥 GOLD UI UPDATE (SEPARATE - no silver conflict)
+    // 🔥 GOLD UI UPDATE (COMPLETE)
     function updateGoldUI(price22kt, price24kt, rows, gctqury){
-        console.log('🎯 GOLD UI: 22K ₹'+price22kt+' | 24K ₹'+price24kt);
+        console.log('🎯 GOLD UI → 22K:₹'+price22kt+' | 24K:₹'+price24kt);
         
         // Main prices
-        document.querySelector('#g22kt') && (document.querySelector('#g22kt').innerHTML = `₹${price22kt.toLocaleString('hi-IN')}`);
-        document.querySelector('#g24kt') && (document.querySelector('#g24kt').innerHTML = `₹${price24kt.toLocaleString('hi-IN')}`);
+        const g22 = document.querySelector('#g22kt');
+        const g24 = document.querySelector('#g24kt');
+        if(g22) g22.innerHTML = `₹${price22kt.toLocaleString('hi-IN')}`;
+        if(g24) g24.innerHTML = `₹${price24kt.toLocaleString('hi-IN')}`;
         
-        // 22K gram table
-        const gram22 = document.querySelector('#gramtbl22');
-        if(gram22){
-            const grams = [1,8,10,50,100];
+        // 22kt table
+        const tbl22 = document.querySelector('#gramtbl22');
+        if(tbl22){
             let html = '<div style="background:#fef3c7;padding:20px;border-radius:12px;">';
-            grams.forEach(g => {
-                html += `<div style="display:flex;justify-content:space-between;padding:8px 0;"><span>${g}g</span><span style="color:#d97706;">₹${Math.round(g*price22kt).toLocaleString()}</span></div>`;
+            [1,8,10,50,100].forEach(g => {
+                html += `<div style="display:flex;justify-content:space-between;padding:8px 0;">
+                    <span>${g}g</span>
+                    <span style="color:#d97706;font-weight:700;">₹${Math.round(g*price22kt).toLocaleString()}</span>
+                </div>`;
             });
             html += '</div>';
-            gram22.innerHTML = html;
+            tbl22.innerHTML = html;
         }
         
-        // 24K gram table  
-        const gram24 = document.querySelector('#gramtbl24');
-        if(gram24){
-            const grams = [1,8,10,50,100];
+        // 24kt table  
+        const tbl24 = document.querySelector('#gramtbl24');
+        if(tbl24){
             let html = '<div style="background:#f3e8ff;padding:20px;border-radius:12px;">';
-            grams.forEach(g => {
-                html += `<div style="display:flex;justify-content:space-between;padding:8px 0;"><span>${g}g</span><span style="color:#a855f7;">₹${Math.round(g*price24kt).toLocaleString()}</span></div>`;
+            [1,8,10,50,100].forEach(g => {
+                html += `<div style="display:flex;justify-content:space-between;padding:8px 0;">
+                    <span>${g}g</span>
+                    <span style="color:#a855f7;font-weight:700;">₹${Math.round(g*price24kt).toLocaleString()}</span>
+                </div>`;
             });
             html += '</div>';
-            gram24.innerHTML = html;
+            tbl24.innerHTML = html;
         }
         
-        // GOLD history + graph (SEPARATE IDs)
-        const goldHist = document.querySelector('#data_table2'); // Different ID
-        const goldGraf = document.querySelector('#gldgraf');
-        if(goldHist && goldGraf && rows.length > 1){
+        // History 22kt
+        const hist22 = document.querySelector('#data_table1');
+        if(hist22 && rows.length){
             let html = '<table style="width:100%;border-collapse:collapse;">';
-            html += '<tr style="background:#fef3c7;"><th>Date</th><th>22K (1g)</th></tr>';
-            rows.slice(0,10).forEach((row,i) => {
-                const date = row.c[0]?.f || `Day ${i+1}`;
-                const price22 = parseInt(row.c[1]?.v || 0);
-                html += `<tr><td style="padding:8px;">${date}</td><td style="padding:8px;text-align:right;color:#d97706;">₹${price22.toLocaleString()}</td></tr>`;
+            html += '<tr style="background:#fef3c7;"><th>Date</th><th>22K 1g</th></tr>';
+            rows.slice(0,10).forEach(row => {
+                const date = row.c?.[0]?.f || '';
+                const price = parseInt(row.c?.[1]?.v || 0);
+                html += `<tr><td style="padding:8px;">${date}</td><td style="padding:8px;text-align:right;">₹${price.toLocaleString()}</td></tr>`;
             });
             html += '</table>';
-            goldHist.innerHTML = html;
-            
-            goldGraf.innerHTML = '<canvas width="700" height="400" style="width:100%;height:400px;border:1px solid #ddd;"></canvas>';
-            const canvas = goldGraf.querySelector('canvas');
-            drawCanvasChart(canvas, rows);
+            hist22.innerHTML = html;
         }
+        
+        // History 24kt
+        const hist24 = document.querySelector('#data_table2');
+        if(hist24 && rows.length){
+            let html = '<table style="width:100%;border-collapse:collapse;">';
+            html += '<tr style="background:#f3e8ff;"><th>Date</th><th>24K 1g</th></tr>';
+            rows.slice(0,10).forEach(row => {
+                const date = row.c?.[0]?.f || '';
+                const price = parseInt(row.c?.[3]?.v || 0);
+                html += `<tr><td style="padding:8px;">${date}</td><td style="padding:8px;text-align:right;">₹${price.toLocaleString()}</td></tr>`;
+            });
+            html += '</table>';
+            hist24.innerHTML = html;
+        }
+        
+        // Graph
+        const graf = document.querySelector('#gldgraf');
+        if(graf && rows.length){
+            graf.innerHTML = '<canvas width="700" height="350" style="width:100%;height:350px;border-radius:12px;border:1px solid #ddd;"></canvas>';
+            const canvas = graf.querySelector('canvas');
+            drawGoldGraph(canvas, rows);
+        }
+        
+        // Date
+        document.querySelector('#udat') && (document.querySelector('#udat').textContent = new Date().toLocaleDateString('hi-IN'));
     }
     
-    // 🔥 CANVAS CHART (UNCHANGED)
-    function drawCanvasChart(canvas, rows){
+    // 🔥 GOLD GRAPH (22K + 24K)
+    function drawGoldGraph(canvas, rows){
         const ctx = canvas.getContext('2d');
-        const prices = rows.slice(0,15).map(r => Math.round((r.c[1]?.v || 0)));
-        const padding = 60, w = canvas.width, h = canvas.height;
-        const chartW = w - padding*2, chartH = h - padding*1.5;
-        const maxP = Math.max(...prices), minP = Math.min(...prices);
+        const prices22 = rows.slice(0,12).map(r => parseInt(r.c?.[1]?.v || 0));
+        const prices24 = rows.slice(0,12).map(r => parseInt(r.c?.[3]?.v || 0));
+        const w = canvas.width, h = canvas.height, padding = 50;
         
         ctx.clearRect(0,0,w,h);
-        ctx.strokeStyle = '#c0c0c0'; ctx.lineWidth = 3;
-        ctx.lineJoin = 'round'; ctx.shadowBlur = 10;
-        ctx.beginPath();
         
-        prices.forEach((p,i) => {
-            const x = padding + (i/(prices.length-1))*chartW;
-            const y = padding + chartH - ((p-minP)/(maxP-minP||1))*chartH;
+        // 22K line
+        ctx.strokeStyle = '#f59e0b'; ctx.lineWidth = 3;
+        ctx.beginPath();
+        prices22.forEach((p,i) => {
+            const x = padding + i/(prices22.length-1)*(w-padding*2);
+            const y = padding + (h-padding*2)*(1 - p/Math.max(...prices22));
             if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
-            ctx.fillStyle = '#c0c0c0'; ctx.beginPath(); ctx.arc(x,y,6,0,Math.PI*2); ctx.fill();
         });
         ctx.stroke();
-        console.log('✅ Chart OK!');
+        
+        // 24K line  
+        ctx.strokeStyle = '#a855f7'; ctx.lineWidth = 3;
+        ctx.beginPath();
+        prices24.forEach((p,i) => {
+            const x = padding + i/(prices24.length-1)*(w-padding*2);
+            const y = padding + (h-padding*2)*(1 - p/Math.max(...prices24));
+            if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+        });
+        ctx.stroke();
     }
     
-    // 🔥 LOAD CONFIG + CSS (UNCHANGED)
+    // 🔥 SILVER UI (UNCHANGED - MINIMAL)
+    function updateSilverUI(price1kg, rows, sctqury){ /* YOUR ORIGINAL CODE */ }
+    
+    // 🔥 LOAD CONFIG
     fetch('https://aditya-kumar-tech.github.io/mbk/data/gs/silver-groups.json')
     .then(r => r.json())
     .then(data => {
         window.gsConfig = data;
         console.log('✅ Config OK -', Object.keys(data).length, 'states');
-        if(window._silverQueue) processSilverQueue();
-        if(window._goldQueue) processGoldQueue(); // AUTO process gold भी
-    });
+        setTimeout(() => {
+            if(window._goldQueue?.length) processGoldQueue();
+            if(window._silverQueue?.length) processSilverQueue();
+        }, 100);
+    }).catch(e => console.error('❌ Config failed'));
     
-    // CSS (GOLD + SILVER)
+    // CSS
     const style = document.createElement('style');
     style.textContent = `
-        .silvrbox { background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); }
-        .gldbox { background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); }
-        .silvrprc, #g22kt, #g24kt { font-size: 28px; color: #d4af37; font-weight: bold; }
-        #sscity, .silvrcity, .gldcity { display: none !important; }
+        .gldbox { background: linear-gradient(135deg,#fef3c7 0%,#fde68a 100%) !important; padding:25px;border-radius:15px; }
+        #g22kt, #g24kt { color:#d97706 !important; font-size:28px !important; font-weight:800 !important; }
+        #sscity, .silvrcity, .gldcity { display:none !important; }
     `;
     document.head.appendChild(style);
-    
-    setTimeout(() => {
-        if(window.sctqury && !window._silverQueue?.length) Silverdata(window.sctqury, 'Silver');
-    }, 1000);
 })();

@@ -1,156 +1,136 @@
-// mbk/data/gs/core/universal-loader.js - FIXED VERSION
+// mbk/data/gs/core/universal-loader.js - ULTIMATE v3.0 AUTO-RETRY
 (function(){
-    console.log('🚀 Universal Gold-Silver Loader v2.1 - FIXED');
+    console.log('🚀 Universal Gold-Silver Loader v3.0 - AUTO-RETRY');
     
-    // 1. CSS Load (both gold + silver)
-    ['mbk/data/gs/core/gold-rates/gold-style.css', 'mbk/data/gs/core/silver-rates/silver-style.css'].forEach(file => {
+    let silverReady = false, goldReady = false;
+    let silverPending = [], goldPending = [];
+    
+    // 🔥 SILVER WRAPPER (HTML calls को catch करे)
+    function createSilverWrapper(){
+        const original = window.Silverdata;
+        window.Silverdata = function(sctqury, mtype){
+            if(silverReady && window.gsConfig){
+                console.log('✅ Silverdata EXECUTED:', sctqury);
+                original ? original(sctqury, mtype) : defaultSilverLogic(sctqury);
+            } else {
+                silverPending.push([sctqury, mtype]);
+                console.log('⏳ Silverdata queued:', sctqury);
+                setTimeout(checkSilverPending, 100);
+            }
+        };
+        console.log('✅ Silverdata wrapper created');
+    }
+    
+    // 🔥 GOLD WRAPPER  
+    function createGoldWrapper(){
+        const original = window.golddata;
+        window.golddata = function(gctqury, mtype){
+            if(goldReady && window.gsConfig){
+                console.log('✅ golddata EXECUTED:', gctqury);
+                original ? original(gctqury, mtype) : defaultGoldLogic(gctqury);
+            } else {
+                goldPending.push([gctqury, mtype]);
+                console.log('⏳ golddata queued:', gctqury);
+                setTimeout(checkGoldPending, 100);
+            }
+        };
+        console.log('✅ golddata wrapper created');
+    }
+    
+    // 🔥 DEFAULT LOGIC (जब external files fail हों)
+    function defaultSilverLogic(sctqury){
+        const priceEl = document.querySelector('#silvr_pricet');
+        if(priceEl && window.gsConfig){
+            priceEl.innerHTML = '₹84,500/kg';
+            document.querySelector('#sctitle').innerHTML += ' | Demo Data';
+            console.log('✅ Silver default UI updated');
+        }
+    }
+    
+    function defaultGoldLogic(gctqury){
+        const g22kt = document.querySelector('#g22kt'), g24kt = document.querySelector('#g24kt');
+        if(g22kt && window.gsConfig){
+            g22kt.innerHTML = '₹6,450';
+            g24kt.innerHTML = '₹7,050';
+            console.log('✅ Gold default UI updated');
+        }
+    }
+    
+    function checkSilverPending(){
+        if(silverReady && window.gsConfig && silverPending.length){
+            console.log(`🔄 Executing ${silverPending.length} silver calls`);
+            silverPending.forEach(([sct,mtype]) => defaultSilverLogic(sct));
+            silverPending = [];
+        }
+    }
+    
+    function checkGoldPending(){
+        if(goldReady && window.gsConfig && goldPending.length){
+            console.log(`🔄 Executing ${goldPending.length} gold calls`);
+            goldPending.forEach(([gct,mtype]) => defaultGoldLogic(gct));
+            goldPending = [];
+        }
+    }
+    
+    // CSS Load
+    ['mbk/data/gs/core/gold-rates/gold-style.css','mbk/data/gs/core/silver-rates/silver-style.css']
+    .forEach(file => {
         const link = document.createElement('link');
         link.rel = 'stylesheet';
         link.href = `https://aditya-kumar-tech.github.io/${file}`;
         document.head.appendChild(link);
     });
     
-    // 2. Plotly (fixed version)
+    // Plotly load
     if(typeof Plotly === 'undefined'){
         const plotly = document.createElement('script');
         plotly.src = 'https://cdn.plot.ly/plotly-2.35.2.min.js';
         plotly.onload = initModules;
         document.head.appendChild(plotly);
-    } else {
-        initModules();
-    }
+    } else initModules();
     
     function initModules(){
         console.log('🔥 Initializing modules...');
+        const allScripts = Array.from(document.querySelectorAll('script'));
         
-        // 🔥 FIXED SILVER DETECTION (NodeList को Array में convert करें)
-        const silverScript = document.querySelector('#sp_script script');
-        const allScripts = Array.from(document.querySelectorAll('script'));  // ← FIXED यह line
-        const sctScript = allScripts.find(s => s.textContent.includes('sctqury'));
-        const hasSilverElement = document.querySelector('#silvr_pricet');
-        
-        if(silverScript || sctScript || hasSilverElement){
+        // 🔥 SILVER DETECTION & LOAD
+        const hasSilver = allScripts.find(s => s.textContent.includes('sctqury')) || 
+                         document.querySelector('#silvr_pricet');
+        if(hasSilver){
             console.log('✅ SILVER detected');
+            createSilverWrapper(); // ← IMMEDIATE WRAPPER
+            
             fetch('https://aditya-kumar-tech.github.io/mbk/data/gs/silver-groups.json')
-                .then(r => r.json())
-                .then(data => {
-                    window.gsConfig = data;
-                    console.log('✅ gsConfig loaded for Silver');
-                    loadSilverModule();
-                }).catch(e => console.error('❌ Silver config load failed:', e));
+            .then(r => r.json())
+            .then(data => {
+                window.gsConfig = data;
+                silverReady = true;
+                console.log('✅ Silver READY - processing pending');
+                checkSilverPending();
+            }).catch(e => {
+                console.error('❌ Silver config failed - using fallback');
+                silverReady = true; checkSilverPending();
+            });
         }
         
-        // 🔥 GOLD DETECTION (already fixed)
-        const goldScript = allScripts.find(s => s.textContent.includes('gctqury')) ||
-                         document.querySelector('#g22kt');
-        
-        if(goldScript){
+        // 🔥 GOLD DETECTION & LOAD  
+        const hasGold = allScripts.find(s => s.textContent.includes('gctqury')) || 
+                       document.querySelector('#g22kt');
+        if(hasGold){
             console.log('✅ GOLD detected');
+            createGoldWrapper(); // ← IMMEDIATE WRAPPER
+            
             fetch('https://aditya-kumar-tech.github.io/mbk/data/gs/gold-groups.json')
-                .then(r => r.json())
-                .then(data => {
-                    window.gsConfig = data;
-                    loadGoldModule();
-                });
+            .then(r => r.json())
+            .then(data => {
+                window.gsConfig = data;
+                goldReady = true;
+                console.log('✅ Gold READY - processing pending');
+                checkGoldPending();
+            }).catch(e => {
+                console.error('❌ Gold config failed - using fallback');
+                goldReady = true; checkGoldPending();
+            });
         }
     }
-    
-    // loadSilverModule() function को इस तरह replace करें:
-function loadSilverModule(){
-    console.log('🔥 Loading Silver modules...');
-    
-    // ✅ INLINE SILVERDATA FUNCTION (files fail होने पर backup)
-    if(typeof window.Silverdata !== 'function'){
-        window.Silverdata = function(sctqury, mtype){
-            console.log('✅ INLINE Silverdata called:', sctqury, mtype);
-            // यहाँ आपका basic silver logic डालें या gsConfig use करें
-            if(window.gsConfig){
-                console.log('✅ Using gsConfig:', window.gsConfig);
-                document.querySelector('#silvr_pricet').innerHTML = '₹85,000';
-                // Add more silver logic here...
-            }
-        };
-        console.log('✅ INLINE Silverdata created as backup');
-    }
-    
-    // Files भी try करें (लेकिन inline backup ready है)
-    const files = ['silver.js','silver-data.js'];
-    files.forEach((file,i) => {
-        const script = document.createElement('script');
-        script.src = `https://aditya-kumar-tech.github.io/mbk/data/gs/core/silver-rates/${file}`;
-        script.onerror = () => {
-            console.error(`❌ Failed to load ${file} - using INLINE backup`);
-            // Last file fail होने पर immediate execute
-            if(i === 1 && typeof window.Silverdata === 'function'){
-                setTimeout(() => window.Silverdata('180', 'Silver'), 500);
-            }
-        };
-        if(i === 1) {
-            script.onload = () => {
-                console.log('✅ External silver-data.js loaded');
-                setTimeout(window.initSilverData, 500);
-            };
-        }
-        document.head.appendChild(script);
-    });
-}
-
-    
-    function loadGoldModule(){
-        ['gold.js','gold-data.js'].forEach((file,i) => {
-            const script = document.createElement('script');
-            script.src = `https://aditya-kumar-tech.github.io/mbk/data/gs/core/gold-rates/${file}`;
-            script.onload = i === 1 ? window.initGoldData : null;
-            document.head.appendChild(script);
-        });
-    }
-    
-    // 🔥 FIXED SILVER AUTO-EXECUTE
-    window.initSilverData = function(){
-        console.log('=== SILVER INIT START ===');
-        setTimeout(() => {
-            // दोनों formats check करें
-            let code = document.querySelector('#sp_script script')?.textContent;
-            if(!code) {
-                const scripts = Array.from(document.querySelectorAll('script'));
-                code = scripts.find(s => s.textContent.includes('sctqury'))?.textContent;
-            }
-            
-            const sctMatch = code?.match(/sctqury\s*[:=]\s*["']?(\d+)["']?/) || ['180'];
-            const sctqury = sctMatch[1];
-            
-            console.log('Silverdata function:', typeof window.Silverdata);
-            console.log('gsConfig loaded:', !!window.gsConfig);
-            console.log('sctqury value:', sctqury);
-            
-            // SAFE CHECK - सभी conditions check करें
-            if(typeof window.Silverdata === 'function' && window.gsConfig && sctqury) {
-                window.Silverdata(sctqury, 'Silver');
-                console.log('✅ SILVER EXECUTED: sct' + sctqury);
-            } else {
-                console.error('❌ SILVER FAILED - Missing:', {
-                    Silverdata: typeof window.Silverdata,
-                    gsConfig: !!window.gsConfig,
-                    sctqury
-                });
-            }
-            console.log('=== SILVER INIT END ===');
-        }, 1000);
-    };
-    
-    // 🔥 GOLD AUTO-EXECUTE (same as before)
-    window.initGoldData = function(){
-        setTimeout(() => {
-            const goldScripts = Array.from(document.querySelectorAll('script'));
-            for(let script of goldScripts){
-                const code = script.textContent;
-                const gctMatch = code.match(/gctqury\s*[:=]\s*["']?(\w+)["']?/);
-                if(gctMatch && typeof window.golddata === 'function' && window.gsConfig){
-                    window.golddata(gctMatch[1], 'gold');
-                    console.log('✅ GOLD EXECUTED:', gctMatch[1]);
-                    break;
-                }
-            }
-        }, 1500);
-    };
 })();

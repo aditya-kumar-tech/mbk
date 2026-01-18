@@ -1,7 +1,7 @@
-// Universal Loader v6.3 – REAL GVIZ FIX (Silver + Gold)
+// Universal Loader v6.4 – REAL GVIZ FIX (Silver + Gold Separate Mapping)
 
 (function () {
-    console.log('🚀 Universal Loader v6.3 – GVIZ PERFECT');
+    console.log('🚀 Universal Loader v6.4 – GVIZ PERFECT + SEPARATE MAP');
 
     window.sctqury = window.sctqury || '';
     window.gctqury = window.gctqury || '';
@@ -14,18 +14,18 @@
         window.sctqury = String(q || '').replace(/["']/g, '');
         window._silverQueue = window._silverQueue || [];
         window._silverQueue.push(window.sctqury);
-        if (window.gsConfig) processSilver();
+        if (window.silverConfig) processSilver();
     };
 
     window.golddata = function (q) {
         window.gctqury = String(q || '').replace(/["']/g, '');
         window._goldQueue = window._goldQueue || [];
         window._goldQueue.push(window.gctqury);
-        if (window.gsConfig) processGold();
+        if (window.goldConfig) processGold();
     };
 
     /* ======================
-       GVIZ PARSER
+       GVIZ PARSER (UNCHANGED)
     ====================== */
 
     function parseGViz(data) {
@@ -42,7 +42,7 @@
     }
 
     /* ======================
-       DATE SORT (REAL FIX)
+       DATE SORT
        Silver → col[5]
        Gold   → col[9]
     ====================== */
@@ -56,14 +56,24 @@
     }
 
     /* ======================
-       CONFIG FINDER
+       CONFIG FINDERS (SEPARATE)
     ====================== */
 
-    function findConfig(num) {
-        for (let k in gsConfig) {
-            const r = gsConfig[k].range;
+    function findSilverConfig(num) {
+        for (let k in silverConfig) {
+            const r = silverConfig[k].range;
             if (num >= r[0] && num <= r[1]) {
-                return { sheetId: gsConfig[k].id, offset: num - r[0] };
+                return { sheetId: silverConfig[k].id, offset: num - r[0] };
+            }
+        }
+        return null;
+    }
+
+    function findGoldConfig(num) {
+        for (let k in goldConfig) {
+            const r = goldConfig[k].range;
+            if (num >= r[0] && num <= r[1]) {
+                return { sheetId: goldConfig[k].id, offset: num - r[0] };
             }
         }
         return null;
@@ -74,11 +84,11 @@
     ====================== */
 
     function processSilver() {
-        if (!window._silverQueue?.length) return;
+        if (!window._silverQueue?.length || !window.silverConfig) return;
 
         const q = window._silverQueue.pop();
         const num = parseInt(q.replace(/\D/g, ''));
-        const cfg = findConfig(num);
+        const cfg = findSilverConfig(num);
         if (!cfg) return;
 
         const url = `https://docs.google.com/spreadsheets/d/${cfg.sheetId}/gviz/tq?tqx=out:json&sheet=silvweb&tq=select * limit 30 offset ${cfg.offset}`;
@@ -97,11 +107,14 @@
     ====================== */
 
     function processGold() {
-        if (!window._goldQueue?.length) return;
+        if (!window._goldQueue?.length || !window.goldConfig) return;
 
         const q = window._goldQueue.pop();
         const num = parseInt(q.replace(/\D/g, ''));
-        const cfg = findConfig(num) || { sheetId: Object.values(gsConfig)[0].id, offset: 0 };
+        const cfg = findGoldConfig(num) || {
+            sheetId: Object.values(goldConfig)[0].id,
+            offset: 0
+        };
 
         const url = `https://docs.google.com/spreadsheets/d/${cfg.sheetId}/gviz/tq?tqx=out:json&sheet=goldweb&tq=select * limit 30 offset ${cfg.offset}`;
 
@@ -119,14 +132,12 @@
     }
 
     /* ======================
-       SILVER UI
+       SILVER UI (UNCHANGED)
     ====================== */
 
     function updateSilverUI(priceKg, rows) {
-        document.querySelector('#silvr_pricet') &&
-            (silvr_pricet.textContent = `₹${priceKg.toLocaleString('hi-IN')}`);
+        silvr_pricet && (silvr_pricet.textContent = `₹${priceKg.toLocaleString('hi-IN')}`);
 
-        // gram table
         const gtbl = document.querySelector('#silvr_gramtbl');
         if (gtbl) {
             const p10 = priceKg / 100;
@@ -137,7 +148,6 @@
             gtbl.innerHTML = h + '</table>';
         }
 
-        // history
         const ht = document.querySelector('#data_table1');
         if (ht) {
             let h = '<table style="width:100%"><tr><th>तारीख</th><th>1Kg</th></tr>';
@@ -171,7 +181,7 @@
     }
 
     /* ======================
-       GOLD UI
+       GOLD UI (UNCHANGED)
     ====================== */
 
     function updateGoldUI(p22, p24, rows) {
@@ -223,14 +233,16 @@
     }
 
     /* ======================
-       LOAD CONFIG
+       LOAD CONFIGS (SEPARATE)
     ====================== */
 
-    fetch('https://aditya-kumar-tech.github.io/mbk/data/gs/silver-groups.json')
-        .then(r => r.json())
-        .then(c => {
-            window.gsConfig = c;
-            setTimeout(() => { processSilver(); processGold(); }, 500);
-        });
+    Promise.all([
+        fetch('https://aditya-kumar-tech.github.io/mbk/data/gs/silver-groups.json').then(r => r.json()),
+        fetch('https://aditya-kumar-tech.github.io/mbk/data/gs/gold-groups.json').then(r => r.json())
+    ]).then(([s, g]) => {
+        window.silverConfig = s;
+        window.goldConfig = g;
+        setTimeout(() => { processSilver(); processGold(); }, 500);
+    });
 
 })();

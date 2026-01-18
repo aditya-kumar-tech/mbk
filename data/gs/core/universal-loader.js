@@ -78,30 +78,37 @@
     };
 
     function runGold() {
-        if (!goldQueue.length) return;
-        const num = goldQueue.pop();
-        const cfg = findCfg(goldConfig, num);
-        if (!cfg) return;
+    if (!goldQueue.length) return;
+    const num = goldQueue.pop();
+    const cfg = findCfg(goldConfig, num);
+    if (!cfg) return;
 
-        const url = `https://docs.google.com/spreadsheets/d/${cfg.id}/gviz/tq?tqx=out:json&sheet=goldweb&tq=select * limit 15 offset ${cfg.off}`;
-        fetch(url)
-            .then(r => r.text())
-            .then(t => {
-                const rows = parseGViz(t);
-                if (!rows.length) return;
+    // Sheet में rows कम होने पर offset use मत करो
+    const offsetVal = 0; // Always 0 for Gold, dynamic offset problematic
+    const url = `https://docs.google.com/spreadsheets/d/${cfg.id}/gviz/tq?tqx=out:json&sheet=goldweb&tq=select * limit 15${offsetVal ? ` offset ${offsetVal}` : ''}`;
 
-                GOLD_HIST_22.splice(0, 0, ...rows.slice(0, 15));
-                GOLD_HIST_24.splice(0, 0, ...rows.slice(0, 15));
-                if (GOLD_HIST_22.length > 15) GOLD_HIST_22.length = 15;
-                if (GOLD_HIST_24.length > 15) GOLD_HIST_24.length = 15;
-
-                renderGold(rows[0].c[1]?.v || 0, rows[0].c[3]?.v || 0, rows);
-            })
-            .catch(err => {
-                console.error("Gold fetch failed, retrying...", err);
+    fetch(url)
+        .then(r => r.text())
+        .then(t => {
+            const rows = parseGViz(t);
+            if (!rows.length) {
+                console.warn("Gold rows empty, retrying...");
                 setTimeout(runGold, 1200);
-            });
-    }
+                return;
+            }
+
+            GOLD_HIST_22.splice(0, 0, ...rows.slice(0, 15));
+            GOLD_HIST_24.splice(0, 0, ...rows.slice(0, 15));
+            if (GOLD_HIST_22.length > 15) GOLD_HIST_22.length = 15;
+            if (GOLD_HIST_24.length > 15) GOLD_HIST_24.length = 15;
+
+            renderGold(rows[0].c[1]?.v || 0, rows[0].c[3]?.v || 0, rows);
+        })
+        .catch(err => {
+            console.error("Gold fetch failed, retrying...", err);
+            setTimeout(runGold, 1200);
+        });
+}
 
     function renderGold(p22, p24, rows) {
         console.log("Gold 22k:", p22, "24k:", p24, "Historical 22k:", GOLD_HIST_22, "24k:", GOLD_HIST_24);

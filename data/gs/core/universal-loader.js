@@ -1,42 +1,46 @@
 (function () {
-    console.log('🚀 Universal Loader v7.0 (Gold & Silver Separate Config)');
+    console.log('🚀 Universal Loader v7.2 (GViz SAFE + Separate Config)');
 
     /* =========================
-       GLOBAL QUEUES
+       GLOBAL QUEUES (SAFE)
     ========================= */
-    window._goldQueue = [];
-    window._silverQueue = [];
+    window._goldQueue = window._goldQueue || [];
+    window._silverQueue = window._silverQueue || [];
 
     window.golddata = function (q) {
-        q = q.replace(/["']/g, '');
-        window._goldQueue.push(q);
-        if (window.goldConfig) processGold();
+        if (!q) return;
+        window._goldQueue.push(q.replace(/["']/g, ''));
+        tryRun();
     };
 
     window.Silverdata = function (q) {
-        q = q.replace(/["']/g, '');
-        window._silverQueue.push(q);
-        if (window.silverConfig) processSilver();
+        if (!q) return;
+        window._silverQueue.push(q.replace(/["']/g, ''));
+        tryRun();
     };
 
+    function tryRun() {
+        if (window.goldConfig) processGold();
+        if (window.silverConfig) processSilver();
+    }
+
     /* =========================
-       GVIZ PARSER (FIXED)
+       🔥 GVIZ PARSER (100% SAFE)
     ========================= */
     function parseGViz(text) {
-        let clean = text
-            .replace(/^\/\*O_o\*\//, '')
-            .replace(/^google\.visualization\.Query\.setResponse\(/i, '')
-            .replace(/\);?\s*$/, '')
-            .trim();
-
-        const json = JSON.parse(clean);
-        return json?.table?.rows || [];
+        const start = text.indexOf('{');
+        const end = text.lastIndexOf('}');
+        if (start === -1 || end === -1) {
+            throw new Error('Invalid GViz response');
+        }
+        const jsonStr = text.substring(start, end + 1);
+        return JSON.parse(jsonStr).table.rows || [];
     }
 
     /* =========================
        SORT BY DATE DESC
     ========================= */
-    function sortByISODate(rows, col) {
+    function sortByDate(rows, col) {
         return rows.sort((a, b) => {
             const da = new Date(a.c[col]?.v || 0);
             const db = new Date(b.c[col]?.v || 0);
@@ -45,7 +49,7 @@
     }
 
     /* =========================
-       FIND CONFIG (GENERIC)
+       FIND CONFIG
     ========================= */
     function findConfig(cfg, num) {
         for (let k in cfg) {
@@ -66,7 +70,7 @@
     function processGold() {
         if (!window._goldQueue.length || !window.goldConfig) return;
 
-        const q = window._goldQueue.pop();
+        const q = window._goldQueue.shift();
         const num = parseInt(q.replace(/\D/g, ''));
         const cfg = findConfig(window.goldConfig, num) ||
             { sheetId: Object.values(window.goldConfig)[0].id, offset: 0 };
@@ -75,14 +79,15 @@
 
         fetch(url).then(r => r.text()).then(txt => {
             let rows = parseGViz(txt);
-            rows = sortByISODate(rows, 0);
+            rows = sortByDate(rows, 0);
 
-            const today = rows[0] || {};
-            const p22 = parseInt(today.c[1]?.v || 0);
-            const p24 = parseInt(today.c[3]?.v || 0);
-
-            updateGoldUI(p22, p24, rows);
-        }).catch(e => console.error('Gold error', e));
+            const r0 = rows[0] || {};
+            updateGoldUI(
+                parseInt(r0.c[1]?.v || 0),
+                parseInt(r0.c[3]?.v || 0),
+                rows
+            );
+        }).catch(e => console.error('❌ GOLD PARSE FAIL', e));
     }
 
     /* =========================
@@ -91,7 +96,7 @@
     function processSilver() {
         if (!window._silverQueue.length || !window.silverConfig) return;
 
-        const q = window._silverQueue.pop();
+        const q = window._silverQueue.shift();
         const num = parseInt(q.replace(/\D/g, ''));
         const cfg = findConfig(window.silverConfig, num);
         if (!cfg) return;
@@ -100,100 +105,73 @@
 
         fetch(url).then(r => r.text()).then(txt => {
             let rows = parseGViz(txt);
-            rows = sortByISODate(rows, 0);
+            rows = sortByDate(rows, 0);
 
             const priceKg = parseInt(rows[0]?.c[2]?.v || 0);
             updateSilverUI(priceKg, rows);
-        }).catch(e => console.error('Silver error', e));
+        }).catch(e => console.error('❌ SILVER PARSE FAIL', e));
     }
 
     /* =========================
-       GOLD UI + HISTORY + GRAPH
+       GOLD UI
     ========================= */
     function updateGoldUI(p22, p24, rows) {
-        const g22 = document.querySelector('#g22kt');
-        const g24 = document.querySelector('#g24kt');
-        if (g22) g22.textContent = `₹${p22.toLocaleString('hi-IN')}`;
-        if (g24) g24.textContent = `₹${p24.toLocaleString('hi-IN')}`;
-
+        document.querySelector('#g22kt')?.textContent = `₹${p22.toLocaleString('hi-IN')}`;
+        document.querySelector('#g24kt')?.textContent = `₹${p24.toLocaleString('hi-IN')}`;
         document.querySelector('#udat') &&
-            (document.querySelector('#udat').textContent =
-                new Date().toLocaleDateString('hi-IN'));
+            (document.querySelector('#udat').textContent = new Date().toLocaleDateString('hi-IN'));
 
-        gramTable('#gramtbl22', p22, '22K', '#fef3c7', '#d97706');
-        gramTable('#gramtbl24', p24, '24K', '#f3e8ff', '#a855f7');
-
-        historyTable('#data_table1', rows, 1, '22K', '#fef3c7');
-        historyTable('#data_table2', rows, 3, '24K', '#f3e8ff');
-
+        historyTable('#data_table1', rows, 1, '22K');
+        historyTable('#data_table2', rows, 3, '24K');
         goldGraph('#gldgraf', rows);
     }
 
     /* =========================
-       SILVER UI + HISTORY
+       SILVER UI
     ========================= */
     function updateSilverUI(priceKg, rows) {
-        const el = document.querySelector('#silvr_pricet');
-        if (el) el.textContent = `₹${priceKg.toLocaleString('hi-IN')}`;
+        document.querySelector('#silvr_pricet')?.textContent =
+            `₹${priceKg.toLocaleString('hi-IN')}`;
 
-        const tbl = document.querySelector('#silvr_gramtbl');
-        if (tbl) {
-            let html = '<table style="width:100%">';
-            [1, 10, 50, 100, 500, 1000].forEach(g => {
-                html += `<tr><td>${g}g</td>
-                <td style="text-align:right">₹${Math.round(priceKg * g / 1000).toLocaleString('hi-IN')}</td></tr>`;
-            });
-            html += '</table>';
-            tbl.innerHTML = html;
-        }
-
-        historyTable('#data_table1', rows, 2, '1Kg', '#e6f3ff');
+        historyTable('#data_table1', rows, 2, '1Kg');
     }
 
     /* =========================
-       HELPERS
+       HISTORY TABLE
     ========================= */
-    function gramTable(id, price, type, bg, color) {
+    function historyTable(id, rows, col, label) {
         const el = document.querySelector(id);
         if (!el) return;
 
-        let html = `<div style="background:${bg};padding:15px;border-radius:12px">`;
-        [1, 8, 10, 50, 100].forEach(g => {
-            html += `<div style="display:flex;justify-content:space-between">
-                <span>${g}g ${type}</span>
-                <b style="color:${color}">₹${Math.round(g * price).toLocaleString('hi-IN')}</b>
-            </div>`;
-        });
-        html += '</div>';
-        el.innerHTML = html;
-    }
-
-    function historyTable(id, rows, col, label, bg) {
-        const el = document.querySelector(id);
-        if (!el || !rows.length) return;
-
-        let html = `<table style="width:100%"><tr style="background:${bg}">
-            <th>तारीख</th><th>${label}</th></tr>`;
+        let html = `<table style="width:100%">
+            <tr><th>तारीख</th><th>${label}</th></tr>`;
 
         rows.slice(0, 30).forEach(r => {
-            html += `<tr><td>${r.c[0]?.f || ''}</td>
-            <td style="text-align:right">₹${parseInt(r.c[col]?.v || 0).toLocaleString('hi-IN')}</td></tr>`;
+            html += `<tr>
+                <td>${r.c[0]?.f || ''}</td>
+                <td style="text-align:right">₹${parseInt(r.c[col]?.v || 0).toLocaleString('hi-IN')}</td>
+            </tr>`;
         });
         html += '</table>';
         el.innerHTML = html;
     }
 
+    /* =========================
+       GOLD GRAPH
+    ========================= */
     function goldGraph(id, rows) {
         const el = document.querySelector(id);
         if (!el || rows.length < 5) return;
 
         el.innerHTML = '<canvas height="300"></canvas>';
-        const c = el.querySelector('canvas');
-        const ctx = c.getContext('2d');
+        const ctx = el.querySelector('canvas').getContext('2d');
 
-        const p22 = rows.slice(0, 12).map(r => r.c[1]?.v || 0);
-        const p24 = rows.slice(0, 12).map(r => r.c[3]?.v || 0);
-        const max = Math.max(...p22, ...p24);
+        const a = rows.slice(0, 12).map(r => r.c[1]?.v || 0);
+        const b = rows.slice(0, 12).map(r => r.c[3]?.v || 0);
+        const m = Math.max(...a, ...b);
+
+        draw(a, '#f59e0b');
+        draw(b, '#a855f7');
 
         function draw(arr, color) {
             ctx.strokeStyle = color;
@@ -201,14 +179,11 @@
             ctx.beginPath();
             arr.forEach((p, i) => {
                 const x = 40 + i * 50;
-                const y = 260 - (p / max) * 200;
+                const y = 260 - (p / m) * 200;
                 i ? ctx.lineTo(x, y) : ctx.moveTo(x, y);
             });
             ctx.stroke();
         }
-
-        draw(p22, '#f59e0b');
-        draw(p24, '#a855f7');
     }
 
     /* =========================
@@ -220,17 +195,8 @@
     ]).then(([g, s]) => {
         window.goldConfig = g;
         window.silverConfig = s;
-        processGold();
-        processSilver();
+        console.log('✅ Configs ready');
+        tryRun();
     });
-
-    /* =========================
-       HIDE CITY COMPLETELY
-    ========================= */
-    const style = document.createElement('style');
-    style.textContent = `
-        #sscity,.city,.cityname,[data-city]{display:none!important}
-    `;
-    document.head.appendChild(style);
 
 })();

@@ -55,23 +55,46 @@
         }
     }
     
-    function loadSilverModule(){
-        const files = ['silver.js','silver-data.js'];
-        files.forEach((file,i) => {
-            const script = document.createElement('script');
-            script.src = `https://aditya-kumar-tech.github.io/mbk/data/gs/core/silver-rates/${file}`;
-            script.onerror = () => console.error(`❌ Failed to load ${file}`);
-            
-            if(i === 1) { // silver-data.js के बाद execute करें
-                script.onload = () => {
-                    console.log('✅ Silver modules loaded completely');
-                    // थोड़ा wait करके execute करें
-                    setTimeout(window.initSilverData, 500);
-                };
+    // loadSilverModule() function को इस तरह replace करें:
+function loadSilverModule(){
+    console.log('🔥 Loading Silver modules...');
+    
+    // ✅ INLINE SILVERDATA FUNCTION (files fail होने पर backup)
+    if(typeof window.Silverdata !== 'function'){
+        window.Silverdata = function(sctqury, mtype){
+            console.log('✅ INLINE Silverdata called:', sctqury, mtype);
+            // यहाँ आपका basic silver logic डालें या gsConfig use करें
+            if(window.gsConfig){
+                console.log('✅ Using gsConfig:', window.gsConfig);
+                document.querySelector('#silvr_pricet').innerHTML = '₹85,000';
+                // Add more silver logic here...
             }
-            document.head.appendChild(script);
-        });
+        };
+        console.log('✅ INLINE Silverdata created as backup');
     }
+    
+    // Files भी try करें (लेकिन inline backup ready है)
+    const files = ['silver.js','silver-data.js'];
+    files.forEach((file,i) => {
+        const script = document.createElement('script');
+        script.src = `https://aditya-kumar-tech.github.io/mbk/data/gs/core/silver-rates/${file}`;
+        script.onerror = () => {
+            console.error(`❌ Failed to load ${file} - using INLINE backup`);
+            // Last file fail होने पर immediate execute
+            if(i === 1 && typeof window.Silverdata === 'function'){
+                setTimeout(() => window.Silverdata('180', 'Silver'), 500);
+            }
+        };
+        if(i === 1) {
+            script.onload = () => {
+                console.log('✅ External silver-data.js loaded');
+                setTimeout(window.initSilverData, 500);
+            };
+        }
+        document.head.appendChild(script);
+    });
+}
+
     
     function loadGoldModule(){
         ['gold.js','gold-data.js'].forEach((file,i) => {

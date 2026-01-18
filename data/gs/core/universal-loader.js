@@ -1,130 +1,102 @@
-/* ========================================
-   UNIVERSAL LOADER + CACHE MANAGER
-   Header/Footer me ek baar - Sab automatic!
-   ======================================== */
-
-// CACHE CONFIG - Date wise update control
-const CACHE_CONFIG = {
-  lastUpdate: localStorage.getItem('mbk-lastUpdate') || null,
-  cacheExpiry: 24 * 60 * 60 * 1000, // 24 hours
-  dataCache: JSON.parse(localStorage.getItem('mbk-dataCache') || '{}'),
-  filesLoaded: new Set()
-};
-
-// Universal init - DOM loaded hone par chalega
-document.addEventListener('DOMContentLoaded', initUniversalLoader);
-
-function initUniversalLoader() {
-  console.log('🔥 Universal Loader Active');
-  
-  // Check if data update needed
-  checkCacheExpiry();
-  
-  // Auto-detect page type
-  detectPageType();
-  
-  // CSS auto-load
-  loadCSS();
-}
-
-function checkCacheExpiry() {
-  const now = Date.now();
-  const today = new Date().toDateString();
-  
-  if (!CACHE_CONFIG.lastUpdate || CACHE_CONFIG.lastUpdate !== today) {
-    // Clear old cache, new day = fresh data
-    localStorage.removeItem('mbk-dataCache');
-    localStorage.setItem('mbk-lastUpdate', today);
-    CACHE_CONFIG.dataCache = {};
-    console.log('📅 New day - Cache cleared');
-  }
-}
-
-function detectPageType() {
-  // GOLD PAGE DETECT
-  if (typeof gctqury !== 'undefined') {
-    loadGoldPage(gctqury);
-  }
-  // SILVER PAGE DETECT  
-  else if (typeof sctqury !== 'undefined') {
-    loadSilverPage(sctqury);
-  }
-}
-
-async function loadCSS() {
-  // Auto CSS based on page
-  if (typeof gctqury !== 'undefined') {
-    loadCSSFile('https://aditya-kumar-tech.github.io/mbk/data/core/gold-style.css');
-  } else if (typeof sctqury !== 'undefined') {
-    loadCSSFile('https://aditya-kumar-tech.github.io/mbk/data/core/silver-style.css');
-  }
-}
-
-function loadCSSFile(url) {
-  if (document.querySelector(`link[href="${url}"]`)) return;
-  
-  const link = document.createElement('link');
-  link.rel = 'stylesheet';
-  link.href = url;
-  document.head.appendChild(link);
-}
-
-// GOLD PAGE FULL LOAD
-async function loadGoldPage(query) {
-  const cacheKey = `gold-${query}`;
-  
-  // Check cache first
-  if (CACHE_CONFIG.dataCache[cacheKey]) {
-    console.log('💾 Gold cache HIT');
-    applyGoldData(CACHE_CONFIG.dataCache[cacheKey]);
-    return;
-  }
-  
-  console.log('📥 Gold loading...');
-  loadScript('https://aditya-kumar-tech.github.io/mbk/data/gold-rates/gold-data.js', () => {
-    golddata(query, 'Gold');
-  });
-}
-
-// SILVER PAGE FULL LOAD  
-async function loadSilverPage(query) {
-  const cacheKey = `silver-${query}`;
-  
-  if (CACHE_CONFIG.dataCache[cacheKey]) {
-    console.log('💾 Silver cache HIT');
-    applySilverData(CACHE_CONFIG.dataCache[cacheKey]);
-    return;
-  }
-  
-  console.log('📥 Silver loading...');
-  loadScript('https://aditya-kumar-tech.github.io/mbk/data/silver-rates/silver-data.js', () => {
-    Silverdata(query, 'Silver');
-  });
-}
-
-function loadScript(src, callback) {
-  if (CACHE_CONFIG.filesLoaded.has(src)) {
-    callback();
-    return;
-  }
-  
-  const script = document.createElement('script');
-  script.src = src;
-  script.onload = () => {
-    CACHE_CONFIG.filesLoaded.add(src);
-    callback();
-  };
-  script.onerror = () => console.error('❌ Script load failed:', src);
-  document.head.appendChild(script);
-}
-
-// DATA CACHE SAVE (golddata/Silverdata me ye call karna)
-window.saveToCache = function(key, data) {
-  CACHE_CONFIG.dataCache[key] = data;
-  localStorage.setItem('mbk-dataCache', JSON.stringify(CACHE_CONFIG.dataCache));
-};
-
-// Universal error handler
-window.addEventListener('error', (e) => {
-  console.error('🚨 Universal Loader Error:', e.message);
-});
+// mbk/data/gs/core/universal-loader.js - UNIVERSAL GOLD+SILVER
+(function(){
+    const BASE_URL = 'https://aditya-kumar-tech.github.io/mbk';
+    
+    function checkManifest() {
+        fetch(`${BASE_URL}/data/gs/core/gs-manifest.json`)
+        .then(r=>r.json())
+        .then(manifest => {
+            const localCache = localStorage.getItem('gsManifest');
+            const localManifest = localCache ? JSON.parse(localCache) : null;
+            
+            if(!localManifest || localManifest.last_update !== manifest.last_update) {
+                console.log('🔄 New manifest detected, caching files...');
+                cacheAllFiles(manifest);
+                localStorage.setItem('gsManifest', JSON.stringify(manifest));
+            } else {
+                console.log('✅ Using cached files');
+                initModules();
+            }
+        })
+        .catch(() => initModules()); // Fallback
+    }
+    
+    function cacheAllFiles(manifest) {
+        const allFiles = [
+            ...manifest.modules['gold-rates'].files,
+            ...manifest.modules['silver-rates'].files
+        ];
+        
+        allFiles.forEach((filePath, index) => {
+            fetch(`${BASE_URL}/${filePath}`)
+            .then(r=>r.text())
+            .then(content => {
+                localStorage.setItem(filePath.split('/').pop(), content);
+                if(index === allFiles.length - 1) {
+                    setTimeout(initModules, 100);
+                }
+            });
+        });
+    }
+    
+    function initModules() {
+        // Load Plotly
+        if(typeof Plotly === 'undefined') {
+            loadScript('https://cdn.plot.ly/plotly-latest.min.js', loadCoreModules);
+        } else {
+            loadCoreModules();
+        }
+    }
+    
+    function loadCoreModules() {
+        // Load Gold + Silver core
+        loadFromCacheOrRemote('gold.js', () => {
+            loadFromCacheOrRemote('silver.js', () => {
+                exposeUniversalFunctions();
+            });
+        });
+    }
+    
+    function loadFromCacheOrRemote(filename, callback) {
+        const cached = localStorage.getItem(filename);
+        if(cached) {
+            eval(cached);
+            callback();
+        } else {
+            const script = document.createElement('script');
+            script.src = `${BASE_URL}/data/gs/core/${filename.includes('gold') ? 'gold-rates' : 'silver-rates'}/${filename}`;
+            script.onload = callback;
+            document.head.appendChild(script);
+        }
+    }
+    
+    function exposeUniversalFunctions() {
+        // Universal STATE grouping for BOTH gold + silver
+        window.universalGroups = {
+            maharashtra_01: { id: "1LPrFvxzzownghYcIo_1QRHqRcnVnLtDpZ09EImN7ijU", state: "महाराष्ट्र", range: [1, 20] },
+            delhi_ncr_02: { id: "1WSMeNQuA96s8AQuw8AkLwH8ta98IWL7kcLJ2EaclyqE", state: "दिल्ली-NCR", range: [21, 40] },
+            madhya_pradesh_10: { id: "1w2omBC1tEILJ-A1xfpj3yQBn_RunH3KTYNGW_AXBgS4", state: "मध्य प्रदेश", range: [181, 200] }
+            // बाकी 27 groups add करें
+        };
+        
+        window.getUniversalGroup = function(query) {
+            const num = parseInt(query.replace(/[gcs]ct/, ''));
+            return Object.values(window.universalGroups).find(g => num >= g.range[0] && num <= g.range[1]) || window.universalGroups.maharashtra_01;
+        };
+        
+        // Expose functions globally
+        window.Silverdata = window.Silverdata || window.loadSilverData;
+        window.golddata = window.golddata || window.loadGoldData;
+        window.ready = true;
+    }
+    
+    function loadScript(src, callback) {
+        const script = document.createElement('script');
+        script.src = src;
+        script.onload = callback;
+        document.head.appendChild(script);
+    }
+    
+    // START
+    checkManifest();
+})();

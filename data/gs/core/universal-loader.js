@@ -203,8 +203,8 @@
     // 🔥 PLOTLY-STYLE SILVER LINE GRAPH
     function drawProfessionalSilverGraph(canvas, rows) {
         const ctx = canvas.getContext('2d');
-        const prices = rows.slice(0, 12).map(r => parseFloat(r.c[2]?.v || 0));
-        const dates = rows.slice(0, 12).map(r => r.c[0]?.f || '');
+        const prices = rows.slice(0, 16).map(r => parseFloat(r.c[2]?.v || 0));
+        const dates = rows.slice(0, 16).map(r => r.c[0]?.f || '');
         const w = canvas.width, h = canvas.height;
         
         // Clear + gradient background
@@ -278,7 +278,7 @@
         
         // Title
         ctx.fillStyle = '#495057'; ctx.font = 'bold 16px Arial'; ctx.textAlign = 'center'; ctx.textBaseline = 'bottom';
-        ctx.fillText('चाँदी के भाव - पिछले 12 दिन', w/2, 35);
+        ctx.fillText('चाँदी के भाव - पिछले 15 दिन', w/2, 35);
         
         console.log('✅ PROFESSIONAL Silver Line Graph');
     }
@@ -286,9 +286,9 @@
     // 🔥 PLOTLY-STYLE GOLD DUAL LINE GRAPH
     function drawProfessionalGoldGraph(canvas, rows) {
         const ctx = canvas.getContext('2d');
-        const p22 = rows.slice(0, 12).map(r => parseFloat(r.c[1]?.v || 0));
-        const p24 = rows.slice(0, 12).map(r => parseFloat(r.c[3]?.v || 0));
-        const dates = rows.slice(0, 12).map(r => r.c[0]?.f || '');
+        const p22 = rows.slice(0, 16).map(r => parseFloat(r.c[1]?.v || 0));
+        const p24 = rows.slice(0, 16).map(r => parseFloat(r.c[3]?.v || 0));
+        const dates = rows.slice(0, 16).map(r => r.c[0]?.f || '');
         const w = canvas.width, h = canvas.height;
         
         // Gold gradient background
@@ -369,7 +369,7 @@
         
         // Title
         ctx.font = 'bold 18px Arial'; ctx.textAlign = 'center';
-        ctx.fillText('सोने के भाव - 22K vs 24K (पिछले 12 दिन)', w/2, 25);
+        ctx.fillText('सोने के भाव - 22K vs 24K (पिछले 15 दिन)', w/2, 25);
         
         console.log('✅ PROFESSIONAL Gold Dual Line Graph');
     }

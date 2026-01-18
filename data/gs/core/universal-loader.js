@@ -1,5 +1,5 @@
 (function () {
-    console.log("🚀 Universal Loader v6.7 STARTED");
+    console.log("🚀 Universal Loader v6.8 STARTED");
 
     /* =========================
        COMMON GVIZ PARSER (SAFE)
@@ -18,21 +18,17 @@
     }
 
     /* =========================
-       UTILITY: AUTO RETRY
+       AUTO RETRY UTILITY
     ========================= */
     const MAX_RETRY = 5;
     const RETRY_DELAY = 1200;
-
     function autoRetry(fn, count = 0) {
-        if (count >= MAX_RETRY) {
-            console.error("❌ Max retries reached for loader");
-            return;
-        }
+        if (count >= MAX_RETRY) return console.error("❌ Max retries reached");
         setTimeout(() => fn(count + 1), RETRY_DELAY);
     }
 
     /* =========================
-       RANGE MATCHER (SHARED)
+       RANGE MATCHER
     ========================= */
     function findCfg(map, n) {
         for (const k in map) {
@@ -42,6 +38,18 @@
             }
         }
         return null;
+    }
+
+    /* =========================
+       HISTORICAL DATA STORE
+    ========================= */
+    const goldHistory = [];
+    const silverHistory = [];
+    const HISTORY_LIMIT = 15;
+
+    function addHistory(arr, data) {
+        arr.unshift(data);
+        if (arr.length > HISTORY_LIMIT) arr.pop();
     }
 
     /* =========================
@@ -70,28 +78,29 @@
                 const rows = parseGViz(t).sort((a, b) =>
                     (b.c[5]?.f || '').localeCompare(a.c[5]?.f || '')
                 );
-
                 if (!rows.length) return autoRetry(runSilver);
 
-                const priceKg = rows[0].c[2]?.v || 0;
-                renderSilver(priceKg, rows);
+                const latest = {
+                    date: rows[0].c[0]?.f,
+                    price10g: rows[0].c[1]?.v || 0,
+                    price1kg: rows[0].c[2]?.v || 0
+                };
+                addHistory(silverHistory, latest);
+                renderSilver(latest, silverHistory);
             })
             .catch(() => autoRetry(runSilver));
     }
 
-    function renderSilver(priceKg, rows) {
-        silvr_pricet &&
-            (silvr_pricet.textContent = `₹${priceKg.toLocaleString('hi-IN')}`);
-        // Future: gram table & history render can be added here
+    function renderSilver(latest, history) {
+        silvr_pricet && (silvr_pricet.textContent = `₹${latest.price1kg.toLocaleString('hi-IN')}`);
+        // Render gram table
+        const table = document.getElementById("silverTable");
+        if (table) {
+            table.innerHTML = `<tr><th>Date</th><th>10g</th><th>1Kg</th></tr>` +
+                history.map(r => `<tr><td>${r.date}</td><td>₹${r.price10g.toLocaleString('hi-IN')}</td><td>₹${r.price1kg.toLocaleString('hi-IN')}</td></tr>`).join('');
+        }
+        renderGraph("silverGraph", history.map(r => r.price1kg));
     }
-
-    fetch('https://aditya-kumar-tech.github.io/mbk/data/gs/silver-groups.json')
-        .then(r => r.json())
-        .then(j => {
-            silverConfig = j;
-            runSilver();
-        })
-        .catch(() => autoRetry(() => fetch('https://aditya-kumar-tech.github.io/mbk/data/gs/silver-groups.json').then(r => r.json()).then(j => { silverConfig = j; runSilver(); })));
 
     /* =========================
        GOLD LOADER
@@ -119,27 +128,65 @@
                 const rows = parseGViz(t).sort((a, b) =>
                     (b.c[9]?.f || '').localeCompare(a.c[9]?.f || '')
                 );
-
                 if (!rows.length) return autoRetry(runGold);
 
-                renderGold(rows[0].c[1]?.v || 0, rows[0].c[3]?.v || 0, rows);
+                const latest = {
+                    date: rows[0].c[0]?.f,
+                    price22g: rows[0].c[1]?.v || 0,
+                    price24g: rows[0].c[3]?.v || 0
+                };
+                addHistory(goldHistory, latest);
+                renderGold(latest, goldHistory);
             })
             .catch(() => autoRetry(runGold));
     }
 
-    function renderGold(p22, p24, rows) {
-        g22kt && (g22kt.textContent = `₹${p22.toLocaleString('hi-IN')}`);
-        g24kt && (g24kt.textContent = `₹${p24.toLocaleString('hi-IN')}`);
+    function renderGold(latest, history) {
+        g22kt && (g22kt.textContent = `₹${latest.price22g.toLocaleString('hi-IN')}`);
+        g24kt && (g24kt.textContent = `₹${latest.price24g.toLocaleString('hi-IN')}`);
         udat && (udat.textContent = new Date().toLocaleDateString('hi-IN'));
-        // Future: gold history & graph render can be added here
+
+        // Render gram table
+        const table = document.getElementById("goldTable");
+        if (table) {
+            table.innerHTML = `<tr><th>Date</th><th>22Kt</th><th>24Kt</th></tr>` +
+                history.map(r => `<tr><td>${r.date}</td><td>₹${r.price22g.toLocaleString('hi-IN')}</td><td>₹${r.price24g.toLocaleString('hi-IN')}</td></tr>`).join('');
+        }
+        renderGraph("goldGraph", history.map(r => r.price22g));
     }
+
+    /* =========================
+       MINI GRAPH RENDER
+    ========================= */
+    function renderGraph(id, data) {
+        const el = document.getElementById(id);
+        if (!el) return;
+        el.innerHTML = ""; // reset
+        const max = Math.max(...data, 1);
+        const w = el.clientWidth || 200;
+        const h = el.clientHeight || 50;
+        data.forEach((val, i) => {
+            const bar = document.createElement("div");
+            bar.style.height = `${(val / max) * h}px`;
+            bar.style.width = `${w / data.length - 2}px`;
+            bar.style.display = "inline-block";
+            bar.style.marginRight = "1px";
+            bar.style.background = "#ff9800";
+            el.appendChild(bar);
+        });
+    }
+
+    /* =========================
+       FETCH CONFIGS
+    ========================= */
+    fetch('https://aditya-kumar-tech.github.io/mbk/data/gs/silver-groups.json')
+        .then(r => r.json())
+        .then(j => { silverConfig = j; runSilver(); })
+        .catch(() => autoRetry(() => fetch('https://aditya-kumar-tech.github.io/mbk/data/gs/silver-groups.json').then(r => r.json()).then(j => { silverConfig = j; runSilver(); })));
 
     fetch('https://aditya-kumar-tech.github.io/mbk/data/gs/gold-groups.json')
         .then(r => r.json())
-        .then(j => {
-            goldConfig = j;
-            runGold();
-        })
+        .then(j => { goldConfig = j; runGold(); })
         .catch(() => autoRetry(() => fetch('https://aditya-kumar-tech.github.io/mbk/data/gs/gold-groups.json').then(r => r.json()).then(j => { goldConfig = j; runGold(); })));
 
 })();

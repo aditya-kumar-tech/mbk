@@ -1,6 +1,6 @@
-// mbk/data/gs/core/universal-loader.js - v5.4 PLOTLY + DISCLAIMER
+// mbk/data/gs/core/universal-loader.js - v5.5 ULTRA FAST CANVAS
 (function(){
-    console.log('🚀 Universal Gold-Silver Loader v5.4 - FULL FEATURES');
+    console.log('🚀 Universal Gold-Silver Loader v5.5 - CANVAS GRAPH');
     
     window.Silverdata = window.Silverdata || function(sctqury, mtype){
         console.log('✅ Silverdata:', sctqury);
@@ -11,7 +11,6 @@
     
     function processSilverQueue(){
         if(!window.gsConfig || !window._silverQueue) return;
-        
         window._silverQueue.forEach(({sctqury}) => {
             const config = findConfig(sctqury);
             if(config) loadSilverData(config, sctqury);
@@ -36,7 +35,6 @@
     
     function loadSilverData(config, sctqury){
         console.log('📍', sctqury, '→ offset:', config.offset);
-        
         const url = `https://docs.google.com/spreadsheets/d/${config.sheetId}/gviz/tq?tqx=out:json&sheet=silvweb&tq=select * limit 15 offset ${config.offset}`;
         
         fetch(url)
@@ -49,7 +47,7 @@
             const end = data.lastIndexOf(')');
             const json = JSON.parse(data.slice(start, end));
             const rows = json.table.rows || [];
-            const today10g = rows[0]?.c[1]?.v || 845;
+            const today10g = rows[0]?.c[1]?.v || 847;
             
             updateSilverUI(today10g * 100, rows, sctqury);
             console.log('✅', sctqury, '₹'+(today10g*100).toLocaleString()+'/kg');
@@ -70,10 +68,10 @@
         if(gramTbl){
             const today10g = price1kg / 100;
             const grams = [1,10,50,100,500,1000];
-            let html = '<table style="width:100%;border-collapse:collapse;">';
+            let html = '<table style="width:100%;border-collapse:collapse;font-size:14px;">';
             grams.forEach(g => {
                 const price = Math.round((g/10)*today10g);
-                html += `<tr style="border-bottom:1px solid #eee;"><td style="padding:8px;">${g}g</td><td style="padding:8px;text-align:right;font-weight:bold;">₹${price.toLocaleString('hi-IN')}</td></tr>`;
+                html += `<tr style="border-bottom:1px solid #eee;"><td style="padding:6px;font-weight:500;">${g}g</td><td style="padding:6px;text-align:right;">₹${price.toLocaleString('hi-IN')}</td></tr>`;
             });
             html += '</table>';
             gramTbl.innerHTML = html;
@@ -87,17 +85,17 @@
             rows.slice(0,10).forEach((row,i) => {
                 const date = row.c[0]?.f || `Day ${i+1}`;
                 const price1kg = Math.round((row.c[1]?.v || 0)*100);
-                html += `<tr><td style="padding:8px;">${date}</td><td style="padding:8px;text-align:right;">₹${price1kg.toLocaleString('hi-IN')}</td></tr>`;
+                html += `<tr><td style="padding:8px;">${date}</td><td style="padding:8px;text-align:right;font-weight:500;">₹${price1kg.toLocaleString('hi-IN')}</td></tr>`;
             });
             html += '</table>';
             histTbl.innerHTML = html;
         }
         
-        // 4. ✅ DISCLAIMER ADD
-        const disclaimerEl = document.querySelector('#disclamerSilver, #disclamergold');
+        // 4. ✅ DISCLAIMER
+        const disclaimerEl = document.querySelector('#disclamerSilver');
         if(disclaimerEl){
             disclaimerEl.innerHTML = `
-                <div style="background:#f9f9f9;padding:15px;border-left:4px solid #c0c0c0;margin:20px 0;font-size:13px;">
+                <div style="background:#fff3cd;border:1px solid #ffeaa7;border-left:4px solid #c0c0c0;padding:15px;margin:20px 0;font-size:13px;line-height:1.5;">
                     <strong>Disclaimer:</strong> The gold/silver rates are sourced from local jewellers and other sources. 
                     mandibhavkhabar.com has made every effort to ensure accuracy of information provided; however, we do not 
                     guarantee such accuracy. The rates are for informational purposes only. It is not a solicitation to 
@@ -107,79 +105,105 @@
             `;
         }
         
-        // 5. ✅ PLOTLY GRAPH (data ready होने पर)
-        if(rows.length > 1 && document.querySelector('#silvr_graf')){
-            window._silverChartData = window._silverChartData || [];
-            window._silverChartData[sctqury] = {
-                prices: rows.slice(0,15).map(r => Math.round((r.c[1]?.v || 0)*100)),
-                dates: rows.slice(0,15).map(r => r.c[0]?.f || '').slice(-15)
-            };
-            drawPlotlyChart(sctqury);
-        }
-    }
-    
-    // 🔥 PLOTLY CHART FUNCTION
-    function drawPlotlyChart(sctqury){
+        // 5. ✅ ULTRA-FAST CANVAS GRAPH
         const grafEl = document.querySelector('#silvr_graf');
-        if(!grafEl || !window.Plotly || !window._silverChartData[sctqury]) return;
-        
-        const data = window._silverChartData[sctqury];
-        const trace = {
-            x: data.dates,
-            y: data.prices,
-            type: 'scatter',
-            mode: 'lines+markers',
-            line: {color: '#c0c0c0', width: 3},
-            marker: {size: 6},
-            name: 'Silver Price'
-        };
-        
-        const layout = {
-            title: {text: 'Silver Price Trend (1kg)', font: {size: 14}},
-            xaxis: {title: 'Date'},
-            yaxis: {title: 'Price ₹'},
-            height: 400,
-            margin: {l: 50, r: 20, t: 40, b: 50},
-            showlegend: false
-        };
-        
-        Plotly.newPlot(grafEl, [trace], layout, {responsive: true});
-        console.log('✅ Plotly chart rendered:', sctqury);
+        if(grafEl && rows.length > 1){
+            drawCanvasChart(grafEl, rows);
+        }
     }
     
-    // 🔥 PLOTLY READY CALLBACK
-    window.plotlyLoaded = function(){
-        console.log('✅ Plotly ready - rendering charts');
-        // Re-render all pending charts
-        for(let sctqury in window._silverChartData){
-            drawPlotlyChart(sctqury);
+    // 🔥 ULTRA-FAST CANVAS CHART (NO EXTERNAL LIBS)
+    function drawCanvasChart(canvas, rows){
+        const ctx = canvas.getContext('2d');
+        const prices = rows.slice(0,15).map(r => Math.round((r.c[1]?.v || 0)*100));
+        const dates = rows.slice(0,15).map(r => r.c[0]?.f || '').slice(-15);
+        
+        // Clear & Setup
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        const padding = 50;
+        const chartWidth = canvas.width - padding * 2;
+        const chartHeight = canvas.height - padding * 1.5;
+        const maxPrice = Math.max(...prices);
+        const minPrice = Math.min(...prices);
+        
+        // Grid
+        ctx.strokeStyle = '#e0e0e0';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        for(let i = 0; i <= 5; i++){
+            const y = padding + (chartHeight * i / 5);
+            ctx.moveTo(padding, y);
+            ctx.lineTo(canvas.width - padding, y);
         }
-    };
+        ctx.stroke();
+        
+        // Line Chart
+        ctx.strokeStyle = '#c0c0c0';
+        ctx.lineWidth = 3;
+        ctx.lineJoin = 'round';
+        ctx.lineCap = 'round';
+        ctx.shadowColor = 'rgba(192,192,192,0.3)';
+        ctx.shadowBlur = 8;
+        ctx.shadowOffsetY = 2;
+        ctx.beginPath();
+        
+        prices.forEach((price, i) => {
+            const x = padding + (i / (prices.length - 1)) * chartWidth;
+            const y = padding + chartHeight - ((price - minPrice) / (maxPrice - minPrice || 1)) * chartHeight;
+            if(i === 0) ctx.moveTo(x, y);
+            else ctx.lineTo(x, y);
+            
+            // Dots
+            ctx.fillStyle = '#c0c0c0';
+            ctx.beginPath();
+            ctx.arc(x, y, 5, 0, Math.PI * 2);
+            ctx.fill();
+        });
+        ctx.shadowBlur = 0;
+        ctx.stroke();
+        
+        // Labels
+        ctx.fillStyle = '#333';
+        ctx.font = 'bold 14px Arial';
+        ctx.textAlign = 'center';
+        ctx.fillText('Silver Price Trend (1kg)', canvas.width/2, 25);
+        
+        ctx.textAlign = 'right';
+        ctx.font = '12px Arial';
+        ctx.fillText(`₹${maxPrice.toLocaleString()}`, padding-10, padding+10);
+        ctx.fillText(`₹${minPrice.toLocaleString()}`, padding-10, canvas.height-padding+5);
+        
+        ctx.textAlign = 'center';
+        ctx.save();
+        ctx.translate(padding-30, canvas.height/2);
+        ctx.rotate(-Math.PI/2);
+        ctx.fillText('Price (₹)', 0, 0);
+        ctx.restore();
+        
+        console.log('✅ Canvas chart rendered!');
+    }
     
     // LOAD CONFIG
     fetch('https://aditya-kumar-tech.github.io/mbk/data/gs/silver-groups.json')
     .then(r => r.json())
     .then(data => {
         window.gsConfig = data;
-        console.log('✅ Config loaded -', Object.keys(data).length, 'states');
+        console.log('✅ Config OK -', Object.keys(data).length, 'states');
         processSilverQueue();
     });
     
-    // CSS + Plotly
-    ['mbk/data/gs/core/gold-rates/gold-style.css','mbk/data/gs/core/silver-rates/silver-style.css']
-    .forEach(file => {
+    // 🔥 FIXED CSS PATHS (direct URLs)
+    const cssFiles = [
+        'https://aditya-kumar-tech.github.io/mbk/data/gs/core/gold-rates/gold-style.css',
+        'https://aditya-kumar-tech.github.io/mbk/data/gs/core/silver-rates/silver-style.css'
+    ];
+    cssFiles.forEach(url => {
         const link = document.createElement('link');
-        link.rel = 'stylesheet'; 
-        link.href = `https://aditya-kumar-tech.github.io/${file}`;
+        link.rel = 'stylesheet';
+        link.href = url;
+        link.onerror = () => console.log('⚠️ CSS failed:', url);
         document.head.appendChild(link);
     });
     
-    if(typeof Plotly === 'undefined'){
-        const plotly = document.createElement('script');
-        plotly.src = 'https://cdn.plot.ly/plotly-2.35.2.min.js';
-        plotly.onload = window.plotlyLoaded;
-        document.head.appendChild(plotly);
-    } else {
-        window.plotlyLoaded();
-    }
+    console.log('✅ CSS + Canvas ready!');
 })();

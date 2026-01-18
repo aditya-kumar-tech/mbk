@@ -1,1 +1,10 @@
 
+{
+  "manifest_version": "1.0",
+  "last_update": "2026-01-18",
+  "silver_files": [
+    "mbk/data/gs/core/silver-rates/silver.js",
+    "mbk/data/gs/core/silver-rates/silver-data.js",
+    "mbk/data/gs/core/silver-rates/silver-style.css"
+  ]
+}

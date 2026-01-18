@@ -1,0 +1,12 @@
+{
+  "maharashtra_01": { "id": "1LPrFvxzzownghYcIo_1QRHqRcnVnLtDpZ09EImN7ijU", "state": "महाराष्ट्र", "range": [1, 20] },
+  "delhi_ncr_02": { "id": "1WSMeNQuA96s8AQuw8AkLwH8ta98IWL7kcLJ2EaclyqE", "state": "दिल्ली-NCR", "range": [21, 40] },
+  "west_bengal_03": { "id": "1DtZLJjHEx_KMjJqlhd6tvRLlpahO232BRFNduW4wnFU", "state": "पश्चिम बंगाल", "range": [41, 60] },
+  "tamil_nadu_04": { "id": "1MnFZowECC9Afh4H-9NL06BIf0sEpD5ZI4WcwuP2CKig", "state": "तमिलनाडु", "range": [61, 80] },
+  "telangana_05": { "id": "1qtaEYAFxpU0OVbiiRcfEDDMa2fUYn3uj6nfRM5m1Ueg", "state": "तेलंगाना", "range": [81, 100] },
+  "karnataka_06": { "id": "1i7keQ8qtR-gmCqIKGr1W3qUMPkiXQOJMn09CjUZ8LNw", "state": "कर्नाटक", "range": [101, 120] },
+  "gujarat_07": { "id": "1qNLZNDopBZgffKPVSOVPrgh9NAHknToG201lLxJGNCA", "state": "गुजरात", "range": [121, 140] },
+  "rajasthan_08": { "id": "1Ir2EcXi_YCjZUO8cpOgQb2K5Dh3vVaLhBSXDEdzD_Rs", "state": "राजस्थान", "range": [141, 160] },
+  "uttar_pradesh_09": { "id": "1TUmurCYn7_WPHAptprXic2vi5ahS3a659hgMVJYlX68", "state": "उत्तर प्रदेश", "range": [161, 180] },
+  "madhya_pradesh_10": { "id": "1w2omBC1tEILJ-A1xfpj3yQBn_RunH3KTYNGW_AXBgS4", "state": "मध्य प्रदेश", "range": [181, 200] }
+}

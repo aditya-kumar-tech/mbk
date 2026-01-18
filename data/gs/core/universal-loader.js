@@ -1,18 +1,14 @@
 (function () {
-    console.log("🚀 Universal Loader v6.9 STARTED");
+    console.log("🚀 Universal Loader v7.0 STARTED");
 
-    /* =========================
-       COMMON GVIZ PARSER
-    ========================= */
     function parseGViz(txt) {
         try {
             txt = txt
                 .replace(/^\s*\/\*O_o\*\/\s*/, '')
                 .replace(/^google\.visualization\.Query\.setResponse\s*\(/, '')
                 .replace(/\);?\s*$/, '');
-            const json = JSON.parse(txt);
-            const rows = json.table.rows || [];
-            console.log("GViz Data:", rows); // DEBUG: fetched GViz data
+            const rows = JSON.parse(txt).table.rows || [];
+            console.log("GViz Data:", rows);
             return rows;
         } catch (e) {
             console.error("GViz parse failed", e);
@@ -20,9 +16,6 @@
         }
     }
 
-    /* =========================
-       RANGE MATCHER (SHARED)
-    ========================= */
     function findCfg(map, n) {
         for (const k in map) {
             const r = map[k].range;
@@ -33,13 +26,8 @@
         return null;
     }
 
-    /* ======================================================
-       ===================== SILVER =========================
-       ====================================================== */
-    let silverQueue = [];
-    let silverConfig = null;
-    const SILVER_HIST = []; // last 15 days data
-
+    /* ========================= SILVER ========================= */
+    let silverQueue = [], silverConfig = null, SILVER_HIST = [];
     window.Silverdata = function (q, mtype) {
         silverQueue.push(parseInt(String(q).replace(/\D/g, '')));
         if (silverConfig) runSilver();
@@ -55,11 +43,9 @@
         fetch(url)
             .then(r => r.text())
             .then(t => {
-                const rows = parseGViz(t)
-                    .sort((a, b) => (b.c[5]?.f || '').localeCompare(a.c[5]?.f || ''));
+                const rows = parseGViz(t);
                 if (!rows.length) return;
 
-                // maintain 15 days history
                 SILVER_HIST.splice(0, 0, ...rows.slice(0, 15));
                 if (SILVER_HIST.length > 15) SILVER_HIST.length = 15;
 
@@ -73,19 +59,8 @@
     }
 
     function renderSilver(priceKg, rows) {
-        console.log("Silver latest 1kg price:", priceKg);
-        console.log("Silver historical rows:", SILVER_HIST);
-
-        // Gram table example
-        if (window.silvr_pricet) {
-            silvr_pricet.textContent = `₹${priceKg.toLocaleString('hi-IN')}`;
-        }
-
-        // Graph example data
-        const graphData = SILVER_HIST.map(r => r.c[2]?.v || 0);
-        if (window.silvr_graf) {
-            silvr_graf.innerHTML = graphData.map(v => `<div class="graph-bar" style="height:${v/1000}px;width:10px;"></div>`).join('');
-        }
+        console.log("Silver latest 1kg:", priceKg, "Historical rows:", SILVER_HIST);
+        if (window.silvr_pricet) silvr_pricet.textContent = `₹${priceKg.toLocaleString('hi-IN')}`;
     }
 
     fetch('https://aditya-kumar-tech.github.io/mbk/data/gs/silver-groups.json')
@@ -95,14 +70,8 @@
             runSilver();
         });
 
-    /* ======================================================
-       ===================== GOLD ===========================
-       ====================================================== */
-    let goldQueue = [];
-    let goldConfig = null;
-    const GOLD_HIST_22 = [];
-    const GOLD_HIST_24 = [];
-
+    /* ========================= GOLD =========================== */
+    let goldQueue = [], goldConfig = null, GOLD_HIST_22 = [], GOLD_HIST_24 = [];
     window.golddata = function (q, mtype) {
         goldQueue.push(parseInt(String(q).replace(/\D/g, '')));
         if (goldConfig) runGold();
@@ -118,22 +87,15 @@
         fetch(url)
             .then(r => r.text())
             .then(t => {
-                const rows = parseGViz(t)
-                    .sort((a, b) => (b.c[9]?.f || '').localeCompare(a.c[9]?.f || ''));
-
+                const rows = parseGViz(t);
                 if (!rows.length) return;
 
-                // maintain 15 days history
                 GOLD_HIST_22.splice(0, 0, ...rows.slice(0, 15));
                 GOLD_HIST_24.splice(0, 0, ...rows.slice(0, 15));
                 if (GOLD_HIST_22.length > 15) GOLD_HIST_22.length = 15;
                 if (GOLD_HIST_24.length > 15) GOLD_HIST_24.length = 15;
 
-                renderGold(
-                    rows[0].c[1]?.v || 0,
-                    rows[0].c[3]?.v || 0,
-                    rows
-                );
+                renderGold(rows[0].c[1]?.v || 0, rows[0].c[3]?.v || 0, rows);
             })
             .catch(err => {
                 console.error("Gold fetch failed, retrying...", err);
@@ -142,23 +104,10 @@
     }
 
     function renderGold(p22, p24, rows) {
-        console.log("Gold 22k price:", p22, "Gold 24k price:", p24);
-        console.log("Gold historical rows 22k:", GOLD_HIST_22);
-        console.log("Gold historical rows 24k:", GOLD_HIST_24);
-
+        console.log("Gold 22k:", p22, "24k:", p24, "Historical 22k:", GOLD_HIST_22, "24k:", GOLD_HIST_24);
         if (window.g22kt) g22kt.textContent = `₹${p22.toLocaleString('hi-IN')}`;
         if (window.g24kt) g24kt.textContent = `₹${p24.toLocaleString('hi-IN')}`;
         if (window.udat) udat.textContent = new Date().toLocaleDateString('hi-IN');
-
-        // Mini comparative graph
-        if (window.gldgraf) {
-            const graphData22 = GOLD_HIST_22.map(r => r.c[1]?.v || 0);
-            const graphData24 = GOLD_HIST_24.map(r => r.c[3]?.v || 0);
-            gldgraf.innerHTML = graphData22.map((v, i) =>
-                `<div class="graph-bar" style="height:${v/1000}px;width:8px;background:#ff9800;"></div>`).join('') +
-                graphData24.map((v, i) =>
-                `<div class="graph-bar" style="height:${v/1000}px;width:8px;background:#ffc107;margin-left:1px;"></div>`).join('');
-        }
     }
 
     fetch('https://aditya-kumar-tech.github.io/mbk/data/gs/gold-groups.json')

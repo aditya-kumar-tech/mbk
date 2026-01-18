@@ -1,5 +1,5 @@
 (function () {
-    console.log("🚀 Universal Loader v7.1 - HISTORY + GRAPH PERFECT");
+    console.log("🚀 Universal Loader v7.2 - HISTORY + GRAPH + DISCLAIMER PERFECT");
 
     function parseGViz(txt) {
         try {
@@ -49,7 +49,7 @@
                 SILVER_HIST.splice(0, 0, ...rows.slice(0, 15));
                 if (SILVER_HIST.length > 15) SILVER_HIST.length = 15;
 
-                const priceKg = rows[0].c[2]?.v || 0; // Column C = 1Kg
+                const priceKg = rows[0].c[2]?.v || 0;
                 renderSilver(priceKg, SILVER_HIST);
             })
             .catch(err => {
@@ -93,6 +93,15 @@
             console.log('✅ Silver HISTORY table created');
         }
         
+        // SILVER DISCLAIMER
+        const silverDisc = document.querySelector('#disclamerSilver');
+        if (silverDisc) {
+            silverDisc.innerHTML = `
+                <div style="background:#fff3cd;border-left:4px solid #c0c0c0;padding:15px;margin:20px 0;border-radius:8px;font-size:13px;line-height:1.5;">
+                    <strong>⚠️ सूचना:</strong> चाँदी के भाव स्थानीय ज्वेलर्स और अन्य स्रोतों से लिए गए हैं। mandibhavkhabar.com ने सूचना की सटीकता सुनिश्चित करने का हर प्रयास किया है; हालांकि हम इसकी गारंटी नहीं देते। ये भाव केवल सूचना के उद्देश्य से हैं। यह सोने/चाँदी खरीदने-बेचने का निमंत्रण नहीं है। mandibhavkhabar.com को सोने/चाँदी की सूचना के आधार पर होने वाले नुकसान/हानि की कोई जिम्मेदारी नहीं है।
+                </div>`;
+        }
+        
         // GRAPH
         const grafEl = document.querySelector('#silvr_graf');
         if (grafEl && rows.length > 5) {
@@ -123,7 +132,7 @@
         const cfg = findCfg(goldConfig, num);
         if (!cfg) return;
 
-        const offsetVal = 0; // Fixed offset 0
+        const offsetVal = 0;
         const url = `https://docs.google.com/spreadsheets/d/${cfg.id}/gviz/tq?tqx=out:json&sheet=goldweb&tq=select * limit 20${offsetVal ? ` offset ${offsetVal}` : ''}`;
 
         fetch(url)
@@ -136,14 +145,13 @@
                     return;
                 }
 
-                // Update history arrays
                 GOLD_HIST_22.splice(0, 0, ...rows.slice(0, 15));
                 GOLD_HIST_24.splice(0, 0, ...rows.slice(0, 15));
                 if (GOLD_HIST_22.length > 15) GOLD_HIST_22.length = 15;
                 if (GOLD_HIST_24.length > 15) GOLD_HIST_24.length = 15;
 
-                const p22 = parseInt(rows[0].c[1]?.v || 0); // Column B = 1g 22k
-                const p24 = parseInt(rows[0].c[3]?.v || 0); // Column D = 1g 24k
+                const p22 = parseInt(rows[0].c[1]?.v || 0);
+                const p24 = parseInt(rows[0].c[3]?.v || 0);
                 renderGold(p22, p24, rows);
             })
             .catch(err => {
@@ -170,8 +178,17 @@
         // HISTORY TABLES
         if (rows.length > 1) {
             console.log('📋 Creating Gold HISTORY tables...');
-            updateHistoryTable('#data_table1', rows, '22K', '#fef3c7', 1);   // Column B
-            updateHistoryTable('#data_table2', rows, '24K', '#f3e8ff', 3);   // Column D
+            updateHistoryTable('#data_table1', rows, '22K', '#fef3c7', 1);
+            updateHistoryTable('#data_table2', rows, '24K', '#f3e8ff', 3);
+        }
+        
+        // GOLD DISCLAIMER
+        const goldDisc = document.querySelector('#disclamergold');
+        if (goldDisc) {
+            goldDisc.innerHTML = `
+                <div style="background:#fff3cd;border-left:4px solid #f59e0b;padding:15px;margin:20px 0;border-radius:8px;font-size:13px;line-height:1.5;">
+                    <strong>⚠️ सूचना:</strong> सोने के भाव स्थानीय ज्वेलर्स और अन्य स्रोतों से लिए गए हैं। mandibhavkhabar.com ने सूचना की सटीकता सुनिश्चित करने का हर प्रयास किया है; हालांकि हम इसकी गारंटी नहीं देते। ये भाव केवल सूचना के उद्देश्य से हैं। यह सोने/चाँदी खरीदने-बेचने का निमंत्रण नहीं है। mandibhavkhabar.com को सोने/चाँदी की सूचना के आधार पर होने वाले नुकसान/हानि की कोई जिम्मेदारी नहीं है।
+                </div>`;
         }
         
         // GRAPH
@@ -287,7 +304,7 @@
         console.log('✅ Gold DUAL GRAPH OK');
     }
 
-    // Global refs for backward compatibility
+    // Global refs
     window.g22kt = document.querySelector('#g22kt');
     window.g24kt = document.querySelector('#g24kt');
     window.udat = document.querySelector('#udat');

@@ -1,6 +1,6 @@
 /* ========================================
-   GOLD RATES - COMPLETE CSS 
-   Copy-paste ready for GitHub Pages
+   GOLD RATES CSS - Optimized for GitHub Pages
+   All duplicates removed + production ready
    ======================================== */
 
 /* Responsive Design */
@@ -16,7 +16,7 @@
   }
 }
 
-/* Main Gold Box Container */
+/* Main Gold Container */
 .gldbox {
   background-color: #f2f2f2;
   list-style-type: none;
@@ -52,14 +52,14 @@
   text-align: center;
 }
 
-/* Gold Price Display */
+/* Gold Price Elements */
 #g22kt, #g24kt {
   align-items: center;
   text-align: center;
   font-size: 18px;
 }
 
-/* Date Display */
+/* Date & Title */
 .udate {
   float: right;
   color: rgb(34, 34, 34);
@@ -73,7 +73,7 @@
   float: left;
 }
 
-/* Data Tables */
+/* Data Tables - Complete */
 .displaydata {
   border-collapse: collapse;
   border-spacing: 0;
@@ -118,7 +118,7 @@
   text-align: center;
 }
 
-/* LOADING ANIMATOR */
+/* LOADING ANIMATOR - Complete */
 @keyframes whirly {
   0% {
     transform: rotate(0deg);
@@ -143,11 +143,18 @@
   box-shadow: 
     #e66 0px 26px 0 6px,
     #e66 0.91px 26.05px 0 5.93px,
-    #e66 1.82px 26.07px 0 5.87px;
-  animation: whirly 5s linear infinite;
+    #e66 1.82px 26.07px 0 5.87px,
+    #e66 2.74px 26.06px 0 5.8px,
+    #e66 3.66px 26.01px 0 5.73px,
+    #e66 4.57px 25.93px 0 5.67px,
+    #e66 5.49px 25.82px 0 5.6px,
+    #e66 6.40px 25.68px 0 5.53px,
+    #e66 7.31px 25.51px 0 5.47px,
+    #e66 8.22px 25.30px 0 5.4px;
+  animation: whirly 2s infinite linear;
 }
 
-/* Additional Gold-specific styles */
+/* Data Tables Extra */
 .datatable1, .datatable2 {
   overflow-x: auto;
   width: 100%;

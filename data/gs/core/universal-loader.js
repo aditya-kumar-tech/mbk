@@ -48,11 +48,14 @@
 
     // ========================= SILVER =========================
     let silverQueue = [], silverConfig = null, SILVER_HIST = [];
-    window.Silverdata = function (q, mtype) {
-        silverQueue.push(parseInt(String(q).replace(/\D/g, '')));
-        if (silverConfig) runSilver();
-        processMBKQueue();
-    };
+    window.Silverdata = function(q, mtype){
+    let num = String(q).replace(/[^0-9]/g,'');
+    num = parseInt(num);
+    silverQueue.push(num);
+    if(silverConfig) runSilver();
+    processMBKQueue();
+};
+
 
     function runSilver() {
         if (!silverQueue.length) return;
@@ -141,11 +144,14 @@
 
     // ========================= GOLD =========================
     let goldQueue = [], goldConfig = null;
-    window.golddata = function (q, mtype) {
-        goldQueue.push(parseInt(String(q).replace(/\D/g, '')));
-        if (goldConfig) runGold();
-        processMBKQueue();
-    };
+    window.golddata = function(q, mtype){
+    // Remove any extra quotes around number
+    let num = String(q).replace(/[^0-9]/g,''); // सिर्फ digits बचाए
+    num = parseInt(num);
+    goldQueue.push(num);
+    if(goldConfig) runGold();
+    processMBKQueue();
+};
 
     function runGold() {
         if (!goldQueue.length) return;

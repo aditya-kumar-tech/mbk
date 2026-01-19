@@ -87,7 +87,11 @@
 
         // Parse number properly
         const priceKg = Number(rows[0].c[2]?.v || 0);
-        if (window.silvr_pricet) silvr_pricet.textContent = `₹${priceKg.toLocaleString('hi-IN')}`;
+        if (window.silvr_pricet) {
+    // Keep any inner spans but safely replace content
+    window.silvr_pricet.innerHTML = `₹${priceKg.toLocaleString('hi-IN')}`;
+}
+
         if (window.udat) udat.textContent = new Date().toLocaleDateString('hi-IN');
 
         // gram table

@@ -25,14 +25,15 @@
     }
 
     function findCfg(map, n) {
-        for (const k in map) {
-            const r = map[k].range;
-            if (n >= r[0] && n <= r[1]) {
-                return { id: map[k].id, off: n - r[0] };
-            }
+    for (const k in map) {
+        const r = map[k].range;
+        if (Array.isArray(r) && r.includes(n)) {  // ✅ range list में exact match
+            return { id: map[k].id, off: r.indexOf(n) };  // ✅ list position = offset
         }
-        return null;
     }
+    return null;
+}
+
 
     // ====================== BLOGGER-SAFE QUEUE ======================
     window._mbkQueue = window._mbkQueue || [];

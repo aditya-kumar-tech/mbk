@@ -32,40 +32,6 @@
         silverQueue.push(parseInt(String(q).replace(/\D/g, '')));
         if (silverConfig) runSilver();
     };
-// ====================== BLOGGER-SAFE FUNCTION QUEUE ======================
-window._mbkQueue = window._mbkQueue || [];
-
-function enqueueMBKCall(fnName, ...args) {
-    if (typeof window[fnName] === 'function') {
-        window[fnName](...args);
-    } else {
-        window._mbkQueue.push({fnName, args});
-    }
-}
-
-function processMBKQueue() {
-    if (!window._mbkQueue.length) return;
-    for (const item of window._mbkQueue) {
-        if (typeof window[item.fnName] === 'function') {
-            window[item.fnName](...item.args);
-        }
-    }
-    // remove processed items
-    window._mbkQueue = window._mbkQueue.filter(item => typeof window[item.fnName] !== 'function');
-}
-
-// Override to auto-process queue when function is ready
-const origSilver = window.Silverdata;
-window.Silverdata = function(...args) {
-    origSilver(...args);
-    processMBKQueue();
-};
-
-const origGold = window.golddata || function(){};
-window.golddata = function(...args) {
-    origGold(...args);
-    processMBKQueue();
-};
 
     function runSilver() {
         if (!silverQueue.length) return;
@@ -142,17 +108,6 @@ window.golddata = function(...args) {
             drawProfessionalSilverGraph(canvas, rows);
         }
     }
-(function checkInlineCalls(){
-    const inlineScripts = document.querySelectorAll("script");
-    inlineScripts.forEach(script => {
-        const text = script.textContent;
-        if (!text) return;
-        const match = text.match(/Silverdata\s*\(\s*(['"]?[\w\d]+['"]?)\s*,\s*(['"]?[\w\d]+['"]?)\s*\)/);
-        if (match) enqueueMBKCall("Silverdata", eval(match[1]), eval(match[2]));
-        const matchGold = text.match(/golddata\s*\(\s*(['"]?[\w\d]+['"]?)\s*,\s*(['"]?[\w\d]+['"]?)\s*\)/);
-        if (matchGold) enqueueMBKCall("golddata", eval(matchGold[1]), eval(matchGold[2]));
-    });
-})();
 
     /* ========================= GOLD =========================== */
     let goldQueue = [], goldConfig = null;

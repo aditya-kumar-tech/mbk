@@ -1,225 +1,152 @@
-/* =====================================================
-   UNIVERSAL LOADER FINAL
-   Gold + Silver | JSON SAFE | Chart AUTO | Pages SAFE
-   ===================================================== */
+(function () {
+  console.log("🚀 Universal Loader v8.2 FINAL – Gold & Silver");
 
-(function(){
+  /* ================= BASIC ================= */
+  const RUPEE = "₹";
+  const MAX_RETRY = 3;
 
-/* ---------------- BASIC UTILS ---------------- */
-
-const RUPEE = "₹";
-const MAX_RETRY = 3;
-
-function rupee(v){
-  return RUPEE + Number(v).toLocaleString("hi-IN");
-}
-
-function log(...a){ console.log("🔵", ...a); }
-function err(...a){ console.warn("🔴", ...a); }
-
-/* ---------------- AUTO LOAD CHART.JS ---------------- */
-
-function loadChartJS(cb){
-  if(window.Chart){ cb(); return; }
-  const s=document.createElement("script");
-  s.src="https://cdn.jsdelivr.net/npm/chart.js";
-  s.onload=cb;
-  document.head.appendChild(s);
-}
-
-loadChartJS(()=>log("✅ Chart.js ready"));
-
-/* ---------------- CONFIG CACHE ---------------- */
-
-let gsConfig = null;
-let ssConfig = null;
-
-/* ---------------- SAFE FIND CONFIG ---------------- */
-/* JSON range = ARRAY OF VALUES (NOT MIN-MAX) */
-
-function findCfg(map, num){
-  for(const k in map){
-    const r = map[k].range;
-    if(Array.isArray(r) && r.includes(num)){
-      return {
-        id: map[k].id,
-        off: r.indexOf(num)
-      };
-    }
-  }
-  return null;
-}
-
-/* ---------------- FETCH JSON ---------------- */
-
-function fetchJSON(url){
-  return fetch(url).then(r=>{
-    if(!r.ok) throw "fetch failed";
-    return r.json();
-  });
-}
-
-/* ---------------- GOLD ---------------- */
-
-window.golddata = function(gctqury){
-  runGold(gctqury, 0);
-};
-
-function runGold(q, retry){
-  if(!gsConfig){
-    fetchJSON("https://aditya-kumar-tech.github.io/mbk/data/gs/gold-groups.json")
-      .then(j=>{
-        gsConfig=j;
-        log("✅ Gold config loaded");
-        runGold(q, retry);
-      })
-      .catch(()=>err("Gold config load failed"));
-    return;
+  function rs(v) {
+    return RUPEE + Number(v || 0).toLocaleString("hi-IN");
   }
 
-  const n = Number(q.replace(/\D/g,""));
-  const cfg = findCfg(gsConfig, n);
-
-  if(!cfg){
-    err("Gold config not found for", q);
-    return;
+  /* ================= CHART AUTO LOAD ================= */
+  function loadChartJS(cb) {
+    if (window.Chart) return cb();
+    const s = document.createElement("script");
+    s.src = "https://cdn.jsdelivr.net/npm/chart.js";
+    s.onload = cb;
+    document.head.appendChild(s);
   }
 
-  const url =
-    "https://docs.google.com/spreadsheets/d/" +
-    cfg.id +
-    "/gviz/tq?tqx=out:json";
+  loadChartJS(() => console.log("✅ Chart.js loaded"));
 
-  fetch(url)
-    .then(r=>r.text())
-    .then(txt=>{
-      const json = JSON.parse(txt.substr(47).slice(0,-2));
-      renderGold(json, cfg.off);
-    })
-    .catch(e=>{
-      if(retry < MAX_RETRY){
-        err("Gold fetch retry", retry+1);
-        runGold(q, retry+1);
+  /* ================= GVIZ PARSER ================= */
+  function parseGViz(txt) {
+    txt = txt.replace(/^\s*\/\*O_o\*\/\s*/, "")
+             .replace(/^google\.visualization\.Query\.setResponse\(/, "")
+             .replace(/\);$/, "");
+    return JSON.parse(txt).table.rows || [];
+  }
+
+  /* ================= RANGE SAFE FIND ================= */
+  function findCfg(map, num) {
+    for (const k in map) {
+      const r = map[k].range;
+      if (Array.isArray(r) && r.includes(num)) {
+        return { id: map[k].id, off: r.indexOf(num) };
       }
-    });
-}
-
-function renderGold(data, off){
-  const rows = data.table.rows;
-
-  const today22 = rows[off].c[1].v;
-  const today24 = rows[off].c[2].v;
-
-  if(window.gold_pricet)
-    gold_pricet.textContent = rupee(today24);
-
-  if(window.gold_price22)
-    gold_price22.textContent = rupee(today22);
-
-  renderGoldGraph(rows);
-}
-
-function renderGoldGraph(rows){
-  if(!document.getElementById("gold_graph")) return;
-  if(!window.Chart) return;
-
-  const labels = rows.map(r=>r.c[0].v);
-  const data24 = rows.map(r=>r.c[2].v);
-
-  const ctx = document.getElementById("gold_graph").getContext("2d");
-  new Chart(ctx,{
-    type:"line",
-    data:{
-      labels,
-      datasets:[{
-        label:"24K Gold",
-        data:data24,
-        borderWidth:2
-      }]
     }
-  });
-}
-
-/* ---------------- SILVER ---------------- */
-
-window.Silverdata = function(sctqury){
-  runSilver(sctqury,0);
-};
-
-function runSilver(q, retry){
-  if(!ssConfig){
-    fetchJSON("https://aditya-kumar-tech.github.io/mbk/data/gs/silver-groups.json")
-      .then(j=>{
-        ssConfig=j;
-        log("✅ Silver config loaded");
-        runSilver(q,retry);
-      })
-      .catch(()=>err("Silver config load failed"));
-    return;
+    return null;
   }
 
-  const n = Number(q.replace(/\D/g,""));
-  const cfg = findCfg(ssConfig,n);
+  /* ================= CONFIG ================= */
+  let silverCfg = null;
+  let goldCfg = null;
 
-  if(!cfg){
-    err("Silver config not found for", q);
-    return;
+  fetch("https://aditya-kumar-tech.github.io/mbk/data/gs/silver-groups.json")
+    .then(r => r.json())
+    .then(j => { silverCfg = j; console.log("✅ Silver config loaded"); });
+
+  fetch("https://aditya-kumar-tech.github.io/mbk/data/gs/gold-groups.json")
+    .then(r => r.json())
+    .then(j => { goldCfg = j; console.log("✅ Gold config loaded"); });
+
+  /* ================= SILVER ================= */
+  window.Silverdata = function (q) {
+    runSilver(q, 0);
+  };
+
+  function runSilver(q, retry) {
+    if (!silverCfg) return setTimeout(() => runSilver(q, retry), 500);
+
+    const num = Number(String(q).replace(/\D/g, ""));
+    const cfg = findCfg(silverCfg, num);
+    if (!cfg) return console.warn("❌ Silver cfg not found", q);
+
+    const url = `https://docs.google.com/spreadsheets/d/${cfg.id}/gviz/tq?tqx=out:json&sheet=silvweb&tq=select *`;
+
+    fetch(url)
+      .then(r => r.text())
+      .then(t => renderSilver(parseGViz(t), cfg.off))
+      .catch(() => retry < MAX_RETRY && runSilver(q, retry + 1));
   }
 
-  const url =
-    "https://docs.google.com/spreadsheets/d/" +
-    cfg.id +
-    "/gviz/tq?tqx=out:json";
+  function renderSilver(rows, off) {
+    if (!rows.length) return;
 
-  fetch(url)
-    .then(r=>r.text())
-    .then(txt=>{
-      const json = JSON.parse(txt.substr(47).slice(0,-2));
-      renderSilver(json, cfg.off);
-    })
-    .catch(e=>{
-      if(retry < MAX_RETRY){
-        err("Silver fetch retry", retry+1);
-        runSilver(q, retry+1);
-      }
-    });
-}
+    const priceKg = rows[off]?.c[2]?.v || 0;
 
-function renderSilver(data, off){
-  const rows = data.table.rows;
+    if (window.silvr_pricet)
+      silvr_pricet.textContent = rs(priceKg); // 🔴 ENTITY FIX
 
-  const todayKg = rows[off].c[1].v;
+    if (window.udat)
+      udat.textContent = new Date().toLocaleDateString("hi-IN");
 
-  /* 🔴 ₹ ENTITY FIX (NO innerHTML) */
-  if(window.silvr_pricet)
-    silvr_pricet.textContent = rupee(todayKg);
-
-  renderSilverGraph(rows);
-}
-
-function renderSilverGraph(rows){
-  if(!document.getElementById("silvr_graf")) return;
-  if(!window.Chart) return;
-
-  const labels = rows.map(r=>r.c[0].v);
-  const prices = rows.map(r=>r.c[1].v);
-
-  const ctx = document
-    .getElementById("silvr_graf")
-    .appendChild(document.createElement("canvas"))
-    .getContext("2d");
-
-  new Chart(ctx,{
-    type:"line",
-    data:{
-      labels,
-      datasets:[{
-        label:"Silver / Kg",
-        data:prices,
-        borderWidth:2
-      }]
+    const graf = document.getElementById("silvr_graf");
+    if (graf) {
+      loadChartJS(() => {
+        graf.innerHTML = '<canvas id="silverChart"></canvas>';
+        new Chart(silverChart.getContext("2d"), {
+          type: "line",
+          data: {
+            labels: rows.map(r => r.c[0]?.f || ""),
+            datasets: [{
+              label: "Silver 1kg",
+              data: rows.map(r => r.c[2]?.v || 0),
+              borderWidth: 2
+            }]
+          }
+        });
+      });
     }
-  });
-}
+  }
+
+  /* ================= GOLD ================= */
+  window.golddata = function (q) {
+    runGold(q, 0);
+  };
+
+  function runGold(q, retry) {
+    if (!goldCfg) return setTimeout(() => runGold(q, retry), 500);
+
+    const num = Number(String(q).replace(/\D/g, ""));
+    const cfg = findCfg(goldCfg, num);
+    if (!cfg) return console.warn("❌ Gold cfg not found", q);
+
+    const url = `https://docs.google.com/spreadsheets/d/${cfg.id}/gviz/tq?tqx=out:json&sheet=goldweb&tq=select *`;
+
+    fetch(url)
+      .then(r => r.text())
+      .then(t => renderGold(parseGViz(t)))
+      .catch(() => retry < MAX_RETRY && runGold(q, retry + 1));
+  }
+
+  function renderGold(rows) {
+    if (!rows.length) return;
+
+    const p22 = rows[0]?.c[1]?.v || 0;
+    const p24 = rows[0]?.c[3]?.v || 0;
+
+    if (window.g22kt) g22kt.textContent = rs(p22);
+    if (window.g24kt) g24kt.textContent = rs(p24);
+    if (window.udat) udat.textContent = new Date().toLocaleDateString("hi-IN");
+
+    const graf = document.getElementById("gldgraf");
+    if (graf) {
+      loadChartJS(() => {
+        graf.innerHTML = '<canvas id="goldChart"></canvas>';
+        new Chart(goldChart.getContext("2d"), {
+          type: "line",
+          data: {
+            labels: rows.map(r => r.c[0]?.f || ""),
+            datasets: [
+              { label: "22K", data: rows.map(r => r.c[1]?.v || 0) },
+              { label: "24K", data: rows.map(r => r.c[3]?.v || 0) }
+            ]
+          }
+        });
+      });
+    }
+  }
 
 })();

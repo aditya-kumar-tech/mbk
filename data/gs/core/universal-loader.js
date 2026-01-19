@@ -1,5 +1,14 @@
 (function () {
-    console.log("🚀 Universal Loader v8.0 - Gold & Silver Auto Update with Retry & Graphs");
+    console.log("🚀 Universal Loader v8.1 - Gold & Silver Auto Update with Retry & Graphs");
+
+    // ====================== LOAD Chart.js DYNAMICALLY ======================
+    function loadChartJS(callback){
+        if(window.Chart) return callback();
+        const s=document.createElement('script');
+        s.src="https://cdn.jsdelivr.net/npm/chart.js";
+        s.onload=callback;
+        document.head.appendChild(s);
+    }
 
     // ====================== HELPER ======================
     function parseGViz(txt) {
@@ -27,7 +36,6 @@
 
     // ====================== BLOGGER-SAFE QUEUE ======================
     window._mbkQueue = window._mbkQueue || [];
-
     function enqueueMBKCall(fnName, ...args) {
         if (typeof window[fnName] === 'function') {
             window[fnName](...args);
@@ -35,7 +43,6 @@
             window._mbkQueue.push({ fnName, args });
         }
     }
-
     function processMBKQueue() {
         if (!window._mbkQueue.length) return;
         for (const item of window._mbkQueue) {
@@ -84,14 +91,8 @@
 
     function renderSilver(rows) {
         if (!rows.length) return;
-
-        // Parse number properly
-        const priceKg = Number(rows[0].c[2]?.v || 0);
-        if (window.silvr_pricet) {
-    // Keep any inner spans but safely replace content
-    window.silvr_pricet.innerHTML = `₹${priceKg.toLocaleString('hi-IN')}`;
-}
-
+        const priceKg = rows[0].c[2]?.v || 0;
+        if (window.silvr_pricet) silvr_pricet.innerHTML = `₹${priceKg.toLocaleString('hi-IN')}`;
         if (window.udat) udat.textContent = new Date().toLocaleDateString('hi-IN');
 
         // gram table
@@ -100,7 +101,7 @@
             let html = '<table style="width:100%;border-collapse:collapse;">';
             [1,10,50,100,500,1000].forEach(g => {
                 const price = Math.round((g/1000)*priceKg);
-                html += `<tr style="border-bottom:1px solid #eee;"><td style="padding:6px;">${g}g</td><td style="text-align:right;padding:6px;">₹${price.toLocaleString('hi-IN')}</td></tr>`;
+                html += `<tr style="border-bottom:1px solid #eee;"><td style="padding:6px;">${g}g</td><td style="text-align:right;padding:6px;">₹${price.toLocaleString()}</td></tr>`;
             });
             html += '</table>';
             gramTbl.innerHTML = html;
@@ -112,8 +113,8 @@
             let html = '<table style="width:100%;border-collapse:collapse;"><tr style="background:#e6f3ff;"><th style="padding:8px;">तारीख</th><th style="padding:8px;">1kg भाव</th></tr>';
             rows.forEach(row => {
                 const date = row.c[0]?.f || '';
-                const val = Number(row.c[2]?.v || 0);
-                html += `<tr style="border-bottom:1px solid #eee;"><td style="padding:6px;">${date}</td><td style="text-align:right;padding:6px;">₹${val.toLocaleString('hi-IN')}</td></tr>`;
+                const val = row.c[2]?.v || 0;
+                html += `<tr style="border-bottom:1px solid #eee;"><td style="padding:6px;">${date}</td><td style="text-align:right;padding:6px;">₹${val.toLocaleString()}</td></tr>`;
             });
             html += '</table>';
             histTbl.innerHTML = html;
@@ -122,27 +123,29 @@
         // disclaimer
         const discSilver = document.getElementById('disclamerSilver');
         if (discSilver) discSilver.innerHTML = `<div style="background:#fff3cd;border-left:4px solid #c0c0c0;padding:10px;margin:10px 0;border-radius:5px;font-size:13px;line-height:1.4;">
-        ⚠️ Disclaimer: The silver rates are sourced from local jewellers and other sources. mandibhavkhabar.com has made every effort to ensure accuracy; however, we do not guarantee such accuracy. Rates are for informational purposes only. mandibhavkhabar.com does not accept liability for losses based on silver information.
+        ⚠️ Disclaimer: The silver rates are sourced from local jewellers and other sources. mandibhavkhabar.com has made every effort to ensure accuracy; however, we do not guarantee such accuracy. Rates are for informational purposes only. mandibhavkhabar.com do not accept liability for losses based on silver information.
         </div>`;
 
         // graph
         const grafEl = document.getElementById('silvr_graf');
         if (grafEl) {
-            grafEl.innerHTML = '<canvas id="silverChart" width="700" height="400"></canvas>';
-            const ctx = document.getElementById('silverChart').getContext('2d');
-            new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: rows.map(r=>r.c[0]?.f||''),
-                    datasets:[{
-                        label:'Silver 1kg',
-                        data: rows.map(r=>Number(r.c[2]?.v||0)),
-                        borderColor:'#0d6efd',
-                        backgroundColor:'rgba(13,110,253,0.2)',
-                        tension:0.3
-                    }]
-                },
-                options:{responsive:true, maintainAspectRatio:false, plugins:{legend:{display:true}}}
+            loadChartJS(() => {
+                grafEl.innerHTML = '<canvas id="silverChart" width="700" height="400"></canvas>';
+                const ctx = document.getElementById('silverChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: rows.map(r=>r.c[0]?.f||''),
+                        datasets:[{
+                            label:'Silver 1kg',
+                            data: rows.map(r=>r.c[2]?.v||0),
+                            borderColor:'#0d6efd',
+                            backgroundColor:'rgba(13,110,253,0.2)',
+                            tension:0.3
+                        }]
+                    },
+                    options:{responsive:true, maintainAspectRatio:false, plugins:{legend:{display:true}}}
+                });
             });
         }
     }
@@ -196,7 +199,7 @@
 
         const discGold=document.getElementById('disclamergold');
         if(discGold) discGold.innerHTML=`<div style="background:#fff3cd;border-left:4px solid #f59e0b;padding:10px;margin:10px 0;border-radius:5px;font-size:13px;line-height:1.4;">
-        ⚠️ Disclaimer: The gold rates are sourced from local jewellers and other sources. mandibhavkhabar.com has made every effort to ensure accuracy; however, we do not guarantee such accuracy. Rates are for informational purposes only. mandibhavkhabar.com does not accept liability for losses based on gold information.
+        ⚠️ Disclaimer: The gold rates are sourced from local jewellers and other sources. mandibhavkhabar.com has made every effort to ensure accuracy; however, we do not guarantee such accuracy. Rates are for informational purposes only. mandibhavkhabar.com do not accept liability for losses based on gold information.
         </div>`;
 
         const hist22=document.getElementById('data_table1');
@@ -214,12 +217,14 @@
 
         const grafEl=document.getElementById('gldgraf');
         if(grafEl){
-            grafEl.innerHTML='<canvas id="goldChart" width="700" height="400"></canvas>';
-            const ctx=document.getElementById('goldChart').getContext('2d');
-            new Chart(ctx,{type:'line',data:{labels:rows.map(r=>r.c[0]?.f||''),datasets:[
-                {label:'22K Gold',data:rows.map(r=>r.c[1]?.v||0),borderColor:'#d97706',backgroundColor:'rgba(217,119,6,0.2)',tension:0.3},
-                {label:'24K Gold',data:rows.map(r=>r.c[3]?.v||0),borderColor:'#a855f7',backgroundColor:'rgba(168,85,247,0.2)',tension:0.3}
-            ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true}}}});
+            loadChartJS(() => {
+                grafEl.innerHTML='<canvas id="goldChart" width="700" height="400"></canvas>';
+                const ctx=document.getElementById('goldChart').getContext('2d');
+                new Chart(ctx,{type:'line',data:{labels:rows.map(r=>r.c[0]?.f||''),datasets:[
+                    {label:'22K Gold',data:rows.map(r=>r.c[1]?.v||0),borderColor:'#d97706',backgroundColor:'rgba(217,119,6,0.2)',tension:0.3},
+                    {label:'24K Gold',data:rows.map(r=>r.c[3]?.v||0),borderColor:'#a855f7',backgroundColor:'rgba(168,85,247,0.2)',tension:0.3}
+                ]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:true}}}});
+            });
         }
     }
 
@@ -232,5 +237,10 @@
     window.g24kt=document.querySelector('#g24kt');
     window.udat=document.querySelector('#udat');
     window.silvr_pricet=document.querySelector('#silvr_pricet');
+
+    // ====================== SAFE AUTO SILVER CALL ======================
+    window.addEventListener('load', () => {
+        if(window.Silverdata) Silverdata("sct180", "Silver");
+    });
 
 })();

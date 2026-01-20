@@ -42,10 +42,11 @@
 
     // ====================== Silver ======================
     let silverCfg=null;
-    if(document.querySelector('#silvr_pricet') || document.querySelector('#silvr_gramtbl')){
-        fetch('https://aditya-kumar-tech.github.io/mbk/data/gs/silver-groups.json')
-            .then(r=>r.json())
-            .then(j=>{silverCfg=j; console.log('✔ Silver config loaded');});
+    if (typeof Silverdata === 'function') {
+    fetch('https://aditya-kumar-tech.github.io/mbk/data/gs/silver-groups.json')
+        .then(r => r.json())
+        .then(j => { silverCfg = j; console.log('✔ Silver config loaded'); runSilverIfNeeded(); });
+}
 
         window.Silverdata=function(q,mtype){
             if(!silverCfg){setTimeout(()=>Silverdata(q,mtype),500); return;}
@@ -111,9 +112,11 @@
     // ====================== Gold ======================
     let goldCfg=null;
     if(document.querySelector('#g22kt') || document.querySelector('#g24kt')){
-        fetch('https://aditya-kumar-tech.github.io/mbk/data/gs/gold-groups.json')
-            .then(r=>r.json())
-            .then(j=>{goldCfg=j; console.log('✔ Gold config loaded');});
+        if (typeof golddata === 'function') {
+    fetch('https://aditya-kumar-tech.github.io/mbk/data/gs/gold-groups.json')
+        .then(r => r.json())
+        .then(j => { goldCfg = j; console.log('✔ Gold config loaded'); runGoldIfNeeded(); });
+}
 
         window.golddata=function(q,mtype){
             if(!goldCfg){setTimeout(()=>golddata(q,mtype),500); return;}

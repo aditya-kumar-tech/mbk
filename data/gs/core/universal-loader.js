@@ -1,4 +1,3 @@
-<script>
 (function () {
     console.log("🚀 Universal Loader v8.3 - Conditional Silver & Gold Loader");
 
@@ -217,4 +216,3 @@
     }
 
 })();
-</script>

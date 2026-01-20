@@ -1,1 +1,101 @@
-!function(){console.log("🚀 Universal Loader v11.2 - Minified & Optimized");function e(e){if(window.Chart)return e();const t=document.createElement("script");t.src="https://cdn.jsdelivr.net/npm/chart.js",t.onload=e,document.head.appendChild(t)}function t(e){try{e=e.replace(/^\s*\/\*O_o\*\/\s*/,"").replace(/^google\.visualization\.Query\.setResponse\s*\(/,"").replace(/\);?\s*$/,"");const t=(JSON.parse(e).table.rows||[]).sort((e,t)=>new Date(t.c[0]?.f||t.c[0]?.v)-new Date(e.c[0]?.f||e.c[0]?.v));return t.slice(0,15)}catch(o){return console.error("GViz parse failed",o),[]} }function o(e,t){for(const o in e){const n=e[o].range;if(Array.isArray(n)&&n.includes(t))return{id:e[o].id,off:n.indexOf(t)}}return null}let n=null,a=[];function r(){for(;a.length&&n;){const e=a.shift();i(...e)}}function i(e,t){if(!document.querySelector("#silvr_pricet"))return console.log("ℹ Silver table not on page, skipping fetch");const c=parseInt(String(e).replace(/\D/g,"")),f=o(n,c);if(!f)return void console.warn("❌ Silver cfg not found",e);fetch(`https://docs.google.com/spreadsheets/d/${f.id}/gviz/tq?tqx=out:json&sheet=silvweb&tq=select * limit 15`).then(e=>e.text()).then(e=>d(t(t(e)))).catch(e=>console.error("Silver fetch failed",e))}function d(e){if(!e.length)return;const t=e[0].c[2]?.v||0;window.silvr_pricet&&(silvr_pricet.innerHTML=`₹${t.toLocaleString("hi-IN")}`),window.udat&&(udat.textContent=new Date().toLocaleDateString("hi-IN"));const o=document.getElementById("silvr_gramtbl");if(o){let n="<table style='width:100%;border-collapse:collapse;'>";[1,10,50,100,500,1e3].forEach(e=>{const a=Math.round(e/1e3*t);n+=`<tr><td>${e}g</td><td style="text-align:right;">₹${a.toLocaleString()}</td></tr>`}),n+="</table>",o.innerHTML=n}const a=document.getElementById("data_table1");if(a){let n="<table style='width:100%;border-collapse:collapse;'><tr style='background:#e6f3ff;'><th>Date</th><th>1kg Price</th></tr>";e.forEach(e=>{const t=e.c[0]?.f||"",o=e.c[2]?.v||0;n+=`<tr><td>${t}</td><td style="text-align:right;">₹${o.toLocaleString()}</td></tr>`}),n+="</table>",a.innerHTML=n}const r=document.getElementById("silvr_graf");r&&e.length&&loadChartJS(()=>{r.innerHTML='<canvas id="silverChart" width="700" height="400"></canvas>';new Chart(document.getElementById("silverChart").getContext("2d"),{type:"line",data:{labels:e.map(e=>e.c[0]?.f||""),datasets:[{label:"Silver 1kg",data:e.map(e=>e.c[2]?.v||0),borderColor:"#0d6efd",backgroundColor:"rgba(13,110,253,0.2)",tension:.3}]},options:{responsive:!0,maintainAspectRatio:!1,plugins:{legend:{display:!0}}}})});}if("function"==typeof Silverdata&&(document.querySelector("#silvr_pricet")||document.querySelector("#silvr_gramtbl")))fetch("https://aditya-kumar-tech.github.io/mbk/data/gs/silver-groups.json").then(e=>e.json()).then(e=>{n=e,console.log("✔ Silver config loaded"),r()}).catch(e=>console.error("Silver config fetch failed",e)),window.SilverdataSafe=function(e,o){n?i(e,o):(a.push([e,o]),console.log("⏳ Silver queued:",e))};let s=null,l=[];function u(){for(;l.length&&s;){const e=l.shift();p(...e)}}function p(e,t){if(!document.querySelector("#g22kt")&&!document.querySelector("#g24kt"))return console.log("ℹ Gold table not on page, skipping fetch");const o=parseInt(String(e).replace(/\D/g,"")),n=o(s,o);if(!n)return void console.warn("❌ Gold cfg not found",e);fetch(`https://docs.google.com/spreadsheets/d/${n.id}/gviz/tq?tqx=out:json&sheet=goldweb&tq=select * limit 15`).then(e=>e.text()).then(e=>f(t(t(e)))).catch(e=>console.error("Gold fetch failed",e))}function f(e){if(!e.length)return;const t=e[0].c[1]?.v||0,o=e[0].c[3]?.v||0;window.g22kt&&(g22kt.textContent=`₹${t.toLocaleString("hi-IN")}`),window.g24kt&&(g24kt.textContent=`₹${o.toLocaleString("hi-IN")}`),window.udat&&(udat.textContent=new Date().toLocaleDateString("hi-IN"));function n(e,t){const o=document.getElementById(e);if(o){let n="<table style='width:100%;border-collapse:collapse;'>";[1,5,10,50,100].forEach(e=>{n+=`<tr><td>${e}g</td><td style="text-align:right;">₹${Math.round(t*e)}</td></tr>`}),n+="</table>",o.innerHTML=n}}n("gramtbl22",t),n("gramtbl24",o);const a=document.getElementById("data_table1"),r=document.getElementById("data_table2");if(a){let n="<table style='width:100%;border-collapse:collapse;'><tr style='background:#fef3c7;'><th>Date</th><th>22K Price</th></tr>";e.forEach(e=>{n+=`<tr><td>${e.c[0]?.f||""}</td><td style="text-align:right;">₹${e.c[1]?.v||0}</td></tr>`}),n+="</table>",a.innerHTML=n}if(r){let n="<table style='width:100%;border-collapse:collapse;'><tr style='background:#f3e8ff;'><th>Date</th><th>24K Price</th></tr>";e.forEach(e=>{n+=`<tr><td>${e.c[0]?.f||""}</td><td style="text-align:right;">₹${e.c[3]?.v||0}</td></tr>`}),n+="</table>",r.innerHTML=n}const i=document.getElementById("gldgraf");i&&e.length&&loadChartJS(()=>{i.innerHTML='<canvas id="goldChart" width="700" height="400"></canvas>';new Chart(document.getElementById("goldChart").getContext("2d"),{type:"line",data:{labels:e.map(e=>e.c[0]?.f||""),datasets:[{label:"22K Gold",data:e.map(e=>e.c[1]?.v||0),borderColor:"#d97706",backgroundColor:"rgba(217,119,6,0.2)",tension:.3},{label:"24K Gold",data:e.map(e=>e.c[3]?.v||0),borderColor:"#a855f7",backgroundColor:"rgba(168,85,247,0.2)",tension:.3}]},options:{responsive:!0,maintainAspectRatio:!1,plugins:{legend:{display:!0}}}})})}if("function"==typeof golddata&&(document.querySelector("#g22kt")||document.querySelector("#g24kt")))fetch("https://aditya-kumar-tech.github.io/mbk/data/gs/gold-groups.json").then(e=>e.json()).then(e=>{s=e,console.log("✔ Gold config loaded"),u()}).catch(e=>console.error("Gold config fetch failed",e)),window.golddataSafe=function(e,t){s? p(e,t):(l.push([e,t]),console.log("⏳ Gold queued:",e))},window.g22kt=document.querySelector("#g22kt"),window.g24kt=document.querySelector("#g24kt"),window.udat=document.querySelector("#udat"),window.silvr_pricet=document.querySelector("#silvr_pricet")}();
+!function(){
+console.log("🚀 Universal Loader v11.3 - GViz Fixed");
+
+/* ========= Chart Loader ========= */
+function loadChart(cb){
+ if(window.Chart) return cb();
+ const s=document.createElement("script");
+ s.src="https://cdn.jsdelivr.net/npm/chart.js";
+ s.onload=cb; document.head.appendChild(s);
+}
+
+/* ========= GViz ========= */
+function parseGViz(txt){
+ try{
+  txt=txt.replace(/^\s*\/\*O_o\*\/\s*/,"")
+         .replace(/^google\.visualization\.Query\.setResponse\s*\(/,"")
+         .replace(/\);?\s*$/,"");
+  const r=(JSON.parse(txt).table.rows||[]);
+  r.sort((a,b)=>new Date(b.c[0]?.f||b.c[0]?.v)-new Date(a.c[0]?.f||a.c[0]?.v));
+  return r.slice(0,15);
+ }catch(e){console.error("GViz parse failed",e);return[];}
+}
+
+function findCfg(map,n){
+ for(const k in map){
+  const r=map[k].range;
+  if(Array.isArray(r)&&r.includes(n))
+   return {id:map[k].id};
+ }
+ return null;
+}
+
+/* ================= SILVER ================= */
+let silverCfg=null,silverQ=[];
+
+function runSilver(){
+ while(silverCfg && silverQ.length){
+  const a=silverQ.shift();
+  SilverdataSafe(a[0],a[1]);
+ }
+}
+
+if(document.querySelector("#silvr_pricet")){
+ fetch("https://aditya-kumar-tech.github.io/mbk/data/gs/silver-groups.json")
+ .then(r=>r.json())
+ .then(j=>{silverCfg=j;console.log("✔ Silver cfg");runSilver();});
+}
+
+window.SilverdataSafe=function(q){
+ if(!silverCfg){silverQ.push([q]);console.log("⏳ Silver queued");return;}
+ const num=parseInt(String(q).replace(/\D/g,""));
+ const cfg=findCfg(silverCfg,num);
+ if(!cfg) return console.warn("❌ Silver cfg missing",q);
+
+ const url=`https://docs.google.com/spreadsheets/d/${cfg.id}/gviz/tq?tqx=out:json&sheet=silvweb&tq=select * limit 15`;
+ fetch(url).then(r=>r.text()).then(t=>{
+  const rows=parseGViz(t);
+  if(!rows.length) return;
+  const p=rows[0].c[2]?.v||0;
+  silvr_pricet.innerHTML="₹"+p.toLocaleString("hi-IN");
+ }).catch(e=>console.error("Silver GViz failed",e));
+};
+
+/* ================= GOLD ================= */
+let goldCfg=null,goldQ=[];
+
+function runGold(){
+ while(goldCfg && goldQ.length){
+  const a=goldQ.shift();
+  golddataSafe(a[0],a[1]);
+ }
+}
+
+if(document.querySelector("#g22kt")){
+ fetch("https://aditya-kumar-tech.github.io/mbk/data/gs/gold-groups.json")
+ .then(r=>r.json())
+ .then(j=>{goldCfg=j;console.log("✔ Gold cfg");runGold();});
+}
+
+window.golddataSafe=function(q){
+ if(!goldCfg){goldQ.push([q]);console.log("⏳ Gold queued");return;}
+ const num=parseInt(String(q).replace(/\D/g,""));
+ const cfg=findCfg(goldCfg,num);
+ if(!cfg) return console.warn("❌ Gold cfg missing",q);
+
+ const url=`https://docs.google.com/spreadsheets/d/${cfg.id}/gviz/tq?tqx=out:json&sheet=goldweb&tq=select * limit 15`;
+ fetch(url).then(r=>r.text()).then(t=>{
+  const rows=parseGViz(t);
+  if(!rows.length) return;
+  g22kt.textContent="₹"+(rows[0].c[1]?.v||0).toLocaleString("hi-IN");
+  g24kt.textContent="₹"+(rows[0].c[3]?.v||0).toLocaleString("hi-IN");
+ }).catch(e=>console.error("Gold GViz failed",e));
+};
+
+/* ========= refs ========= */
+window.g22kt=document.querySelector("#g22kt");
+window.g24kt=document.querySelector("#g24kt");
+window.silvr_pricet=document.querySelector("#silvr_pricet");
+window.udat=document.querySelector("#udat");
+
+}();

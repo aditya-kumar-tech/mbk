@@ -82,8 +82,48 @@ function renderSilver(rows){
     ht.innerHTML=h+'</table>';
   }
 
-  const g=has('#silvr_graf');
-  if(g) loadChart(()=>drawChart('silverChart',g,rows.map(r=>r.c[0]?.f),rows.map(r=>r.c[2]?.v),'Silver 1Kg'));
+  // ================= SILVER GRAPH =================
+const grafEl = document.getElementById('silvr_graf');
+if (grafEl) {
+  loadChartJS(() => {
+
+    // ✅ responsive size (important)
+    grafEl.style.width = "100%";
+    grafEl.style.height = "320px"; // mobile friendly
+
+    grafEl.innerHTML = `<canvas id="silverChart"></canvas>`;
+
+    const labels = rows.map(r => r.c[0]?.f || '');
+    const prices = rows.map(r => Number(r.c[2]?.v || 0));
+
+    new Chart(document.getElementById('silverChart'), {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Silver 1kg',
+          data: prices,
+          borderColor: '#0d6efd',
+          backgroundColor: 'rgba(13,110,253,0.18)',
+          tension: 0.3,
+          fill: true
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false, // ✅ allow height control
+        plugins: {
+          legend: { display: true }
+        },
+        scales: {
+          y: {
+            ticks: {
+              callback: v => '₹' + v.toLocaleString('hi-IN')
+            }
+          }
+        }
+      }
+    });
 }
 
 /* ================= GOLD ================= */

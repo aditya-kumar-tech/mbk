@@ -119,11 +119,12 @@ if (grafEl) {
           y: {
             ticks: {
               callback: v => '₹' + v.toLocaleString('hi-IN')
-            }
+           }
           }
         }
       }
     });
+  });
 }
 
 /* ================= GOLD ================= */
@@ -179,6 +180,7 @@ function renderGold(rows){
   }
 
   // ================= GOLD GRAPH =================
+// ================= GOLD GRAPH =================
 const grafEl = document.getElementById('gldgraf');
 if(grafEl){
   loadChart(()=>{
@@ -229,6 +231,8 @@ if(grafEl){
         }
       }
     });
+  });
+}
 }
 
 

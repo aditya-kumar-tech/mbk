@@ -68,7 +68,7 @@
         const cfg = findCfg(silverConfig, num);
         if (!cfg) return;
 
-        const url = `https://docs.google.com/spreadsheets/d/${cfg.id}/gviz/tq?tqx=out:json&sheet=silvweb&tq=select * limit 15 offset ${cfg.off}`;
+        const url = `https://docs.google.com/spreadsheets/d/${cfg.id}/gviz/tq?tqx=out:json&sheet=silvweb&tq=select * limit 30 offset ${cfg.off}`;
         fetch(url)
             .then(r => r.text())
             .then(t => {

@@ -13,7 +13,8 @@ const loadChart = once(cb=>{
   if(window.Chart) return cb();
   const s=document.createElement('script');
   s.src="https://cdn.jsdelivr.net/npm/chart.js";
-  s.onload=cb; document.head.appendChild(s);
+  s.onload=cb;
+  document.head.appendChild(s);
   log("📊 Chart.js loaded");
 });
 
@@ -47,7 +48,7 @@ if(needSilver){
 }
 
 window.Silverdata=function(q){
-  if(!needSilver) return log("⏭ Silver skipped (DOM missing)");
+  if(!needSilver) return log("⏭ Silver skipped");
   if(!silverCfg) return delay(()=>Silverdata(q),300);
 
   const n=parseInt(q.replace(/\D/g,'')), cfg=findCfg(silverCfg,n);
@@ -56,7 +57,7 @@ window.Silverdata=function(q){
   fetch(`https://docs.google.com/spreadsheets/d/${cfg.id}/gviz/tq?tqx=out:json&sheet=silvweb&tq=select * limit 15`)
   .then(r=>r.text()).then(t=>{
     const rows=parseGViz(t,15);
-    if(!rows.length) return log("⏳ Silver retry"),delay(()=>Silverdata(q),400);
+    if(!rows.length) return delay(()=>Silverdata(q),400);
     renderSilver(rows);
   });
 };
@@ -82,50 +83,29 @@ function renderSilver(rows){
     ht.innerHTML=h+'</table>';
   }
 
-  // ================= SILVER GRAPH =================
-const grafEl = document.getElementById('silvr_graf');
-if (grafEl) {
-  loadChartJS(() => {
-
-    // ✅ responsive size (important)
-    grafEl.style.width = "100%";
-    grafEl.style.height = "320px"; // mobile friendly
-
-    grafEl.innerHTML = `<canvas id="silverChart"></canvas>`;
-
-    const labels = rows.map(r => r.c[0]?.f || '');
-    const prices = rows.map(r => Number(r.c[2]?.v || 0));
-
-    new Chart(document.getElementById('silverChart'), {
-      type: 'line',
-      data: {
-        labels: labels,
-        datasets: [{
-          label: 'Silver 1kg',
-          data: prices,
-          borderColor: '#0d6efd',
-          backgroundColor: 'rgba(13,110,253,0.18)',
-          tension: 0.3,
-          fill: true
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false, // ✅ allow height control
-        plugins: {
-          legend: { display: true }
+  const grafEl = has('#silvr_graf');
+  if(grafEl){
+    loadChart(()=>{
+      grafEl.style.height="320px";
+      grafEl.innerHTML='<canvas id="silverChart"></canvas>';
+      new Chart(silverChart,{
+        type:'line',
+        data:{
+          labels:rows.map(r=>r.c[0]?.f||''),
+          datasets:[{
+            label:'Silver 1kg',
+            data:rows.map(r=>Number(r.c[2]?.v||0)),
+            borderColor:'#0d6efd',
+            backgroundColor:'rgba(13,110,253,0.18)',
+            tension:.3,
+            fill:true
+          }]
         },
-        scales: {
-          y: {
-            ticks: {
-              callback: v => '₹' + v.toLocaleString('hi-IN')
-           }
-          }
-        }
-      }
+        options:{responsive:true,maintainAspectRatio:false}
+      });
     });
-  });
-}
+  }
+} // ✅ renderSilver CLOSED PROPERLY
 
 /* ================= GOLD ================= */
 let goldCfg=null;
@@ -137,7 +117,7 @@ if(needGold){
 }
 
 window.golddata=function(q){
-  if(!needGold) return log("⏭ Gold skipped (DOM missing)");
+  if(!needGold) return log("⏭ Gold skipped");
   if(!goldCfg) return delay(()=>golddata(q),300);
 
   const n=parseInt(q.replace(/\D/g,'')), cfg=findCfg(goldCfg,n);
@@ -146,7 +126,7 @@ window.golddata=function(q){
   fetch(`https://docs.google.com/spreadsheets/d/${cfg.id}/gviz/tq?tqx=out:json&sheet=goldweb&tq=select * limit 15`)
   .then(r=>r.text()).then(t=>{
     const rows=parseGViz(t,15);
-    if(!rows.length) return log("⏳ Gold retry"),delay(()=>golddata(q),400);
+    if(!rows.length) return delay(()=>golddata(q),400);
     renderGold(rows);
   });
 };
@@ -159,91 +139,24 @@ function renderGold(rows){
   g24kt.textContent=`₹${p24.toLocaleString('hi-IN')}`;
   udat.textContent=new Date().toLocaleDateString('hi-IN');
 
-  const gram=(id,val)=>{
-    const e=has('#'+id); if(!e) return;
-    let h='<table>';
-    [1,5,10,50,100].forEach(g=>h+=`<tr><td>${g}g</td><td>₹${Math.round(val*g).toLocaleString('hi-IN')}</td></tr>`);
-    e.innerHTML=h+'</table>';
-  };
-  gram('gramtbl22',p22); gram('gramtbl24',p24);
-
-  const h22=has('#data_table1'), h24=has('#data_table2');
-  if(h22){
-    let h='<table><tr><th>Date</th><th>22K</th></tr>';
-    rows.forEach(r=>h+=`<tr><td>${r.c[0]?.f}</td><td>₹${Number(r.c[1]?.v||0).toLocaleString('hi-IN')}</td></tr>`);
-    h22.innerHTML=h+'</table>';
-  }
-  if(h24){
-    let h='<table><tr><th>Date</th><th>24K</th></tr>';
-    rows.forEach(r=>h+=`<tr><td>${r.c[0]?.f}</td><td>₹${Number(r.c[3]?.v||0).toLocaleString('hi-IN')}</td></tr>`);
-    h24.innerHTML=h+'</table>';
-  }
-
-  // ================= GOLD GRAPH =================
-// ================= GOLD GRAPH =================
-const grafEl = document.getElementById('gldgraf');
-if(grafEl){
-  loadChart(()=>{
-    grafEl.style.width = "100%";
-    grafEl.style.height = "320px"; // ✅ mobile friendly height
-
-    grafEl.innerHTML = `<canvas id="goldChart"></canvas>`;
-
-    const labels = rows.map(r => r.c[0]?.f || '');
-    const data22 = rows.map(r => Number(r.c[1]?.v || 0));
-    const data24 = rows.map(r => Number(r.c[3]?.v || 0));
-
-    new Chart(document.getElementById('goldChart'), {
-      type: 'line',
-      data: {
-        labels: labels,
-        datasets: [
-          {
-            label: '22K Gold',
-            data: data22,
-            borderColor: '#d97706',
-            backgroundColor: 'rgba(217,119,6,0.15)',
-            tension: 0.3,
-            fill: true
-          },
-          {
-            label: '24K Gold',
-            data: data24,
-            borderColor: '#7c3aed',
-            backgroundColor: 'rgba(124,58,237,0.15)',
-            tension: 0.3,
-            fill: true
-          }
-        ]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false, // ✅ allow custom height
-        plugins: {
-          legend: { display: true }
+  const grafEl=has('#gldgraf');
+  if(grafEl){
+    loadChart(()=>{
+      grafEl.style.height="320px";
+      grafEl.innerHTML='<canvas id="goldChart"></canvas>';
+      new Chart(goldChart,{
+        type:'line',
+        data:{
+          labels:rows.map(r=>r.c[0]?.f||''),
+          datasets:[
+            {label:'22K',data:rows.map(r=>r.c[1]?.v||0),borderColor:'#d97706',fill:true},
+            {label:'24K',data:rows.map(r=>r.c[3]?.v||0),borderColor:'#7c3aed',fill:true}
+          ]
         },
-        scales: {
-          y: {
-            ticks: {
-              callback: v => '₹' + v.toLocaleString('hi-IN')
-            }
-          }
-        }
-      }
+        options:{responsive:true,maintainAspectRatio:false}
+      });
     });
-  });
-}
-}
-
-
-/* ================= CHART ================= */
-function drawChart(id,wrap,labels,data,label){
-  wrap.innerHTML=`<canvas id="${id}"></canvas>`;
-  new Chart(document.getElementById(id),{
-    type:'line',
-    data:{labels,datasets:[{label,data,tension:.3,fill:true}]},
-    options:{responsive:true,maintainAspectRatio:false}
-  });
+  }
 }
 
 /* ================= GLOBAL ================= */

@@ -83,21 +83,21 @@ if(typeof Silverdata !== "undefined") {
     const ht=has('#data_table1');
     if(ht){ let h='<table><tr><th>Date</th><th>1Kg</th></tr>'; rows.forEach(r=>h+=`<tr><td>${r.c[0]?.f}</td><td>₹${Number(r.c[2]?.v||0).toLocaleString('hi-IN')}</td></tr>`); ht.innerHTML=h+'</table>'; }
 
-     // graph
-  const grafEl=has('#silvr_graf');
-  if(grafEl){
-    loadChart(()=>{
-      grafEl.style.height = window.innerWidth<768 ? "420px":"320px";
-      grafEl.innerHTML='<canvas id="silverChart"></canvas>';
-      new Chart(silverChart,{
-        type:'line',
-        data:{
-          labels: rows.map(r=>r.c[0]?.f||''),
-          datasets:[{label:'Silver 1kg', data: rows.map(r=>r.c[2]?.v||0), tension:.3, fill:true, borderColor:'#0d6efd', backgroundColor:'rgba(13,110,253,0.18)'}]
-        },
-        options:{responsive:true, maintainAspectRatio:false}
+    const grafEl=has('#silvr_graf');
+    if(grafEl){
+      loadChart(()=>{
+        grafEl.style.height = window.innerWidth<768 ? "420px":"320px";
+        grafEl.innerHTML='<canvas id="silverChart"></canvas>';
+        new Chart(silverChart,{
+          type:'line',
+          data:{
+            labels: rows.map(r=>r.c[0]?.f||''),
+            datasets:[{label:'Silver 1kg', data: rows.map(r=>r.c[2]?.v||0), tension:.3, fill:true, borderColor:'#0d6efd', backgroundColor:'rgba(13,110,253,0.18)'}]
+          },
+          options:{responsive:true, maintainAspectRatio:false}
+        });
       });
-    });
+    }
   }
 }
 
@@ -150,28 +150,28 @@ if(typeof golddata !== "undefined") {
     const hist24=has('#data_table2'); if(hist24){ let h='<table><tr><th>Date</th><th>24K</th></tr>'; rows.forEach(r=>h+=`<tr><td>${r.c[0]?.f}</td><td>₹${r.c[3]?.v}</td></tr>`); hist24.innerHTML=h+'</table>'; }
 
     const grafEl=has('#gldgraf');
-  if(grafEl){
-    loadChart(()=>{
-      grafEl.style.height = window.innerWidth<768 ? "420px":"320px";
-      grafEl.innerHTML='<canvas id="goldChart"></canvas>';
-      new Chart(goldChart,{
-        type:'line',
-        data:{
-          labels: rows.map(r=>r.c[0]?.f||''),
-          datasets:[
-            {label:'22K',data:rows.map(r=>r.c[1]?.v||0),tension:.3,fill:true,borderColor:'#d97706',backgroundColor:'rgba(217,119,6,0.15)'},
-            {label:'24K',data:rows.map(r=>r.c[3]?.v||0),tension:.3,fill:true,borderColor:'#7c3aed',backgroundColor:'rgba(124,58,237,0.15)'}
-          ]
-        },
-        options:{
-          responsive:true,
-          maintainAspectRatio:false,
-          plugins:{legend:{display:true}},
-          scales:{y:{ticks:{callback:v=>'₹'+v.toLocaleString('hi-IN')}}}
-        }
+    if(grafEl){
+      loadChart(()=>{
+        grafEl.style.height = window.innerWidth<768 ? "420px":"320px";
+        grafEl.innerHTML='<canvas id="goldChart"></canvas>';
+        new Chart(goldChart,{
+          type:'line',
+          data:{
+            labels: rows.map(r=>r.c[0]?.f||''),
+            datasets:[
+              {label:'22K',data:rows.map(r=>r.c[1]?.v||0),tension:.3,fill:true,borderColor:'#d97706',backgroundColor:'rgba(217,119,6,0.15)'},
+              {label:'24K',data:rows.map(r=>r.c[3]?.v||0),tension:.3,fill:true,borderColor:'#7c3aed',backgroundColor:'rgba(124,58,237,0.15)'}
+            ]
+          },
+          options:{
+            responsive:true,
+            maintainAspectRatio:false,
+            plugins:{legend:{display:true}},
+            scales:{y:{ticks:{callback:v=>'₹'+v.toLocaleString('hi-IN')}}}
+          }
+        });
       });
-    });
+    }
   }
-}
 }
 })();

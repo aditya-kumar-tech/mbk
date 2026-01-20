@@ -3,25 +3,6 @@
 const DEBUG = true;
 const log = (...a)=>DEBUG && console.log(...a);
 
-/* ================= QUEUE / LOCK ================= */
-const LOCK={}, QUEUE={};
-function runSafe(key, fn){
-  if(LOCK[key]){
-    log("⏳ QUEUED:", key);
-    QUEUE[key]=fn; return;
-  }
-  LOCK[key]=true;
-  fn(()=> {
-    LOCK[key]=false;
-    if(QUEUE[key]){
-      log("▶ RUN QUEUED:", key);
-      const q=QUEUE[key];
-      delete QUEUE[key];
-      runSafe(key,q);
-    }
-  });
-}
-
 /* ================= UTILS ================= */
 const once = fn=>{let d;return(...a)=>d||(d=fn(...a))};
 const has = s=>document.querySelector(s);
@@ -55,57 +36,54 @@ function findCfg(map,n){
   return null;
 }
 
-/* ================= SILVER ================= */
-let silverCfg=null;
-const needSilver = has('#silvr_pricet')||has('#silvr_gramtbl')||has('#silvr_graf');
+/* ================= SILVER MODULE ================= */
+if(typeof Silverdata !== "undefined") {
+  let silverCfg=null;
+  const LOCK={}; 
+  window.Silverdata = function(q){
+    if(!q) return log("⏭ Silver skipped (no query)");
+    runSafe("silver", done=>{
+      if(!silverCfg){
+        fetch('https://aditya-kumar-tech.github.io/mbk/data/gs/silver-groups.json')
+          .then(r=>r.json())
+          .then(j=>{ silverCfg=j; log("✔ Silver config loaded"); fetchSilver(q, done); })
+          .catch(()=>done());
+      } else fetchSilver(q, done);
+    });
+  };
 
-if(needSilver){
-  fetch('https://aditya-kumar-tech.github.io/mbk/data/gs/silver-groups.json')
-  .then(r=>r.json()).then(j=>{silverCfg=j; log("✔ Silver config loaded")});
-}
+  function runSafe(key, fn){
+    if(LOCK[key]) return delay(()=>runSafe(key,fn),100);
+    LOCK[key]=true;
+    fn(()=>{LOCK[key]=false});
+  }
 
-window.Silverdata = function(q){
-  if(!needSilver) return log("⏭ Silver skipped");
-  if(!silverCfg) return delay(()=>Silverdata(q),300);
-
-  runSafe("silver", done=>{
+  function fetchSilver(q, done){
     const n=parseInt(q.replace(/\D/g,'')), cfg=findCfg(silverCfg,n);
     if(!cfg){ console.warn("Silver cfg not found",q); done(); return; }
 
     fetch(`https://docs.google.com/spreadsheets/d/${cfg.id}/gviz/tq?tqx=out:json&sheet=silvweb&tq=select * limit 15`)
-    .then(r=>r.text()).then(t=>{
-      const rows=parseGViz(t,15);
-      if(!rows.length){ log("⏳ Silver retry"); delay(()=>Silverdata(q),400); done(); return; }
-      renderSilver(rows);
-      done();
-    });
-  });
-};
-
-function renderSilver(rows){
-  const kg=Number(rows[0].c[2]?.v||0);
-  silvr_pricet.innerHTML=`₹${kg.toLocaleString('hi-IN')}`;
-  udat.textContent=new Date().toLocaleDateString('hi-IN');
-
-  // gram table
-  const gtbl=has('#silvr_gramtbl');
-  if(gtbl){
-    let h='<table>';
-    [1,10,50,100,500,1000].forEach(g=>{
-      h+=`<tr><td>${g}g</td><td>₹${Math.round(g/1000*kg).toLocaleString('hi-IN')}</td></tr>`;
-    });
-    gtbl.innerHTML=h+'</table>';
+      .then(r=>r.text())
+      .then(t=>{
+        const rows=parseGViz(t,15);
+        if(!rows.length){ log("⏳ Silver retry"); delay(()=>Silverdata(q),400); done(); return; }
+        renderSilver(rows);
+        done();
+      }).catch(done);
   }
 
-  // history table
-  const ht=has('#data_table1');
-  if(ht){
-    let h='<table><tr><th>Date</th><th>1Kg</th></tr>';
-    rows.forEach(r=> h+=`<tr><td>${r.c[0]?.f}</td><td>₹${Number(r.c[2]?.v||0).toLocaleString('hi-IN')}</td></tr>`);
-    ht.innerHTML=h+'</table>';
-  }
+  function renderSilver(rows){
+    const kg=Number(rows[0].c[2]?.v||0);
+    const sp = has('#silvr_pricet'); if(sp) sp.innerHTML=`₹${kg.toLocaleString('hi-IN')}`;
+    const u = has('#udat'); if(u) u.textContent=new Date().toLocaleDateString('hi-IN');
 
-  // graph
+    const gtbl=has('#silvr_gramtbl');
+    if(gtbl){ let h='<table>'; [1,10,50,100,500,1000].forEach(g=>h+=`<tr><td>${g}g</td><td>₹${Math.round(g/1000*kg).toLocaleString('hi-IN')}</td></tr>`); gtbl.innerHTML=h+'</table>'; }
+
+    const ht=has('#data_table1');
+    if(ht){ let h='<table><tr><th>Date</th><th>1Kg</th></tr>'; rows.forEach(r=>h+=`<tr><td>${r.c[0]?.f}</td><td>₹${Number(r.c[2]?.v||0).toLocaleString('hi-IN')}</td></tr>`); ht.innerHTML=h+'</table>'; }
+
+     // graph
   const grafEl=has('#silvr_graf');
   if(grafEl){
     loadChart(()=>{
@@ -123,77 +101,55 @@ function renderSilver(rows){
   }
 }
 
-/* ================= GOLD ================= */
-let goldCfg=null;
-const needGold = has('#g22kt')||has('#g24kt')||has('#gldgraf')||has('#gramtbl22')||has('#gramtbl24')||has('#data_table1')||has('#data_table2');
+/* ================= GOLD MODULE ================= */
+if(typeof golddata !== "undefined") {
+  let goldCfg=null;
+  const LOCK={};
+  window.golddata = function(q, mtype){
+    if(!q) return log("⏭ Gold skipped (no query)");
+    runSafe("gold", done=>{
+      if(!goldCfg){
+        fetch('https://aditya-kumar-tech.github.io/mbk/data/gs/gold-groups.json')
+          .then(r=>r.json())
+          .then(j=>{ goldCfg=j; log("✔ Gold config loaded"); fetchGold(q, done); })
+          .catch(()=>done());
+      } else fetchGold(q, done);
+    });
+  };
 
-if(needGold){
-  fetch('https://aditya-kumar-tech.github.io/mbk/data/gs/gold-groups.json')
-  .then(r=>r.json()).then(j=>{goldCfg=j; log("✔ Gold config loaded")});
-}
+  function runSafe(key, fn){
+    if(LOCK[key]) return delay(()=>runSafe(key,fn),100);
+    LOCK[key]=true;
+    fn(()=>{LOCK[key]=false});
+  }
 
-window.golddata = function(q, mtype){
-  if(!needGold) return log("⏭ Gold skipped");
-  if(!goldCfg) return delay(()=>golddata(q,mtype),300);
-
-  runSafe("gold", done=>{
+  function fetchGold(q, done){
     const n=parseInt(q.replace(/\D/g,'')), cfg=findCfg(goldCfg,n);
     if(!cfg){ console.warn("Gold cfg not found",q); done(); return; }
 
     fetch(`https://docs.google.com/spreadsheets/d/${cfg.id}/gviz/tq?tqx=out:json&sheet=goldweb&tq=select * limit 15`)
-    .then(r=>r.text()).then(t=>{
-      const rows=parseGViz(t,15);
-      if(!rows.length){ log("⏳ Gold retry"); delay(()=>golddata(q,mtype),400); done(); return; }
-      renderGold(rows);
-      done();
-    });
-  });
-};
-
-function renderGold(rows){
-  const p22=Number(rows[0].c[1]?.v||0);
-  const p24=Number(rows[0].c[3]?.v||0);
-
-  g22kt.textContent=`₹${p22.toLocaleString('hi-IN')}`;
-  g24kt.textContent=`₹${p24.toLocaleString('hi-IN')}`;
-  udat.textContent=new Date().toLocaleDateString('hi-IN');
-
-  // gram tables
-  const gram22=has('#gramtbl22');
-  if(gram22){
-    let h='<table>';
-    [1,10,50,100].forEach(g=>{
-      h+=`<tr><td>${g}g</td><td>₹${Math.round(p22*g).toLocaleString('hi-IN')}</td></tr>`;
-    });
-    gram22.innerHTML=h+'</table>';
+      .then(r=>r.text())
+      .then(t=>{
+        const rows=parseGViz(t,15);
+        if(!rows.length){ log("⏳ Gold retry"); delay(()=>golddata(q,"gold"),400); done(); return; }
+        renderGold(rows);
+        done();
+      }).catch(done);
   }
 
-  const gram24=has('#gramtbl24');
-  if(gram24){
-    let h='<table>';
-    [1,10,50,100].forEach(g=>{
-      h+=`<tr><td>${g}g</td><td>₹${Math.round(p24*g).toLocaleString('hi-IN')}</td></tr>`;
-    });
-    gram24.innerHTML=h+'</table>';
-  }
+  function renderGold(rows){
+    const p22=Number(rows[0].c[1]?.v||0), p24=Number(rows[0].c[3]?.v||0);
+    const g22=has('#g22kt'); if(g22) g22.textContent=`₹${p22.toLocaleString('hi-IN')}`;
+    const g24=has('#g24kt'); if(g24) g24.textContent=`₹${p24.toLocaleString('hi-IN')}`;
+    const u = has('#udat'); if(u) u.textContent=new Date().toLocaleDateString('hi-IN');
 
-  // history tables
-  const hist22=has('#data_table1');
-  if(hist22){
-    let h='<table><tr><th>Date</th><th>22K</th></tr>';
-    rows.forEach(r=> h+=`<tr><td>${r.c[0]?.f}</td><td>₹${r.c[1]?.v}</td></tr>`);
-    hist22.innerHTML=h+'</table>';
-  }
+    const gram22=has('#gramtbl22'); if(gram22){ let h='<table>'; [1,10,50,100].forEach(g=>h+=`<tr><td>${g}g</td><td>₹${Math.round(p22*g).toLocaleString('hi-IN')}</td></tr>`); gram22.innerHTML=h+'</table>'; }
+    const gram24=has('#gramtbl24'); if(gram24){ let h='<table>'; [1,10,50,100].forEach(g=>h+=`<tr><td>${g}g</td><td>₹${Math.round(p24*g).toLocaleString('hi-IN')}</td></tr>`); gram24.innerHTML=h+'</table>'; }
 
-  const hist24=has('#data_table2');
-  if(hist24){
-    let h='<table><tr><th>Date</th><th>24K</th></tr>';
-    rows.forEach(r=> h+=`<tr><td>${r.c[0]?.f}</td><td>₹${r.c[3]?.v}</td></tr>`);
-    hist24.innerHTML=h+'</table>';
-  }
+    const hist22=has('#data_table1'); if(hist22){ let h='<table><tr><th>Date</th><th>22K</th></tr>'; rows.forEach(r=>h+=`<tr><td>${r.c[0]?.f}</td><td>₹${r.c[1]?.v}</td></tr>`); hist22.innerHTML=h+'</table>'; }
+    const hist24=has('#data_table2'); if(hist24){ let h='<table><tr><th>Date</th><th>24K</th></tr>'; rows.forEach(r=>h+=`<tr><td>${r.c[0]?.f}</td><td>₹${r.c[3]?.v}</td></tr>`); hist24.innerHTML=h+'</table>'; }
 
-  // graph
-  const grafEl=has('#gldgraf');
+    const grafEl=has('#gldgraf');
   if(grafEl){
     loadChart(()=>{
       grafEl.style.height = window.innerWidth<768 ? "420px":"320px";
@@ -217,11 +173,5 @@ function renderGold(rows){
     });
   }
 }
-
-/* ================= GLOBAL ================= */
-window.g22kt = has('#g22kt');
-window.g24kt = has('#g24kt');
-window.silvr_pricet = has('#silvr_pricet');
-window.udat = has('#udat');
-
+}
 })();

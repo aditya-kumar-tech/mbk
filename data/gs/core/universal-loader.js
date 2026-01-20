@@ -138,9 +138,60 @@ function renderGold(rows){
     h24.innerHTML=h+'</table>';
   }
 
-  const g=has('#gldgraf');
-  if(g) loadChart(()=>drawChart('goldChart',g,rows.map(r=>r.c[0]?.f),rows.map(r=>r.c[1]?.v),'22K Gold'));
+  // ================= GOLD GRAPH =================
+const grafEl = document.getElementById('gldgraf');
+if(grafEl){
+  loadChart(()=>{
+    grafEl.style.width = "100%";
+    grafEl.style.height = "320px"; // ✅ mobile friendly height
+
+    grafEl.innerHTML = `<canvas id="goldChart"></canvas>`;
+
+    const labels = rows.map(r => r.c[0]?.f || '');
+    const data22 = rows.map(r => Number(r.c[1]?.v || 0));
+    const data24 = rows.map(r => Number(r.c[3]?.v || 0));
+
+    new Chart(document.getElementById('goldChart'), {
+      type: 'line',
+      data: {
+        labels: labels,
+        datasets: [
+          {
+            label: '22K Gold',
+            data: data22,
+            borderColor: '#d97706',
+            backgroundColor: 'rgba(217,119,6,0.15)',
+            tension: 0.3,
+            fill: true
+          },
+          {
+            label: '24K Gold',
+            data: data24,
+            borderColor: '#7c3aed',
+            backgroundColor: 'rgba(124,58,237,0.15)',
+            tension: 0.3,
+            fill: true
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false, // ✅ allow custom height
+        plugins: {
+          legend: { display: true }
+        },
+        scales: {
+          y: {
+            ticks: {
+              callback: v => '₹' + v.toLocaleString('hi-IN')
+            }
+          }
+        }
+      }
+    });
+  });
 }
+
 
 /* ================= CHART ================= */
 function drawChart(id,wrap,labels,data,label){

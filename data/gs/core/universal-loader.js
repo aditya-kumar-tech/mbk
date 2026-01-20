@@ -1,4 +1,3 @@
-<script>
 (function () {
     console.log("🚀 Universal Loader v8.6 – Conditional Gold & Silver Loader with Queue & 15-days");
 
@@ -161,4 +160,3 @@
     });
 
 })();
-</script>

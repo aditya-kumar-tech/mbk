@@ -1,5 +1,6 @@
+<script>
 (function () {
-    console.log("🚀 Universal Loader v8.5 – Conditional Gold & Silver Loader");
+    console.log("🚀 Universal Loader v8.6 – Conditional Gold & Silver Loader with Queue & 15-days");
 
     const RUPEE = "₹";
     function rs(v) { return RUPEE + Number(v||0).toLocaleString("hi-IN"); }
@@ -28,6 +29,13 @@
         } return null;
     }
 
+    /* ======= QUEUE SYSTEM ======= */
+    const queue = [];
+    function enqueue(fn) { queue.push(fn); }
+    function processQueue() {
+        while(queue.length>0){ const fn=queue.shift(); fn(); }
+    }
+
     /* ================= SILVER ================= */
     let silverCfg=null, SILVER_HIST=[];
     function initSilver(){
@@ -37,19 +45,27 @@
             .then(r=>r.json()).then(j=>{
                 silverCfg=j; console.log("✔ Silver config loaded");
                 if(window.sctqury && window.mtype==='Silver') SilverdataSafe(window.sctqury,window.mtype);
-            });
+                processQueue();
+            }).catch(e=>{ console.error("❌ Silver config fetch failed",e); });
     }
 
     window.SilverdataSafe=function(q,mtype){
-        if(!silverCfg) return setTimeout(()=>SilverdataSafe(q,mtype),500);
+        if(!silverCfg){ 
+            enqueue(()=>SilverdataSafe(q,mtype)); 
+            return; 
+        }
+
         const num=Number(String(q).replace(/\D/g,""));
         const cfg=findCfg(silverCfg,num);
         if(!cfg) return console.warn("❌ Silver cfg not found",q);
+
         const url=`https://docs.google.com/spreadsheets/d/${cfg.id}/gviz/tq?tqx=out:json&sheet=silvweb&tq=select * limit 15`;
         fetch(url).then(r=>r.text()).then(t=>{
             let rows=parseGViz(t);
+            // sort by date descending
             rows.sort((a,b)=>new Date(b.c[0]?.f)-new Date(a.c[0]?.f));
-            SILVER_HIST=rows.slice(0,15); renderSilver(SILVER_HIST);
+            SILVER_HIST=rows.slice(0,15); // strictly last 15 days
+            renderSilver(SILVER_HIST);
         }).catch(e=>{ console.error("Silver fetch failed, retrying...",e); setTimeout(()=>SilverdataSafe(q,mtype),1500); });
     };
 
@@ -94,14 +110,20 @@
             .then(r=>r.json()).then(j=>{
                 goldCfg=j; console.log("✔ Gold config loaded");
                 if(window.gctqury && window.mtype==='Gold') golddataSafe(window.gctqury,window.mtype);
-            });
+                processQueue();
+            }).catch(e=>{ console.error("❌ Gold config fetch failed",e); });
     }
 
     window.golddataSafe=function(q,mtype){
-        if(!goldCfg) return setTimeout(()=>golddataSafe(q,mtype),500);
+        if(!goldCfg){ 
+            enqueue(()=>golddataSafe(q,mtype)); 
+            return; 
+        }
+
         const num=Number(String(q).replace(/\D/g,""));
         const cfg=findCfg(goldCfg,num);
         if(!cfg) return console.warn("❌ Gold cfg not found",q);
+
         const url=`https://docs.google.com/spreadsheets/d/${cfg.id}/gviz/tq?tqx=out:json&sheet=goldweb&tq=select * limit 15`;
         fetch(url).then(r=>r.text()).then(t=>renderGold(parseGViz(t).slice(0,15)))
         .catch(e=>{ console.error("Gold fetch failed, retrying...",e); setTimeout(()=>golddataSafe(q,mtype),1500); });
@@ -139,3 +161,4 @@
     });
 
 })();
+</script>

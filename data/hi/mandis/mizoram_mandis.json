@@ -1,1 +1,12 @@
-{"headers":["name","slug"],"data":{"23001001":["Champhai","champhai"],"23001002":["Dawrpuri","dawrpuri"],"23001003":["Kolasib","kolasib"],"23001004":["Mission","mission"],"23001005":["New Aizawl","new_aizawl"],"23001006":["Serchhip","serchhip"],"23001007":["Vairengte","vairengte"],"23002001":["Bairabi","bairabi"],"23003001":["Lungli","lungli"],"23003002":["Super Lungli (Bara Bazar)","super_lungli_bara_bazar"],"23004001":["Kanhmun","kanhmun"],"00000000":["मंडी चुने",""]}}
+{
+  "headers": [
+    "name",
+    "slug"
+  ],
+  "data": {
+    "00000000": [
+      "मंडी चुने",
+      ""
+    ]
+  }
+}

@@ -1,1 +1,12 @@
-{"headers":["name","slug"],"data":{"21001001":["Bishenpur","bishenpur"],"21004001":["Lamlong Bazaar","lamlong_bazaar"],"21005001":["Imphal","imphal"],"21006001":["Kakching","kakching"],"21010001":["Thoubal","thoubal"],"00000000":["मंडी चुने",""]}}
+{
+  "headers": [
+    "name",
+    "slug"
+  ],
+  "data": {
+    "00000000": [
+      "मंडी चुने",
+      ""
+    ]
+  }
+}

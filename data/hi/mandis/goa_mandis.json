@@ -1,1 +1,12 @@
-{"headers":["name","slug"],"data":{"10001001":["Horticulture Corp,Caranzalem, Panaji","horticulture_corp_caranzalem_panaji"],"10001002":["Mapusa","mapusa"],"10001003":["Pernem","pernem"],"10001004":["Ponda, Bagayatdar Bhawan","ponda_bagayatdar_bhawan"],"10001005":["Registrar Co Op,Panaji","registrar_co_op_panaji"],"10001006":["Sanquelim","sanquelim"],"10001007":["Valpol","valpol"],"10002001":["Canacona","canacona"],"10002002":["Curchorem","curchorem"],"10002003":["Margao","margao"],"10002004":["Ponda","ponda"],"00000000":["मंडी चुने",""]}}
+{
+  "headers": [
+    "name",
+    "slug"
+  ],
+  "data": {
+    "00000000": [
+      "मंडी चुने",
+      ""
+    ]
+  }
+}

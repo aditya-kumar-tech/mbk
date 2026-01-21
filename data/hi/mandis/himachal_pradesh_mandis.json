@@ -1,1 +1,12 @@
-{"headers":["name","slug"],"data":{"13001001":["Bilaspur","bilaspur"],"13001002":["Namhol","namhol"],"13002001":["Chamba","chamba"],"13003001":["Hamirpur","hamirpur"],"13003002":["Jahu","jahu"],"13003003":["Nadaun","nadaun"],"13004001":["Kangra","kangra"],"13004002":["Baijnath","baijnath"],"13004003":["Dharamshala","dharamshala"],"13004004":["Jaisinghpur","jaisinghpur"],"13004005":["Jassur","jassur"],"13004006":["Jwalaji","jwalaji"],"13004007":["Nagrota Bagwan","nagrota_bagwan"],"13004008":["Palampur","palampur"],"13007001":["Kullu","kullu"],"13007002":["Bandrol","bandrol"],"13007003":["Banjar","banjar"],"13007004":["Bhuntar","bhuntar"],"13007005":["Chauri Bihal","chauri_bihal"],"13007006":["Khegsu","khegsu"],"13007007":["Patli Kulh","patli_kulh"],"13007008":["Shatt","shatt"],"13009001":["Kangni","kangni"],"13009002":["Chail Chowk","chail_chowk"],"13009003":["Dhanotu","dhanotu"],"13009004":["Jogindernagar","jogindernagar"],"13009005":["Takoli","takoli"],"13010001":["Dhalli Shimla","dhalli_shimla"],"13010002":["Bhattakufar","bhattakufar"],"13010003":["Kharapather","kharapather"],"13010004":["Mehndli","mehndli"],"13010005":["Nerwa","nerwa"],"13010006":["Parala","parala"],"13010007":["Rampur","rampur"],"13010008":["Rohroo","rohroo"],"13010009":["Theog","theog"],"13011001":["Paonta Sahib","paonta_sahib"],"13011002":["Nahan","nahan"],"13011003":["Rajgarh","rajgarh"],"13012001":["Kather Solan","kather_solan"],"13012002":["Dharampur","dharampur"],"13012003":["Nalagarh","nalagarh"],"13012004":["Parwanoo","parwanoo"],"13012005":["Wakhnaghat","wakhnaghat"],"13013001":["Una","una"],"13013002":["Santoshgarh","santoshgarh"],"13013003":["Takarla","takarla"],"00000000":["मंडी चुने",""]}}
+{
+  "headers": [
+    "name",
+    "slug"
+  ],
+  "data": {
+    "00000000": [
+      "मंडी चुने",
+      ""
+    ]
+  }
+}

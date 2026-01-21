@@ -1,1 +1,12 @@
-{"headers":["name","slug"],"data":{"22001001":["Williamnagar","williamnagar"],"22002001":["Khliehriat","khliehriat"],"22003001":["Mawiong Regulated","mawiong_regulated"],"22003002":["Shillong","shillong"],"22003003":["Sohra","sohra"],"22004001":["Nongpoh (R-Bhoi)","nongpoh_r_bhoi"],"22006001":["Baghmara","baghmara"],"22006002":["Gasuapara","gasuapara"],"22007001":["Ampati","ampati"],"22007002":["Garobadha","garobadha"],"22008001":["Mawkyrwat","mawkyrwat"],"22009001":["Dadengiri","dadengiri"],"22009002":["Rongram","rongram"],"22009003":["Tura","tura"],"22010001":["Dawki","dawki"],"22010002":["Jowai","jowai"],"22010003":["Laskein","laskein"],"22010004":["Wahiajer","wahiajer"],"22011001":["Nongstoin","nongstoin"],"00000000":["मंडी चुने",""]}}
+{
+  "headers": [
+    "name",
+    "slug"
+  ],
+  "data": {
+    "00000000": [
+      "मंडी चुने",
+      ""
+    ]
+  }
+}

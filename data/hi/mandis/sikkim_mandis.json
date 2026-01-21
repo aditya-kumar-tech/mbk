@@ -1,1 +1,12 @@
-{"headers":["name","slug"],"data":{"30001001":["East Shikkim","east_shikkim"],"30001002":["Gangtok","gangtok"],"30001003":["Rangpo","rangpo"],"30001004":["Rangpo Check Post","rangpo_check_post"],"30002001":["Mangan","mangan"],"30003001":["Kamling","kamling"],"30003002":["Melli","melli"],"30003003":["Namchi","namchi"],"30004001":["Gyalsing","gyalsing"],"00000000":["मंडी चुने",""]}}
+{
+  "headers": [
+    "name",
+    "slug"
+  ],
+  "data": {
+    "00000000": [
+      "मंडी चुने",
+      ""
+    ]
+  }
+}

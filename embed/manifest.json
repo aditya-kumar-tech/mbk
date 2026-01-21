@@ -1,10 +1,10 @@
 {
-  "maps_ver": "2026-01-05",
-  "app_ver": "2026-01-10_01",
-  "css_ver": "2026-01-10_01",
-  "js_ver": "2026-01-10_01",
+  "maps_ver": "2026-01-21",
+  "app_ver": "2026-01-21_01",
+  "css_ver": "2026-01-21_01",
+  "js_ver": "2026-01-21_01",
   "force_reload": true,
   "force_reload_on_button": true,
-  "timestamp": "2026-01-10T12:00",
+  "timestamp": "2026-01-21T21:00",
   "note": "Change maps_ver/app_ver/css_ver/js_ver when updates occur. force_reload=true to clear cache on first load. force_reload_on_button=true to force refresh everything when reload button is pressed."
 }

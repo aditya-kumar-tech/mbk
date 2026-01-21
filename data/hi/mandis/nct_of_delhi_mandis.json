@@ -1,12 +1,1 @@
-{
-  "headers": [
-    "name",
-    "slug"
-  ],
-  "data": {
-    "00000000": [
-      "मंडी चुने",
-      ""
-    ]
-  }
-}
+{"headers":["name","slug"],"data":{"25001001":["Azadpur","azadpur"],"25001002":["Fish,Poultry & Egg , Gazipur","fish_poultry_egg_gazipur"],"25001003":["Flower , Canaught Place(Pr. ,Mehrauli)","flower_canaught_place_pr_mehrauli"],"25001004":["Flower , Fatehpuri(Principal , Mehrauli)","flower_fatehpuri_principal_mehrauli"],"25001005":["Flower ,Gazipur","flower_gazipur"],"25001006":["Fodder , Mangolpuri","fodder_mangolpuri"],"25001007":["Fruit&Vegetable ,Gazipur","fruit_vegetable_gazipur"],"25001008":["Keshopur","keshopur"],"25001009":["Khoya , Kashmiri Gate","khoya_kashmiri_gate"],"25001010":["Najafgarh","najafgarh"],"25001011":["Narela","narela"],"25001012":["Shahdara","shahdara"],"00000000":["मंडी चुने",""]}}

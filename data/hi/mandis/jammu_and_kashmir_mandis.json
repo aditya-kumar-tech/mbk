@@ -1,12 +1,1 @@
-{
-  "headers": [
-    "name",
-    "slug"
-  ],
-  "data": {
-    "00000000": [
-      "मंडी चुने",
-      ""
-    ]
-  }
-}
+{"headers":["name","slug"],"data":{"14001001":["Batingoo","batingoo"],"14001002":["Jablipora","jablipora"],"14003001":["Kanispora Baramulla (फल-सब्जी)","kanispora_baramulla_fv"],"14003002":["Nowpora","nowpora"],"14004001":["Zaloosa-Chararishrief (फल-सब्जी)","zaloosa_chararishrief_fv"],"14006001":["Ganderbal","ganderbal"],"14007001":["Akhnoor","akhnoor"],"14007002":["Narwal Jammu (फल-सब्जी)","narwal_jammu_fv"],"14009001":["Kathua","kathua"],"14011001":["Kulgam","kulgam"],"14012001":["Bumhama-Kupwara (फल-सब्जी)","bumhama_kupwara_fv"],"14012002":["HandwaraFV","handwarafv"],"14015001":["Pachar","pachar"],"14015002":["Prichoo","prichoo"],"14016001":["Rajouri (फल-सब्जी)","rajouri_fv"],"14017001":["Batote","batote"],"14019001":["Shopian","shopian"],"14020001":["Parimpore","parimpore"],"14021001":["Udhampur","udhampur"],"00000000":["मंडी चुने",""]}}

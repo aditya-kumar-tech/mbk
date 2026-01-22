@@ -36,14 +36,10 @@ function findCfg(map,n){
   return null;
 }
 
-/* ===================================================
-   ================= SILVER ==========================
-   =================================================== */
+/* ================= SILVER ================= */
 let silverCfg=null, silverLock=false;
-
 window.Silverdata = function(q){
   if(!q) return;
-  if(!has('#silvr_pricet') && !has('#silvr_graf')) return; // ❗ silver page only
   if(silverLock) return delay(()=>Silverdata(q),200);
   silverLock=true;
 
@@ -108,14 +104,10 @@ function renderSilver(rows){
   }
 }
 
-/* ===================================================
-   ================= GOLD ============================
-   =================================================== */
+/* ================= GOLD ================= */
 let goldCfg=null, goldLock=false;
-
 window.golddata = function(q){
   if(!q) return;
-  if(!has('#g22kt') && !has('#gldgraf')) return; // ❗ gold page only
   if(goldLock) return delay(()=>golddata(q),200);
   goldLock=true;
 
@@ -142,7 +134,7 @@ window.golddata = function(q){
   } else start();
 };
 
- function renderGold(rows){
+function renderGold(rows){
   const p22=+rows[0].c[1]?.v||0,
         p24=+rows[0].c[3]?.v||0;
 
@@ -165,7 +157,7 @@ window.golddata = function(q){
     h24.innerHTML=h+'</table>';
   }
 
-  // =================== GOLD GRAMS TABLE ===================
+  // GOLD GRAMS TABLE
   const gram22=has('#gramtbl22');
   if(gram22){
       let h='<table>';

@@ -1,4 +1,3 @@
-document.addEventListener('DOMContentLoaded',()=>{
 (function(){
 /* ================= CONFIG ================= */
 const DEBUG = true;
@@ -9,7 +8,7 @@ const once = fn=>{let d;return(...a)=>d||(d=fn(...a))};
 const has = s=>document.querySelector(s);
 const delay = (fn,t=300)=>setTimeout(fn,t);
 
-/* ================= CHART.JS ================= */
+/* ================= CHART.JS (LAZY) ================= */
 const loadChart = once(cb=>{
   if(window.Chart) return cb();
   const s=document.createElement('script');
@@ -32,7 +31,7 @@ function parseGViz(txt,limit=15){
 
 function findCfg(map,n){
   for(const k in map){
-    if(map[k].range?.includes(n)) return {id:map[k].id};
+    if(map[k].range?.includes(n)) return map[k];
   }
   return null;
 }
@@ -44,6 +43,10 @@ let silverCfg=null, silverLock=false;
 
 window.Silverdata = function(q){
   if(!q) return;
+
+  // 🔴 Page pe silver ka kuch bhi nahi → SKIP
+  if(!has('#silvr_pricet') && !has('#silvr_graf')) return;
+
   if(silverLock) return delay(()=>Silverdata(q),200);
   silverLock=true;
 
@@ -56,8 +59,7 @@ window.Silverdata = function(q){
       .then(r=>r.text())
       .then(t=>{
         const rows=parseGViz(t,15);
-        if(!rows.length){ silverLock=false; return delay(()=>Silverdata(q),400); }
-        if(has('#silvr_pricet') || has('#silvr_graf') || has('#silvr_gramtbl') || has('#data_table1')) renderSilver(rows);
+        if(rows.length) renderSilver(rows);
         silverLock=false;
       }).catch(()=>silverLock=false);
   };
@@ -115,6 +117,10 @@ let goldCfg=null, goldLock=false;
 
 window.golddata = function(q){
   if(!q) return;
+
+  // 🔴 Page pe gold ka kuch bhi nahi → SKIP
+  if(!has('#g22kt') && !has('#gldgraf')) return;
+
   if(goldLock) return delay(()=>golddata(q),200);
   goldLock=true;
 
@@ -127,8 +133,7 @@ window.golddata = function(q){
       .then(r=>r.text())
       .then(t=>{
         const rows=parseGViz(t,15);
-        if(!rows.length){ goldLock=false; return delay(()=>golddata(q),400); }
-        if(has('#g22kt') || has('#gldgraf') || has('#gramtbl22') || has('#gramtbl24') || has('#data_table1') || has('#data_table2')) renderGold(rows);
+        if(rows.length) renderGold(rows);
         goldLock=false;
       }).catch(()=>goldLock=false);
   };
@@ -149,7 +154,6 @@ function renderGold(rows){
   has('#g24kt') && (g24kt.textContent=`₹${p24.toLocaleString('hi-IN')}`);
   has('#udat') && (udat.textContent=new Date().toLocaleDateString('hi-IN'));
 
-  // HISTORY TABLES
   const h22=has('#data_table1');
   if(h22){
     let h='<table><tr><th>Date</th><th>22K</th></tr>';
@@ -164,26 +168,24 @@ function renderGold(rows){
     h24.innerHTML=h+'</table>';
   }
 
-  // GRAMS TABLES
   const gram22=has('#gramtbl22');
   if(gram22){
-      let h='<table>';
-      [1,10,50,100].forEach(g=>{
-          h+=`<tr><td>${g}g</td><td>₹${Math.round(p22*g).toLocaleString('hi-IN')}</td></tr>`;
-      });
-      gram22.innerHTML=h+'</table>';
+    let h='<table>';
+    [1,10,50,100].forEach(g=>{
+      h+=`<tr><td>${g}g</td><td>₹${Math.round(p22*g).toLocaleString('hi-IN')}</td></tr>`;
+    });
+    gram22.innerHTML=h+'</table>';
   }
 
   const gram24=has('#gramtbl24');
   if(gram24){
-      let h='<table>';
-      [1,10,50,100].forEach(g=>{
-          h+=`<tr><td>${g}g</td><td>₹${Math.round(p24*g).toLocaleString('hi-IN')}</td></tr>`;
-      });
-      gram24.innerHTML=h+'</table>';
+    let h='<table>';
+    [1,10,50,100].forEach(g=>{
+      h+=`<tr><td>${g}g</td><td>₹${Math.round(p24*g).toLocaleString('hi-IN')}</td></tr>`;
+    });
+    gram24.innerHTML=h+'</table>';
   }
 
-  // CHART
   const grafEl=has('#gldgraf');
   if(grafEl){
     loadChart(()=>{
@@ -203,5 +205,5 @@ function renderGold(rows){
     });
   }
 }
+
 })();
-});

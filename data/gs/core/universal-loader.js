@@ -2,8 +2,8 @@
 /* ================= CONFIG ================= */
 const DEBUG = true;
 const log = (...a)=>DEBUG && console.log("[UL]",...a);
-const manifestURL = "gs-manifest.json"; // manifest file URL
-const moduleCache = {};  // Loaded JS/CSS cache
+const manifestURL = "gs-manifest.json"; 
+const moduleCache = {};  
 
 /* ================= UTILS ================= */
 const has = s=>document.querySelector(s);
@@ -18,14 +18,21 @@ function loadFile(url,type='js'){
             el.src=url;
             el.async=true;
             el.onload=()=>{moduleCache[url]=true; res();};
-            el.onerror=()=>rej(`Failed to load ${url}`);
+            el.onerror=()=>{
+                moduleCache[url]=true;
+                alert(`फ़ाइल लोड नहीं हो पाई: ${url}`);
+                rej(`Failed to load ${url}`);
+            };
         } else {
             el=document.createElement('link');
             el.href=url;
             el.rel='stylesheet';
             el.onload=()=>{moduleCache[url]=true; res();};
-            el.onerror=()=>rej(`Failed to load ${url}`);
-            setTimeout(()=>moduleCache[url]=true,res,200);
+            el.onerror=()=>{
+                moduleCache[url]=true;
+                alert(`CSS लोड नहीं हो पाई: ${url}`);
+                rej(`Failed to load ${url}`);
+            };
         }
         document.head.appendChild(el);
     });
@@ -58,7 +65,7 @@ function parseGViz(txt,limit=15){
 
 function findCfg(map,n){
   for(const k in map){
-    if(map[k].range?.includes(n)) return map[k];
+    if(map[k].range?.includes(n)) return {id:map[k].id};
   }
   return null;
 }
@@ -72,13 +79,11 @@ async function loadModule(moduleName){
     const present = mod.elements.some(el=>has(`#${el}`));
     if(!present){ log("Skipping module, no elements found:",moduleName); return; }
 
-    await loadFilesSequential(mod.files);  // JS + CSS fully loaded
+    await loadFilesSequential(mod.files);  
 
-    // JS load hone ke baad hi functions exist karenge
     const funcs = {};
     if(mod.functions){
         for(const f of mod.functions){
-            // Wait till function is defined
             await new Promise(res=>{
                 const check = ()=>{
                     if(window[f]) return res(window[f]);
@@ -93,24 +98,72 @@ async function loadModule(moduleName){
 }
 
 /* ================= SILVER ================= */
-let silverLock=false;
+let silverCfg=null, silverLock=false;
+
 window.loadSilver = async function(q){
     const funcs = await loadModule('silver-rates');
     if(!funcs?.Silverdata) return;
     if(silverLock) return delay(()=>window.loadSilver(q),200);
     silverLock=true;
-    try{ funcs.Silverdata(q); }
-    finally{ silverLock=false; }
+
+    const startSilver = ()=>{
+        const n=parseInt(q.replace(/\D/g,'')),
+              cfg=findCfg(silverCfg,n);
+        if(!cfg){ silverLock=false; return; }
+
+        fetch(`https://docs.google.com/spreadsheets/d/${cfg.id}/gviz/tq?tqx=out:json&sheet=silvweb&tq=select * limit 15`)
+          .then(r=>r.text())
+          .then(t=>{
+            const rows=parseGViz(t,15);
+            if(!rows.length){ silverLock=false; return delay(startSilver,400); }
+            funcs.Silverdata(q);  
+            silverLock=false;
+          }).catch(()=>{ 
+            silverLock=false; 
+            alert("सिल्वर डेटा लोड नहीं हो पाया। कृपया बाद में पुनः प्रयास करें।");
+          });
+    };
+
+    if(!silverCfg){
+        fetch('https://aditya-kumar-tech.github.io/mbk/data/gs/silver-groups.json')
+          .then(r=>r.json())
+          .then(j=>{ silverCfg=j; startSilver(); })
+          .catch(()=>{ silverLock=false; alert("सिल्वर कॉन्फ़िग डेटा लोड नहीं हुआ।"); });
+    } else startSilver();
 };
 
 /* ================= GOLD ================= */
-let goldLock=false;
+let goldCfg=null, goldLock=false;
+
 window.loadGold = async function(q){
     const funcs = await loadModule('gold-rates');
     if(!funcs?.golddata) return;
     if(goldLock) return delay(()=>window.loadGold(q),200);
     goldLock=true;
-    try{ funcs.golddata(q); }
-    finally{ goldLock=false; }
+
+    const startGold = ()=>{
+        const n=parseInt(q.replace(/\D/g,'')),
+              cfg=findCfg(goldCfg,n);
+        if(!cfg){ goldLock=false; return; }
+
+        fetch(`https://docs.google.com/spreadsheets/d/${cfg.id}/gviz/tq?tqx=out:json&sheet=goldweb&tq=select * limit 15`)
+          .then(r=>r.text())
+          .then(t=>{
+            const rows=parseGViz(t,15);
+            if(!rows.length){ goldLock=false; return delay(startGold,400); }
+            funcs.golddata(q);  
+            goldLock=false;
+          }).catch(()=>{ 
+            goldLock=false; 
+            alert("गोल्ड डेटा लोड नहीं हो पाया। कृपया बाद में पुनः प्रयास करें।");
+          });
+    };
+
+    if(!goldCfg){
+        fetch('https://aditya-kumar-tech.github.io/mbk/data/gs/gold-groups.json')
+          .then(r=>r.json())
+          .then(j=>{ goldCfg=j; startGold(); })
+          .catch(()=>{ goldLock=false; alert("गोल्ड कॉन्फ़िग डेटा लोड नहीं हुआ।"); });
+    } else startGold();
 };
 })();

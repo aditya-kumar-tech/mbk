@@ -1,3 +1,4 @@
+document.addEventListener('DOMContentLoaded',()=>{
 (function(){
 /* ================= CONFIG ================= */
 const DEBUG = true;
@@ -36,8 +37,11 @@ function findCfg(map,n){
   return null;
 }
 
-/* ================= SILVER ================= */
+/* ===================================================
+   ================= SILVER ==========================
+   =================================================== */
 let silverCfg=null, silverLock=false;
+
 window.Silverdata = function(q){
   if(!q) return;
   if(silverLock) return delay(()=>Silverdata(q),200);
@@ -53,7 +57,7 @@ window.Silverdata = function(q){
       .then(t=>{
         const rows=parseGViz(t,15);
         if(!rows.length){ silverLock=false; return delay(()=>Silverdata(q),400); }
-        renderSilver(rows);
+        if(has('#silvr_pricet') || has('#silvr_graf') || has('#silvr_gramtbl') || has('#data_table1')) renderSilver(rows);
         silverLock=false;
       }).catch(()=>silverLock=false);
   };
@@ -104,8 +108,11 @@ function renderSilver(rows){
   }
 }
 
-/* ================= GOLD ================= */
+/* ===================================================
+   ================= GOLD ============================
+   =================================================== */
 let goldCfg=null, goldLock=false;
+
 window.golddata = function(q){
   if(!q) return;
   if(goldLock) return delay(()=>golddata(q),200);
@@ -121,7 +128,7 @@ window.golddata = function(q){
       .then(t=>{
         const rows=parseGViz(t,15);
         if(!rows.length){ goldLock=false; return delay(()=>golddata(q),400); }
-        renderGold(rows);
+        if(has('#g22kt') || has('#gldgraf') || has('#gramtbl22') || has('#gramtbl24') || has('#data_table1') || has('#data_table2')) renderGold(rows);
         goldLock=false;
       }).catch(()=>goldLock=false);
   };
@@ -142,7 +149,7 @@ function renderGold(rows){
   has('#g24kt') && (g24kt.textContent=`₹${p24.toLocaleString('hi-IN')}`);
   has('#udat') && (udat.textContent=new Date().toLocaleDateString('hi-IN'));
 
-  // HISTORY TABLE
+  // HISTORY TABLES
   const h22=has('#data_table1');
   if(h22){
     let h='<table><tr><th>Date</th><th>22K</th></tr>';
@@ -157,7 +164,7 @@ function renderGold(rows){
     h24.innerHTML=h+'</table>';
   }
 
-  // GOLD GRAMS TABLE
+  // GRAMS TABLES
   const gram22=has('#gramtbl22');
   if(gram22){
       let h='<table>';
@@ -197,3 +204,4 @@ function renderGold(rows){
   }
 }
 })();
+});

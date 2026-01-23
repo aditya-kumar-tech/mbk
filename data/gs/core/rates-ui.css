@@ -1,140 +1,41 @@
-/* ===================== Professional Rates CSS ===================== */
+.table-wrapper{
+  overflow-x:auto;
+  margin:12px 0;
+  border-radius:14px;
+  box-shadow:0 6px 18px rgba(0,0,0,.08);
+}
+.price-table{
+  width:100%;
+  border-collapse:collapse;
+  background:#fff;
+  font-size:14px;
+}
+.price-table th{
+  background:linear-gradient(135deg,#111,#444);
+  color:#fff;
+  padding:10px;
+  position:sticky;
+  top:0;
+}
+.price-table td{
+  padding:9px;
+  text-align:center;
+  border-bottom:1px solid #eee;
+}
+.price-table tr:nth-child(even){
+  background:#fafafa;
+}
+.up{color:#0a8f3c;font-weight:600;}
+.down{color:#c62828;font-weight:600;}
 
-/* General Box */
-.gldbox, .silvbox {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  gap: 20px;
-  margin-bottom: 20px;
+#gramtbl22 td:last-child,
+#gramtbl24 td:last-child,
+#silvr_gramtbl td:last-child{
+  font-weight:700;
+  color:#0b5cff;
 }
 
-.gldli, .silvli {
-  list-style: none;
-  background: #fff;
-  padding: 15px 20px;
-  border-radius: 8px;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-  flex: 1 1 220px;
-  min-width: 200px;
-}
-
-.gldli div, .silvli div {
-  text-align: center;
-}
-
-/* Gold/Silver Header */
-.ggram {
-  font-size: 14px;
-  color: #555;
-  display: block;
-  margin-bottom: 5px;
-}
-
-.gldprc {
-  font-size: 18px;
-  color: #111;
-}
-
-.gldprc strong {
-  font-size: 20px;
-  color: #e6b800; /* gold accent */
-}
-
-/* Last Updated */
-.udate, .sudate {
-  font-size: 12px;
-  color: #777;
-  margin-top: 5px;
-  display: block;
-}
-
-/* Price Change */
-.up {
-  color: #0a9e0a; /* green for increase */
-  font-weight: bold;
-}
-
-.down {
-  color: #d10b0b; /* red for decrease */
-  font-weight: bold;
-}
-
-/* Tables */
-.table-wrapper {
-  overflow-x: auto;
-  margin-bottom: 20px;
-}
-
-.price-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 14px;
-  text-align: right;
-}
-
-.price-table th, .price-table td {
-  padding: 8px 12px;
-  border-bottom: 1px solid #ddd;
-}
-
-.price-table th {
-  background: #f9f9f9;
-  text-align: left;
-  color: #333;
-  font-weight: 600;
-}
-
-/* Table Δ and % colors */
-.price-table td.up {
-  color: #0a9e0a;
-  font-weight: bold;
-}
-.price-table td.down {
-  color: #d10b0b;
-  font-weight: bold;
-}
-
-/* Grams Table */
-#gramtbl22, #gramtbl24, #silvr_gramtbl {
-  margin-top: 10px;
-}
-
-/* Loader Spinner */
-#mbk-loader {
-  display: none;
-  position: fixed;
-  z-index: 9999;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  border: 4px solid #f3f3f3;
-  border-top: 4px solid #e6b800;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg);}
-  100% { transform: rotate(360deg);}
-}
-
-/* Charts */
-canvas {
-  max-width: 100%;
-}
-
-/* Responsive for Mobile */
-@media(max-width: 600px){
-  .gldbox, .silvbox {
-    flex-direction: column;
-  }
-  .gldli, .silvli {
-    min-width: 100%;
-  }
-  .price-table th, .price-table td {
-    padding: 6px 8px;
-  }
+@media(max-width:600px){
+  .price-table{font-size:13px;}
+  canvas{max-height:380px!important;}
 }

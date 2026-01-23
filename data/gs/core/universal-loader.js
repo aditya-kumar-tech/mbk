@@ -1,13 +1,15 @@
 document.addEventListener('DOMContentLoaded',()=>{
-  
+
 (function(){
-  /* ================= CSS LOADER ================= */
-if(document.getElementById('rates-ui-css')) return;
+/* ================= CSS Loader ================= */
+if(!document.getElementById('rates-ui-css')){
   const l = document.createElement('link');
   l.id = 'rates-ui-css';
   l.rel = 'stylesheet';
-  l.href = 'https://aditya-kumar-tech.github.io/mbk/data/gs/core/rates-ui.css'; // ← yahi aapka css path
+  l.href = 'https://aditya-kumar-tech.github.io/mbk/data/gs/core/rates-ui.css'; // your CSS path
   document.head.appendChild(l);
+}
+
 /* ================= UTILS ================= */
 const once = fn=>{let d;return(...a)=>d||(d=fn(...a))};
 const has = s=>document.querySelector(s);
@@ -40,11 +42,8 @@ const diff=(t,y)=>t-y;
 const pct=(t,y)=>y?(((t-y)/y)*100).toFixed(2):"0.00";
 const arrow=(v)=>v>0?'▲':v<0?'▼':'—';
 
-/* ===================================================
-   ================= SILVER ==========================
-   =================================================== */
+/* ================= SILVER ================= */
 let silverCfg=null;
-
 window.Silverdata=function(q){
   if(!q) return;
   if(!has('#silvr_pricet') && !has('#silvr_graf')) return;
@@ -63,11 +62,6 @@ window.Silverdata=function(q){
 
   if(!silverCfg){
     fetch('https://aditya-kumar-tech.github.io/mbk/data/gs/silver-groups.json')
-      .then(t=>{
-    const rows=parseGViz(t);
-    if(rows.length) renderSilver(rows);
-    hideLoader(); // hide loader after data loaded
-  }).catch(()=>hideLoader());
     .then(r=>r.json()).then(j=>{silverCfg=j;start();});
   } else start();
 };
@@ -76,22 +70,19 @@ function renderSilver(rows){
   has('#data_table2')&&(data_table2.innerHTML=''); // clear gold
 
   const today=+rows[0].c[2]?.v||0;
-  (function(){
-  const u = document.querySelector('.sudate #udat');
-  if(u){
-    u.textContent = rows[0].c[0]?.f || '';
-    console.log('⚪ Silver last updated set');
-  }
-})();
   const yesterday=+rows[1]?.c[2]?.v||today;
   const ch=diff(today,yesterday);
   const pc=pct(today,yesterday);
+
+  // Last updated
+  const u = document.querySelector('.sudate #udat');
+  if(u) u.textContent = rows[0].c[0]?.f || '';
 
   has('#silvr_pricet')&&(silvr_pricet.innerHTML=`₹${today.toLocaleString('hi-IN')}`);
   has('#silvr_change')&&(silvr_change.innerHTML=
     `<span class="${ch>=0?'up':'down'}">${arrow(ch)} ₹${ch} (${pc}%)</span>`);
 
-  /* GRAMS */
+  // GRAMS
   const gtbl=has('#silvr_gramtbl');
   if(gtbl){
     let h='<table class="price-table">';
@@ -101,7 +92,7 @@ function renderSilver(rows){
     gtbl.innerHTML=h+'</table>';
   }
 
-  /* HISTORY */
+  // HISTORY TABLE
   const ht=has('#data_table1');
   if(ht){
     let h='<div class="table-wrapper"><table class="price-table">';
@@ -119,7 +110,7 @@ function renderSilver(rows){
     ht.innerHTML=h+'</table></div>';
   }
 
-  /* GRAPH */
+  // GRAPH
   const g=has('#silvr_graf');
   if(g){
     loadChart(()=>{
@@ -141,11 +132,8 @@ function renderSilver(rows){
   }
 }
 
-/* ===================================================
-   ================= GOLD ============================
-   =================================================== */
+/* ================= GOLD ================= */
 let goldCfg=null;
-
 window.golddata=function(q){
   if(!q) return;
   if(!has('#g22kt') && !has('#gldgraf')) return;
@@ -164,11 +152,6 @@ window.golddata=function(q){
 
   if(!goldCfg){
     fetch('https://aditya-kumar-tech.github.io/mbk/data/gs/gold-groups.json')
-  .then(t=>{
-    const rows=parseGViz(t);
-    if(rows.length) renderGold(rows);
-    hideLoader(); // hide loader after data loaded
-  }).catch(()=>hideLoader());
     .then(r=>r.json()).then(j=>{goldCfg=j;start();});
   } else start();
 };
@@ -177,22 +160,15 @@ function renderGold(rows){
   has('#data_table1')&&(data_table1.innerHTML=''); // clear silver
 
   const t22=+rows[0].c[1]?.v||0, y22=+rows[1]?.c[1]?.v||t22;
-  (function(){
-  const u = document.querySelector('.udate #udat');
-  if(u){
-    u.textContent = rows[0].c[0]?.f || '';
-    console.log('🟡 Gold last updated set');
-  }
-})();
   const t24=+rows[0].c[3]?.v||0, y24=+rows[1]?.c[3]?.v||t24;
+
+  const u = document.querySelector('.udate #udat');
+  if(u) u.textContent = rows[0].c[0]?.f || '';
 
   has('#g22kt')&&(g22kt.innerHTML=`₹${t22.toLocaleString('hi-IN')}`);
   has('#g24kt')&&(g24kt.innerHTML=`₹${t24.toLocaleString('hi-IN')}`);
 
-  has('#gold_change')&&(gold_change.innerHTML=
-    `<span class="${t22-y22>=0?'up':'down'}">${arrow(t22-y22)} ${pct(t22,y22)}%</span>`);
-
-  /* GRAMS */
+  // GRAMS
   const makeGram=(el,p)=>{
     if(!el) return;
     let h='<table class="price-table">';
@@ -204,7 +180,7 @@ function renderGold(rows){
   makeGram(has('#gramtbl22'),t22);
   makeGram(has('#gramtbl24'),t24);
 
-  /* HISTORY */
+  // HISTORY 22K
   const h22=has('#data_table1');
   if(h22){
     let h='<div class="table-wrapper"><table class="price-table">';
@@ -218,6 +194,7 @@ function renderGold(rows){
     h22.innerHTML=h+'</table></div>';
   }
 
+  // HISTORY 24K
   const h24=has('#data_table2');
   if(h24){
     let h='<div class="table-wrapper"><table class="price-table">';
@@ -231,7 +208,7 @@ function renderGold(rows){
     h24.innerHTML=h+'</table></div>';
   }
 
-  /* GRAPH */
+  // GRAPH
   const g=has('#gldgraf');
   if(g){
     loadChart(()=>{

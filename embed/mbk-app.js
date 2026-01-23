@@ -202,8 +202,8 @@
       el.cardsContainer.style.display = 'none';
     } else {
   el.cardsContainer.innerHTML = data.map((r, i) => {
-    const vid = r[2] + r[3];   // ✅ FIX HERE
-
+    //const vid = r[2] + r[3];   // ✅ FIX HERE
+const vid = r[3];
     return `
     <div class="card">
       <div class="card-header">

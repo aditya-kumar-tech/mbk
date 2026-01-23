@@ -176,17 +176,10 @@
         <tr><td>${i+1}</td>${visibleColumns.map(c => {
           let v = safeVal(r[c.idx]);
           if(c.idx===2) v = commodities[r[2]] || r[2];
-
        //   let vid = String(r[2]) + String(r[3]).padStart(2, "0");
 //if(c.idx===3) v = getVarietyName(vid);
-
           //let vid = r[2]+r[3]
-          console.log(r[2]);
-           console.log(r[3]);
-          console.log("beforevid"+r[2]+r[3]);
           let vid = r[3];
-          console.log("aftervid"+r[2].padStart(3,'0')+r[3].padStart(2,'0'));
-          console.log(vid);
          // if(c.idx===3) v = getVarietyName(r[3]);
           if(c.idx===3) v = getVarietyName(vid);
           if(c.idx===4) v = getGradeName(r[4]);

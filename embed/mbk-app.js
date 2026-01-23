@@ -19,19 +19,30 @@
     return parts.length === 3 ? `${parts[2]}-${parts[1]}-${parts[0]}` : dateStr;
   }
 
-  function getVarietyName(vId) {
-    if (!isValid(vId)) return '-';
-    const vObj = varieties[vId];
-    if (vObj && typeof vObj === 'object' && vObj.n) return vObj.n;
-    //return vObj || vId;
-    return vObj || '-';
+ function getVarietyName(vId) {
+  if (!isValid(vId)) return '-';
+
+  const vObj = varieties[vId];
+
+  if (vObj && typeof vObj === 'object' && vObj.n) {
+    return vObj.n;
   }
 
-  function getGradeName(gId) {
-    if (!isValid(gId)) return '-';
-    const paddedId = String(gId).padStart(2, '0');
-    return grades[paddedId] || grades[gId] || gId;
-  }
+  return '-'; // ✅ mapping fail → "-"
+}
+
+
+ function getGradeName(gId) {
+  if (!isValid(gId)) return '-';
+
+  const paddedId = String(gId).padStart(2, '0');
+
+  if (grades[paddedId]) return grades[paddedId];
+  if (grades[gId]) return grades[gId];
+
+  return '-'; // ✅ mapping fail → "-"
+}
+
 
   // --- Naya Trend Calculation Logic ---
   function getTrend(row) {

@@ -1,41 +1,113 @@
-.table-wrapper{
-  overflow-x:auto;
-  margin:12px 0;
-  border-radius:14px;
-  box-shadow:0 6px 18px rgba(0,0,0,.08);
-}
-.price-table{
-  width:100%;
-  border-collapse:collapse;
-  background:#fff;
-  font-size:14px;
-}
-.price-table th{
-  background:linear-gradient(135deg,#111,#444);
-  color:#fff;
-  padding:10px;
-  position:sticky;
-  top:0;
-}
-.price-table td{
-  padding:9px;
-  text-align:center;
-  border-bottom:1px solid #eee;
-}
-.price-table tr:nth-child(even){
-  background:#fafafa;
-}
-.up{color:#0a8f3c;font-weight:600;}
-.down{color:#c62828;font-weight:600;}
-
-#gramtbl22 td:last-child,
-#gramtbl24 td:last-child,
-#silvr_gramtbl td:last-child{
-  font-weight:700;
-  color:#0b5cff;
+/* ================= GENERAL ================= */
+body {
+  font-family: 'Roboto', sans-serif;
+  background: #f5f6fa;
+  color: #333;
+  margin: 0;
+  padding: 0;
 }
 
-@media(max-width:600px){
-  .price-table{font-size:13px;}
-  canvas{max-height:380px!important;}
+/* ================= LAST UPDATED ================= */
+.udate, .sudate {
+  display: inline-block;
+  font-size: 13px;
+  background: #eef2f6;
+  padding: 5px 10px;
+  border-radius: 6px;
+  margin: 8px 0;
+  color: #555;
+}
+
+.udate span, .sudate span {
+  font-weight: 600;
+  color: #0a7cff;
+}
+
+/* ================= PRICE ================= */
+#silvr_pricet, #g22kt, #g24kt {
+  font-size: 24px;
+  font-weight: 700;
+  color: #222;
+}
+
+#silvr_change span, #gold_change span {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.up {
+  color: green;
+}
+.down {
+  color: red;
+}
+
+/* ================= GRAMS TABLE ================= */
+.price-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.price-table th,
+.price-table td {
+  border: 1px solid #ddd;
+  padding: 6px 10px;
+  text-align: center;
+}
+
+.price-table th {
+  background: #0a7cff;
+  color: #fff;
+  font-weight: 600;
+}
+
+/* ================= HISTORY TABLE WRAPPER ================= */
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 12px;
+}
+
+.table-wrapper table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table-wrapper th,
+.table-wrapper td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+  font-size: 13px;
+}
+
+.table-wrapper th {
+  background: #222;
+  color: #fff;
+  font-weight: 600;
+}
+
+/* ================= CHART ================= */
+canvas {
+  display: block;
+  width: 100% !important;
+  height: 400px !important;
+}
+
+/* ================= RESPONSIVE ================= */
+@media screen and (max-width: 768px) {
+  #silvr_pricet, #g22kt, #g24kt {
+    font-size: 20px;
+  }
+
+  .price-table th, .price-table td, .table-wrapper th, .table-wrapper td {
+    font-size: 12px;
+    padding: 5px;
+  }
+
+  canvas {
+    height: 300px !important;
+  }
 }

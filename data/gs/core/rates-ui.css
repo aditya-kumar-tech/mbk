@@ -15,7 +15,7 @@
   padding: 15px 20px;
   border-radius: 8px;
   box-shadow: 0 3px 10px rgba(0,0,0,0.08);
-  flex: 1 1 220px; /* responsive width */
+  flex: 1 1 220px;
   min-width: 200px;
 }
 

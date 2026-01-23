@@ -1,6 +1,13 @@
 document.addEventListener('DOMContentLoaded',()=>{
+  
 (function(){
-
+  /* ================= CSS LOADER ================= */
+if(document.getElementById('rates-ui-css')) return;
+  const l = document.createElement('link');
+  l.id = 'rates-ui-css';
+  l.rel = 'stylesheet';
+  l.href = '/mbk/data/gs/core/rates-ui.css'; // ← yahi aapka css path
+  document.head.appendChild(l);
 /* ================= UTILS ================= */
 const once = fn=>{let d;return(...a)=>d||(d=fn(...a))};
 const has = s=>document.querySelector(s);

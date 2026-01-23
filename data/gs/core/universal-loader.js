@@ -64,6 +64,13 @@ function renderSilver(rows){
   has('#data_table2')&&(data_table2.innerHTML=''); // clear gold
 
   const today=+rows[0].c[2]?.v||0;
+  (function(){
+  const u = document.querySelector('.sudate #udat');
+  if(u){
+    u.textContent = rows[0].c[0]?.f || '';
+    console.log('⚪ Silver last updated set');
+  }
+})();
   const yesterday=+rows[1]?.c[2]?.v||today;
   const ch=diff(today,yesterday);
   const pc=pct(today,yesterday);
@@ -153,6 +160,13 @@ function renderGold(rows){
   has('#data_table1')&&(data_table1.innerHTML=''); // clear silver
 
   const t22=+rows[0].c[1]?.v||0, y22=+rows[1]?.c[1]?.v||t22;
+  (function(){
+  const u = document.querySelector('.udate #udat');
+  if(u){
+    u.textContent = rows[0].c[0]?.f || '';
+    console.log('🟡 Gold last updated set');
+  }
+})();
   const t24=+rows[0].c[3]?.v||0, y24=+rows[1]?.c[3]?.v||t24;
 
   has('#g22kt')&&(g22kt.innerHTML=`₹${t22.toLocaleString('hi-IN')}`);

@@ -180,7 +180,8 @@
        //   let vid = String(r[2]) + String(r[3]).padStart(2, "0");
 //if(c.idx===3) v = getVarietyName(vid);
 
-          let vid = r[2]+r[3]
+          //let vid = r[2]+r[3]
+          let vid = r[2].padStart(3,'0') + r[3].padStart(3,'0');
          // if(c.idx===3) v = getVarietyName(r[3]);
           if(c.idx===3) v = getVarietyName(vid);
           if(c.idx===4) v = getGradeName(r[4]);

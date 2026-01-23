@@ -122,6 +122,25 @@ function renderGold(rows){
   has('#g22kt') && (g22kt.textContent=`₹${p22.toLocaleString('hi-IN')}`);
   has('#g24kt') && (g24kt.textContent=`₹${p24.toLocaleString('hi-IN')}`);
 
+   /* ✅ GOLD GRAMS 22K */
+  const g22=has('#gramtbl22');
+  if(g22){
+    let h='<table class="price-table">';
+    [1,10,50,100].forEach(g=>{
+      h+=`<tr><td>${g}g</td><td>₹${Math.round(p22*g).toLocaleString('hi-IN')}</td></tr>`;
+    });
+    g22.innerHTML=h+'</table>';
+  }
+
+  /* ✅ GOLD GRAMS 24K */
+  const g24=has('#gramtbl24');
+  if(g24){
+    let h='<table class="price-table">';
+    [1,10,50,100].forEach(g=>{
+      h+=`<tr><td>${g}g</td><td>₹${Math.round(p24*g).toLocaleString('hi-IN')}</td></tr>`;
+    });
+    g24.innerHTML=h+'</table>';
+  }
   const h22=has('#data_table1');
   if(h22){
     let h='<div class="table-wrapper"><table><tr><th>Date</th><th>22K</th></tr>';

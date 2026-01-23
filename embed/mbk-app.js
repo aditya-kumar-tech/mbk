@@ -23,7 +23,8 @@
     if (!isValid(vId)) return '-';
     const vObj = varieties[vId];
     if (vObj && typeof vObj === 'object' && vObj.n) return vObj.n;
-    return vObj || vId;
+    //return vObj || vId;
+    return vObj || '-';
   }
 
   function getGradeName(gId) {

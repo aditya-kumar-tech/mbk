@@ -65,6 +65,13 @@ window.Silverdata=function(q){
     fetch('https://aditya-kumar-tech.github.io/mbk/data/gs/silver-groups.json')
     .then(r=>r.json()).then(j=>{silverCfg=j;start();});
   } else start();
+  // existing fetch code...
+  fetch(...).then(r=>r.text())
+  .then(t=>{
+    const rows=parseGViz(t);
+    if(rows.length) renderSilver(rows);
+    hideLoader(); // hide loader after data loaded
+  }).catch(()=>hideLoader());
 };
 
 function renderSilver(rows){
@@ -161,6 +168,12 @@ window.golddata=function(q){
     fetch('https://aditya-kumar-tech.github.io/mbk/data/gs/gold-groups.json')
     .then(r=>r.json()).then(j=>{goldCfg=j;start();});
   } else start();
+  fetch(...).then(r=>r.text())
+  .then(t=>{
+    const rows=parseGViz(t);
+    if(rows.length) renderGold(rows);
+    hideLoader(); // hide loader after data loaded
+  }).catch(()=>hideLoader());
 };
 
 function renderGold(rows){

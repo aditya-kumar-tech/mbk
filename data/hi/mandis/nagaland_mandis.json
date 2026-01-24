@@ -1,1 +1,96 @@
-{"headers":["name","slug"],"data":{"24001001":["Dimapur","dimapur"],"24001002":["Nuiland","nuiland"],"24002001":["Kipheri","kipheri"],"24003001":["Jalukie","jalukie"],"24003002":["Khuzama","khuzama"],"24003003":["Kohima","kohima"],"24004001":["Longleng","longleng"],"24005001":["Mangkolemba","mangkolemba"],"24005002":["Mokokchung Town","mokokchung_town"],"24005003":["Tuli","tuli"],"24006001":["Mon","mon"],"24006002":["Naginimora","naginimora"],"24007001":["Tenning","tenning"],"24008001":["Pfatsero","pfatsero"],"24008002":["Phek","phek"],"24009001":["Tsemenyu","tsemenyu"],"24010001":["Tuensang","tuensang"],"24011001":["Baghty","baghty"],"24011002":["Wokha Town","wokha_town"],"24012001":["Ghathashi","ghathashi"],"24012002":["Zunheboto","zunheboto"],"00000000":["मंडी चुने",""]}}
+{
+  "headers": [
+    "name",
+    "slug"
+  ],
+  "data": {
+    "24001001": [
+      "Dimapur",
+      "dimapur"
+    ],
+    "24001002": [
+      "Nuiland",
+      "nuiland"
+    ],
+    "24002001": [
+      "Kipheri",
+      "kipheri"
+    ],
+    "24003001": [
+      "Jalukie",
+      "jalukie"
+    ],
+    "24003002": [
+      "Khuzama",
+      "khuzama"
+    ],
+    "24003003": [
+      "Kohima",
+      "kohima"
+    ],
+    "24004001": [
+      "Longleng",
+      "longleng"
+    ],
+    "24005001": [
+      "Mangkolemba",
+      "mangkolemba"
+    ],
+    "24005002": [
+      "Mokokchung Town",
+      "mokokchung_town"
+    ],
+    "24005003": [
+      "Tuli",
+      "tuli"
+    ],
+    "24006001": [
+      "Mon",
+      "mon"
+    ],
+    "24006002": [
+      "Naginimora",
+      "naginimora"
+    ],
+    "24007001": [
+      "Tenning",
+      "tenning"
+    ],
+    "24008001": [
+      "Pfatsero",
+      "pfatsero"
+    ],
+    "24008002": [
+      "Phek",
+      "phek"
+    ],
+    "24009001": [
+      "Tsemenyu",
+      "tsemenyu"
+    ],
+    "24010001": [
+      "Tuensang",
+      "tuensang"
+    ],
+    "24011001": [
+      "Baghty",
+      "baghty"
+    ],
+    "24011002": [
+      "Wokha Town",
+      "wokha_town"
+    ],
+    "24012001": [
+      "Ghathashi",
+      "ghathashi"
+    ],
+    "24012002": [
+      "Zunheboto",
+      "zunheboto"
+    ],
+    "00000000": [
+      "मंडी चुने",
+      ""
+    ]
+  }
+}

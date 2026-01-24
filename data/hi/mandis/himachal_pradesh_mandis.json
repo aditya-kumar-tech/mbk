@@ -1,1 +1,200 @@
-{"headers":["name","slug"],"data":{"13001001":["Bilaspur","bilaspur"],"13001002":["Namhol","namhol"],"13002001":["Chamba","chamba"],"13003001":["Hamirpur","hamirpur"],"13003002":["Jahu","jahu"],"13003003":["Nadaun","nadaun"],"13004001":["Kangra","kangra"],"13004002":["Baijnath","baijnath"],"13004003":["Dharamshala","dharamshala"],"13004004":["Jaisinghpur","jaisinghpur"],"13004005":["Jassur","jassur"],"13004006":["Jwalaji","jwalaji"],"13004007":["Nagrota Bagwan","nagrota_bagwan"],"13004008":["Palampur","palampur"],"13007001":["Kullu","kullu"],"13007002":["Bandrol","bandrol"],"13007003":["Banjar","banjar"],"13007004":["Bhuntar","bhuntar"],"13007005":["Chauri Bihal","chauri_bihal"],"13007006":["Khegsu","khegsu"],"13007007":["Patli Kulh","patli_kulh"],"13007008":["Shatt","shatt"],"13009001":["Kangni","kangni"],"13009002":["Chail Chowk","chail_chowk"],"13009003":["Dhanotu","dhanotu"],"13009004":["Jogindernagar","jogindernagar"],"13009005":["Takoli","takoli"],"13010001":["Dhalli Shimla","dhalli_shimla"],"13010002":["Bhattakufar","bhattakufar"],"13010003":["Kharapather","kharapather"],"13010004":["Mehndli","mehndli"],"13010005":["Nerwa","nerwa"],"13010006":["Parala","parala"],"13010007":["Rampur","rampur"],"13010008":["Rohroo","rohroo"],"13010009":["Theog","theog"],"13011001":["Paonta Sahib","paonta_sahib"],"13011002":["Nahan","nahan"],"13011003":["Rajgarh","rajgarh"],"13012001":["Kather Solan","kather_solan"],"13012002":["Dharampur","dharampur"],"13012003":["Nalagarh","nalagarh"],"13012004":["Parwanoo","parwanoo"],"13012005":["Wakhnaghat","wakhnaghat"],"13013001":["Una","una"],"13013002":["Santoshgarh","santoshgarh"],"13013003":["Takarla","takarla"],"00000000":["मंडी चुने",""]}}
+{
+  "headers": [
+    "name",
+    "slug"
+  ],
+  "data": {
+    "13001001": [
+      "PMY Bilaspur",
+      "pmy_bilaspur"
+    ],
+    "13001002": [
+      "SMY Namhol",
+      "smy_namhol"
+    ],
+    "13002001": [
+      "PMY Chamba",
+      "pmy_chamba"
+    ],
+    "13003001": [
+      "PMY Hamirpur",
+      "pmy_hamirpur"
+    ],
+    "13003002": [
+      "SMY Jahu",
+      "smy_jahu"
+    ],
+    "13003003": [
+      "SMY Nadaun",
+      "smy_nadaun"
+    ],
+    "13004001": [
+      "PMY Kangra",
+      "pmy_kangra"
+    ],
+    "13004002": [
+      "SMY Baijnath",
+      "smy_baijnath"
+    ],
+    "13004003": [
+      "SMY Dharamshala",
+      "smy_dharamshala"
+    ],
+    "13004004": [
+      "SMY Jaisinghpur",
+      "smy_jaisinghpur"
+    ],
+    "13004005": [
+      "SMY Jassur",
+      "smy_jassur"
+    ],
+    "13004006": [
+      "SMY Jwalaji",
+      "smy_jwalaji"
+    ],
+    "13004007": [
+      "SMY Nagrota Bagwan",
+      "smy_nagrota_bagwan"
+    ],
+    "13004008": [
+      "SMY Palampur",
+      "smy_palampur"
+    ],
+    "13007001": [
+      "PMY Kullu",
+      "pmy_kullu"
+    ],
+    "13007002": [
+      "SMY Bandrol",
+      "smy_bandrol"
+    ],
+    "13007003": [
+      "SMY Banjar",
+      "smy_banjar"
+    ],
+    "13007004": [
+      "SMY Bhuntar",
+      "smy_bhuntar"
+    ],
+    "13007005": [
+      "SMY Chauri Bihal",
+      "smy_chauri_bihal"
+    ],
+    "13007006": [
+      "SMY Khegsu",
+      "smy_khegsu"
+    ],
+    "13007007": [
+      "SMY Patli Kulh",
+      "smy_patli_kulh"
+    ],
+    "13007008": [
+      "SMY Shatt",
+      "smy_shatt"
+    ],
+    "13009001": [
+      "PMY Kangni",
+      "pmy_kangni"
+    ],
+    "13009002": [
+      "SMY Chail Chowk",
+      "smy_chail_chowk"
+    ],
+    "13009003": [
+      "SMY Dhanotu",
+      "smy_dhanotu"
+    ],
+    "13009004": [
+      "SMY Jogindernagar",
+      "smy_jogindernagar"
+    ],
+    "13009005": [
+      "SMY Takoli",
+      "smy_takoli"
+    ],
+    "13010001": [
+      "PMY Dhalli Shimla",
+      "pmy_dhalli_shimla"
+    ],
+    "13010002": [
+      "SMY Bhattakufar",
+      "smy_bhattakufar"
+    ],
+    "13010003": [
+      "SMY Kharapather",
+      "smy_kharapather"
+    ],
+    "13010004": [
+      "SMY Mehndli",
+      "smy_mehndli"
+    ],
+    "13010005": [
+      "SMY Nerwa",
+      "smy_nerwa"
+    ],
+    "13010006": [
+      "SMY Parala",
+      "smy_parala"
+    ],
+    "13010007": [
+      "SMY Rampur",
+      "smy_rampur"
+    ],
+    "13010008": [
+      "SMY Rohroo",
+      "smy_rohroo"
+    ],
+    "13010009": [
+      "SMY Theog",
+      "smy_theog"
+    ],
+    "13011001": [
+      "PMY Paonta Sahib",
+      "pmy_paonta_sahib"
+    ],
+    "13011002": [
+      "SMY Nahan",
+      "smy_nahan"
+    ],
+    "13011003": [
+      "SMY Rajgarh",
+      "smy_rajgarh"
+    ],
+    "13012001": [
+      "PMY Kather Solan",
+      "pmy_kather_solan"
+    ],
+    "13012002": [
+      "SMY Dharampur",
+      "smy_dharampur"
+    ],
+    "13012003": [
+      "SMY Nalagarh",
+      "smy_nalagarh"
+    ],
+    "13012004": [
+      "SMY Parwanoo",
+      "smy_parwanoo"
+    ],
+    "13012005": [
+      "SMY Wakhnaghat",
+      "smy_wakhnaghat"
+    ],
+    "13013001": [
+      "PMY Una",
+      "pmy_una"
+    ],
+    "13013002": [
+      "SMY Santoshgarh",
+      "smy_santoshgarh"
+    ],
+    "13013003": [
+      "SMY Takarla",
+      "smy_takarla"
+    ],
+    "00000000": [
+      "मंडी चुने",
+      ""
+    ]
+  }
+}

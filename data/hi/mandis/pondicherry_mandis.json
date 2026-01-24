@@ -1,1 +1,24 @@
-{"headers":["name","slug"],"data":{"27001001":["Karaikal","karaikal"],"27003001":["Madagadipet","madagadipet"],"27003002":["Thattanchavady","thattanchavady"],"00000000":["मंडी चुने",""]}}
+{
+  "headers": [
+    "name",
+    "slug"
+  ],
+  "data": {
+    "27001001": [
+      "Karaikal",
+      "karaikal"
+    ],
+    "27003001": [
+      "Madagadipet",
+      "madagadipet"
+    ],
+    "27003002": [
+      "Thattanchavady",
+      "thattanchavady"
+    ],
+    "00000000": [
+      "मंडी चुने",
+      ""
+    ]
+  }
+}

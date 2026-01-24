@@ -1,1 +1,128 @@
-{"headers":["name","slug"],"data":{"15001001":["Bermo","bermo"],"15001002":["Bokaro (Chas)","bokaro_chas"],"15002001":["Chatra","chatra"],"15003001":["Deoghar","deoghar"],"15003002":["Madhupur","madhupur"],"15004001":["Dhanbad","dhanbad"],"15005001":["Dumka","dumka"],"15006001":["Chakulia","chakulia"],"15006002":["Jamshedpur","jamshedpur"],"15007001":["Gadhwah","gadhwah"],"15008001":["Giridih","giridih"],"15009001":["Godda","godda"],"15010001":["Gumla","gumla"],"15011001":["Hazaribagh","hazaribagh"],"15011002":["Ramgarh","ramgarh"],"15012001":["Jamtara","jamtara"],"15013001":["Koderma","koderma"],"15014001":["Latehar","latehar"],"15015001":["Lohardaga","lohardaga"],"15016001":["Pakur","pakur"],"15017001":["Daltenganj","daltenganj"],"15018001":["Khunti","khunti"],"15018002":["Pandara","pandara"],"15018003":["Ranchi","ranchi"],"15019001":["Sahebganj","sahebganj"],"15020001":["Saraikela","saraikela"],"15021001":["Barhmba","barhmba"],"15021002":["Simdega","simdega"],"15022001":["Chaibasa","chaibasa"],"00000000":["मंडी चुने",""]}}
+{
+  "headers": [
+    "name",
+    "slug"
+  ],
+  "data": {
+    "15001001": [
+      "Bermo",
+      "bermo"
+    ],
+    "15001002": [
+      "Bokaro Chas",
+      "bokaro_chas"
+    ],
+    "15002001": [
+      "Chatra",
+      "chatra"
+    ],
+    "15003001": [
+      "Deoghar",
+      "deoghar"
+    ],
+    "15003002": [
+      "Madhupur",
+      "madhupur"
+    ],
+    "15004001": [
+      "Dhanbad",
+      "dhanbad"
+    ],
+    "15005001": [
+      "Dumka",
+      "dumka"
+    ],
+    "15006001": [
+      "Chakulia",
+      "chakulia"
+    ],
+    "15006002": [
+      "Jamshedpur",
+      "jamshedpur"
+    ],
+    "15007001": [
+      "Gadhwah",
+      "gadhwah"
+    ],
+    "15008001": [
+      "Giridih",
+      "giridih"
+    ],
+    "15009001": [
+      "Godda",
+      "godda"
+    ],
+    "15010001": [
+      "Gumla",
+      "gumla"
+    ],
+    "15011001": [
+      "Hazaribagh",
+      "hazaribagh"
+    ],
+    "15011002": [
+      "Ramgarh",
+      "ramgarh"
+    ],
+    "15012001": [
+      "Jamtara",
+      "jamtara"
+    ],
+    "15013001": [
+      "Koderma",
+      "koderma"
+    ],
+    "15014001": [
+      "Latehar",
+      "latehar"
+    ],
+    "15015001": [
+      "Lohardaga",
+      "lohardaga"
+    ],
+    "15016001": [
+      "Pakur",
+      "pakur"
+    ],
+    "15017001": [
+      "Daltenganj",
+      "daltenganj"
+    ],
+    "15018001": [
+      "Khunti",
+      "khunti"
+    ],
+    "15018002": [
+      "Pandara",
+      "pandara"
+    ],
+    "15018003": [
+      "Ranchi",
+      "ranchi"
+    ],
+    "15019001": [
+      "Sahebganj",
+      "sahebganj"
+    ],
+    "15020001": [
+      "Saraikela",
+      "saraikela"
+    ],
+    "15021001": [
+      "Barhmba",
+      "barhmba"
+    ],
+    "15021002": [
+      "Simdega",
+      "simdega"
+    ],
+    "15022001": [
+      "Chaibasa",
+      "chaibasa"
+    ],
+    "00000000": [
+      "मंडी चुने",
+      ""
+    ]
+  }
+}

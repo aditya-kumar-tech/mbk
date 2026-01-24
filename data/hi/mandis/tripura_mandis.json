@@ -1,1 +1,140 @@
-{"headers":["name","slug"],"data":{"33001001":["Chowmanu","chowmanu"],"33001002":["Gandacharra","gandacharra"],"33001003":["Halahali","halahali"],"33001004":["Kulai","kulai"],"33001005":["Masli","masli"],"33002001":["Garjee","garjee"],"33002002":["Nutanbazar","nutanbazar"],"33002003":["Silachhari","silachhari"],"33003001":["Bachaibari","bachaibari"],"33003002":["Kalyanpur","kalyanpur"],"33003003":["Teliamura","teliamura"],"33004001":["Dasda","dasda"],"33004002":["Kadamtala","kadamtala"],"33004003":["Kanchanpur","kanchanpur"],"33004004":["Panisagar","panisagar"],"33005001":["Bishalgarh","bishalgarh"],"33005002":["Bishramganj","bishramganj"],"33005003":["Boxonagar","boxonagar"],"33005004":["Jampuijala","jampuijala"],"33005005":["Melaghar","melaghar"],"33005006":["Sonamura","sonamura"],"33006001":["Barpathari","barpathari"],"33006002":["Biokhora","biokhora"],"33006003":["Kalsi","kalsi"],"33006004":["Manubazar","manubazar"],"33006005":["Santir Bazar","santir_bazar"],"33007001":["Machmara","machmara"],"33007002":["Pabiacherra","pabiacherra"],"33007003":["Panichowki","panichowki"],"33008001":["Champaknagar","champaknagar"],"33008002":["Kamalghat","kamalghat"],"33008003":["Mohanpur","mohanpur"],"00000000":["मंडी चुने",""]}}
+{
+  "headers": [
+    "name",
+    "slug"
+  ],
+  "data": {
+    "33001001": [
+      "Chowmanu",
+      "chowmanu"
+    ],
+    "33001002": [
+      "Gandacharra",
+      "gandacharra"
+    ],
+    "33001003": [
+      "Halahali",
+      "halahali"
+    ],
+    "33001004": [
+      "Kulai",
+      "kulai"
+    ],
+    "33001005": [
+      "Masli",
+      "masli"
+    ],
+    "33002001": [
+      "Garjee",
+      "garjee"
+    ],
+    "33002002": [
+      "Nutanbazar",
+      "nutanbazar"
+    ],
+    "33002003": [
+      "Silachhari",
+      "silachhari"
+    ],
+    "33003001": [
+      "Bachaibari",
+      "bachaibari"
+    ],
+    "33003002": [
+      "Kalyanpur",
+      "kalyanpur"
+    ],
+    "33003003": [
+      "Teliamura",
+      "teliamura"
+    ],
+    "33004001": [
+      "Dasda",
+      "dasda"
+    ],
+    "33004002": [
+      "Kadamtala",
+      "kadamtala"
+    ],
+    "33004003": [
+      "Kanchanpur",
+      "kanchanpur"
+    ],
+    "33004004": [
+      "Panisagar",
+      "panisagar"
+    ],
+    "33005001": [
+      "Bishalgarh",
+      "bishalgarh"
+    ],
+    "33005002": [
+      "Bishramganj",
+      "bishramganj"
+    ],
+    "33005003": [
+      "Boxonagar",
+      "boxonagar"
+    ],
+    "33005004": [
+      "Jampuijala",
+      "jampuijala"
+    ],
+    "33005005": [
+      "Melaghar",
+      "melaghar"
+    ],
+    "33005006": [
+      "Sonamura",
+      "sonamura"
+    ],
+    "33006001": [
+      "Barpathari",
+      "barpathari"
+    ],
+    "33006002": [
+      "Biokhora",
+      "biokhora"
+    ],
+    "33006003": [
+      "Kalsi",
+      "kalsi"
+    ],
+    "33006004": [
+      "Manubazar",
+      "manubazar"
+    ],
+    "33006005": [
+      "Santir Bazar",
+      "santir_bazar"
+    ],
+    "33007001": [
+      "Machmara",
+      "machmara"
+    ],
+    "33007002": [
+      "Pabiacherra",
+      "pabiacherra"
+    ],
+    "33007003": [
+      "Panichowki",
+      "panichowki"
+    ],
+    "33008001": [
+      "Champaknagar",
+      "champaknagar"
+    ],
+    "33008002": [
+      "Kamalghat",
+      "kamalghat"
+    ],
+    "33008003": [
+      "Mohanpur",
+      "mohanpur"
+    ],
+    "00000000": [
+      "मंडी चुने",
+      ""
+    ]
+  }
+}

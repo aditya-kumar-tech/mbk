@@ -1,1 +1,44 @@
-{"headers":["name","slug"],"data":{"23001001":["Dawrpuri","dawrpuri"],"23001002":["Kolasib","kolasib"],"23001003":["Mission","mission"],"23001004":["Serchhip","serchhip"],"23001005":["Vairengte","vairengte"],"23002001":["Bairabi","bairabi"],"23003001":["Lungli","lungli"],"23004001":["Kanhmun","kanhmun"],"00000000":["मंडी चुने",""]}}
+{
+  "headers": [
+    "name",
+    "slug"
+  ],
+  "data": {
+    "23001001": [
+      "Dawrpuri",
+      "dawrpuri"
+    ],
+    "23001002": [
+      "Kolasib",
+      "kolasib"
+    ],
+    "23001003": [
+      "Mission",
+      "mission"
+    ],
+    "23001004": [
+      "Serchhip",
+      "serchhip"
+    ],
+    "23001005": [
+      "Vairengte",
+      "vairengte"
+    ],
+    "23002001": [
+      "Bairabi",
+      "bairabi"
+    ],
+    "23003001": [
+      "Lungli",
+      "lungli"
+    ],
+    "23004001": [
+      "Kanhmun",
+      "kanhmun"
+    ],
+    "00000000": [
+      "मंडी चुने",
+      ""
+    ]
+  }
+}

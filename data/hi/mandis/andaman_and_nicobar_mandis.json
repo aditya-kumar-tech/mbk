@@ -1,1 +1,28 @@
-{"headers":["name","slug"],"data":{"00000000":["मंडी चुने",""],"01001001":["Car Nicobar","car_nicobar"],"01002001":["Diglipur","diglipur"],"01002002":["Mayabandar","mayabandar"],"01003001":["Port Blair","port_blair"]}}
+{
+  "headers": [
+    "name",
+    "slug"
+  ],
+  "data": {
+    "00000000": [
+      "मंडी चुने",
+      ""
+    ],
+    "01001001": [
+      "Car Nicobar",
+      "car_nicobar"
+    ],
+    "01002001": [
+      "Diglipur",
+      "diglipur"
+    ],
+    "01002002": [
+      "Mayabandar",
+      "mayabandar"
+    ],
+    "01003001": [
+      "Port Blair",
+      "port_blair"
+    ]
+  }
+}

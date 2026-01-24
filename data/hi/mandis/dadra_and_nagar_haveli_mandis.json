@@ -1,1 +1,16 @@
-{"headers":["name","slug"],"data":{"00000000":["मंडी चुने",""],"08001001":["Silvassa","silvassa"]}}
+{
+  "headers": [
+    "name",
+    "slug"
+  ],
+  "data": {
+    "00000000": [
+      "मंडी चुने",
+      ""
+    ],
+    "08001001": [
+      "Silvassa",
+      "silvassa"
+    ]
+  }
+}

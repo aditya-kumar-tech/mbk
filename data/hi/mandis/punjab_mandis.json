@@ -1,1 +1,1004 @@
-{"headers":["name","slug"],"data":{"28001001":["Ajnala (Sudhar)","ajnala_sudhar"],"28001002":["Ajnala","ajnala"],"28001003":["Amritsar","amritsar"],"28001004":["Amritsar(Amritsar Mewa)","amritsar_amritsar_mewa"],"28001005":["Amritsar(Chehreta)","amritsar_chehreta"],"28001006":["Attari","attari"],"28001007":["Chogawan","chogawan"],"28001008":["Gehri","gehri"],"28001009":["Gehri(Jandiala)","gehri_jandiala"],"28001010":["Majitha","majitha"],"28001011":["Mehta","mehta"],"28001012":["Rayya","rayya"],"28001013":["Rayya(Sathiala)","rayya_sathiala"],"28002001":["Barnala","barnala"],"28002002":["Bhadaur","bhadaur"],"28002003":["Bhadaur(Sehna)","bhadaur_sehna"],"28002004":["Dhanaula","dhanaula"],"28002005":["Dhanula (Kaleke)","dhanula_kaleke"],"28002006":["Mehal Kalan","mehal_kalan"],"28002007":["Mehal Kallan (ChananWal)","mehal_kallan_chananwal"],"28002008":["Tapa","tapa"],"28002009":["Tapa(Sadar Bazar)","tapa_sadar_bazar"],"28002010":["Tapa(Tapa)","tapa_tapa"],"28003001":["Bathinda","bathinda"],"28003002":["Bhagta Bhai Ka (Jalal)","bhagta_bhai_ka_jalal"],"28003003":["Bhagta Bhai Ka","bhagta_bhai_ka"],"28003004":["Bhagta Bhai Ka(Kotha Guru Ka)","bhagta_bhai_ka_kotha_guru_ka"],"28003005":["Bhucho","bhucho"],"28003006":["Goniana","goniana"],"28003007":["Goniana(Mehma Sarja)","goniana_mehma_sarja"],"28003008":["Maur","maur"],"28003009":["Raman","raman"],"28003010":["Rampura Phul","rampura_phul"],"28003011":["Rampuraphul(Bhai Rupan)","rampuraphul_bhai_rupan"],"28003012":["Rampuraphul(Chowke)","rampuraphul_chowke"],"28003013":["Rampuraphul(Dhapali)","rampuraphul_dhapali"],"28003014":["Rampuraphul(Mehraj)","rampuraphul_mehraj"],"28003015":["Rampuraphul(Nabha)","rampuraphul_nabha"],"28003016":["Sangat","sangat"],"28003017":["Talwandi Sabo","talwandi_sabo"],"28003018":["Talwandi Sabo(Kot Fatta)","talwandi_sabo_kot_fatta"],"28003019":["Talwandi Sabo(Shekhupura)","talwandi_sabo_shekhupura"],"28004001":["Faridkot (Machakikalan)","faridkot_machakikalan"],"28004002":["Faridkot","faridkot"],"28004003":["Jaitu","jaitu"],"28004004":["Jaitu(Bajakhana)","jaitu_bajakhana"],"28004005":["Kotkapura","kotkapura"],"28004006":["Sadiq","sadiq"],"28005001":["Amloh","amloh"],"28005002":["Amloh(Gobind Garh)","amloh_gobind_garh"],"28005003":["Bassi Pathana","bassi_pathana"],"28005004":["Chanarthal","chanarthal"],"28005005":["Khamano (Sanghol)","khamano_sanghol"],"28005006":["Khamano","khamano"],"28005007":["Sirhind","sirhind"],"28006001":["Abohar","abohar"],"28006002":["Fazilka (Ladhuka)","fazilka_ladhuka"],"28006003":["Fazilka","fazilka"],"28006004":["Jalalabad","jalalabad"],"28007001":["Ferozepur Cantt(Jhok Harihar)","ferozepur_cantt_jhok_harihar"],"28007002":["Ferozepur Cantt, (Sadehasham)","ferozepur_cantt_sadehasham"],"28007003":["Ferozepur Cantt.","ferozepur_cantt"],"28007004":["Firozepur City","firozepur_city"],"28007005":["Guru Har Sahai","guru_har_sahai"],"28007006":["Makhu","makhu"],"28007007":["Mallanwala (KhosaDalSinghwala)","mallanwala_khosadalsinghwala"],"28007008":["Mallanwala","mallanwala"],"28007009":["Mamdot","mamdot"],"28007010":["Mamdot(Tibbi Khurd)","mamdot_tibbi_khurd"],"28007011":["Talwandi Bhai","talwandi_bhai"],"28007012":["Talwandi Bhai(Mudki)","talwandi_bhai_mudki"],"28007013":["Zira","zira"],"28008001":["Batala","batala"],"28008002":["Dera Baba Nanak","dera_baba_nanak"],"28008003":["Dhariwal","dhariwal"],"28008004":["Dinanagar","dinanagar"],"28008005":["F.G.Churian","f_g_churian"],"28008006":["Gurdaspur","gurdaspur"],"28008007":["Kahnuwan","kahnuwan"],"28008008":["Kalanaur","kalanaur"],"28008009":["Quadian","quadian"],"28008010":["Sri Har Gobindpur","sri_har_gobindpur"],"28008011":["Sri Har Gobindpur(Harechowal)","sri_har_gobindpur_harechowal"],"28009001":["Dasuya","dasuya"],"28009002":["Garh Shankar","garh_shankar"],"28009003":["Garh Shankar(Mahalpur)","garh_shankar_mahalpur"],"28009004":["GarhShankar (Kotfatuhi)","garhshankar_kotfatuhi"],"28009005":["Garhshankar(Saila Khurd)","garhshankar_saila_khurd"],"28009006":["Hoshiarpur","hoshiarpur"],"28009007":["Hoshiarpur(Chara)","hoshiarpur_chara"],"28009008":["Hoshiarpur(Sham Churasi)","hoshiarpur_sham_churasi"],"28009009":["Mukerian","mukerian"],"28009010":["Mukerian(Talwara)","mukerian_talwara"],"28009011":["Tanda Urmur","tanda_urmur"],"28010001":["Adampur","adampur"],"28010002":["Bhogpur","bhogpur"],"28010003":["Bilga (Talwan)","bilga_talwan"],"28010004":["Bilga","bilga"],"28010005":["Goraya","goraya"],"28010006":["Jalandhar Cantt (Jamshedpur Dana)","jalandhar_cantt_jamshedpur_dana"],"28010007":["Jalandhar Cantt(Hoshiarpur Road)","jalandhar_cantt_hoshiarpur_road"],"28010008":["Jalandhar Cantt.","jalandhar_cantt"],"28010009":["Jalandhar City","jalandhar_city"],"28010010":["Jalandhar City(Faintan Ganj)","jalandhar_city_faintan_ganj"],"28010011":["Jalandhar City(Jalandhar)","jalandhar_city_jalandhar"],"28010012":["Jalandhar City(Kartar Pur Dana)","jalandhar_city_kartar_pur_dana"],"28010013":["Lohian Khas","lohian_khas"],"28010014":["Mehatpur","mehatpur"],"28010015":["Nakodar","nakodar"],"28010016":["Nakodar(Sarih)","nakodar_sarih"],"28010017":["Noor Mehal","noor_mehal"],"28010018":["Noor Mehal(Kot Badal Khan)","noor_mehal_kot_badal_khan"],"28010019":["Phillaur","phillaur"],"28010020":["Phillaur(Apra)","phillaur_apra"],"28010021":["Shahkot","shahkot"],"28010022":["Shakot (Malsian)","shakot_malsian"],"28011001":["Bhulath (Ibrahimaaaaval)","bhulath_ibrahimaaaaval"],"28011002":["Bhulath (Nadala)","bhulath_nadala"],"28011003":["Bhulath","bhulath"],"28011004":["Dhilwan","dhilwan"],"28011005":["Kapurthala","kapurthala"],"28011006":["Phagwara","phagwara"],"28011007":["Sultanpur","sultanpur"],"28011008":["Sultanpur Lodhi (Tibba)","sultanpur_lodhi_tibba"],"28012001":["Doraha","doraha"],"28012002":["Hathur","hathur"],"28012003":["Jagraon","jagraon"],"28012004":["Khanna","khanna"],"28012005":["Kila Raipur","kila_raipur"],"28012006":["Killa Raipur (Jodhan)","killa_raipur_jodhan"],"28012007":["Ludhiana","ludhiana"],"28012008":["Ludhiana(gill Road)","ludhiana_gill_road"],"28012009":["Ludhiana(Salem Tabri)","ludhiana_salem_tabri"],"28012010":["Machhiwara","machhiwara"],"28012011":["Malaoud (Siar)","malaoud_siar"],"28012012":["Maloud","maloud"],"28012013":["Mansura","mansura"],"28012014":["Mullanpur","mullanpur"],"28012015":["Mullanpur Dakha (Sawadi)","mullanpur_dakha_sawadi"],"28012016":["Nurpurbet","nurpurbet"],"28012017":["Purain","purain"],"28012018":["Raikot (Nathowal)","raikot_nathowal"],"28012019":["Raikot (Talwandi rai)","raikot_talwandi_rai"],"28012020":["Raikot","raikot"],"28012021":["Sahnewal","sahnewal"],"28012022":["Samrala","samrala"],"28012023":["Sidhwan Bet (Lodhiwala)","sidhwan_bet_lodhiwala"],"28012024":["Sidhwan Bet","sidhwan_bet"],"28012025":["kum Kalan","kum_kalan"],"28012026":["lakhowal","lakhowal"],"28013001":["Ahemadpur","ahemadpur"],"28013002":["Bareta","bareta"],"28013003":["Bhikhi","bhikhi"],"28013004":["Boha","boha"],"28013005":["Budalada","budalada"],"28013006":["Budhlada (Phaphre Bhaike)","budhlada_phaphre_bhaike"],"28013007":["Kankwal Chahlan","kankwal_chahlan"],"28013008":["Mansa (Bhamekalan)","mansa_bhamekalan"],"28013009":["Mansa (Khiala kalan)","mansa_khiala_kalan"],"28013010":["Mansa","mansa"],"28013011":["Mansa(Ubha Buraj Dhilwan)","mansa_ubha_buraj_dhilwan"],"28013012":["Sardulgarh","sardulgarh"],"28014001":["Ajitwal (Chogawan)","ajitwal_chogawan"],"28014002":["Ajitwal (Dala)","ajitwal_dala"],"28014003":["Ajitwal","ajitwal"],"28014004":["Badhni Kalan","badhni_kalan"],"28014005":["Badhni Kallan (Bilaspur)","badhni_kallan_bilaspur"],"28014006":["Baghapurana","baghapurana"],"28014007":["Dharamkot","dharamkot"],"28014008":["Fatehgarh Panjtoor","fatehgarh_panjtoor"],"28014009":["Kot ise Khan","kot_ise_khan"],"28014010":["Moga","moga"],"28014011":["Nihal Singh Wala (Himmatpura)","nihal_singh_wala_himmatpura"],"28014012":["Nihal Singh Wala (Rautan)","nihal_singh_wala_rautan"],"28014013":["Nihal Singh Wala","nihal_singh_wala"],"28015001":["Banur (Kheragaju)","banur_kheragaju"],"28015002":["Banur","banur"],"28015003":["Dera Bassi","dera_bassi"],"28015004":["Kharar","kharar"],"28015005":["Kurali","kurali"],"28015006":["Lalru","lalru"],"28016001":["Bariwala","bariwala"],"28016002":["Giddarbaha","giddarbaha"],"28016003":["Malout (Kilianwali)","malout_kilianwali"],"28016004":["Malout (Panniwala)","malout_panniwala"],"28016005":["Malout","malout"],"28016006":["Muktsar","muktsar"],"28017001":["Balachaur","balachaur"],"28017002":["Banga (Kataria)","banga_kataria"],"28017003":["Banga","banga"],"28017004":["Nawan Shahar(Aur)","nawan_shahar_aur"],"28017005":["Nawan Shahar(Jadla)","nawan_shahar_jadla"],"28017006":["Nawan Shahar(MandiRaho)","nawan_shahar_mandiraho"],"28017007":["Nawan Shahar(Subzi)","nawan_shahar_subzi"],"28017008":["Nawanshahar","nawanshahar"],"28018001":["Narot J Singh","narot_j_singh"],"28018002":["Pathankot (Kanwa)","pathankot_kanwa"],"28018003":["Pathankot","pathankot"],"28019001":["Bhadson","bhadson"],"28019002":["Dakala","dakala"],"28019003":["Dudhansadhan","dudhansadhan"],"28019004":["Ghanaur","ghanaur"],"28019005":["Nabha","nabha"],"28019006":["Patiala","patiala"],"28019007":["Patiala(Anaj Sanaur Road)","patiala_anaj_sanaur_road"],"28019008":["Patiala(New Anaj)","patiala_new_anaj"],"28019009":["Patran","patran"],"28019010":["Patran(Ghagga)","patran_ghagga"],"28019011":["Rajpura","rajpura"],"28019012":["Samana","samana"],"28019013":["Samana(Gajewas)","samana_gajewas"],"28019014":["Samana(Kakrala)","samana_kakrala"],"28020001":["Anandpur Sahib","anandpur_sahib"],"28020002":["Chamkaur Sahib","chamkaur_sahib"],"28020003":["Morinda","morinda"],"28020004":["Ropar","ropar"],"28021001":["Ahmedgarh","ahmedgarh"],"28021002":["Amargarh","amargarh"],"28021003":["Bhawanigarh","bhawanigarh"],"28021004":["Cheema (Lonogal)","cheema_lonogal"],"28021005":["Cheema","cheema"],"28021006":["Dhuri","dhuri"],"28021007":["Dirba","dirba"],"28021008":["Khanauri","khanauri"],"28021009":["Lehra Gaga","lehra_gaga"],"28021010":["Malerkotla","malerkotla"],"28021011":["Moonak","moonak"],"28021012":["Sandaur","sandaur"],"28021013":["Sangrur","sangrur"],"28021014":["Sherpur","sherpur"],"28021015":["Sulargharat","sulargharat"],"28021016":["Sunam","sunam"],"28022001":["Bhikhiwind (Algo)","bhikhiwind_algo"],"28022002":["Bhikhiwind (Basarke)","bhikhiwind_basarke"],"28022003":["Bhikhiwind (Marrimegha)","bhikhiwind_marrimegha"],"28022004":["Bhikhiwind (Sursingh)","bhikhiwind_sursingh"],"28022005":["Bhikhiwind","bhikhiwind"],"28022006":["Bhikhiwind(Khalra)","bhikhiwind_khalra"],"28022007":["Chabhal","chabhal"],"28022008":["Harike","harike"],"28022009":["Khadur Sahib","khadur_sahib"],"28022010":["Khadur Sahib(Fetehabad)","khadur_sahib_fetehabad"],"28022011":["Khem karan","khem_karan"],"28022012":["Khemkaran (Amarkot)","khemkaran_amarkot"],"28022013":["Naushera Pannua (Dhotian)","naushera_pannua_dhotian"],"28022014":["Naushera Pannuan","naushera_pannuan"],"28022015":["Patti","patti"],"28022016":["Tarantaran","tarantaran"],"00000000":["मंडी चुने",""]}}
+{
+  "headers": [
+    "name",
+    "slug"
+  ],
+  "data": {
+    "28001001": [
+      "Ajnala Sudhar",
+      "ajnala_sudhar"
+    ],
+    "28001002": [
+      "Ajnala",
+      "ajnala"
+    ],
+    "28001003": [
+      "Amritsar",
+      "amritsar"
+    ],
+    "28001004": [
+      "AmritsarAmritsar Mewa",
+      "amritsaramritsar_mewa"
+    ],
+    "28001005": [
+      "AmritsarChehreta",
+      "amritsarchehreta"
+    ],
+    "28001006": [
+      "Attari",
+      "attari"
+    ],
+    "28001007": [
+      "Chogawan",
+      "chogawan"
+    ],
+    "28001008": [
+      "Gehri",
+      "gehri"
+    ],
+    "28001009": [
+      "GehriJandiala",
+      "gehrijandiala"
+    ],
+    "28001010": [
+      "Majitha",
+      "majitha"
+    ],
+    "28001011": [
+      "Mehta",
+      "mehta"
+    ],
+    "28001012": [
+      "Rayya",
+      "rayya"
+    ],
+    "28001013": [
+      "RayyaSathiala",
+      "rayyasathiala"
+    ],
+    "28002001": [
+      "Barnala",
+      "barnala"
+    ],
+    "28002002": [
+      "Bhadaur",
+      "bhadaur"
+    ],
+    "28002003": [
+      "BhadaurSehna",
+      "bhadaursehna"
+    ],
+    "28002004": [
+      "Dhanaula",
+      "dhanaula"
+    ],
+    "28002005": [
+      "Dhanula Kaleke",
+      "dhanula_kaleke"
+    ],
+    "28002006": [
+      "Mehal Kalan",
+      "mehal_kalan"
+    ],
+    "28002007": [
+      "Mehal Kallan ChananWal",
+      "mehal_kallan_chananwal"
+    ],
+    "28002008": [
+      "Tapa",
+      "tapa"
+    ],
+    "28002009": [
+      "TapaSadar Bazar",
+      "tapasadar_bazar"
+    ],
+    "28002010": [
+      "TapaTapa",
+      "tapatapa"
+    ],
+    "28003001": [
+      "Bathinda",
+      "bathinda"
+    ],
+    "28003002": [
+      "Bhagta Bhai Ka Jalal",
+      "bhagta_bhai_ka_jalal"
+    ],
+    "28003003": [
+      "Bhagta Bhai Ka",
+      "bhagta_bhai_ka"
+    ],
+    "28003004": [
+      "Bhagta Bhai KaKotha Guru Ka",
+      "bhagta_bhai_kakotha_guru_ka"
+    ],
+    "28003005": [
+      "Bhucho",
+      "bhucho"
+    ],
+    "28003006": [
+      "Goniana",
+      "goniana"
+    ],
+    "28003007": [
+      "GonianaMehma Sarja",
+      "gonianamehma_sarja"
+    ],
+    "28003008": [
+      "Maur",
+      "maur"
+    ],
+    "28003009": [
+      "Raman",
+      "raman"
+    ],
+    "28003010": [
+      "Rampura Phul",
+      "rampura_phul"
+    ],
+    "28003011": [
+      "RampuraphulBhai Rupan",
+      "rampuraphulbhai_rupan"
+    ],
+    "28003012": [
+      "RampuraphulChowke",
+      "rampuraphulchowke"
+    ],
+    "28003013": [
+      "RampuraphulDhapali",
+      "rampuraphuldhapali"
+    ],
+    "28003014": [
+      "RampuraphulMehraj",
+      "rampuraphulmehraj"
+    ],
+    "28003015": [
+      "RampuraphulNabha",
+      "rampuraphulnabha"
+    ],
+    "28003016": [
+      "Sangat",
+      "sangat"
+    ],
+    "28003017": [
+      "Talwandi Sabo",
+      "talwandi_sabo"
+    ],
+    "28003018": [
+      "Talwandi SaboKot Fatta",
+      "talwandi_sabokot_fatta"
+    ],
+    "28003019": [
+      "Talwandi SaboShekhupura",
+      "talwandi_saboshekhupura"
+    ],
+    "28004001": [
+      "Faridkot Machakikalan",
+      "faridkot_machakikalan"
+    ],
+    "28004002": [
+      "Faridkot",
+      "faridkot"
+    ],
+    "28004003": [
+      "Jaitu",
+      "jaitu"
+    ],
+    "28004004": [
+      "JaituBajakhana",
+      "jaitubajakhana"
+    ],
+    "28004005": [
+      "Kotkapura",
+      "kotkapura"
+    ],
+    "28004006": [
+      "Sadiq",
+      "sadiq"
+    ],
+    "28005001": [
+      "Amloh",
+      "amloh"
+    ],
+    "28005002": [
+      "AmlohGobind Garh",
+      "amlohgobind_garh"
+    ],
+    "28005003": [
+      "Bassi Pathana",
+      "bassi_pathana"
+    ],
+    "28005004": [
+      "Chanarthal",
+      "chanarthal"
+    ],
+    "28005005": [
+      "Khamano Sanghol",
+      "khamano_sanghol"
+    ],
+    "28005006": [
+      "Khamano",
+      "khamano"
+    ],
+    "28005007": [
+      "Sirhind",
+      "sirhind"
+    ],
+    "28006001": [
+      "Abohar",
+      "abohar"
+    ],
+    "28006002": [
+      "Fazilka Ladhuka",
+      "fazilka_ladhuka"
+    ],
+    "28006003": [
+      "Fazilka",
+      "fazilka"
+    ],
+    "28006004": [
+      "Jalalabad",
+      "jalalabad"
+    ],
+    "28007001": [
+      "Ferozepur CanttJhok Harihar",
+      "ferozepur_canttjhok_harihar"
+    ],
+    "28007002": [
+      "Ferozepur Cantt, Sadehasham",
+      "ferozepur_cantt_sadehasham"
+    ],
+    "28007003": [
+      "Ferozepur Cantt.",
+      "ferozepur_cantt"
+    ],
+    "28007004": [
+      "Firozepur City",
+      "firozepur_city"
+    ],
+    "28007005": [
+      "Guru Har Sahai",
+      "guru_har_sahai"
+    ],
+    "28007006": [
+      "Makhu",
+      "makhu"
+    ],
+    "28007007": [
+      "Mallanwala KhosaDalSinghwala",
+      "mallanwala_khosadalsinghwala"
+    ],
+    "28007008": [
+      "Mallanwala",
+      "mallanwala"
+    ],
+    "28007009": [
+      "Mamdot",
+      "mamdot"
+    ],
+    "28007010": [
+      "MamdotTibbi Khurd",
+      "mamdottibbi_khurd"
+    ],
+    "28007011": [
+      "Talwandi Bhai",
+      "talwandi_bhai"
+    ],
+    "28007012": [
+      "Talwandi BhaiMudki",
+      "talwandi_bhaimudki"
+    ],
+    "28007013": [
+      "Zira",
+      "zira"
+    ],
+    "28008001": [
+      "Batala",
+      "batala"
+    ],
+    "28008002": [
+      "Dera Baba Nanak",
+      "dera_baba_nanak"
+    ],
+    "28008003": [
+      "Dhariwal",
+      "dhariwal"
+    ],
+    "28008004": [
+      "Dinanagar",
+      "dinanagar"
+    ],
+    "28008005": [
+      "F.G.Churian",
+      "f_g_churian"
+    ],
+    "28008006": [
+      "Gurdaspur",
+      "gurdaspur"
+    ],
+    "28008007": [
+      "Kahnuwan",
+      "kahnuwan"
+    ],
+    "28008008": [
+      "Kalanaur",
+      "kalanaur"
+    ],
+    "28008009": [
+      "Quadian",
+      "quadian"
+    ],
+    "28008010": [
+      "Sri Har Gobindpur",
+      "sri_har_gobindpur"
+    ],
+    "28008011": [
+      "Sri Har GobindpurHarechowal",
+      "sri_har_gobindpurharechowal"
+    ],
+    "28009001": [
+      "Dasuya",
+      "dasuya"
+    ],
+    "28009002": [
+      "Garh Shankar",
+      "garh_shankar"
+    ],
+    "28009003": [
+      "Garh ShankarMahalpur",
+      "garh_shankarmahalpur"
+    ],
+    "28009004": [
+      "GarhShankar Kotfatuhi",
+      "garhshankar_kotfatuhi"
+    ],
+    "28009005": [
+      "GarhshankarSaila Khurd",
+      "garhshankarsaila_khurd"
+    ],
+    "28009006": [
+      "Hoshiarpur",
+      "hoshiarpur"
+    ],
+    "28009007": [
+      "HoshiarpurChara",
+      "hoshiarpurchara"
+    ],
+    "28009008": [
+      "HoshiarpurSham Churasi",
+      "hoshiarpursham_churasi"
+    ],
+    "28009009": [
+      "Mukerian",
+      "mukerian"
+    ],
+    "28009010": [
+      "MukerianTalwara",
+      "mukeriantalwara"
+    ],
+    "28009011": [
+      "Tanda Urmur",
+      "tanda_urmur"
+    ],
+    "28010001": [
+      "Adampur",
+      "adampur"
+    ],
+    "28010002": [
+      "Bhogpur",
+      "bhogpur"
+    ],
+    "28010003": [
+      "Bilga Talwan",
+      "bilga_talwan"
+    ],
+    "28010004": [
+      "Bilga",
+      "bilga"
+    ],
+    "28010005": [
+      "Goraya",
+      "goraya"
+    ],
+    "28010006": [
+      "Jalandhar Cantt Jamshedpur Dana",
+      "jalandhar_cantt_jamshedpur_dana"
+    ],
+    "28010007": [
+      "Jalandhar CanttHoshiarpur Road",
+      "jalandhar_cantthoshiarpur_road"
+    ],
+    "28010008": [
+      "Jalandhar Cantt.",
+      "jalandhar_cantt"
+    ],
+    "28010009": [
+      "Jalandhar City",
+      "jalandhar_city"
+    ],
+    "28010010": [
+      "Jalandhar CityFaintan Ganj",
+      "jalandhar_cityfaintan_ganj"
+    ],
+    "28010011": [
+      "Jalandhar CityJalandhar",
+      "jalandhar_cityjalandhar"
+    ],
+    "28010012": [
+      "Jalandhar CityKartar Pur Dana",
+      "jalandhar_citykartar_pur_dana"
+    ],
+    "28010013": [
+      "Lohian Khas",
+      "lohian_khas"
+    ],
+    "28010014": [
+      "Mehatpur",
+      "mehatpur"
+    ],
+    "28010015": [
+      "Nakodar",
+      "nakodar"
+    ],
+    "28010016": [
+      "NakodarSarih",
+      "nakodarsarih"
+    ],
+    "28010017": [
+      "Noor Mehal",
+      "noor_mehal"
+    ],
+    "28010018": [
+      "Noor MehalKot Badal Khan",
+      "noor_mehalkot_badal_khan"
+    ],
+    "28010019": [
+      "Phillaur",
+      "phillaur"
+    ],
+    "28010020": [
+      "PhillaurApra",
+      "phillaurapra"
+    ],
+    "28010021": [
+      "Shahkot",
+      "shahkot"
+    ],
+    "28010022": [
+      "Shakot Malsian",
+      "shakot_malsian"
+    ],
+    "28011001": [
+      "Bhulath Ibrahimaaaaval",
+      "bhulath_ibrahimaaaaval"
+    ],
+    "28011002": [
+      "Bhulath Nadala",
+      "bhulath_nadala"
+    ],
+    "28011003": [
+      "Bhulath",
+      "bhulath"
+    ],
+    "28011004": [
+      "Dhilwan",
+      "dhilwan"
+    ],
+    "28011005": [
+      "Kapurthala",
+      "kapurthala"
+    ],
+    "28011006": [
+      "Phagwara",
+      "phagwara"
+    ],
+    "28011007": [
+      "Sultanpur",
+      "sultanpur"
+    ],
+    "28011008": [
+      "Sultanpur Lodhi Tibba",
+      "sultanpur_lodhi_tibba"
+    ],
+    "28012001": [
+      "Doraha",
+      "doraha"
+    ],
+    "28012002": [
+      "Hathur",
+      "hathur"
+    ],
+    "28012003": [
+      "Jagraon",
+      "jagraon"
+    ],
+    "28012004": [
+      "Khanna",
+      "khanna"
+    ],
+    "28012005": [
+      "Kila Raipur",
+      "kila_raipur"
+    ],
+    "28012006": [
+      "Killa Raipur Jodhan",
+      "killa_raipur_jodhan"
+    ],
+    "28012007": [
+      "Ludhiana",
+      "ludhiana"
+    ],
+    "28012008": [
+      "Ludhiana gill Road",
+      "ludhiana_gill_road"
+    ],
+    "28012009": [
+      "LudhianaSalem Tabri",
+      "ludhianasalem_tabri"
+    ],
+    "28012010": [
+      "Machhiwara",
+      "machhiwara"
+    ],
+    "28012011": [
+      "Malaoud Siar",
+      "malaoud_siar"
+    ],
+    "28012012": [
+      "Maloud",
+      "maloud"
+    ],
+    "28012013": [
+      "Mansura",
+      "mansura"
+    ],
+    "28012014": [
+      "Mullanpur",
+      "mullanpur"
+    ],
+    "28012015": [
+      "Mullanpur Dakha Sawadi",
+      "mullanpur_dakha_sawadi"
+    ],
+    "28012016": [
+      "Nurpurbet",
+      "nurpurbet"
+    ],
+    "28012017": [
+      "Purain",
+      "purain"
+    ],
+    "28012018": [
+      "Raikot Nathowal",
+      "raikot_nathowal"
+    ],
+    "28012019": [
+      "Raikot Talwandi rai",
+      "raikot_talwandi_rai"
+    ],
+    "28012020": [
+      "Raikot",
+      "raikot"
+    ],
+    "28012021": [
+      "Sahnewal",
+      "sahnewal"
+    ],
+    "28012022": [
+      "Samrala",
+      "samrala"
+    ],
+    "28012023": [
+      "Sidhwan Bet Lodhiwala",
+      "sidhwan_bet_lodhiwala"
+    ],
+    "28012024": [
+      "Sidhwan Bet",
+      "sidhwan_bet"
+    ],
+    "28012025": [
+      "kum Kalan",
+      "kum_kalan"
+    ],
+    "28012026": [
+      "lakhowal",
+      "lakhowal"
+    ],
+    "28013001": [
+      "Ahemadpur",
+      "ahemadpur"
+    ],
+    "28013002": [
+      "Bareta",
+      "bareta"
+    ],
+    "28013003": [
+      "Bhikhi",
+      "bhikhi"
+    ],
+    "28013004": [
+      "Boha",
+      "boha"
+    ],
+    "28013005": [
+      "Budalada",
+      "budalada"
+    ],
+    "28013006": [
+      "Budhlada Phaphre Bhaike",
+      "budhlada_phaphre_bhaike"
+    ],
+    "28013007": [
+      "Kankwal Chahlan",
+      "kankwal_chahlan"
+    ],
+    "28013008": [
+      "Mansa Bhamekalan",
+      "mansa_bhamekalan"
+    ],
+    "28013009": [
+      "Mansa Khiala kalan",
+      "mansa_khiala_kalan"
+    ],
+    "28013010": [
+      "Mansa",
+      "mansa"
+    ],
+    "28013011": [
+      "MansaUbha Buraj Dhilwan",
+      "mansaubha_buraj_dhilwan"
+    ],
+    "28013012": [
+      "Sardulgarh",
+      "sardulgarh"
+    ],
+    "28014001": [
+      "Ajitwal Chogawan",
+      "ajitwal_chogawan"
+    ],
+    "28014002": [
+      "Ajitwal Dala",
+      "ajitwal_dala"
+    ],
+    "28014003": [
+      "Ajitwal",
+      "ajitwal"
+    ],
+    "28014004": [
+      "Badhni Kalan",
+      "badhni_kalan"
+    ],
+    "28014005": [
+      "Badhni Kallan Bilaspur",
+      "badhni_kallan_bilaspur"
+    ],
+    "28014006": [
+      "Baghapurana",
+      "baghapurana"
+    ],
+    "28014007": [
+      "Dharamkot",
+      "dharamkot"
+    ],
+    "28014008": [
+      "Fatehgarh Panjtoor",
+      "fatehgarh_panjtoor"
+    ],
+    "28014009": [
+      "Kot ise Khan",
+      "kot_ise_khan"
+    ],
+    "28014010": [
+      "Moga",
+      "moga"
+    ],
+    "28014011": [
+      "Nihal Singh Wala Himmatpura",
+      "nihal_singh_wala_himmatpura"
+    ],
+    "28014012": [
+      "Nihal Singh Wala Rautan",
+      "nihal_singh_wala_rautan"
+    ],
+    "28014013": [
+      "Nihal Singh Wala",
+      "nihal_singh_wala"
+    ],
+    "28015001": [
+      "Banur Kheragaju",
+      "banur_kheragaju"
+    ],
+    "28015002": [
+      "Banur",
+      "banur"
+    ],
+    "28015003": [
+      "Dera Bassi",
+      "dera_bassi"
+    ],
+    "28015004": [
+      "Kharar",
+      "kharar"
+    ],
+    "28015005": [
+      "Kurali",
+      "kurali"
+    ],
+    "28015006": [
+      "Lalru",
+      "lalru"
+    ],
+    "28016001": [
+      "Bariwala",
+      "bariwala"
+    ],
+    "28016002": [
+      "Giddarbaha",
+      "giddarbaha"
+    ],
+    "28016003": [
+      "Malout Kilianwali",
+      "malout_kilianwali"
+    ],
+    "28016004": [
+      "Malout Panniwala",
+      "malout_panniwala"
+    ],
+    "28016005": [
+      "Malout",
+      "malout"
+    ],
+    "28016006": [
+      "Muktsar",
+      "muktsar"
+    ],
+    "28017001": [
+      "Balachaur",
+      "balachaur"
+    ],
+    "28017002": [
+      "Banga Kataria",
+      "banga_kataria"
+    ],
+    "28017003": [
+      "Banga",
+      "banga"
+    ],
+    "28017004": [
+      "Nawan Shahar Aur",
+      "nawan_shahar_aur"
+    ],
+    "28017005": [
+      "Nawan Shahar Jadla",
+      "nawan_shahar_jadla"
+    ],
+    "28017006": [
+      "Nawan ShaharMandiRaho",
+      "nawan_shaharmandiraho"
+    ],
+    "28017007": [
+      "Nawan ShaharSubzi",
+      "nawan_shaharsubzi"
+    ],
+    "28017008": [
+      "Nawanshahar",
+      "nawanshahar"
+    ],
+    "28018001": [
+      "Narot J Singh",
+      "narot_j_singh"
+    ],
+    "28018002": [
+      "Pathankot Kanwa",
+      "pathankot_kanwa"
+    ],
+    "28018003": [
+      "Pathankot",
+      "pathankot"
+    ],
+    "28019001": [
+      "Bhadson",
+      "bhadson"
+    ],
+    "28019002": [
+      "Dakala",
+      "dakala"
+    ],
+    "28019003": [
+      "Dudhansadhan",
+      "dudhansadhan"
+    ],
+    "28019004": [
+      "Ghanaur",
+      "ghanaur"
+    ],
+    "28019005": [
+      "Nabha",
+      "nabha"
+    ],
+    "28019006": [
+      "Patiala",
+      "patiala"
+    ],
+    "28019007": [
+      "PatialaAnaj Sanaur Road",
+      "patialaanaj_sanaur_road"
+    ],
+    "28019008": [
+      "PatialaNew Anaj",
+      "patialanew_anaj"
+    ],
+    "28019009": [
+      "Patran",
+      "patran"
+    ],
+    "28019010": [
+      "PatranGhagga",
+      "patranghagga"
+    ],
+    "28019011": [
+      "Rajpura",
+      "rajpura"
+    ],
+    "28019012": [
+      "Samana",
+      "samana"
+    ],
+    "28019013": [
+      "SamanaGajewas",
+      "samanagajewas"
+    ],
+    "28019014": [
+      "SamanaKakrala",
+      "samanakakrala"
+    ],
+    "28020001": [
+      "Anandpur Sahib",
+      "anandpur_sahib"
+    ],
+    "28020002": [
+      "Chamkaur Sahib",
+      "chamkaur_sahib"
+    ],
+    "28020003": [
+      "Morinda",
+      "morinda"
+    ],
+    "28020004": [
+      "Ropar",
+      "ropar"
+    ],
+    "28021001": [
+      "Ahmedgarh",
+      "ahmedgarh"
+    ],
+    "28021002": [
+      "Amargarh",
+      "amargarh"
+    ],
+    "28021003": [
+      "Bhawanigarh",
+      "bhawanigarh"
+    ],
+    "28021004": [
+      "Cheema Lonogal",
+      "cheema_lonogal"
+    ],
+    "28021005": [
+      "Cheema",
+      "cheema"
+    ],
+    "28021006": [
+      "Dhuri",
+      "dhuri"
+    ],
+    "28021007": [
+      "Dirba",
+      "dirba"
+    ],
+    "28021008": [
+      "Khanauri",
+      "khanauri"
+    ],
+    "28021009": [
+      "Lehra Gaga",
+      "lehra_gaga"
+    ],
+    "28021010": [
+      "Malerkotla",
+      "malerkotla"
+    ],
+    "28021011": [
+      "Moonak",
+      "moonak"
+    ],
+    "28021012": [
+      "Sandaur",
+      "sandaur"
+    ],
+    "28021013": [
+      "Sangrur",
+      "sangrur"
+    ],
+    "28021014": [
+      "Sherpur",
+      "sherpur"
+    ],
+    "28021015": [
+      "Sulargharat",
+      "sulargharat"
+    ],
+    "28021016": [
+      "Sunam",
+      "sunam"
+    ],
+    "28022001": [
+      "Bhikhiwind Algo",
+      "bhikhiwind_algo"
+    ],
+    "28022002": [
+      "Bhikhiwind Basarke",
+      "bhikhiwind_basarke"
+    ],
+    "28022003": [
+      "Bhikhiwind Marrimegha",
+      "bhikhiwind_marrimegha"
+    ],
+    "28022004": [
+      "Bhikhiwind Sursingh",
+      "bhikhiwind_sursingh"
+    ],
+    "28022005": [
+      "Bhikhiwind",
+      "bhikhiwind"
+    ],
+    "28022006": [
+      "BhikhiwindKhalra",
+      "bhikhiwindkhalra"
+    ],
+    "28022007": [
+      "Chabhal",
+      "chabhal"
+    ],
+    "28022008": [
+      "Harike",
+      "harike"
+    ],
+    "28022009": [
+      "Khadur Sahib",
+      "khadur_sahib"
+    ],
+    "28022010": [
+      "Khadur SahibFetehabad",
+      "khadur_sahibfetehabad"
+    ],
+    "28022011": [
+      "Khem karan",
+      "khem_karan"
+    ],
+    "28022012": [
+      "Khemkaran Amarkot",
+      "khemkaran_amarkot"
+    ],
+    "28022013": [
+      "Naushera Pannua Dhotian",
+      "naushera_pannua_dhotian"
+    ],
+    "28022014": [
+      "Naushera Pannuan",
+      "naushera_pannuan"
+    ],
+    "28022015": [
+      "Patti",
+      "patti"
+    ],
+    "28022016": [
+      "Tarantaran",
+      "tarantaran"
+    ],
+    "00000000": [
+      "मंडी चुने",
+      ""
+    ]
+  }
+}

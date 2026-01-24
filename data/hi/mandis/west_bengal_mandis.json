@@ -1,1 +1,316 @@
-{"headers":["name","slug"],"data":{"36001001":["Alipurduar","alipurduar"],"36001002":["Falakata","falakata"],"36002001":["Bankura Sadar","bankura_sadar"],"36002002":["Bishnupur(Bankura)","bishnupur_bankura"],"36002003":["Indus(Bankura Sadar)","indus_bankura_sadar"],"36002004":["Khatra","khatra"],"36003001":["Birbhum","birbhum"],"36003002":["Bolpur","bolpur"],"36003003":["Rampurhat","rampurhat"],"36003004":["Sainthia","sainthia"],"36005001":["Baxirhat","baxirhat"],"36005002":["Coochbehar","coochbehar"],"36005003":["Dinhata","dinhata"],"36005004":["Haldibari","haldibari"],"36005005":["Mathabhanga","mathabhanga"],"36005006":["Mekhliganj","mekhliganj"],"36005007":["Pundibari","pundibari"],"36005008":["Toofanganj","toofanganj"],"36006001":["Balurghat","balurghat"],"36006002":["Gangarampur(Dakshin Dinajpur)","gangarampur_dakshin_dinajpur"],"36007001":["Darjeeling","darjeeling"],"36007002":["Karsiyang(Matigara)","karsiyang_matigara"],"36007003":["Siliguri","siliguri"],"36008001":["Champadanga","champadanga"],"36008002":["Kalipur","kalipur"],"36008003":["Pandua","pandua"],"36008004":["Sheoraphuly","sheoraphuly"],"36009001":["Ramkrishanpur(Howrah)","ramkrishanpur_howrah"],"36009002":["Uluberia","uluberia"],"36010001":["Belacoba","belacoba"],"36010002":["Dhupguri","dhupguri"],"36010003":["Jalpaiguri Sadar","jalpaiguri_sadar"],"36010004":["Moynaguri","moynaguri"],"36011001":["Jhargram","jhargram"],"36012001":["Kalimpong","kalimpong"],"36013001":["Bara Bazar (Posta Bazar)","bara_bazar_posta_bazar"],"36013002":["Mechua","mechua"],"36013003":["Sealdah Koley","sealdah_koley"],"36014001":["English Bazar","english_bazar"],"36014002":["Gajol","gajol"],"36014003":["Samsi","samsi"],"36015001":["Egra/contai","egra_contai"],"36015002":["Kolaghat","kolaghat"],"36015003":["Tamluk (Medinipur E)","tamluk_medinipur_e"],"36016001":["Garbeta(Medinipur)","garbeta_medinipur"],"36016002":["Ghatal","ghatal"],"36016003":["Medinipur(West)","medinipur_west"],"36017001":["Beldanga","beldanga"],"36017002":["Jangipur","jangipur"],"36017003":["Jiaganj","jiaganj"],"36017004":["Kandi","kandi"],"36017005":["Kasimbazar","kasimbazar"],"36017006":["Lalbagh","lalbagh"],"36018001":["Bethuadahari","bethuadahari"],"36018002":["Chakdah","chakdah"],"36018003":["Kalyani","kalyani"],"36018004":["Karimpur","karimpur"],"36018005":["Nadia","nadia"],"36018006":["Ranaghat","ranaghat"],"36019001":["Barasat","barasat"],"36019002":["Habra","habra"],"36020001":["Asansol","asansol"],"36020002":["Durgapur","durgapur"],"36021001":["Burdwan","burdwan"],"36021002":["Guskara","guskara"],"36021003":["Kalna","kalna"],"36021004":["Katwa","katwa"],"36021005":["Memari","memari"],"36022001":["Balarampur","balarampur"],"36022002":["Kasipur","kasipur"],"36022003":["Purulia","purulia"],"36023001":["Baruipur(Canning)","baruipur_canning"],"36023002":["Diamond Harbour(South 24-pgs)","diamond_harbour_south_24_pgs"],"36024001":["Islampur","islampur"],"36024002":["Kaliaganj","kaliaganj"],"36024003":["Raiganj","raiganj"],"00000000":["मंडी चुने",""]}}
+{
+  "headers": [
+    "name",
+    "slug"
+  ],
+  "data": {
+    "36001001": [
+      "Alipurduar",
+      "alipurduar"
+    ],
+    "36001002": [
+      "Falakata",
+      "falakata"
+    ],
+    "36002001": [
+      "Bankura Sadar",
+      "bankura_sadar"
+    ],
+    "36002002": [
+      "BishnupurBankura",
+      "bishnupurbankura"
+    ],
+    "36002003": [
+      "IndusBankura Sadar",
+      "indusbankura_sadar"
+    ],
+    "36002004": [
+      "Khatra",
+      "khatra"
+    ],
+    "36003001": [
+      "Birbhum",
+      "birbhum"
+    ],
+    "36003002": [
+      "Bolpur",
+      "bolpur"
+    ],
+    "36003003": [
+      "Rampurhat",
+      "rampurhat"
+    ],
+    "36003004": [
+      "Sainthia",
+      "sainthia"
+    ],
+    "36005001": [
+      "Baxirhat",
+      "baxirhat"
+    ],
+    "36005002": [
+      "Coochbehar",
+      "coochbehar"
+    ],
+    "36005003": [
+      "Dinhata",
+      "dinhata"
+    ],
+    "36005004": [
+      "Haldibari",
+      "haldibari"
+    ],
+    "36005005": [
+      "Mathabhanga",
+      "mathabhanga"
+    ],
+    "36005006": [
+      "Mekhliganj",
+      "mekhliganj"
+    ],
+    "36005007": [
+      "Pundibari",
+      "pundibari"
+    ],
+    "36005008": [
+      "Toofanganj",
+      "toofanganj"
+    ],
+    "36006001": [
+      "Balurghat",
+      "balurghat"
+    ],
+    "36006002": [
+      "GangarampurDakshin Dinajpur",
+      "gangarampurdakshin_dinajpur"
+    ],
+    "36007001": [
+      "Darjeeling",
+      "darjeeling"
+    ],
+    "36007002": [
+      "KarsiyangMatigara",
+      "karsiyangmatigara"
+    ],
+    "36007003": [
+      "Siliguri",
+      "siliguri"
+    ],
+    "36008001": [
+      "Champadanga",
+      "champadanga"
+    ],
+    "36008002": [
+      "Kalipur",
+      "kalipur"
+    ],
+    "36008003": [
+      "Pandua",
+      "pandua"
+    ],
+    "36008004": [
+      "Sheoraphuly",
+      "sheoraphuly"
+    ],
+    "36009001": [
+      "RamkrishanpurHowrah",
+      "ramkrishanpurhowrah"
+    ],
+    "36009002": [
+      "Uluberia",
+      "uluberia"
+    ],
+    "36010001": [
+      "Belacoba",
+      "belacoba"
+    ],
+    "36010002": [
+      "Dhupguri",
+      "dhupguri"
+    ],
+    "36010003": [
+      "Jalpaiguri Sadar",
+      "jalpaiguri_sadar"
+    ],
+    "36010004": [
+      "Moynaguri",
+      "moynaguri"
+    ],
+    "36011001": [
+      "Jhargram",
+      "jhargram"
+    ],
+    "36012001": [
+      "Kalimpong",
+      "kalimpong"
+    ],
+    "36013001": [
+      "Bara Bazar Posta Bazar",
+      "bara_bazar_posta_bazar"
+    ],
+    "36013002": [
+      "Mechua",
+      "mechua"
+    ],
+    "36013003": [
+      "Sealdah Koley",
+      "sealdah_koley"
+    ],
+    "36014001": [
+      "English Bazar",
+      "english_bazar"
+    ],
+    "36014002": [
+      "Gajol",
+      "gajol"
+    ],
+    "36014003": [
+      "Samsi",
+      "samsi"
+    ],
+    "36015001": [
+      "Egracontai",
+      "egracontai"
+    ],
+    "36015002": [
+      "Kolaghat",
+      "kolaghat"
+    ],
+    "36015003": [
+      "Tamluk Medinipur E",
+      "tamluk_medinipur_e"
+    ],
+    "36016001": [
+      "GarbetaMedinipur",
+      "garbetamedinipur"
+    ],
+    "36016002": [
+      "Ghatal",
+      "ghatal"
+    ],
+    "36016003": [
+      "MedinipurWest",
+      "medinipurwest"
+    ],
+    "36017001": [
+      "Beldanga",
+      "beldanga"
+    ],
+    "36017002": [
+      "Jangipur",
+      "jangipur"
+    ],
+    "36017003": [
+      "Jiaganj",
+      "jiaganj"
+    ],
+    "36017004": [
+      "Kandi",
+      "kandi"
+    ],
+    "36017005": [
+      "Kasimbazar",
+      "kasimbazar"
+    ],
+    "36017006": [
+      "Lalbagh",
+      "lalbagh"
+    ],
+    "36018001": [
+      "Bethuadahari",
+      "bethuadahari"
+    ],
+    "36018002": [
+      "Chakdah",
+      "chakdah"
+    ],
+    "36018003": [
+      "Kalyani",
+      "kalyani"
+    ],
+    "36018004": [
+      "Karimpur",
+      "karimpur"
+    ],
+    "36018005": [
+      "Nadia",
+      "nadia"
+    ],
+    "36018006": [
+      "Ranaghat",
+      "ranaghat"
+    ],
+    "36019001": [
+      "Barasat",
+      "barasat"
+    ],
+    "36019002": [
+      "Habra",
+      "habra"
+    ],
+    "36020001": [
+      "Asansol",
+      "asansol"
+    ],
+    "36020002": [
+      "Durgapur",
+      "durgapur"
+    ],
+    "36021001": [
+      "Burdwan",
+      "burdwan"
+    ],
+    "36021002": [
+      "Guskara",
+      "guskara"
+    ],
+    "36021003": [
+      "Kalna",
+      "kalna"
+    ],
+    "36021004": [
+      "Katwa",
+      "katwa"
+    ],
+    "36021005": [
+      "Memari",
+      "memari"
+    ],
+    "36022001": [
+      "Balarampur",
+      "balarampur"
+    ],
+    "36022002": [
+      "Kasipur",
+      "kasipur"
+    ],
+    "36022003": [
+      "Purulia",
+      "purulia"
+    ],
+    "36023001": [
+      "BaruipurCanning",
+      "baruipurcanning"
+    ],
+    "36023002": [
+      "Diamond HarbourSouth 24-pgs",
+      "diamond_harboursouth_24_pgs"
+    ],
+    "36024001": [
+      "Islampur",
+      "islampur"
+    ],
+    "36024002": [
+      "Kaliaganj",
+      "kaliaganj"
+    ],
+    "36024003": [
+      "Raiganj",
+      "raiganj"
+    ],
+    "00000000": [
+      "मंडी चुने",
+      ""
+    ]
+  }
+}

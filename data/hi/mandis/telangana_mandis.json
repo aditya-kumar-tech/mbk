@@ -1,1 +1,1000 @@
-{"headers":["name","slug"],"data":{"32001001":["Adilabad","adilabad"],"32001002":["Adilabad(Rythu Bazar)","adilabad_rythu_bazar"],"32001003":["Asifabad","asifabad"],"32001004":["Bellampally","bellampally"],"32001005":["Bhainsa","bhainsa"],"32001006":["Boath","boath"],"32001007":["Chinnoar","chinnoar"],"32001008":["Echoda","echoda"],"32001009":["Ichoda","ichoda"],"32001010":["Indravelly(Utnoor)","indravelly_utnoor"],"32001011":["Jainath","jainath"],"32001012":["Jainoor","jainoor"],"32001013":["Kagaznagar","kagaznagar"],"32001014":["Khanapur","khanapur"],"32001015":["Kuber","kuber"],"32001016":["Laxettipet","laxettipet"],"32001017":["Mancharial","mancharial"],"32001018":["Nirmal","nirmal"],"32001019":["Sarangapur","sarangapur"],"32002001":["Nuguru Charla","nuguru_charla"],"32003001":["Kamalapur","kamalapur"],"32004001":["Bowenpally","bowenpally"],"32004002":["Erragadda(Rythu Bazar)","erragadda_rythu_bazar"],"32004003":["Erragadda,","erragadda"],"32004004":["Falaknama,","falaknama"],"32004005":["Gaddiannaram","gaddiannaram"],"32004006":["Gudimalkapur","gudimalkapur"],"32004007":["Hyderabad (फल-सब्जी)","hyderabad_fv"],"32004008":["L B Nagar","l_b_nagar"],"32004009":["Mahboob Manison","mahboob_manison"],"32004010":["Secunderabad","secunderabad"],"32005001":["Mallapur","mallapur"],"32005002":["Raikal","raikal"],"32005003":["Velgatoor","velgatoor"],"32006001":["Kodakandla","kodakandla"],"32006002":["Palakurthy","palakurthy"],"32007001":["Bhupalapally","bhupalapally"],"32009001":["Choppadandi","choppadandi"],"32009002":["Dharmapuri","dharmapuri"],"32009003":["Dharmaram","dharmaram"],"32009004":["Gangadhara","gangadhara"],"32009005":["Gollapally","gollapally"],"32009006":["Gopalraopet","gopalraopet"],"32009007":["Husnabad","husnabad"],"32009008":["Huzzurabad","huzzurabad"],"32009009":["Ibrahimpatnam","ibrahimpatnam"],"32009010":["Jagtial","jagtial"],"32009011":["Jammikunta","jammikunta"],"32009012":["Karimnagar","karimnagar"],"32009013":["Karimnagar(Rythu Bazar)","karimnagar_rythu_bazar"],"32009014":["Kashmir Gadda Area,","kashmir_gadda_area"],"32009015":["Kataram","kataram"],"32009016":["Kathalapur","kathalapur"],"32009017":["Koratla","koratla"],"32009018":["Mallial(Cheppial)","mallial_cheppial"],"32009019":["Manakodur","manakodur"],"32009020":["Manthani","manthani"],"32009021":["Medipally","medipally"],"32009022":["Metpally","metpally"],"32009023":["Peddapalli","peddapalli"],"32009024":["Pegadapally","pegadapally"],"32009025":["Pothgal","pothgal"],"32009026":["Pudur","pudur"],"32009027":["Racharla(Boppapur)","racharla_boppapur"],"32009028":["Rudrangi","rudrangi"],"32009029":["Sircilla","sircilla"],"32009030":["Sultanabad","sultanabad"],"32009031":["V.Saidapur","v_saidapur"],"32009032":["Vemulawada","vemulawada"],"32009033":["Weekly Area,","weekly_area"],"32010001":["Bhadrachalam","bhadrachalam"],"32010002":["Burgampadu","burgampadu"],"32010003":["Charla","charla"],"32010004":["Dammapet","dammapet"],"32010005":["Enkoor","enkoor"],"32010006":["Ground,Khammam,","ground_khammam"],"32010007":["Kallur","kallur"],"32010008":["Khammam","khammam"],"32010009":["Kothagudem","kothagudem"],"32010010":["Maddulapally","maddulapally"],"32010011":["Madhira","madhira"],"32010012":["Nagur","nagur"],"32010013":["Nelakondapally","nelakondapally"],"32010014":["Pavilion Ground,Khammam,","pavilion_ground_khammam"],"32010015":["Sathupalli(Rythu Bazar)","sathupalli_rythu_bazar"],"32010016":["Sattupalli (ramalayam),","sattupalli_ramalayam"],"32010017":["Sattupalli","sattupalli"],"32010018":["Wyra","wyra"],"32010019":["Yellandu","yellandu"],"32011001":["Achampet","achampet"],"32011002":["Achampet(Amrabad)","achampet_amrabad"],"32011003":["Alampur","alampur"],"32011004":["Amangal","amangal"],"32011005":["Atmakur","atmakur"],"32011006":["Badepalli","badepalli"],"32011007":["Balanagar","balanagar"],"32011008":["Devarakadra","devarakadra"],"32011009":["Enkoor","enkoor"],"32011010":["Gadwal","gadwal"],"32011011":["Gadwal(Lezza)","gadwal_lezza"],"32011012":["Kalwakurthy","kalwakurthy"],"32011013":["Kollapur","kollapur"],"32011014":["Kosgi","kosgi"],"32011015":["Madhira","madhira"],"32011016":["Mahabubnagar(Rythu Bazar)","mahabubnagar_rythu_bazar"],"32011017":["Mahbubnagar","mahbubnagar"],"32011018":["Mahbubnagar(Nawabpet)","mahbubnagar_nawabpet"],"32011019":["Makthal","makthal"],"32011020":["Nagarkurnool","nagarkurnool"],"32011021":["Nagarkurnool(Talkapalli)","nagarkurnool_talkapalli"],"32011022":["Narayanpet","narayanpet"],"32011023":["Nelakondapally","nelakondapally"],"32011024":["Sathupally","sathupally"],"32011025":["Shadnagar","shadnagar"],"32011026":["Wanaparthy Road","wanaparthy_road"],"32011027":["Wanaparthy Road(Prbbair)","wanaparthy_road_prbbair"],"32011028":["Wanaparthy town","wanaparthy_town"],"32012001":["Jannaram","jannaram"],"32013001":["Chegunta","chegunta"],"32013002":["Dubbak","dubbak"],"32013003":["Gajwel","gajwel"],"32013004":["Jogipet","jogipet"],"32013005":["Medak","medak"],"32013006":["Narayankhed","narayankhed"],"32013007":["Narsapur","narsapur"],"32013008":["Papannapet","papannapet"],"32013009":["Ramayampet","ramayampet"],"32013010":["Ramchandrapuram,","ramchandrapuram"],"32013011":["Sadasivpet","sadasivpet"],"32013012":["Sadasivpet(Sangareddy)","sadasivpet_sangareddy"],"32013013":["Sangareddy","sangareddy"],"32013014":["Siddipet","siddipet"],"32013015":["Siddipet Town,","siddipet_town"],"32013016":["Siddipet(Rythu Bazar)","siddipet_rythu_bazar"],"32013017":["Togguta","togguta"],"32013018":["Toopran","toopran"],"32013019":["Vantamamidi","vantamamidi"],"32013020":["Zaheerabad","zaheerabad"],"32014001":["Aler","aler"],"32014002":["Bhongir","bhongir"],"32014003":["Chandur","chandur"],"32014004":["Chandur(Mungodu)","chandur_mungodu"],"32014005":["Chityal","chityal"],"32014006":["Choutuppal","choutuppal"],"32014007":["Devarakonda","devarakonda"],"32014008":["Devarkonda(Dindi)","devarkonda_dindi"],"32014009":["Devarkonda(Mallepalli)","devarkonda_mallepalli"],"32014010":["Halia","halia"],"32014011":["Huzumnagar(Garidepally)","huzumnagar_garidepally"],"32014012":["Huzurnagar","huzurnagar"],"32014013":["Huzurnagar(Matampally)","huzurnagar_matampally"],"32014014":["Kodad","kodad"],"32014015":["Miryalaguda","miryalaguda"],"32014016":["Miryalguda(Rythu Bazar)","miryalguda_rythu_bazar"],"32014017":["Mothkur","mothkur"],"32014018":["Nakrekal","nakrekal"],"32014019":["Nalgonda","nalgonda"],"32014020":["Neredcherla","neredcherla"],"32014021":["Nidamanoor","nidamanoor"],"32014022":["Ramannapet","ramannapet"],"32014023":["Shaligowraram","shaligowraram"],"32014024":["Suryapeta","suryapeta"],"32014025":["Thungathurthy","thungathurthy"],"32014026":["Tirumalagiri","tirumalagiri"],"32014027":["Valigonda","valigonda"],"32014028":["Venkateswarnagar","venkateswarnagar"],"32014029":["Venkateswarnagar(Chintapalli)","venkateswarnagar_chintapalli"],"32014030":["Voligonda","voligonda"],"32014031":["Voligonda(Ramannapet)","voligonda_ramannapet"],"32015001":["Armoor","armoor"],"32015002":["Banswada","banswada"],"32015003":["Bhiknoor","bhiknoor"],"32015004":["Bichkunda","bichkunda"],"32015005":["Birkur","birkur"],"32015006":["Bodhan","bodhan"],"32015007":["Gandhari","gandhari"],"32015008":["Kamareddy","kamareddy"],"32015009":["Kammarpally","kammarpally"],"32015010":["Kotagiri","kotagiri"],"32015011":["Madnoor","madnoor"],"32015012":["NGOs Colony,","ngos_colony"],"32015013":["Nizamabad","nizamabad"],"32015014":["Pitlam","pitlam"],"32015015":["Pullanga X Road,","pullanga_x_road"],"32015016":["Sadashivnagar","sadashivnagar"],"32015017":["Varni","varni"],"32015018":["Velpur","velpur"],"32015019":["Yellareddy","yellareddy"],"32016001":["Boinpalli","boinpalli"],"32016002":["Ellanthakunta","ellanthakunta"],"32016003":["Gambhiraopet","gambhiraopet"],"32016004":["Konaraopet","konaraopet"],"32016005":["Veernapalli","veernapalli"],"32017001":["Alwal,","alwal"],"32017002":["Chevella","chevella"],"32017003":["Ibrahimputnam","ibrahimputnam"],"32017004":["Kukatpally(Rythu Bazar)","kukatpally_rythu_bazar"],"32017005":["Kukatpally,","kukatpally"],"32017006":["Maheshwaram","maheshwaram"],"32017007":["Marapally","marapally"],"32017008":["Medchal","medchal"],"32017009":["Mehdipatnam,","mehdipatnam"],"32017010":["Mehndipatnam(Rythu Bazar)","mehndipatnam_rythu_bazar"],"32017011":["Narsingi","narsingi"],"32017012":["Narsingi(Babbuguda)","narsingi_babbuguda"],"32017013":["Pargi","pargi"],"32017014":["Qutubullahpur,","qutubullahpur"],"32017015":["Ramakrisnapuram,","ramakrisnapuram"],"32017016":["Sardarnagar","sardarnagar"],"32017017":["Saroornagar,","saroornagar"],"32017018":["Shankarapally","shankarapally"],"32017019":["Tanduru","tanduru"],"32017020":["Vanasthalipuram,","vanasthalipuram"],"32017021":["Vatpally","vatpally"],"32017022":["Vikarabad","vikarabad"],"32018001":["Patancheru","patancheru"],"32018002":["Raikode","raikode"],"32019001":["Bejjenki","bejjenki"],"32019002":["Chinnakodur","chinnakodur"],"32019003":["Doulthabad","doulthabad"],"32019004":["Koheda","koheda"],"32019005":["Kondapaka","kondapaka"],"32019006":["Mirdoddi","mirdoddi"],"32019007":["Nangunoor","nangunoor"],"32020001":["Basheerabad","basheerabad"],"32020002":["Dharur","dharur"],"32020003":["Kotipally","kotipally"],"32020004":["Kulkacherla","kulkacherla"],"32021001":["Pebbair","pebbair"],"32022001":["Cherial","cherial"],"32022002":["Dornakal","dornakal"],"32022003":["Excise Colony,","excise_colony"],"32022004":["Ghanpur","ghanpur"],"32022005":["Hanmarkonda(Rythu Bazar)","hanmarkonda_rythu_bazar"],"32022006":["Jangaon","jangaon"],"32022007":["Kesamudram","kesamudram"],"32022008":["Kodakandal","kodakandal"],"32022009":["Mahabubabad","mahabubabad"],"32022010":["Mulugu","mulugu"],"32022011":["Narsampet","narsampet"],"32022012":["Narsampet(Nekonda)","narsampet_nekonda"],"32022013":["Parkal","parkal"],"32022014":["Pochamma Maidan,","pochamma_maidan"],"32022015":["Railway Over Bridge./Fatima,","railway_over_bridge_fatima"],"32022016":["Thorrur","thorrur"],"32022017":["Warangal","warangal"],"32022018":["Wardhannapet","wardhannapet"],"00000000":["मंडी चुने",""]}}
+{
+  "headers": [
+    "name",
+    "slug"
+  ],
+  "data": {
+    "32001001": [
+      "Adilabad",
+      "adilabad"
+    ],
+    "32001002": [
+      "AdilabadRythu Bazar",
+      "adilabadrythu_bazar"
+    ],
+    "32001003": [
+      "Asifabad",
+      "asifabad"
+    ],
+    "32001004": [
+      "Bellampally",
+      "bellampally"
+    ],
+    "32001005": [
+      "Bhainsa",
+      "bhainsa"
+    ],
+    "32001006": [
+      "Boath",
+      "boath"
+    ],
+    "32001007": [
+      "Chinnoar",
+      "chinnoar"
+    ],
+    "32001008": [
+      "Echoda",
+      "echoda"
+    ],
+    "32001009": [
+      "Ichoda",
+      "ichoda"
+    ],
+    "32001010": [
+      "IndravellyUtnoor",
+      "indravellyutnoor"
+    ],
+    "32001011": [
+      "Jainath",
+      "jainath"
+    ],
+    "32001012": [
+      "Jainoor",
+      "jainoor"
+    ],
+    "32001013": [
+      "Kagaznagar",
+      "kagaznagar"
+    ],
+    "32001014": [
+      "Khanapur",
+      "khanapur"
+    ],
+    "32001015": [
+      "Kuber",
+      "kuber"
+    ],
+    "32001016": [
+      "Laxettipet",
+      "laxettipet"
+    ],
+    "32001017": [
+      "Mancharial",
+      "mancharial"
+    ],
+    "32001018": [
+      "Nirmal",
+      "nirmal"
+    ],
+    "32001019": [
+      "Sarangapur",
+      "sarangapur"
+    ],
+    "32002001": [
+      "Nuguru Charla",
+      "nuguru_charla"
+    ],
+    "32003001": [
+      "Kamalapur",
+      "kamalapur"
+    ],
+    "32004001": [
+      "Bowenpally",
+      "bowenpally"
+    ],
+    "32004002": [
+      "ErragaddaRythu Bazar",
+      "erragaddarythu_bazar"
+    ],
+    "32004003": [
+      "Erragadda,RBZ",
+      "erragadda_rbz"
+    ],
+    "32004004": [
+      "Falaknama,RBZ",
+      "falaknama_rbz"
+    ],
+    "32004005": [
+      "Gaddiannaram",
+      "gaddiannaram"
+    ],
+    "32004006": [
+      "Gudimalkapur",
+      "gudimalkapur"
+    ],
+    "32004007": [
+      "Hyderabad फल-सब्जी",
+      "hyderabad_fv"
+    ],
+    "32004008": [
+      "L B Nagar",
+      "l_b_nagar"
+    ],
+    "32004009": [
+      "Mahboob Manison",
+      "mahboob_manison"
+    ],
+    "32004010": [
+      "Secunderabad",
+      "secunderabad"
+    ],
+    "32005001": [
+      "Mallapur",
+      "mallapur"
+    ],
+    "32005002": [
+      "Raikal",
+      "raikal"
+    ],
+    "32005003": [
+      "Velgatoor",
+      "velgatoor"
+    ],
+    "32006001": [
+      "Kodakandla",
+      "kodakandla"
+    ],
+    "32006002": [
+      "Palakurthy",
+      "palakurthy"
+    ],
+    "32007001": [
+      "Bhupalapally",
+      "bhupalapally"
+    ],
+    "32009001": [
+      "Choppadandi",
+      "choppadandi"
+    ],
+    "32009002": [
+      "Dharmapuri",
+      "dharmapuri"
+    ],
+    "32009003": [
+      "Dharmaram",
+      "dharmaram"
+    ],
+    "32009004": [
+      "Gangadhara",
+      "gangadhara"
+    ],
+    "32009005": [
+      "Gollapally",
+      "gollapally"
+    ],
+    "32009006": [
+      "Gopalraopet",
+      "gopalraopet"
+    ],
+    "32009007": [
+      "Husnabad",
+      "husnabad"
+    ],
+    "32009008": [
+      "Huzzurabad",
+      "huzzurabad"
+    ],
+    "32009009": [
+      "Ibrahimpatnam",
+      "ibrahimpatnam"
+    ],
+    "32009010": [
+      "Jagtial",
+      "jagtial"
+    ],
+    "32009011": [
+      "Jammikunta",
+      "jammikunta"
+    ],
+    "32009012": [
+      "Karimnagar",
+      "karimnagar"
+    ],
+    "32009013": [
+      "KarimnagarRythu Bazar",
+      "karimnagarrythu_bazar"
+    ],
+    "32009014": [
+      "Kashmir Gadda Area,RBZ",
+      "kashmir_gadda_area_rbz"
+    ],
+    "32009015": [
+      "Kataram",
+      "kataram"
+    ],
+    "32009016": [
+      "Kathalapur",
+      "kathalapur"
+    ],
+    "32009017": [
+      "Koratla",
+      "koratla"
+    ],
+    "32009018": [
+      "MallialCheppial",
+      "mallialcheppial"
+    ],
+    "32009019": [
+      "Manakodur",
+      "manakodur"
+    ],
+    "32009020": [
+      "Manthani",
+      "manthani"
+    ],
+    "32009021": [
+      "Medipally",
+      "medipally"
+    ],
+    "32009022": [
+      "Metpally",
+      "metpally"
+    ],
+    "32009023": [
+      "Peddapalli",
+      "peddapalli"
+    ],
+    "32009024": [
+      "Pegadapally",
+      "pegadapally"
+    ],
+    "32009025": [
+      "Pothgal",
+      "pothgal"
+    ],
+    "32009026": [
+      "Pudur",
+      "pudur"
+    ],
+    "32009027": [
+      "RacharlaBoppapur",
+      "racharlaboppapur"
+    ],
+    "32009028": [
+      "Rudrangi",
+      "rudrangi"
+    ],
+    "32009029": [
+      "Sircilla",
+      "sircilla"
+    ],
+    "32009030": [
+      "Sultanabad",
+      "sultanabad"
+    ],
+    "32009031": [
+      "V.Saidapur",
+      "v_saidapur"
+    ],
+    "32009032": [
+      "Vemulawada",
+      "vemulawada"
+    ],
+    "32009033": [
+      "Weekly Area,RBZ",
+      "weekly_area_rbz"
+    ],
+    "32010001": [
+      "Bhadrachalam",
+      "bhadrachalam"
+    ],
+    "32010002": [
+      "Burgampadu",
+      "burgampadu"
+    ],
+    "32010003": [
+      "Charla",
+      "charla"
+    ],
+    "32010004": [
+      "Dammapet",
+      "dammapet"
+    ],
+    "32010005": [
+      "Enkoor",
+      "enkoor"
+    ],
+    "32010006": [
+      "Ground,Khammam, RBZ",
+      "ground_khammam_rbz"
+    ],
+    "32010007": [
+      "Kallur",
+      "kallur"
+    ],
+    "32010008": [
+      "Khammam",
+      "khammam"
+    ],
+    "32010009": [
+      "Kothagudem",
+      "kothagudem"
+    ],
+    "32010010": [
+      "Maddulapally",
+      "maddulapally"
+    ],
+    "32010011": [
+      "Madhira",
+      "madhira"
+    ],
+    "32010012": [
+      "Nagur",
+      "nagur"
+    ],
+    "32010013": [
+      "Nelakondapally",
+      "nelakondapally"
+    ],
+    "32010014": [
+      "Pavilion Ground,Khammam,RBZ",
+      "pavilion_ground_khammam_rbz"
+    ],
+    "32010015": [
+      "SathupalliRythu Bazar",
+      "sathupallirythu_bazar"
+    ],
+    "32010016": [
+      "Sattupalli ramalayam,RBZ",
+      "sattupalli_ramalayam_rbz"
+    ],
+    "32010017": [
+      "Sattupalli",
+      "sattupalli"
+    ],
+    "32010018": [
+      "Wyra",
+      "wyra"
+    ],
+    "32010019": [
+      "Yellandu",
+      "yellandu"
+    ],
+    "32011001": [
+      "Achampet",
+      "achampet"
+    ],
+    "32011002": [
+      "AchampetAmrabad",
+      "achampetamrabad"
+    ],
+    "32011003": [
+      "Alampur",
+      "alampur"
+    ],
+    "32011004": [
+      "Amangal",
+      "amangal"
+    ],
+    "32011005": [
+      "Atmakur",
+      "atmakur"
+    ],
+    "32011006": [
+      "Badepalli",
+      "badepalli"
+    ],
+    "32011007": [
+      "Balanagar",
+      "balanagar"
+    ],
+    "32011008": [
+      "Devarakadra",
+      "devarakadra"
+    ],
+    "32011009": [
+      "Enkoor",
+      "enkoor"
+    ],
+    "32011010": [
+      "Gadwal",
+      "gadwal"
+    ],
+    "32011011": [
+      "GadwalLezza",
+      "gadwallezza"
+    ],
+    "32011012": [
+      "Kalwakurthy",
+      "kalwakurthy"
+    ],
+    "32011013": [
+      "Kollapur",
+      "kollapur"
+    ],
+    "32011014": [
+      "Kosgi",
+      "kosgi"
+    ],
+    "32011015": [
+      "Madhira",
+      "madhira"
+    ],
+    "32011016": [
+      "MahabubnagarRythu Bazar",
+      "mahabubnagarrythu_bazar"
+    ],
+    "32011017": [
+      "Mahbubnagar",
+      "mahbubnagar"
+    ],
+    "32011018": [
+      "MahbubnagarNawabpet",
+      "mahbubnagarnawabpet"
+    ],
+    "32011019": [
+      "Makthal",
+      "makthal"
+    ],
+    "32011020": [
+      "Nagarkurnool",
+      "nagarkurnool"
+    ],
+    "32011021": [
+      "NagarkurnoolTalkapalli",
+      "nagarkurnooltalkapalli"
+    ],
+    "32011022": [
+      "Narayanpet",
+      "narayanpet"
+    ],
+    "32011023": [
+      "Nelakondapally",
+      "nelakondapally"
+    ],
+    "32011024": [
+      "Sathupally",
+      "sathupally"
+    ],
+    "32011025": [
+      "Shadnagar",
+      "shadnagar"
+    ],
+    "32011026": [
+      "Wanaparthy Road",
+      "wanaparthy_road"
+    ],
+    "32011027": [
+      "Wanaparthy RoadPrbbair",
+      "wanaparthy_roadprbbair"
+    ],
+    "32011028": [
+      "Wanaparthy town",
+      "wanaparthy_town"
+    ],
+    "32012001": [
+      "Jannaram",
+      "jannaram"
+    ],
+    "32013001": [
+      "Chegunta",
+      "chegunta"
+    ],
+    "32013002": [
+      "Dubbak",
+      "dubbak"
+    ],
+    "32013003": [
+      "Gajwel",
+      "gajwel"
+    ],
+    "32013004": [
+      "Jogipet",
+      "jogipet"
+    ],
+    "32013005": [
+      "Medak",
+      "medak"
+    ],
+    "32013006": [
+      "Narayankhed",
+      "narayankhed"
+    ],
+    "32013007": [
+      "Narsapur",
+      "narsapur"
+    ],
+    "32013008": [
+      "Papannapet",
+      "papannapet"
+    ],
+    "32013009": [
+      "Ramayampet",
+      "ramayampet"
+    ],
+    "32013010": [
+      "Ramchandrapuram,RBZ",
+      "ramchandrapuram_rbz"
+    ],
+    "32013011": [
+      "Sadasivpet",
+      "sadasivpet"
+    ],
+    "32013012": [
+      "SadasivpetSangareddy",
+      "sadasivpetsangareddy"
+    ],
+    "32013013": [
+      "Sangareddy",
+      "sangareddy"
+    ],
+    "32013014": [
+      "Siddipet",
+      "siddipet"
+    ],
+    "32013015": [
+      "Siddipet Town,RBZ",
+      "siddipet_town_rbz"
+    ],
+    "32013016": [
+      "SiddipetRythu Bazar",
+      "siddipetrythu_bazar"
+    ],
+    "32013017": [
+      "Togguta",
+      "togguta"
+    ],
+    "32013018": [
+      "Toopran",
+      "toopran"
+    ],
+    "32013019": [
+      "Vantamamidi",
+      "vantamamidi"
+    ],
+    "32013020": [
+      "Zaheerabad",
+      "zaheerabad"
+    ],
+    "32014001": [
+      "Aler",
+      "aler"
+    ],
+    "32014002": [
+      "Bhongir",
+      "bhongir"
+    ],
+    "32014003": [
+      "Chandur",
+      "chandur"
+    ],
+    "32014004": [
+      "ChandurMungodu",
+      "chandurmungodu"
+    ],
+    "32014005": [
+      "Chityal",
+      "chityal"
+    ],
+    "32014006": [
+      "Choutuppal",
+      "choutuppal"
+    ],
+    "32014007": [
+      "Devarakonda",
+      "devarakonda"
+    ],
+    "32014008": [
+      "DevarkondaDindi",
+      "devarkondadindi"
+    ],
+    "32014009": [
+      "DevarkondaMallepalli",
+      "devarkondamallepalli"
+    ],
+    "32014010": [
+      "Halia",
+      "halia"
+    ],
+    "32014011": [
+      "HuzumnagarGaridepally",
+      "huzumnagargaridepally"
+    ],
+    "32014012": [
+      "Huzurnagar",
+      "huzurnagar"
+    ],
+    "32014013": [
+      "HuzurnagarMatampally",
+      "huzurnagarmatampally"
+    ],
+    "32014014": [
+      "Kodad",
+      "kodad"
+    ],
+    "32014015": [
+      "Miryalaguda",
+      "miryalaguda"
+    ],
+    "32014016": [
+      "MiryalgudaRythu Bazar",
+      "miryalgudarythu_bazar"
+    ],
+    "32014017": [
+      "Mothkur",
+      "mothkur"
+    ],
+    "32014018": [
+      "Nakrekal",
+      "nakrekal"
+    ],
+    "32014019": [
+      "Nalgonda",
+      "nalgonda"
+    ],
+    "32014020": [
+      "Neredcherla",
+      "neredcherla"
+    ],
+    "32014021": [
+      "Nidamanoor",
+      "nidamanoor"
+    ],
+    "32014022": [
+      "Ramannapet",
+      "ramannapet"
+    ],
+    "32014023": [
+      "Shaligowraram",
+      "shaligowraram"
+    ],
+    "32014024": [
+      "Suryapeta",
+      "suryapeta"
+    ],
+    "32014025": [
+      "Thungathurthy",
+      "thungathurthy"
+    ],
+    "32014026": [
+      "Tirumalagiri",
+      "tirumalagiri"
+    ],
+    "32014027": [
+      "Valigonda",
+      "valigonda"
+    ],
+    "32014028": [
+      "Venkateswarnagar",
+      "venkateswarnagar"
+    ],
+    "32014029": [
+      "VenkateswarnagarChintapalli",
+      "venkateswarnagarchintapalli"
+    ],
+    "32014030": [
+      "Voligonda",
+      "voligonda"
+    ],
+    "32014031": [
+      "VoligondaRamannapet",
+      "voligondaramannapet"
+    ],
+    "32015001": [
+      "Armoor",
+      "armoor"
+    ],
+    "32015002": [
+      "Banswada",
+      "banswada"
+    ],
+    "32015003": [
+      "Bhiknoor",
+      "bhiknoor"
+    ],
+    "32015004": [
+      "Bichkunda",
+      "bichkunda"
+    ],
+    "32015005": [
+      "Birkur",
+      "birkur"
+    ],
+    "32015006": [
+      "Bodhan",
+      "bodhan"
+    ],
+    "32015007": [
+      "Gandhari",
+      "gandhari"
+    ],
+    "32015008": [
+      "Kamareddy",
+      "kamareddy"
+    ],
+    "32015009": [
+      "Kammarpally",
+      "kammarpally"
+    ],
+    "32015010": [
+      "Kotagiri",
+      "kotagiri"
+    ],
+    "32015011": [
+      "Madnoor",
+      "madnoor"
+    ],
+    "32015012": [
+      "NGOs Colony,RBZ",
+      "ngos_colony_rbz"
+    ],
+    "32015013": [
+      "Nizamabad",
+      "nizamabad"
+    ],
+    "32015014": [
+      "Pitlam",
+      "pitlam"
+    ],
+    "32015015": [
+      "Pullanga X Road,RBZ",
+      "pullanga_x_road_rbz"
+    ],
+    "32015016": [
+      "Sadashivnagar",
+      "sadashivnagar"
+    ],
+    "32015017": [
+      "Varni",
+      "varni"
+    ],
+    "32015018": [
+      "Velpur",
+      "velpur"
+    ],
+    "32015019": [
+      "Yellareddy",
+      "yellareddy"
+    ],
+    "32016001": [
+      "Boinpalli",
+      "boinpalli"
+    ],
+    "32016002": [
+      "Ellanthakunta",
+      "ellanthakunta"
+    ],
+    "32016003": [
+      "Gambhiraopet",
+      "gambhiraopet"
+    ],
+    "32016004": [
+      "Konaraopet",
+      "konaraopet"
+    ],
+    "32016005": [
+      "Veernapalli",
+      "veernapalli"
+    ],
+    "32017001": [
+      "Alwal,RBZ",
+      "alwal_rbz"
+    ],
+    "32017002": [
+      "Chevella",
+      "chevella"
+    ],
+    "32017003": [
+      "Ibrahimputnam",
+      "ibrahimputnam"
+    ],
+    "32017004": [
+      "KukatpallyRythu Bazar",
+      "kukatpallyrythu_bazar"
+    ],
+    "32017005": [
+      "Kukatpally,RBZ",
+      "kukatpally_rbz"
+    ],
+    "32017006": [
+      "Maheshwaram",
+      "maheshwaram"
+    ],
+    "32017007": [
+      "Marapally",
+      "marapally"
+    ],
+    "32017008": [
+      "Medchal",
+      "medchal"
+    ],
+    "32017009": [
+      "Mehdipatnam,RBZ",
+      "mehdipatnam_rbz"
+    ],
+    "32017010": [
+      "MehndipatnamRythu Bazar",
+      "mehndipatnamrythu_bazar"
+    ],
+    "32017011": [
+      "Narsingi",
+      "narsingi"
+    ],
+    "32017012": [
+      "NarsingiBabbuguda",
+      "narsingibabbuguda"
+    ],
+    "32017013": [
+      "Pargi",
+      "pargi"
+    ],
+    "32017014": [
+      "Qutubullahpur,RBZ",
+      "qutubullahpur_rbz"
+    ],
+    "32017015": [
+      "Ramakrisnapuram,RBZ",
+      "ramakrisnapuram_rbz"
+    ],
+    "32017016": [
+      "Sardarnagar",
+      "sardarnagar"
+    ],
+    "32017017": [
+      "Saroornagar,RBZ",
+      "saroornagar_rbz"
+    ],
+    "32017018": [
+      "Shankarapally",
+      "shankarapally"
+    ],
+    "32017019": [
+      "Tanduru",
+      "tanduru"
+    ],
+    "32017020": [
+      "Vanasthalipuram,RBZ",
+      "vanasthalipuram_rbz"
+    ],
+    "32017021": [
+      "Vatpally",
+      "vatpally"
+    ],
+    "32017022": [
+      "Vikarabad",
+      "vikarabad"
+    ],
+    "32018001": [
+      "Patancheru",
+      "patancheru"
+    ],
+    "32018002": [
+      "Raikode",
+      "raikode"
+    ],
+    "32019001": [
+      "Bejjenki",
+      "bejjenki"
+    ],
+    "32019002": [
+      "Chinnakodur",
+      "chinnakodur"
+    ],
+    "32019003": [
+      "Doulthabad",
+      "doulthabad"
+    ],
+    "32019004": [
+      "Koheda",
+      "koheda"
+    ],
+    "32019005": [
+      "Kondapaka",
+      "kondapaka"
+    ],
+    "32019006": [
+      "Mirdoddi",
+      "mirdoddi"
+    ],
+    "32019007": [
+      "Nangunoor",
+      "nangunoor"
+    ],
+    "32020001": [
+      "Basheerabad",
+      "basheerabad"
+    ],
+    "32020002": [
+      "Dharur",
+      "dharur"
+    ],
+    "32020003": [
+      "Kotipally",
+      "kotipally"
+    ],
+    "32020004": [
+      "Kulkacherla",
+      "kulkacherla"
+    ],
+    "32021001": [
+      "Pebbair",
+      "pebbair"
+    ],
+    "32022001": [
+      "Cherial",
+      "cherial"
+    ],
+    "32022002": [
+      "Dornakal",
+      "dornakal"
+    ],
+    "32022003": [
+      "Excise Colony,RBZ",
+      "excise_colony_rbz"
+    ],
+    "32022004": [
+      "Ghanpur",
+      "ghanpur"
+    ],
+    "32022005": [
+      "HanmarkondaRythu Bazar",
+      "hanmarkondarythu_bazar"
+    ],
+    "32022006": [
+      "Jangaon",
+      "jangaon"
+    ],
+    "32022007": [
+      "Kesamudram",
+      "kesamudram"
+    ],
+    "32022008": [
+      "Kodakandal",
+      "kodakandal"
+    ],
+    "32022009": [
+      "Mahabubabad",
+      "mahabubabad"
+    ],
+    "32022010": [
+      "Mulugu",
+      "mulugu"
+    ],
+    "32022011": [
+      "Narsampet",
+      "narsampet"
+    ],
+    "32022012": [
+      "NarsampetNekonda",
+      "narsampetnekonda"
+    ],
+    "32022013": [
+      "Parkal",
+      "parkal"
+    ],
+    "32022014": [
+      "Pochamma Maidan,RBZ",
+      "pochamma_maidan_rbz"
+    ],
+    "32022015": [
+      "Railway Over Bridge.Fatima,RBZ",
+      "railway_over_bridge_fatima_rbz"
+    ],
+    "32022016": [
+      "Thorrur",
+      "thorrur"
+    ],
+    "32022017": [
+      "Warangal",
+      "warangal"
+    ],
+    "32022018": [
+      "Wardhannapet",
+      "wardhannapet"
+    ],
+    "00000000": [
+      "मंडी चुने",
+      ""
+    ]
+  }
+}

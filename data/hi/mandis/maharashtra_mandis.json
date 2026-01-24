@@ -1,1 +1,1796 @@
-{"headers":["name","slug"],"data":{"20001001":["Ahilyanagar","ahilyanagar"],"20001002":["Ahmednagar","ahmednagar"],"20001003":["Akole","akole"],"20001004":["Jamkhed","jamkhed"],"20001005":["Karjat","karjat"],"20001006":["Karjat(Rashin)","karjat_rashin"],"20001007":["Kopargaon","kopargaon"],"20001008":["Newasa","newasa"],"20001009":["Newasa(Ghodegaon)","newasa_ghodegaon"],"20001010":["Om Chaitanya Multistate Agro Purpose CoOp Society","om_chaitanya_multistate_agro_purpose_coop_society"],"20001011":["Parner","parner"],"20001012":["Pathardi","pathardi"],"20001013":["Prasanna Krushi","prasanna_krushi"],"20001014":["Rahata","rahata"],"20001015":["Rahuri","rahuri"],"20001016":["Rahuri(Songaon)","rahuri_songaon"],"20001017":["Rahuri(Vambori)","rahuri_vambori"],"20001018":["Sangamner","sangamner"],"20001019":["Shevgaon","shevgaon"],"20001020":["Shevgaon(Bodhegaon)","shevgaon_bodhegaon"],"20001021":["Shree Sairaj Krushi","shree_sairaj_krushi"],"20001022":["Shrigonda","shrigonda"],"20001023":["Shrigonda(Gogargaon)","shrigonda_gogargaon"],"20001024":["Shrirampur","shrirampur"],"20001025":["Shrirampur(Belapur)","shrirampur_belapur"],"20002001":["Akola","akola"],"20002002":["Akola(Borgaon Manju)","akola_borgaon_manju"],"20002003":["Akot","akot"],"20002004":["Balapur","balapur"],"20002005":["Barshi Takli","barshi_takli"],"20002006":["Late Vasantraoji Dandale Khajgi Krushi Bazar","late_vasantraoji_dandale_khajgi_krushi_bazar"],"20002007":["Murtizapur","murtizapur"],"20002008":["Patur","patur"],"20002009":["Shri Gajanan Maharaj Khajagi Krushi Utpanna Bazar","shri_gajanan_maharaj_khajagi_krushi_utpanna_bazar"],"20002010":["Telhara","telhara"],"20003001":["Achalpur","achalpur"],"20003002":["Amarawati","amarawati"],"20003003":["Amrawati(Frui & Veg.)","amrawati_frui_veg"],"20003004":["Anajngaon","anajngaon"],"20003005":["Chandur Bazar","chandur_bazar"],"20003006":["Chandur Railway","chandur_railway"],"20003007":["Daryapur","daryapur"],"20003008":["Dhamngaon-Railway","dhamngaon_railway"],"20003009":["Dharni","dharni"],"20003010":["Morshi","morshi"],"20003011":["Nandgaon Khandeshwar","nandgaon_khandeshwar"],"20003012":["Shetkari Khushi Bazar","shetkari_khushi_bazar"],"20003013":["Tiwasa","tiwasa"],"20003014":["Varud","varud"],"20003015":["Varud(Rajura Bazar)","varud_rajura_bazar"],"20005001":["Ambejaogai","ambejaogai"],"20005002":["Beed","beed"],"20005003":["Gevrai","gevrai"],"20005004":["Kada","kada"],"20005005":["Kada(Ashti)","kada_ashti"],"20005006":["Kai Madhavrao Pawar Khajgi Krushi Utappan Bazar Sa","kai_madhavrao_pawar_khajgi_krushi_utappan_bazar_sa"],"20005007":["Kaij","kaij"],"20005008":["Kej","kej"],"20005009":["Kille Dharur","kille_dharur"],"20005010":["Majalgaon","majalgaon"],"20005011":["Parali Vaijyanath","parali_vaijyanath"],"20005012":["Patoda","patoda"],"20005013":["Vadvani","vadvani"],"20006001":["Bhandara","bhandara"],"20006002":["Lakhandur","lakhandur"],"20006003":["Lakhani","lakhani"],"20006004":["Pavani","pavani"],"20006005":["Tumsar","tumsar"],"20007001":["ACF Agro Marketing","acf_agro_marketing"],"20007002":["BSK Krishi Bazar Private Ltd","bsk_krishi_bazar_private_ltd"],"20007003":["Buldhana","buldhana"],"20007004":["Buldhana(Dhad)","buldhana_dhad"],"20007005":["Chikali","chikali"],"20007006":["Dand Brothers Agro","dand_brothers_agro"],"20007007":["Deoulgaon Raja","deoulgaon_raja"],"20007008":["Deulgaon Raja Balaji Agro Marketing Private","deulgaon_raja_balaji_agro_marketing_private"],"20007009":["Jalgaon Jamod(Aasalgaon)","jalgaon_jamod_aasalgaon"],"20007010":["Jalgaon(Jamod)","jalgaon_jamod"],"20007011":["Jaykissan Krushi Uttpan Khajgi Bazar","jaykissan_krushi_uttpan_khajgi_bazar"],"20007012":["Khamgaon","khamgaon"],"20007013":["Lonar","lonar"],"20007014":["Maharaja Agresen Private Krushi Utappan Bazar Sama","maharaja_agresen_private_krushi_utappan_bazar_sama"],"20007015":["Malkapur","malkapur"],"20007016":["Mehekar","mehekar"],"20007017":["Motala","motala"],"20007018":["Nandura","nandura"],"20007019":["Sangrampur","sangrampur"],"20007020":["Sangrampur(Varvatbakal)","sangrampur_varvatbakal"],"20007021":["Shegaon","shegaon"],"20007022":["Sindkhed Raja","sindkhed_raja"],"20008001":["Bhadrawati","bhadrawati"],"20008002":["Brahmpuri","brahmpuri"],"20008003":["Chandrapur","chandrapur"],"20008004":["Chandrapur(Ganjwad)","chandrapur_ganjwad"],"20008005":["Chimur","chimur"],"20008006":["Gondpimpri","gondpimpri"],"20008007":["Korpana","korpana"],"20008008":["Mul","mul"],"20008009":["Nagbhid","nagbhid"],"20008010":["Pombhurni","pombhurni"],"20008011":["Rajura","rajura"],"20008012":["Savali","savali"],"20008013":["Sindevahi","sindevahi"],"20008014":["Varora","varora"],"20009001":["Bhagyoday Cotton and Agri","bhagyoday_cotton_and_agri"],"20009002":["Chattrapati Sambhajinagar","chattrapati_sambhajinagar"],"20009003":["Fulmbri","fulmbri"],"20009004":["Gangapur","gangapur"],"20009005":["Kannad","kannad"],"20009006":["Khultabad","khultabad"],"20009007":["Kisan Seva Private","kisan_seva_private"],"20009008":["Lasur Station","lasur_station"],"20009009":["Maharashtra Agricultural Farm","maharashtra_agricultural_farm"],"20009010":["Paithan","paithan"],"20009011":["Sillod","sillod"],"20009012":["Sillod(Bharadi)","sillod_bharadi"],"20009013":["Soygaon","soygaon"],"20009014":["Vaijpur","vaijpur"],"20010001":["Bhoom","bhoom"],"20010002":["Dharashiv","dharashiv"],"20010003":["Kalamb (Dharashiv)","kalamb_dharashiv"],"20010004":["Murum","murum"],"20010005":["Paranda","paranda"],"20010006":["Tuljapur","tuljapur"],"20010007":["Umarga","umarga"],"20010008":["Washi (Dharashiv)","washi_dharashiv"],"20011001":["Dhule","dhule"],"20011002":["Dondaicha","dondaicha"],"20011003":["Dondaicha(Sindhkheda)","dondaicha_sindhkheda"],"20011004":["Janata Agri (DLS Agro Infrastructure Pvt Lt","janata_agri_dls_agro_infrastructure_pvt_lt"],"20011005":["Keshranand Cotex","keshranand_cotex"],"20011006":["Pratap Nana Mahale Khajgi Bajar Samiti","pratap_nana_mahale_khajgi_bajar_samiti"],"20011007":["Sakri","sakri"],"20011008":["Shirpur","shirpur"],"20012001":["Aheri","aheri"],"20012002":["Armori","armori"],"20012003":["Armori(Desaiganj)","armori_desaiganj"],"20012004":["Chamorshi","chamorshi"],"20012005":["Gandchiroli","gandchiroli"],"20012006":["Sironcha","sironcha"],"20013001":["Amgaon","amgaon"],"20013002":["Arjuni","arjuni"],"20013003":["Devri","devri"],"20013004":["Gondiya","gondiya"],"20013005":["Goregaon","goregaon"],"20013006":["Sadak Arjuni","sadak_arjuni"],"20013007":["Tiroda","tiroda"],"20014001":["Adarsh Krushi Bazar","adarsh_krushi_bazar"],"20014002":["Akhadabalapur","akhadabalapur"],"20014003":["Basmat","basmat"],"20014004":["Basmat(Kurunda)","basmat_kurunda"],"20014005":["Gajanaan Krushi Bazar","gajanaan_krushi_bazar"],"20014006":["Gajanan Krushi Utpanna Bazar (India) Pvt Ltd","gajanan_krushi_utpanna_bazar_india_pvt_ltd"],"20014007":["Hingoli","hingoli"],"20014008":["Hingoli(Kanegoan Naka)","hingoli_kanegoan_naka"],"20014009":["Jawala-Bajar","jawala_bajar"],"20014010":["Kalamnuri","kalamnuri"],"20014011":["Marathawada Shetkari Khajgi Bazar Parisar","marathawada_shetkari_khajgi_bazar_parisar"],"20014012":["Sant Namdev Krushi Bazar,","sant_namdev_krushi_bazar"],"20014013":["Sengoan","sengoan"],"20014014":["Vitthal Krushi Utpanna Bazar","vitthal_krushi_utpanna_bazar"],"20015001":["Ambad (Vadigodri)","ambad_vadigodri"],"20015002":["Ashti(Jalna)","ashti_jalna"],"20015003":["Bhokardan","bhokardan"],"20015004":["Bhokardan(Pimpalgaon Renu)","bhokardan_pimpalgaon_renu"],"20015005":["Ghansawangi","ghansawangi"],"20015006":["Jafrabad","jafrabad"],"20015007":["Jalana","jalana"],"20015008":["Jalna(Badnapur)","jalna_badnapur"],"20015009":["Mantha","mantha"],"20015010":["Partur","partur"],"20015011":["Partur(Vatur)","partur_vatur"],"20016001":["Amalner","amalner"],"20016002":["Bhusaval","bhusaval"],"20016003":["Bodwad","bodwad"],"20016004":["Bodwad(Varangaon)","bodwad_varangaon"],"20016005":["Chalisgaon","chalisgaon"],"20016006":["Chopada","chopada"],"20016007":["Dharangaon","dharangaon"],"20016008":["Gopal Krishna Agro","gopal_krishna_agro"],"20016009":["Govardhan Farm Produce","govardhan_farm_produce"],"20016010":["J S K Agro","j_s_k_agro"],"20016011":["Jalgaon","jalgaon"],"20016012":["Jalgaon(Masawat)","jalgaon_masawat"],"20016013":["Jamner","jamner"],"20016014":["Jamner(Neri)","jamner_neri"],"20016015":["Laxmi Krushi Utpanna Khjgi Bajar","laxmi_krushi_utpanna_khjgi_bajar"],"20016016":["Mahavir Agri","mahavir_agri"],"20016017":["Pachora","pachora"],"20016018":["Pachora(Bhadgaon)","pachora_bhadgaon"],"20016019":["Parola","parola"],"20016020":["Raver","raver"],"20016021":["Raver(Sauda)","raver_sauda"],"20016022":["Sanghavi Agriculture Marketing","sanghavi_agriculture_marketing"],"20016023":["Shantilal Jain Agro","shantilal_jain_agro"],"20016024":["Vijaya Agri Private","vijaya_agri_private"],"20016025":["Yashika Agro Marketing","yashika_agro_marketing"],"20016026":["Yawal","yawal"],"20017001":["Gadhinglaj","gadhinglaj"],"20017002":["Jaysingpur","jaysingpur"],"20017003":["Kolhapur","kolhapur"],"20017004":["Kolhapur(Laxmipuri)","kolhapur_laxmipuri"],"20017005":["Kolhapur(Malkapur)","kolhapur_malkapur"],"20017006":["Vadgaonpeth","vadgaonpeth"],"20018001":["Ahmedpur","ahmedpur"],"20018002":["Aurad Shahajani","aurad_shahajani"],"20018003":["Ausa","ausa"],"20018004":["Chakur","chakur"],"20018005":["Devani","devani"],"20018006":["Jalkot","jalkot"],"20018007":["Latur","latur"],"20018008":["Latur(Murud)","latur_murud"],"20018009":["Nilanga","nilanga"],"20018010":["Rangrao Patil Krushi Utpanna Khajgi Bazar","rangrao_patil_krushi_utpanna_khajgi_bazar"],"20018011":["Renapur","renapur"],"20018012":["Shirur Anantpal","shirur_anantpal"],"20018013":["Udgir","udgir"],"20018014":["Udgir(Hali)","udgir_hali"],"20019001":["All India Cottonseed Crushers Association","all_india_cottonseed_crushers_association"],"20019002":["Mumbai","mumbai"],"20019003":["Mumbai- Fruit","mumbai_fruit"],"20019004":["Mumbai- Thane","mumbai_thane"],"20019005":["NCDEX Spot Exchange","ncdex_spot_exchange"],"20019006":["Vashi New Mumbai","vashi_new_mumbai"],"20021001":["Bhiwapur","bhiwapur"],"20021002":["Hingna","hingna"],"20021003":["Kalmeshwar","kalmeshwar"],"20021004":["Kamthi","kamthi"],"20021005":["Katol","katol"],"20021006":["MS Kalpana Agri Commodities Marketing","ms_kalpana_agri_commodities_marketing"],"20021007":["Mandhal","mandhal"],"20021008":["Mauda","mauda"],"20021009":["Nagpur","nagpur"],"20021010":["Nagpur(Mahatma Phule)","nagpur_mahatma_phule"],"20021011":["Narkhed","narkhed"],"20021012":["Parshiwani","parshiwani"],"20021013":["Ramtek","ramtek"],"20021014":["Savner","savner"],"20021015":["Umared","umared"],"20022001":["Bhokar","bhokar"],"20022002":["Biloli","biloli"],"20022003":["Deglur","deglur"],"20022004":["Dharmabad","dharmabad"],"20022005":["Hadgaon","hadgaon"],"20022006":["Hadgaon(Tamsa)","hadgaon_tamsa"],"20022007":["Himalyatnagar","himalyatnagar"],"20022008":["Islapur","islapur"],"20022009":["Kandhar","kandhar"],"20022010":["Kinwat","kinwat"],"20022011":["Kundalwadi","kundalwadi"],"20022012":["Kuntur","kuntur"],"20022013":["Loha","loha"],"20022014":["Mahur","mahur"],"20022015":["Mudkhed","mudkhed"],"20022016":["Mukhed","mukhed"],"20022017":["Mukhed(Mukkambad)","mukhed_mukkambad"],"20022018":["Naigaon","naigaon"],"20022019":["Nanded","nanded"],"20022020":["Navratna Krishi Utpanna Khajgi Bazar","navratna_krishi_utpanna_khajgi_bazar"],"20022021":["Shetkari Khajgi Bajar","shetkari_khajgi_bajar"],"20022022":["Umari","umari"],"20023001":["Akkalkuwa","akkalkuwa"],"20023002":["Dhadgaon","dhadgaon"],"20023003":["Nandubar(Koparli)","nandubar_koparli"],"20023004":["Nandurbar","nandurbar"],"20023005":["Navapur","navapur"],"20023006":["Shahada","shahada"],"20023007":["Taloda","taloda"],"20024001":["Baphana Agro Inc","baphana_agro_inc"],"20024002":["Baswant","baswant"],"20024003":["Chandvad","chandvad"],"20024004":["Devala","devala"],"20024005":["Dindori","dindori"],"20024006":["Dindori(Vani)","dindori_vani"],"20024007":["Ghoti","ghoti"],"20024008":["Kalvan","kalvan"],"20024009":["Lasalgaon","lasalgaon"],"20024010":["Lasalgaon(Niphad)","lasalgaon_niphad"],"20024011":["Lasalgaon(Vinchur)","lasalgaon_vinchur"],"20024012":["Malegaon","malegaon"],"20024013":["Malharshree Farmers Producer Co Ltd","malharshree_farmers_producer_co_ltd"],"20024014":["Mankamneshwar Farmar Producer CoLtd Sanchalit Mank","mankamneshwar_farmar_producer_coltd_sanchalit_mank"],"20024015":["Manmad","manmad"],"20024016":["Nampur","nampur"],"20024017":["Nandgaon","nandgaon"],"20024018":["Nashik(Devlali)","nashik_devlali"],"20024019":["Nasik","nasik"],"20024020":["Perfect Krishi","perfect_krishi"],"20024021":["Pimpalgaon","pimpalgaon"],"20024022":["Pimpalgaon Baswant(Saykheda)","pimpalgaon_baswant_saykheda"],"20024023":["Premium Krushi Utpanna Bazar","premium_krushi_utpanna_bazar"],"20024024":["Satana","satana"],"20024025":["Shivsiddha Govind Producer Company Limited Sanchal","shivsiddha_govind_producer_company_limited_sanchal"],"20024026":["Shree Rameshwar Krushi","shree_rameshwar_krushi"],"20024027":["Sinner","sinner"],"20024028":["Suragana","suragana"],"20024029":["Umrane","umrane"],"20024030":["Yeola","yeola"],"20026001":["Bori","bori"],"20026002":["Gangakhed","gangakhed"],"20026003":["Hari Har Khajagi Bazar Parisar","hari_har_khajagi_bazar_parisar"],"20026004":["Jintur","jintur"],"20026005":["Manwat","manwat"],"20026006":["Palam","palam"],"20026007":["Parbhani","parbhani"],"20026008":["Pathari","pathari"],"20026009":["Purna","purna"],"20026010":["Sailu","sailu"],"20026011":["Samartha Krushi Bajar Private Limited","samartha_krushi_bajar_private_limited"],"20026012":["Selu","selu"],"20026013":["Shree Salasar Krushi Bazar","shree_salasar_krushi_bazar"],"20026014":["Sirsam","sirsam"],"20026015":["Sonpeth","sonpeth"],"20026016":["Tadkalas","tadkalas"],"20027001":["Baramati","baramati"],"20027002":["Bhor","bhor"],"20027003":["Dound","dound"],"20027004":["Indapur","indapur"],"20027005":["Indapur(Bhigwan)","indapur_bhigwan"],"20027006":["Indapur(Nimgaon Ketki)","indapur_nimgaon_ketki"],"20027007":["Junnar","junnar"],"20027008":["Junnar(Alephata)","junnar_alephata"],"20027009":["Junnar(Bhlhe)","junnar_bhlhe"],"20027010":["Junnar(Narayangaon)","junnar_narayangaon"],"20027011":["Junnar(Otur)","junnar_otur"],"20027012":["Khed","khed"],"20027013":["Khed(Chakan)","khed_chakan"],"20027014":["Khed(Shel Pimpalgaon)","khed_shel_pimpalgaon"],"20027015":["Manchar","manchar"],"20027016":["Mulshi","mulshi"],"20027017":["Nira","nira"],"20027018":["Nira(Saswad)","nira_saswad"],"20027019":["Pune","pune"],"20027020":["Pune(Khadiki)","pune_khadiki"],"20027021":["Pune(Manjri)","pune_manjri"],"20027022":["Pune(Moshi)","pune_moshi"],"20027023":["Pune(Pimpri)","pune_pimpri"],"20027024":["Shirur","shirur"],"20027025":["Talegaon Dabhade","talegaon_dabhade"],"20028001":["Alibagh","alibagh"],"20028002":["Karjat(Raigad)","karjat_raigad"],"20028003":["Khalapur (Shil-Phata)","khalapur_shil_phata"],"20028004":["Mahad","mahad"],"20028005":["Mangaon","mangaon"],"20028006":["Murud","murud"],"20028007":["Panvel","panvel"],"20028008":["Pen","pen"],"20028009":["Roha","roha"],"20029001":["Ratnagiri (Nachane)","ratnagiri_nachane"],"20030001":["Aatpadi","aatpadi"],"20030002":["Islampur","islampur"],"20030003":["Palus","palus"],"20030004":["Sangli","sangli"],"20030005":["Sangli(Miraj)","sangli_miraj"],"20030006":["Sangli(Phale, Bhajipura)","sangli_phale_bhajipura"],"20030007":["Shirala","shirala"],"20030008":["Tasgaon","tasgaon"],"20030009":["Vita","vita"],"20031001":["Dahivadi","dahivadi"],"20031002":["Jawali","jawali"],"20031003":["Karad","karad"],"20031004":["Koregaon","koregaon"],"20031005":["Lonand","lonand"],"20031006":["Patan","patan"],"20031007":["Phaltan","phaltan"],"20031008":["Satara","satara"],"20031009":["Vaduj","vaduj"],"20031010":["Vai","vai"],"20032001":["Akkalkot","akkalkot"],"20032002":["Akluj","akluj"],"20032003":["Barshi","barshi"],"20032004":["Barshi(Vairag)","barshi_vairag"],"20032005":["Dudhani","dudhani"],"20032006":["Karmala","karmala"],"20032007":["Kurdwadi","kurdwadi"],"20032008":["Kurdwadi(Modnimb)","kurdwadi_modnimb"],"20032009":["Laxmi Sopan Agriculture Produce Marketing Co Ltd","laxmi_sopan_agriculture_produce_marketing_co_ltd"],"20032010":["Mangal Wedha","mangal_wedha"],"20032011":["Mohol","mohol"],"20032012":["Pandharpur","pandharpur"],"20032013":["Perfect Krishi Pvt Ltd","perfect_krishi_pvt_ltd"],"20032014":["Sangola","sangola"],"20032015":["Solapur","solapur"],"20033001":["Sindhudurg","sindhudurg"],"20034001":["Bhivandi","bhivandi"],"20034002":["Dahanu","dahanu"],"20034003":["Kalyan","kalyan"],"20034004":["Kalyan(Cattle)","kalyan_cattle"],"20034005":["Mumbai-Onion And Potato Mkt","mumbai_onion_and_potato_mkt"],"20034006":["Murbad","murbad"],"20034007":["Palghar","palghar"],"20034008":["Shahapur","shahapur"],"20034009":["Ulhasnagar","ulhasnagar"],"20034010":["Vasai","vasai"],"20035001":["Jai Gajanan Krishi Bazar","jai_gajanan_krishi_bazar"],"20035002":["Karanja","karanja"],"20035003":["Krushna Krishi Bazar","krushna_krishi_bazar"],"20035004":["Malegaon(Vashim)","malegaon_vashim"],"20035005":["Mangrulpeer","mangrulpeer"],"20035006":["Manora","manora"],"20035007":["N N Mundhada Agriculture Produce","n_n_mundhada_agriculture_produce"],"20035008":["Risod","risod"],"20035009":["Shetkari Krushi Bazar","shetkari_krushi_bazar"],"20035010":["Shri Balaji krishi Utpanna Bazar Samiti","shri_balaji_krishi_utpanna_bazar_samiti"],"20035011":["Washim","washim"],"20035012":["Washim(Ansing)","washim_ansing"],"20036001":["Arihant Krishi Utpan Bazar","arihant_krishi_utpan_bazar"],"20036002":["Arvi","arvi"],"20036003":["Ashti","ashti"],"20036004":["Ashti(Karanja)","ashti_karanja"],"20036005":["Higanghat Infrastructure Private Limited","higanghat_infrastructure_private_limited"],"20036006":["Hinganghat","hinganghat"],"20036007":["Pulgaon","pulgaon"],"20036008":["Sai Agro Infratrade Pvt Agri","sai_agro_infratrade_pvt_agri"],"20036009":["Samudrapur","samudrapur"],"20036010":["Sindi","sindi"],"20036011":["Sindi(Selu)","sindi_selu"],"20036012":["Wardha","wardha"],"20037001":["Aarni","aarni"],"20037002":["Babhulgaon","babhulgaon"],"20037003":["Balaji Krushi","balaji_krushi"],"20037004":["Bori Arab","bori_arab"],"20037005":["Cottoncity Agro Foods Private Ltd","cottoncity_agro_foods_private_ltd"],"20037006":["Darwha","darwha"],"20037007":["Digras","digras"],"20037008":["Ghatanji","ghatanji"],"20037009":["Jagdamba Agrocare","jagdamba_agrocare"],"20037010":["Kalamb","kalamb"],"20037011":["Kisan","kisan"],"20037012":["Mahagaon","mahagaon"],"20037013":["Mahavir Agriculture Produce","mahavir_agriculture_produce"],"20037014":["Mahavira Agricare","mahavira_agricare"],"20037015":["Mahesh Krushi Utpanna Bazar, Digras","mahesh_krushi_utpanna_bazar_digras"],"20037016":["Maregoan","maregoan"],"20037017":["Ner Parasopant","ner_parasopant"],"20037018":["Pandhakawada","pandhakawada"],"20037019":["Pusad","pusad"],"20037020":["Ralegaon","ralegaon"],"20037021":["Ramdev Krushi Bazaar","ramdev_krushi_bazaar"],"20037022":["Renukadevi Private","renukadevi_private"],"20037023":["Shekari Krushi Khajgi Bazar","shekari_krushi_khajgi_bazar"],"20037024":["Umarked(Danki)","umarked_danki"],"20037025":["Umarkhed","umarkhed"],"20037026":["Vani","vani"],"20037027":["Yeotmal","yeotmal"],"20037028":["ZariZamini","zarizamini"],"00000000":["मंडी चुने",""]}}
+{
+  "headers": [
+    "name",
+    "slug"
+  ],
+  "data": {
+    "20001001": [
+      "Ahilyanagar",
+      "ahilyanagar"
+    ],
+    "20001002": [
+      "Ahmednagar",
+      "ahmednagar"
+    ],
+    "20001003": [
+      "Akole",
+      "akole"
+    ],
+    "20001004": [
+      "Jamkhed",
+      "jamkhed"
+    ],
+    "20001005": [
+      "Karjat",
+      "karjat"
+    ],
+    "20001006": [
+      "KarjatRashin",
+      "karjatrashin"
+    ],
+    "20001007": [
+      "Kopargaon",
+      "kopargaon"
+    ],
+    "20001008": [
+      "Newasa",
+      "newasa"
+    ],
+    "20001009": [
+      "NewasaGhodegaon",
+      "newasaghodegaon"
+    ],
+    "20001010": [
+      "Om Chaitanya Multistate Agro Purpose CoOp Society",
+      "om_chaitanya_multistate_agro_purpose_coop_society"
+    ],
+    "20001011": [
+      "Parner",
+      "parner"
+    ],
+    "20001012": [
+      "Pathardi",
+      "pathardi"
+    ],
+    "20001013": [
+      "Prasanna Krushi",
+      "prasanna_krushi"
+    ],
+    "20001014": [
+      "Rahata",
+      "rahata"
+    ],
+    "20001015": [
+      "Rahuri",
+      "rahuri"
+    ],
+    "20001016": [
+      "RahuriSongaon",
+      "rahurisongaon"
+    ],
+    "20001017": [
+      "RahuriVambori",
+      "rahurivambori"
+    ],
+    "20001018": [
+      "Sangamner",
+      "sangamner"
+    ],
+    "20001019": [
+      "Shevgaon",
+      "shevgaon"
+    ],
+    "20001020": [
+      "ShevgaonBodhegaon",
+      "shevgaonbodhegaon"
+    ],
+    "20001021": [
+      "Shree Sairaj Krushi",
+      "shree_sairaj_krushi"
+    ],
+    "20001022": [
+      "Shrigonda",
+      "shrigonda"
+    ],
+    "20001023": [
+      "ShrigondaGogargaon",
+      "shrigondagogargaon"
+    ],
+    "20001024": [
+      "Shrirampur",
+      "shrirampur"
+    ],
+    "20001025": [
+      "ShrirampurBelapur",
+      "shrirampurbelapur"
+    ],
+    "20002001": [
+      "Akola",
+      "akola"
+    ],
+    "20002002": [
+      "AkolaBorgaon Manju",
+      "akolaborgaon_manju"
+    ],
+    "20002003": [
+      "Akot",
+      "akot"
+    ],
+    "20002004": [
+      "Balapur",
+      "balapur"
+    ],
+    "20002005": [
+      "Barshi Takli",
+      "barshi_takli"
+    ],
+    "20002006": [
+      "Late Vasantraoji Dandale Khajgi Krushi Bazar",
+      "late_vasantraoji_dandale_khajgi_krushi_bazar"
+    ],
+    "20002007": [
+      "Murtizapur",
+      "murtizapur"
+    ],
+    "20002008": [
+      "Patur",
+      "patur"
+    ],
+    "20002009": [
+      "Shri Gajanan Maharaj Khajagi Krushi Utpanna Bazar",
+      "shri_gajanan_maharaj_khajagi_krushi_utpanna_bazar"
+    ],
+    "20002010": [
+      "Telhara",
+      "telhara"
+    ],
+    "20003001": [
+      "Achalpur",
+      "achalpur"
+    ],
+    "20003002": [
+      "Amarawati",
+      "amarawati"
+    ],
+    "20003003": [
+      "AmrawatiFrui & Veg.",
+      "amrawatifrui_veg"
+    ],
+    "20003004": [
+      "Anajngaon",
+      "anajngaon"
+    ],
+    "20003005": [
+      "Chandur Bazar",
+      "chandur_bazar"
+    ],
+    "20003006": [
+      "Chandur Railway",
+      "chandur_railway"
+    ],
+    "20003007": [
+      "Daryapur",
+      "daryapur"
+    ],
+    "20003008": [
+      "Dhamngaon-Railway",
+      "dhamngaon_railway"
+    ],
+    "20003009": [
+      "Dharni",
+      "dharni"
+    ],
+    "20003010": [
+      "Morshi",
+      "morshi"
+    ],
+    "20003011": [
+      "Nandgaon Khandeshwar",
+      "nandgaon_khandeshwar"
+    ],
+    "20003012": [
+      "Shetkari Khushi Bazar",
+      "shetkari_khushi_bazar"
+    ],
+    "20003013": [
+      "Tiwasa",
+      "tiwasa"
+    ],
+    "20003014": [
+      "Varud",
+      "varud"
+    ],
+    "20003015": [
+      "VarudRajura Bazar",
+      "varudrajura_bazar"
+    ],
+    "20005001": [
+      "Ambejaogai",
+      "ambejaogai"
+    ],
+    "20005002": [
+      "Beed",
+      "beed"
+    ],
+    "20005003": [
+      "Gevrai",
+      "gevrai"
+    ],
+    "20005004": [
+      "Kada",
+      "kada"
+    ],
+    "20005005": [
+      "KadaAshti",
+      "kadaashti"
+    ],
+    "20005006": [
+      "Kai Madhavrao Pawar Khajgi Krushi Utappan Bazar Sa",
+      "kai_madhavrao_pawar_khajgi_krushi_utappan_bazar_sa"
+    ],
+    "20005007": [
+      "Kaij",
+      "kaij"
+    ],
+    "20005008": [
+      "Kej",
+      "kej"
+    ],
+    "20005009": [
+      "Kille Dharur",
+      "kille_dharur"
+    ],
+    "20005010": [
+      "Majalgaon",
+      "majalgaon"
+    ],
+    "20005011": [
+      "Parali Vaijyanath",
+      "parali_vaijyanath"
+    ],
+    "20005012": [
+      "Patoda",
+      "patoda"
+    ],
+    "20005013": [
+      "Vadvani",
+      "vadvani"
+    ],
+    "20006001": [
+      "Bhandara",
+      "bhandara"
+    ],
+    "20006002": [
+      "Lakhandur",
+      "lakhandur"
+    ],
+    "20006003": [
+      "Lakhani",
+      "lakhani"
+    ],
+    "20006004": [
+      "Pavani",
+      "pavani"
+    ],
+    "20006005": [
+      "Tumsar",
+      "tumsar"
+    ],
+    "20007001": [
+      "ACF Agro Marketing",
+      "acf_agro_marketing"
+    ],
+    "20007002": [
+      "BSK Krishi Bazar Private Ltd",
+      "bsk_krishi_bazar_private_ltd"
+    ],
+    "20007003": [
+      "Buldhana",
+      "buldhana"
+    ],
+    "20007004": [
+      "BuldhanaDhad",
+      "buldhanadhad"
+    ],
+    "20007005": [
+      "Chikali",
+      "chikali"
+    ],
+    "20007006": [
+      "Dand Brothers Agro",
+      "dand_brothers_agro"
+    ],
+    "20007007": [
+      "Deoulgaon Raja",
+      "deoulgaon_raja"
+    ],
+    "20007008": [
+      "Deulgaon Raja Balaji Agro Marketing Private",
+      "deulgaon_raja_balaji_agro_marketing_private"
+    ],
+    "20007009": [
+      "Jalgaon JamodAasalgaon",
+      "jalgaon_jamodaasalgaon"
+    ],
+    "20007010": [
+      "JalgaonJamod",
+      "jalgaonjamod"
+    ],
+    "20007011": [
+      "Jaykissan Krushi Uttpan Khajgi Bazar",
+      "jaykissan_krushi_uttpan_khajgi_bazar"
+    ],
+    "20007012": [
+      "Khamgaon",
+      "khamgaon"
+    ],
+    "20007013": [
+      "Lonar",
+      "lonar"
+    ],
+    "20007014": [
+      "Maharaja Agresen Private Krushi Utappan Bazar Sama",
+      "maharaja_agresen_private_krushi_utappan_bazar_sama"
+    ],
+    "20007015": [
+      "Malkapur",
+      "malkapur"
+    ],
+    "20007016": [
+      "Mehekar",
+      "mehekar"
+    ],
+    "20007017": [
+      "Motala",
+      "motala"
+    ],
+    "20007018": [
+      "Nandura",
+      "nandura"
+    ],
+    "20007019": [
+      "Sangrampur",
+      "sangrampur"
+    ],
+    "20007020": [
+      "SangrampurVarvatbakal",
+      "sangrampurvarvatbakal"
+    ],
+    "20007021": [
+      "Shegaon",
+      "shegaon"
+    ],
+    "20007022": [
+      "Sindkhed Raja",
+      "sindkhed_raja"
+    ],
+    "20008001": [
+      "Bhadrawati",
+      "bhadrawati"
+    ],
+    "20008002": [
+      "Brahmpuri",
+      "brahmpuri"
+    ],
+    "20008003": [
+      "Chandrapur",
+      "chandrapur"
+    ],
+    "20008004": [
+      "ChandrapurGanjwad",
+      "chandrapurganjwad"
+    ],
+    "20008005": [
+      "Chimur",
+      "chimur"
+    ],
+    "20008006": [
+      "Gondpimpri",
+      "gondpimpri"
+    ],
+    "20008007": [
+      "Korpana",
+      "korpana"
+    ],
+    "20008008": [
+      "Mul",
+      "mul"
+    ],
+    "20008009": [
+      "Nagbhid",
+      "nagbhid"
+    ],
+    "20008010": [
+      "Pombhurni",
+      "pombhurni"
+    ],
+    "20008011": [
+      "Rajura",
+      "rajura"
+    ],
+    "20008012": [
+      "Savali",
+      "savali"
+    ],
+    "20008013": [
+      "Sindevahi",
+      "sindevahi"
+    ],
+    "20008014": [
+      "Varora",
+      "varora"
+    ],
+    "20009001": [
+      "Bhagyoday Cotton and Agri",
+      "bhagyoday_cotton_and_agri"
+    ],
+    "20009002": [
+      "Chattrapati Sambhajinagar",
+      "chattrapati_sambhajinagar"
+    ],
+    "20009003": [
+      "Fulmbri",
+      "fulmbri"
+    ],
+    "20009004": [
+      "Gangapur",
+      "gangapur"
+    ],
+    "20009005": [
+      "Kannad",
+      "kannad"
+    ],
+    "20009006": [
+      "Khultabad",
+      "khultabad"
+    ],
+    "20009007": [
+      "Kisan Seva Private",
+      "kisan_seva_private"
+    ],
+    "20009008": [
+      "Lasur Station",
+      "lasur_station"
+    ],
+    "20009009": [
+      "Maharashtra Agricultural Farm",
+      "maharashtra_agricultural_farm"
+    ],
+    "20009010": [
+      "Paithan",
+      "paithan"
+    ],
+    "20009011": [
+      "Sillod",
+      "sillod"
+    ],
+    "20009012": [
+      "SillodBharadi",
+      "sillodbharadi"
+    ],
+    "20009013": [
+      "Soygaon",
+      "soygaon"
+    ],
+    "20009014": [
+      "Vaijpur",
+      "vaijpur"
+    ],
+    "20010001": [
+      "Bhoom",
+      "bhoom"
+    ],
+    "20010002": [
+      "Dharashiv",
+      "dharashiv"
+    ],
+    "20010003": [
+      "Kalamb Dharashiv",
+      "kalamb_dharashiv"
+    ],
+    "20010004": [
+      "Murum",
+      "murum"
+    ],
+    "20010005": [
+      "Paranda",
+      "paranda"
+    ],
+    "20010006": [
+      "Tuljapur",
+      "tuljapur"
+    ],
+    "20010007": [
+      "Umarga",
+      "umarga"
+    ],
+    "20010008": [
+      "Washi Dharashiv",
+      "washi_dharashiv"
+    ],
+    "20011001": [
+      "Dhule",
+      "dhule"
+    ],
+    "20011002": [
+      "Dondaicha",
+      "dondaicha"
+    ],
+    "20011003": [
+      "DondaichaSindhkheda",
+      "dondaichasindhkheda"
+    ],
+    "20011004": [
+      "Janata Agri DLS Agro Infrastructure Pvt Lt",
+      "janata_agri_dls_agro_infrastructure_pvt_lt"
+    ],
+    "20011005": [
+      "Keshranand Cotex",
+      "keshranand_cotex"
+    ],
+    "20011006": [
+      "Pratap Nana Mahale Khajgi Bajar Samiti",
+      "pratap_nana_mahale_khajgi_bajar_samiti"
+    ],
+    "20011007": [
+      "Sakri",
+      "sakri"
+    ],
+    "20011008": [
+      "Shirpur",
+      "shirpur"
+    ],
+    "20012001": [
+      "Aheri",
+      "aheri"
+    ],
+    "20012002": [
+      "Armori",
+      "armori"
+    ],
+    "20012003": [
+      "ArmoriDesaiganj",
+      "armoridesaiganj"
+    ],
+    "20012004": [
+      "Chamorshi",
+      "chamorshi"
+    ],
+    "20012005": [
+      "Gandchiroli",
+      "gandchiroli"
+    ],
+    "20012006": [
+      "Sironcha",
+      "sironcha"
+    ],
+    "20013001": [
+      "Amgaon",
+      "amgaon"
+    ],
+    "20013002": [
+      "Arjuni",
+      "arjuni"
+    ],
+    "20013003": [
+      "Devri",
+      "devri"
+    ],
+    "20013004": [
+      "Gondiya",
+      "gondiya"
+    ],
+    "20013005": [
+      "Goregaon",
+      "goregaon"
+    ],
+    "20013006": [
+      "Sadak Arjuni",
+      "sadak_arjuni"
+    ],
+    "20013007": [
+      "Tiroda",
+      "tiroda"
+    ],
+    "20014001": [
+      "Adarsh Krushi Bazar",
+      "adarsh_krushi_bazar"
+    ],
+    "20014002": [
+      "Akhadabalapur",
+      "akhadabalapur"
+    ],
+    "20014003": [
+      "Basmat",
+      "basmat"
+    ],
+    "20014004": [
+      "BasmatKurunda",
+      "basmatkurunda"
+    ],
+    "20014005": [
+      "Gajanaan Krushi Bazar",
+      "gajanaan_krushi_bazar"
+    ],
+    "20014006": [
+      "Gajanan Krushi Utpanna Bazar India Pvt Ltd",
+      "gajanan_krushi_utpanna_bazar_india_pvt_ltd"
+    ],
+    "20014007": [
+      "Hingoli",
+      "hingoli"
+    ],
+    "20014008": [
+      "HingoliKanegoan Naka",
+      "hingolikanegoan_naka"
+    ],
+    "20014009": [
+      "Jawala-Bajar",
+      "jawala_bajar"
+    ],
+    "20014010": [
+      "Kalamnuri",
+      "kalamnuri"
+    ],
+    "20014011": [
+      "Marathawada Shetkari Khajgi Bazar Parisar",
+      "marathawada_shetkari_khajgi_bazar_parisar"
+    ],
+    "20014012": [
+      "Sant Namdev Krushi Bazar,",
+      "sant_namdev_krushi_bazar"
+    ],
+    "20014013": [
+      "Sengoan",
+      "sengoan"
+    ],
+    "20014014": [
+      "Vitthal Krushi Utpanna Bazar",
+      "vitthal_krushi_utpanna_bazar"
+    ],
+    "20015001": [
+      "Ambad Vadigodri",
+      "ambad_vadigodri"
+    ],
+    "20015002": [
+      "AshtiJalna",
+      "ashtijalna"
+    ],
+    "20015003": [
+      "Bhokardan",
+      "bhokardan"
+    ],
+    "20015004": [
+      "BhokardanPimpalgaon Renu",
+      "bhokardanpimpalgaon_renu"
+    ],
+    "20015005": [
+      "Ghansawangi",
+      "ghansawangi"
+    ],
+    "20015006": [
+      "Jafrabad",
+      "jafrabad"
+    ],
+    "20015007": [
+      "Jalana",
+      "jalana"
+    ],
+    "20015008": [
+      "JalnaBadnapur",
+      "jalnabadnapur"
+    ],
+    "20015009": [
+      "Mantha",
+      "mantha"
+    ],
+    "20015010": [
+      "Partur",
+      "partur"
+    ],
+    "20015011": [
+      "ParturVatur",
+      "parturvatur"
+    ],
+    "20016001": [
+      "Amalner",
+      "amalner"
+    ],
+    "20016002": [
+      "Bhusaval",
+      "bhusaval"
+    ],
+    "20016003": [
+      "Bodwad",
+      "bodwad"
+    ],
+    "20016004": [
+      "BodwadVarangaon",
+      "bodwadvarangaon"
+    ],
+    "20016005": [
+      "Chalisgaon",
+      "chalisgaon"
+    ],
+    "20016006": [
+      "Chopada",
+      "chopada"
+    ],
+    "20016007": [
+      "Dharangaon",
+      "dharangaon"
+    ],
+    "20016008": [
+      "Gopal Krishna Agro",
+      "gopal_krishna_agro"
+    ],
+    "20016009": [
+      "Govardhan Farm Produce",
+      "govardhan_farm_produce"
+    ],
+    "20016010": [
+      "J S K Agro",
+      "j_s_k_agro"
+    ],
+    "20016011": [
+      "Jalgaon",
+      "jalgaon"
+    ],
+    "20016012": [
+      "JalgaonMasawat",
+      "jalgaonmasawat"
+    ],
+    "20016013": [
+      "Jamner",
+      "jamner"
+    ],
+    "20016014": [
+      "JamnerNeri",
+      "jamnerneri"
+    ],
+    "20016015": [
+      "Laxmi Krushi Utpanna Khjgi Bajar",
+      "laxmi_krushi_utpanna_khjgi_bajar"
+    ],
+    "20016016": [
+      "Mahavir Agri",
+      "mahavir_agri"
+    ],
+    "20016017": [
+      "Pachora",
+      "pachora"
+    ],
+    "20016018": [
+      "PachoraBhadgaon",
+      "pachorabhadgaon"
+    ],
+    "20016019": [
+      "Parola",
+      "parola"
+    ],
+    "20016020": [
+      "Raver",
+      "raver"
+    ],
+    "20016021": [
+      "RaverSauda",
+      "raversauda"
+    ],
+    "20016022": [
+      "Sanghavi Agriculture Marketing",
+      "sanghavi_agriculture_marketing"
+    ],
+    "20016023": [
+      "Shantilal Jain Agro",
+      "shantilal_jain_agro"
+    ],
+    "20016024": [
+      "Vijaya Agri Private",
+      "vijaya_agri_private"
+    ],
+    "20016025": [
+      "Yashika Agro Marketing",
+      "yashika_agro_marketing"
+    ],
+    "20016026": [
+      "Yawal",
+      "yawal"
+    ],
+    "20017001": [
+      "Gadhinglaj",
+      "gadhinglaj"
+    ],
+    "20017002": [
+      "Jaysingpur",
+      "jaysingpur"
+    ],
+    "20017003": [
+      "Kolhapur",
+      "kolhapur"
+    ],
+    "20017004": [
+      "KolhapurLaxmipuri",
+      "kolhapurlaxmipuri"
+    ],
+    "20017005": [
+      "KolhapurMalkapur",
+      "kolhapurmalkapur"
+    ],
+    "20017006": [
+      "Vadgaonpeth",
+      "vadgaonpeth"
+    ],
+    "20018001": [
+      "Ahmedpur",
+      "ahmedpur"
+    ],
+    "20018002": [
+      "Aurad Shahajani",
+      "aurad_shahajani"
+    ],
+    "20018003": [
+      "Ausa",
+      "ausa"
+    ],
+    "20018004": [
+      "Chakur",
+      "chakur"
+    ],
+    "20018005": [
+      "Devani",
+      "devani"
+    ],
+    "20018006": [
+      "Jalkot",
+      "jalkot"
+    ],
+    "20018007": [
+      "Latur",
+      "latur"
+    ],
+    "20018008": [
+      "LaturMurud",
+      "laturmurud"
+    ],
+    "20018009": [
+      "Nilanga",
+      "nilanga"
+    ],
+    "20018010": [
+      "Rangrao Patil Krushi Utpanna Khajgi Bazar",
+      "rangrao_patil_krushi_utpanna_khajgi_bazar"
+    ],
+    "20018011": [
+      "Renapur",
+      "renapur"
+    ],
+    "20018012": [
+      "Shirur Anantpal",
+      "shirur_anantpal"
+    ],
+    "20018013": [
+      "Udgir",
+      "udgir"
+    ],
+    "20018014": [
+      "UdgirHali",
+      "udgirhali"
+    ],
+    "20019001": [
+      "All India Cottonseed Crushers Association",
+      "all_india_cottonseed_crushers_association"
+    ],
+    "20019002": [
+      "Mumbai",
+      "mumbai"
+    ],
+    "20019003": [
+      "Mumbai- Fruit",
+      "mumbai_fruit"
+    ],
+    "20019004": [
+      "Mumbai- Thane",
+      "mumbai_thane"
+    ],
+    "20019005": [
+      "NCDEX Spot Exchange",
+      "ncdex_spot_exchange"
+    ],
+    "20019006": [
+      "Vashi New Mumbai",
+      "vashi_new_mumbai"
+    ],
+    "20021001": [
+      "Bhiwapur",
+      "bhiwapur"
+    ],
+    "20021002": [
+      "Hingna",
+      "hingna"
+    ],
+    "20021003": [
+      "Kalmeshwar",
+      "kalmeshwar"
+    ],
+    "20021004": [
+      "Kamthi",
+      "kamthi"
+    ],
+    "20021005": [
+      "Katol",
+      "katol"
+    ],
+    "20021006": [
+      "MS Kalpana Agri Commodities Marketing",
+      "ms_kalpana_agri_commodities_marketing"
+    ],
+    "20021007": [
+      "Mandhal",
+      "mandhal"
+    ],
+    "20021008": [
+      "Mauda",
+      "mauda"
+    ],
+    "20021009": [
+      "Nagpur",
+      "nagpur"
+    ],
+    "20021010": [
+      "NagpurMahatma Phule",
+      "nagpurmahatma_phule"
+    ],
+    "20021011": [
+      "Narkhed",
+      "narkhed"
+    ],
+    "20021012": [
+      "Parshiwani",
+      "parshiwani"
+    ],
+    "20021013": [
+      "Ramtek",
+      "ramtek"
+    ],
+    "20021014": [
+      "Savner",
+      "savner"
+    ],
+    "20021015": [
+      "Umared",
+      "umared"
+    ],
+    "20022001": [
+      "Bhokar",
+      "bhokar"
+    ],
+    "20022002": [
+      "Biloli",
+      "biloli"
+    ],
+    "20022003": [
+      "Deglur",
+      "deglur"
+    ],
+    "20022004": [
+      "Dharmabad",
+      "dharmabad"
+    ],
+    "20022005": [
+      "Hadgaon",
+      "hadgaon"
+    ],
+    "20022006": [
+      "HadgaonTamsa",
+      "hadgaontamsa"
+    ],
+    "20022007": [
+      "Himalyatnagar",
+      "himalyatnagar"
+    ],
+    "20022008": [
+      "Islapur",
+      "islapur"
+    ],
+    "20022009": [
+      "Kandhar",
+      "kandhar"
+    ],
+    "20022010": [
+      "Kinwat",
+      "kinwat"
+    ],
+    "20022011": [
+      "Kundalwadi",
+      "kundalwadi"
+    ],
+    "20022012": [
+      "Kuntur",
+      "kuntur"
+    ],
+    "20022013": [
+      "Loha",
+      "loha"
+    ],
+    "20022014": [
+      "Mahur",
+      "mahur"
+    ],
+    "20022015": [
+      "Mudkhed",
+      "mudkhed"
+    ],
+    "20022016": [
+      "Mukhed",
+      "mukhed"
+    ],
+    "20022017": [
+      "MukhedMukkambad",
+      "mukhedmukkambad"
+    ],
+    "20022018": [
+      "Naigaon",
+      "naigaon"
+    ],
+    "20022019": [
+      "Nanded",
+      "nanded"
+    ],
+    "20022020": [
+      "Navratna Krishi Utpanna Khajgi Bazar",
+      "navratna_krishi_utpanna_khajgi_bazar"
+    ],
+    "20022021": [
+      "Shetkari Khajgi Bajar",
+      "shetkari_khajgi_bajar"
+    ],
+    "20022022": [
+      "Umari",
+      "umari"
+    ],
+    "20023001": [
+      "Akkalkuwa",
+      "akkalkuwa"
+    ],
+    "20023002": [
+      "Dhadgaon",
+      "dhadgaon"
+    ],
+    "20023003": [
+      "NandubarKoparli",
+      "nandubarkoparli"
+    ],
+    "20023004": [
+      "Nandurbar",
+      "nandurbar"
+    ],
+    "20023005": [
+      "Navapur",
+      "navapur"
+    ],
+    "20023006": [
+      "Shahada",
+      "shahada"
+    ],
+    "20023007": [
+      "Taloda",
+      "taloda"
+    ],
+    "20024001": [
+      "Baphana Agro Inc",
+      "baphana_agro_inc"
+    ],
+    "20024002": [
+      "Baswant",
+      "baswant"
+    ],
+    "20024003": [
+      "Chandvad",
+      "chandvad"
+    ],
+    "20024004": [
+      "Devala",
+      "devala"
+    ],
+    "20024005": [
+      "Dindori",
+      "dindori"
+    ],
+    "20024006": [
+      "DindoriVani",
+      "dindorivani"
+    ],
+    "20024007": [
+      "Ghoti",
+      "ghoti"
+    ],
+    "20024008": [
+      "Kalvan",
+      "kalvan"
+    ],
+    "20024009": [
+      "Lasalgaon",
+      "lasalgaon"
+    ],
+    "20024010": [
+      "LasalgaonNiphad",
+      "lasalgaonniphad"
+    ],
+    "20024011": [
+      "LasalgaonVinchur",
+      "lasalgaonvinchur"
+    ],
+    "20024012": [
+      "Malegaon",
+      "malegaon"
+    ],
+    "20024013": [
+      "Malharshree Farmers Producer Co Ltd",
+      "malharshree_farmers_producer_co_ltd"
+    ],
+    "20024014": [
+      "Mankamneshwar Farmar Producer CoLtd Sanchalit Mank",
+      "mankamneshwar_farmar_producer_coltd_sanchalit_mank"
+    ],
+    "20024015": [
+      "Manmad",
+      "manmad"
+    ],
+    "20024016": [
+      "Nampur",
+      "nampur"
+    ],
+    "20024017": [
+      "Nandgaon",
+      "nandgaon"
+    ],
+    "20024018": [
+      "NashikDevlali",
+      "nashikdevlali"
+    ],
+    "20024019": [
+      "Nasik",
+      "nasik"
+    ],
+    "20024020": [
+      "Perfect Krishi Yard",
+      "perfect_krishi_yard"
+    ],
+    "20024021": [
+      "Pimpalgaon",
+      "pimpalgaon"
+    ],
+    "20024022": [
+      "Pimpalgaon BaswantSaykheda",
+      "pimpalgaon_baswantsaykheda"
+    ],
+    "20024023": [
+      "Premium Krushi Utpanna Bazar",
+      "premium_krushi_utpanna_bazar"
+    ],
+    "20024024": [
+      "Satana",
+      "satana"
+    ],
+    "20024025": [
+      "Shivsiddha Govind Producer Company Limited Sanchal",
+      "shivsiddha_govind_producer_company_limited_sanchal"
+    ],
+    "20024026": [
+      "Shree Rameshwar Krushi",
+      "shree_rameshwar_krushi"
+    ],
+    "20024027": [
+      "Sinner",
+      "sinner"
+    ],
+    "20024028": [
+      "Suragana",
+      "suragana"
+    ],
+    "20024029": [
+      "Umrane",
+      "umrane"
+    ],
+    "20024030": [
+      "Yeola",
+      "yeola"
+    ],
+    "20026001": [
+      "Bori",
+      "bori"
+    ],
+    "20026002": [
+      "Gangakhed",
+      "gangakhed"
+    ],
+    "20026003": [
+      "Hari Har Khajagi Bazar Parisar",
+      "hari_har_khajagi_bazar_parisar"
+    ],
+    "20026004": [
+      "Jintur",
+      "jintur"
+    ],
+    "20026005": [
+      "Manwat",
+      "manwat"
+    ],
+    "20026006": [
+      "Palam",
+      "palam"
+    ],
+    "20026007": [
+      "Parbhani",
+      "parbhani"
+    ],
+    "20026008": [
+      "Pathari",
+      "pathari"
+    ],
+    "20026009": [
+      "Purna",
+      "purna"
+    ],
+    "20026010": [
+      "Sailu",
+      "sailu"
+    ],
+    "20026011": [
+      "Samartha Krushi Bajar Private Limited",
+      "samartha_krushi_bajar_private_limited"
+    ],
+    "20026012": [
+      "Selu",
+      "selu"
+    ],
+    "20026013": [
+      "Shree Salasar Krushi Bazar",
+      "shree_salasar_krushi_bazar"
+    ],
+    "20026014": [
+      "Sirsam",
+      "sirsam"
+    ],
+    "20026015": [
+      "Sonpeth",
+      "sonpeth"
+    ],
+    "20026016": [
+      "Tadkalas",
+      "tadkalas"
+    ],
+    "20027001": [
+      "Baramati",
+      "baramati"
+    ],
+    "20027002": [
+      "Bhor",
+      "bhor"
+    ],
+    "20027003": [
+      "Dound",
+      "dound"
+    ],
+    "20027004": [
+      "Indapur",
+      "indapur"
+    ],
+    "20027005": [
+      "IndapurBhigwan",
+      "indapurbhigwan"
+    ],
+    "20027006": [
+      "IndapurNimgaon Ketki",
+      "indapurnimgaon_ketki"
+    ],
+    "20027007": [
+      "Junnar",
+      "junnar"
+    ],
+    "20027008": [
+      "JunnarAlephata",
+      "junnaralephata"
+    ],
+    "20027009": [
+      "JunnarBhlhe",
+      "junnarbhlhe"
+    ],
+    "20027010": [
+      "JunnarNarayangaon",
+      "junnarnarayangaon"
+    ],
+    "20027011": [
+      "JunnarOtur",
+      "junnarotur"
+    ],
+    "20027012": [
+      "Khed",
+      "khed"
+    ],
+    "20027013": [
+      "KhedChakan",
+      "khedchakan"
+    ],
+    "20027014": [
+      "KhedShel Pimpalgaon",
+      "khedshel_pimpalgaon"
+    ],
+    "20027015": [
+      "Manchar",
+      "manchar"
+    ],
+    "20027016": [
+      "Mulshi",
+      "mulshi"
+    ],
+    "20027017": [
+      "Nira",
+      "nira"
+    ],
+    "20027018": [
+      "NiraSaswad",
+      "nirasaswad"
+    ],
+    "20027019": [
+      "Pune",
+      "pune"
+    ],
+    "20027020": [
+      "PuneKhadiki",
+      "punekhadiki"
+    ],
+    "20027021": [
+      "PuneManjri",
+      "punemanjri"
+    ],
+    "20027022": [
+      "PuneMoshi",
+      "punemoshi"
+    ],
+    "20027023": [
+      "PunePimpri",
+      "punepimpri"
+    ],
+    "20027024": [
+      "Shirur",
+      "shirur"
+    ],
+    "20027025": [
+      "Talegaon Dabhade",
+      "talegaon_dabhade"
+    ],
+    "20028001": [
+      "Alibagh",
+      "alibagh"
+    ],
+    "20028002": [
+      "KarjatRaigad",
+      "karjatraigad"
+    ],
+    "20028003": [
+      "Khalapur Shil-Phata",
+      "khalapur_shil_phata"
+    ],
+    "20028004": [
+      "Mahad",
+      "mahad"
+    ],
+    "20028005": [
+      "Mangaon",
+      "mangaon"
+    ],
+    "20028006": [
+      "Murud",
+      "murud"
+    ],
+    "20028007": [
+      "Panvel",
+      "panvel"
+    ],
+    "20028008": [
+      "Pen",
+      "pen"
+    ],
+    "20028009": [
+      "Roha",
+      "roha"
+    ],
+    "20029001": [
+      "Ratnagiri Nachane",
+      "ratnagiri_nachane"
+    ],
+    "20030001": [
+      "Aatpadi",
+      "aatpadi"
+    ],
+    "20030002": [
+      "Islampur",
+      "islampur"
+    ],
+    "20030003": [
+      "Palus",
+      "palus"
+    ],
+    "20030004": [
+      "Sangli",
+      "sangli"
+    ],
+    "20030005": [
+      "SangliMiraj",
+      "sanglimiraj"
+    ],
+    "20030006": [
+      "SangliPhale, Bhajipura",
+      "sangliphale_bhajipura"
+    ],
+    "20030007": [
+      "Shirala",
+      "shirala"
+    ],
+    "20030008": [
+      "Tasgaon",
+      "tasgaon"
+    ],
+    "20030009": [
+      "Vita",
+      "vita"
+    ],
+    "20031001": [
+      "Dahivadi",
+      "dahivadi"
+    ],
+    "20031002": [
+      "Jawali",
+      "jawali"
+    ],
+    "20031003": [
+      "Karad",
+      "karad"
+    ],
+    "20031004": [
+      "Koregaon",
+      "koregaon"
+    ],
+    "20031005": [
+      "Lonand",
+      "lonand"
+    ],
+    "20031006": [
+      "Patan",
+      "patan"
+    ],
+    "20031007": [
+      "Phaltan",
+      "phaltan"
+    ],
+    "20031008": [
+      "Satara",
+      "satara"
+    ],
+    "20031009": [
+      "Vaduj",
+      "vaduj"
+    ],
+    "20031010": [
+      "Vai",
+      "vai"
+    ],
+    "20032001": [
+      "Akkalkot",
+      "akkalkot"
+    ],
+    "20032002": [
+      "Akluj",
+      "akluj"
+    ],
+    "20032003": [
+      "Barshi",
+      "barshi"
+    ],
+    "20032004": [
+      "BarshiVairag",
+      "barshivairag"
+    ],
+    "20032005": [
+      "Dudhani",
+      "dudhani"
+    ],
+    "20032006": [
+      "Karmala",
+      "karmala"
+    ],
+    "20032007": [
+      "Kurdwadi",
+      "kurdwadi"
+    ],
+    "20032008": [
+      "KurdwadiModnimb",
+      "kurdwadimodnimb"
+    ],
+    "20032009": [
+      "Laxmi Sopan Agriculture Produce Marketing Co Ltd",
+      "laxmi_sopan_agriculture_produce_marketing_co_ltd"
+    ],
+    "20032010": [
+      "Mangal Wedha",
+      "mangal_wedha"
+    ],
+    "20032011": [
+      "Mohol",
+      "mohol"
+    ],
+    "20032012": [
+      "Pandharpur",
+      "pandharpur"
+    ],
+    "20032013": [
+      "Perfect Krishi Yard Pvt Ltd",
+      "perfect_krishi_yard_pvt_ltd"
+    ],
+    "20032014": [
+      "Sangola",
+      "sangola"
+    ],
+    "20032015": [
+      "Solapur",
+      "solapur"
+    ],
+    "20033001": [
+      "Sindhudurg",
+      "sindhudurg"
+    ],
+    "20034001": [
+      "Bhivandi",
+      "bhivandi"
+    ],
+    "20034002": [
+      "Dahanu",
+      "dahanu"
+    ],
+    "20034003": [
+      "Kalyan",
+      "kalyan"
+    ],
+    "20034004": [
+      "KalyanCattle",
+      "kalyancattle"
+    ],
+    "20034005": [
+      "Mumbai-Onion And Potato Mkt",
+      "mumbai_onion_and_potato_mkt"
+    ],
+    "20034006": [
+      "Murbad",
+      "murbad"
+    ],
+    "20034007": [
+      "Palghar",
+      "palghar"
+    ],
+    "20034008": [
+      "Shahapur",
+      "shahapur"
+    ],
+    "20034009": [
+      "Ulhasnagar",
+      "ulhasnagar"
+    ],
+    "20034010": [
+      "Vasai",
+      "vasai"
+    ],
+    "20035001": [
+      "Jai Gajanan Krishi Bazar",
+      "jai_gajanan_krishi_bazar"
+    ],
+    "20035002": [
+      "Karanja",
+      "karanja"
+    ],
+    "20035003": [
+      "Krushna Krishi Bazar",
+      "krushna_krishi_bazar"
+    ],
+    "20035004": [
+      "MalegaonVashim",
+      "malegaonvashim"
+    ],
+    "20035005": [
+      "Mangrulpeer",
+      "mangrulpeer"
+    ],
+    "20035006": [
+      "Manora",
+      "manora"
+    ],
+    "20035007": [
+      "N N Mundhada Agriculture Produce",
+      "n_n_mundhada_agriculture_produce"
+    ],
+    "20035008": [
+      "Risod",
+      "risod"
+    ],
+    "20035009": [
+      "Shetkari Krushi Bazar",
+      "shetkari_krushi_bazar"
+    ],
+    "20035010": [
+      "Shri Balaji krishi Utpanna Bazar Samiti",
+      "shri_balaji_krishi_utpanna_bazar_samiti"
+    ],
+    "20035011": [
+      "Washim",
+      "washim"
+    ],
+    "20035012": [
+      "WashimAnsing",
+      "washimansing"
+    ],
+    "20036001": [
+      "Arihant Krishi Utpan Bazar",
+      "arihant_krishi_utpan_bazar"
+    ],
+    "20036002": [
+      "Arvi",
+      "arvi"
+    ],
+    "20036003": [
+      "Ashti",
+      "ashti"
+    ],
+    "20036004": [
+      "AshtiKaranja",
+      "ashtikaranja"
+    ],
+    "20036005": [
+      "Higanghat Infrastructure Private Limited",
+      "higanghat_infrastructure_private_limited"
+    ],
+    "20036006": [
+      "Hinganghat",
+      "hinganghat"
+    ],
+    "20036007": [
+      "Pulgaon",
+      "pulgaon"
+    ],
+    "20036008": [
+      "Sai Agro Infratrade Pvt Agri",
+      "sai_agro_infratrade_pvt_agri"
+    ],
+    "20036009": [
+      "Samudrapur",
+      "samudrapur"
+    ],
+    "20036010": [
+      "Sindi",
+      "sindi"
+    ],
+    "20036011": [
+      "SindiSelu",
+      "sindiselu"
+    ],
+    "20036012": [
+      "Wardha",
+      "wardha"
+    ],
+    "20037001": [
+      "Aarni",
+      "aarni"
+    ],
+    "20037002": [
+      "Babhulgaon",
+      "babhulgaon"
+    ],
+    "20037003": [
+      "Balaji Krushi",
+      "balaji_krushi"
+    ],
+    "20037004": [
+      "Bori Arab",
+      "bori_arab"
+    ],
+    "20037005": [
+      "Cottoncity Agro Foods Private Ltd",
+      "cottoncity_agro_foods_private_ltd"
+    ],
+    "20037006": [
+      "Darwha",
+      "darwha"
+    ],
+    "20037007": [
+      "Digras",
+      "digras"
+    ],
+    "20037008": [
+      "Ghatanji",
+      "ghatanji"
+    ],
+    "20037009": [
+      "Jagdamba Agrocare",
+      "jagdamba_agrocare"
+    ],
+    "20037010": [
+      "Kalamb",
+      "kalamb"
+    ],
+    "20037011": [
+      "Kisan Yard",
+      "kisan_yard"
+    ],
+    "20037012": [
+      "Mahagaon",
+      "mahagaon"
+    ],
+    "20037013": [
+      "Mahavir Agriculture Produce",
+      "mahavir_agriculture_produce"
+    ],
+    "20037014": [
+      "Mahavira Agricare",
+      "mahavira_agricare"
+    ],
+    "20037015": [
+      "Mahesh Krushi Utpanna Bazar, Digras",
+      "mahesh_krushi_utpanna_bazar_digras"
+    ],
+    "20037016": [
+      "Maregoan",
+      "maregoan"
+    ],
+    "20037017": [
+      "Ner Parasopant",
+      "ner_parasopant"
+    ],
+    "20037018": [
+      "Pandhakawada",
+      "pandhakawada"
+    ],
+    "20037019": [
+      "Pusad",
+      "pusad"
+    ],
+    "20037020": [
+      "Ralegaon",
+      "ralegaon"
+    ],
+    "20037021": [
+      "Ramdev Krushi Bazaar",
+      "ramdev_krushi_bazaar"
+    ],
+    "20037022": [
+      "Renukadevi Private Yard",
+      "renukadevi_private_yard"
+    ],
+    "20037023": [
+      "Shekari Krushi Khajgi Bazar",
+      "shekari_krushi_khajgi_bazar"
+    ],
+    "20037024": [
+      "UmarkedDanki",
+      "umarkeddanki"
+    ],
+    "20037025": [
+      "Umarkhed",
+      "umarkhed"
+    ],
+    "20037026": [
+      "Vani",
+      "vani"
+    ],
+    "20037027": [
+      "Yeotmal",
+      "yeotmal"
+    ],
+    "20037028": [
+      "ZariZamini",
+      "zarizamini"
+    ],
+    "00000000": [
+      "मंडी चुने",
+      ""
+    ]
+  }
+}

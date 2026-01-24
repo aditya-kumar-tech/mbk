@@ -1,1 +1,104 @@
-{"headers":["name","slug"],"data":{"35003001":["Chamoli","chamoli"],"35004001":["Tanakpur","tanakpur"],"35005001":["Chakrata","chakrata"],"35005002":["Dehradoon","dehradoon"],"35005003":["Rishikesh","rishikesh"],"35005004":["Vikasnagar","vikasnagar"],"35006001":["Kotadwara","kotadwara"],"35008001":["Bhagwanpur(Naveen Sthal)","bhagwanpur_naveen_sthal"],"35008002":["Haridwar Union","haridwar_union"],"35008003":["Lakshar","lakshar"],"35008004":["Manglaur","manglaur"],"35008005":["Roorkee","roorkee"],"35009001":["Haldwani","haldwani"],"35009002":["Ramnagar","ramnagar"],"35013001":["Bazpur","bazpur"],"35013002":["Gadarpur","gadarpur"],"35013003":["Jaspur(UC)","jaspur_uc"],"35013004":["Kashipur","kashipur"],"35013005":["Khateema","khateema"],"35013006":["Kicchha","kicchha"],"35013007":["Nanakmatta","nanakmatta"],"35013008":["Rudrapur","rudrapur"],"35013009":["Sitarganj","sitarganj"],"00000000":["मंडी चुने",""]}}
+{
+  "headers": [
+    "name",
+    "slug"
+  ],
+  "data": {
+    "35003001": [
+      "Chamoli",
+      "chamoli"
+    ],
+    "35004001": [
+      "Tanakpur",
+      "tanakpur"
+    ],
+    "35005001": [
+      "Chakrata",
+      "chakrata"
+    ],
+    "35005002": [
+      "Dehradoon",
+      "dehradoon"
+    ],
+    "35005003": [
+      "Rishikesh",
+      "rishikesh"
+    ],
+    "35005004": [
+      "Vikasnagar",
+      "vikasnagar"
+    ],
+    "35006001": [
+      "Kotadwara",
+      "kotadwara"
+    ],
+    "35008001": [
+      "BhagwanpurNaveen Sthal",
+      "bhagwanpurnaveen_sthal"
+    ],
+    "35008002": [
+      "Haridwar Union",
+      "haridwar_union"
+    ],
+    "35008003": [
+      "Lakshar",
+      "lakshar"
+    ],
+    "35008004": [
+      "Manglaur",
+      "manglaur"
+    ],
+    "35008005": [
+      "Roorkee",
+      "roorkee"
+    ],
+    "35009001": [
+      "Haldwani",
+      "haldwani"
+    ],
+    "35009002": [
+      "Ramnagar",
+      "ramnagar"
+    ],
+    "35013001": [
+      "Bazpur",
+      "bazpur"
+    ],
+    "35013002": [
+      "Gadarpur",
+      "gadarpur"
+    ],
+    "35013003": [
+      "JaspurUC",
+      "jaspuruc"
+    ],
+    "35013004": [
+      "Kashipur",
+      "kashipur"
+    ],
+    "35013005": [
+      "Khateema",
+      "khateema"
+    ],
+    "35013006": [
+      "Kicchha",
+      "kicchha"
+    ],
+    "35013007": [
+      "Nanakmatta",
+      "nanakmatta"
+    ],
+    "35013008": [
+      "Rudrapur",
+      "rudrapur"
+    ],
+    "35013009": [
+      "Sitarganj",
+      "sitarganj"
+    ],
+    "00000000": [
+      "मंडी चुने",
+      ""
+    ]
+  }
+}

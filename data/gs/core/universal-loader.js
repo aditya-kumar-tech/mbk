@@ -6,7 +6,7 @@ if(!document.getElementById('rates-ui-css')){
   const l = document.createElement('link');
   l.id = 'rates-ui-css';
   l.rel = 'stylesheet';
-  l.href = 'https://aditya-kumar-tech.github.io/mbk/data/gs/core/rates-ui.css'; // your CSS path
+  l.href = 'https://api.mandibhavkhabar.com/data/gs/core/rates-ui.css'; // your CSS path
   document.head.appendChild(l);
 }
 
@@ -61,7 +61,7 @@ window.Silverdata=function(q){
   };
 
   if(!silverCfg){
-    fetch('https://aditya-kumar-tech.github.io/mbk/data/gs/silver-groups.json')
+    fetch('https://api.mandibhavkhabar.com/data/gs/silver-groups.json')
     .then(r=>r.json()).then(j=>{silverCfg=j;start();});
   } else start();
 };
@@ -151,7 +151,7 @@ window.golddata=function(q){
   };
 
   if(!goldCfg){
-    fetch('https://aditya-kumar-tech.github.io/mbk/data/gs/gold-groups.json')
+    fetch('https://api.mandibhavkhabar.com/data/gs/gold-groups.json')
     .then(r=>r.json()).then(j=>{goldCfg=j;start();});
   } else start();
 };

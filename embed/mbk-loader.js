@@ -1,6 +1,6 @@
 (function () {
   // Yeh URLs manifest ke version ke bina hain, kyunki manifest logic init script handle kar raha hai
-  const BASE_URL = "https://aditya-kumar-tech.github.io/mbk/embed/";
+  const BASE_URL = "https://api.mandibhavkhabar.com/embed/";
   const CSS_URL  = `${BASE_URL}mbk-ui.css`;
   const JS_URL   = `${BASE_URL}mbk-app.js`;
 

@@ -4,18 +4,18 @@
   "modules": {
     "gold-rates": {
       "files": [
-        "mbk/data/gs/core/gold-rates/gold.js",
-        "mbk/data/gs/core/gold-rates/gold-data.js",
-        "mbk/data/gs/core/gold-rates/gold-style.css"
+        "https://api.mandibhavkhabar.com/data/gs/core/gold-rates/gold.js",
+        "https://api.mandibhavkhabar.com/data/gs/core/gold-rates/gold-data.js",
+        "https://api.mandibhavkhabar.com/data/gs/core/gold-rates/gold-style.css"
       ],
       "functions": ["golddata"],
       "elements": ["gctitle", "g22kt", "g24kt", "gramtbl22", "gramtbl24", "data_table1", "data_table2", "gldgraf"]
     },
     "silver-rates": {
       "files": [
-        "mbk/data/gs/core/silver-rates/silver.js",
-        "mbk/data/gs/core/silver-rates/silver-data.js", 
-        "mbk/data/gs/core/silver-rates/silver-style.css"
+        "https://api.mandibhavkhabar.com/data/gs/core/silver-rates/silver.js",
+        "https://api.mandibhavkhabar.com/data/gs/core/silver-rates/silver-data.js", 
+        "https://api.mandibhavkhabar.com/data/gs/core/silver-rates/silver-style.css"
       ],
       "functions": ["Silverdata"],
       "elements": ["sctitle", "silvr_pricet", "silvr_gramtbl", "data_table1", "silvr_graf"]

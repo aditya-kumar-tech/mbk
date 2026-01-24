@@ -2,7 +2,7 @@
  * Mandi Bhav Khabar - Loader Init Script (Fixed)
  */
 (async () => {
-    const BASE_URL = 'https://aditya-kumar-tech.github.io/mbk/embed/';
+    const BASE_URL = 'https://api.mandibhavkhabar.com/embed/';
     const MANIFEST_URL = `${BASE_URL}manifest.json`;
 
     const configDiv = document.getElementById('mbk-config');

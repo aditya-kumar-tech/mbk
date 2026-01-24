@@ -1,5 +1,5 @@
 (function () {
-  const BASE_URL = 'https://aditya-kumar-tech.github.io/mbk/data/hi/';
+  const BASE_URL = 'https://api.mandibhavkhabar.com/data/hi/';
   const PRICES_PREFIX = 'mbk:prices:';
   
   let commodities = {}, varieties = {}, grades = {}, states = {};

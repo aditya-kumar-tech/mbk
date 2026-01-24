@@ -3,6 +3,17 @@ const once = fn => { let d; return (...a) => d || (d = fn(...a)) };
 const has = s => document.querySelector(s);
 const delay = (f, t = 300) => setTimeout(f, t);
 
+/* ================= CSS LOADER ================= */
+const loadCSS = once(() => {
+    if (has('#mbk-rates-css')) return;
+    const link = document.createElement('link');
+    link.id = 'mbk-rates-css';
+    link.rel = 'stylesheet';
+    link.href = 'https://api.mandibhavkhabar.com/data/gs/core/rates-ui.css';
+    link.onerror = () => console.warn('CSS load failed');
+    document.head.appendChild(link);
+});
+
 /* ================= CHART LOADER ================= */
 const loadChart = once(cb => {
     if (window.Chart) return cb();
@@ -24,7 +35,6 @@ function parseGViz(txt, limit = 15) {
         const data = JSON.parse(txt);
         let rows = data.table?.rows || [];
         
-        // Safe date sorting (recent first)
         rows.sort((a, b) => {
             const da = new Date(a.c[0]?.f || a.c[0]?.v || 0);
             const db = new Date(b.c[0]?.f || b.c[0]?.v || 0);
@@ -59,6 +69,8 @@ let goldCfg = null;
 
 /* ================= SILVER LOGIC ================= */
 window.Silverdata = function(q) {
+    loadCSS(); // ✅ Auto CSS load
+    
     if (!q || (!has('#silvr_pricet') && !has('#silvr_graf'))) return;
 
     const start = () => {
@@ -76,7 +88,6 @@ window.Silverdata = function(q) {
     };
 
     if (!silverCfg) {
-        // ✅ NEW BASE URL
         fetch('https://api.mandibhavkhabar.com/data/gs/silver-groups.json')
             .then(r => r.json())
             .then(j => { silverCfg = j; start(); })
@@ -89,6 +100,8 @@ window.Silverdata = function(q) {
 
 /* ================= GOLD LOGIC ================= */
 window.golddata = function(q) {
+    loadCSS(); // ✅ Auto CSS load
+    
     if (!q || (!has('#g22kt') && !has('#gldgraf'))) return;
 
     const start = () => {
@@ -106,7 +119,6 @@ window.golddata = function(q) {
     };
 
     if (!goldCfg) {
-        // ✅ NEW BASE URL
         fetch('https://api.mandibhavkhabar.com/data/gs/gold-groups.json')
             .then(r => r.json())
             .then(j => { goldCfg = j; start(); })
@@ -117,9 +129,10 @@ window.golddata = function(q) {
     } else start();
 };
 
-// ✅ Auto-preload (optional)
+// ✅ Auto-preload configs + CSS
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
+        loadCSS(); // ✅ Early CSS load
         fetch('https://api.mandibhavkhabar.com/data/gs/silver-groups.json').then(r=>r.json()).then(j=>silverCfg=j);
         fetch('https://api.mandibhavkhabar.com/data/gs/gold-groups.json').then(r=>r.json()).then(j=>goldCfg=j);
     });

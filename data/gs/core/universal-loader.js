@@ -59,7 +59,7 @@ window.Silverdata = function(q){
   };
 
   if(!silverCfg){
-    fetch('https://aditya-kumar-tech.github.io/mbk/data/gs/silver-groups.json')
+    fetch('https://api.mandibhavkhabar.com/data/gs/silver-groups.json')
       .then(r=>r.json())
       .then(j=>{ silverCfg=j; start(); })
       .catch(()=>{});
@@ -131,7 +131,7 @@ window.golddata = function(q){
   };
 
   if(!goldCfg){
-    fetch('https://aditya-kumar-tech.github.io/mbk/data/gs/gold-groups.json')
+    fetch('https://api.mandibhavkhabar.com/data/gs/gold-groups.json')
       .then(r=>r.json())
       .then(j=>{ goldCfg=j; start(); })
       .catch(()=>{});

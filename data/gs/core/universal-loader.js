@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded',scanLoader);
 const has=s=>document.querySelector(s);
 const arrow=v=>v>0?'▲':v<0?'▼':'—';
 const pct=(t,y)=>y?(((t-y)/y)*100).toFixed(2):"0.00";
+function clearTable(el){if(el) el.innerHTML='';}
 
 /* ================= CHART ================= */
 function loadChart(cb){
@@ -40,14 +41,15 @@ function parseGViz(txt,limit=15){
   }catch(e){return[];}
 }
 
-/* ================= CONFIG ================= */
-let goldCfg=null,silverCfg=null;
-
 /* ================= SILVER ================= */
+let silverCfg=null;
 window.Silverdata=function(q){
   if(!q) return;
   const start=cfg=>{
     if(!cfg?.id) return;
+    clearTable(has('#data_table1'));
+    clearTable(has('#data_table2'));
+    clearTable(has('#silvr_gramtbl'));
     fetch(`https://docs.google.com/spreadsheets/d/${cfg.id}/gviz/tq?tqx=out:json&sheet=silvweb&tq=select * limit 15`)
       .then(r=>r.text())
       .then(t=>{
@@ -64,18 +66,17 @@ window.Silverdata=function(q){
 };
 
 function renderSilver(rows){
-  has('#data_table2')&&(data_table2.innerHTML=''); // clear gold
   const today=+rows[0].c[2]?.v||0;
   const yesterday=+rows[1]?.c[2]?.v||today;
   const diffVal=today-yesterday;
 
   setVal(has('#silvr_pricet'),`₹${today.toLocaleString('hi-IN')}`);
   has('#silvr_change')&&(silvr_change.innerHTML=
-    `<span class="${diffVal>=0?'up':'down'}">${arrow(diffVal)} ₹${diffVal} (${pct(today,yesterday)}%)</span>`);
+    `<span>${arrow(diffVal)} ₹${diffVal} (${pct(today,yesterday)}%)</span>`);
 
   const u=has('.sudate #udat'); u&&(u.textContent=rows[0].c[0]?.f||'');
 
-  /* grams */
+  /* grams table */
   const gtbl=has('#silvr_gramtbl');
   if(gtbl){
     let h='<table class="price-table">';
@@ -83,14 +84,14 @@ function renderSilver(rows){
     gtbl.innerHTML=h+'</table>';
   }
 
-  /* history */
+  /* history table */
   const ht=has('#data_table1');
   if(ht){
     let h='<div class="table-wrapper"><table class="price-table">';
     h+='<tr><th>Date</th><th>Price</th><th>Δ</th><th>%</th></tr>';
     rows.forEach((r,i)=>{
       const v=+r.c[2]?.v||0; const pv=+rows[i+1]?.c[2]?.v||v;
-      h+=`<tr><td>${r.c[0]?.f}</td><td>₹${v}</td><td class="${v-pv>=0?'up':'down'}">${arrow(v-pv)} ${v-pv}</td><td>${pct(v,pv)}%</td></tr>`;
+      h+=`<tr><td>${r.c[0]?.f}</td><td>₹${v}</td><td>${arrow(v-pv)} ${v-pv}</td><td>${pct(v,pv)}%</td></tr>`;
     });
     ht.innerHTML=h+'</table></div>';
   }
@@ -111,10 +112,15 @@ function renderSilver(rows){
 }
 
 /* ================= GOLD ================= */
+let goldCfg=null;
 window.golddata=function(q){
   if(!q) return;
   const start=cfg=>{
     if(!cfg?.id) return;
+    clearTable(has('#data_table1'));
+    clearTable(has('#data_table2'));
+    clearTable(has('#gramtbl22'));
+    clearTable(has('#gramtbl24'));
     fetch(`https://docs.google.com/spreadsheets/d/${cfg.id}/gviz/tq?tqx=out:json&sheet=goldweb&tq=select * limit 15`)
       .then(r=>r.text())
       .then(t=>{
@@ -131,8 +137,8 @@ window.golddata=function(q){
 };
 
 function renderGold(rows){
-  has('#data_table1')&&(data_table1.innerHTML=''); // clear silver
-  const t22=+rows[0].c[1]?.v||0; const t24=+rows[0].c[3]?.v||0;
+  const t22=+rows[0].c[1]?.v||0;
+  const t24=+rows[0].c[3]?.v||0;
 
   setVal(has('#g22kt'),`₹${t22.toLocaleString('hi-IN')}`);
   setVal(has('#g24kt'),`₹${t24.toLocaleString('hi-IN')}`);
@@ -148,7 +154,7 @@ function renderGold(rows){
     let h='<div class="table-wrapper"><table class="price-table">';
     h+='<tr><th>Date</th><th>22K</th><th>Δ</th><th>%</th></tr>';
     rows.forEach((r,i)=>{const v=+r.c[1]?.v||0; const pv=+rows[i+1]?.c[1]?.v||v;
-      h+=`<tr><td>${r.c[0]?.f}</td><td>₹${v}</td><td class="${v-pv>=0?'up':'down'}">${arrow(v-pv)} ${v-pv}</td><td>${pct(v,pv)}%</td></tr>`;});
+      h+=`<tr><td>${r.c[0]?.f}</td><td>₹${v}</td><td>${arrow(v-pv)} ${v-pv}</td><td>${pct(v,pv)}%</td></tr>`;});
     h22.innerHTML=h+'</table></div>';
   }
 
@@ -158,7 +164,7 @@ function renderGold(rows){
     let h='<div class="table-wrapper"><table class="price-table">';
     h+='<tr><th>Date</th><th>24K</th><th>Δ</th><th>%</th></tr>';
     rows.forEach((r,i)=>{const v=+r.c[3]?.v||0; const pv=+rows[i+1]?.c[3]?.v||v;
-      h+=`<tr><td>${r.c[0]?.f}</td><td>₹${v}</td><td class="${v-pv>=0?'up':'down'}">${arrow(v-pv)} ${v-pv}</td><td>${pct(v,pv)}%</td></tr>`;});
+      h+=`<tr><td>${r.c[0]?.f}</td><td>₹${v}</td><td>${arrow(v-pv)} ${v-pv}</td><td>${pct(v,pv)}%</td></tr>`;});
     h24.innerHTML=h+'</table></div>';
   }
 
@@ -177,19 +183,11 @@ function renderGold(rows){
   }
 }
 
-/* ================= CSS LOADER ================= */
-if(!document.getElementById('rates-ui-css')){
-  const l=document.createElement('link'); l.id='rates-ui-css'; l.rel='stylesheet';
-  l.href='https://api.mandibhavkhabar.com/data/gs/core/rates-ui.css'; document.head.appendChild(l);
-}
-
 /* ================= INLINE LOADER CSS ================= */
 const st=document.createElement('style'); st.textContent=`
 .mbk-loader{display:inline-flex;align-items:center}
 .mbk-spin{width:16px;height:16px;border:2px solid #ddd;border-top-color:#999;border-radius:50%;animation:mbkspin .8s linear infinite}
 @keyframes mbkspin{to{transform:rotate(360deg)}}
-.up{color:#0a7d00;font-weight:600}
-.down{color:#c00;font-weight:600}
 `; document.head.appendChild(st);
 
 })();

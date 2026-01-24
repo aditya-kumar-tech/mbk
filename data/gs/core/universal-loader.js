@@ -1,228 +1,248 @@
-(function () {
-    console.log("🚀 Universal Loader v7.3 - PROFESSIONAL PLOTLY-STYLE LINE GRAPHS");
+/* ======================================================
+   MBK FINAL UNIVERSAL LOADER + GOLD + SILVER
+   OLD LOOK SAFE – COMPLETE
+   ====================================================== */
+(function(){
 
-    // ====================== HELPER PARSERS ======================
-    function parseGViz(txt) {
-        try {
-            txt = txt
-                .replace(/^\s*\/\*O_o\*\/\s*/, '')
-                .replace(/^google\.visualization\.Query\.setResponse\s*\(/, '')
-                .replace(/\);?\s*$/, '');
-            const rows = JSON.parse(txt).table.rows || [];
-            console.log("✅ GViz Parsed:", rows.length, "rows");
-            return rows;
-        } catch (e) {
-            console.error("❌ GViz parse failed", e);
-            return [];
-        }
+/* ================= LOADER ================= */
+const LOADER_HTML = `<span class="mbk-loader"><span class="mbk-spin"></span></span>`;
+
+function scanLoader(){
+  document.querySelectorAll('*').forEach(el=>{
+    if(el.childNodes.length===1 && el.textContent.trim().toLowerCase()==='loading'){
+      el.dataset.mbkLoader=1;
+      el.innerHTML=LOADER_HTML;
     }
+  });
+}
+function setVal(el,html){
+  if(!el) return;
+  delete el.dataset.mbkLoader;
+  el.innerHTML=html;
+}
+function setErr(el,msg='डेटा उपलब्ध नहीं'){
+  if(!el) return;
+  el.innerHTML=`<span style="color:#999;font-size:13px;">${msg}</span>`;
+}
 
-    function findCfg(map, n) {
-        for (const k in map) {
-            const r = map[k].range;
-            if (n >= r[0] && n <= r[1]) {
-                return { id: map[k].id, off: n - r[0] };
-            }
-        }
-        return null;
-    }
+window.MBK_LOADER={scan:scanLoader,set:setVal,error:setErr};
+document.addEventListener('DOMContentLoaded',scanLoader);
 
-    // ====================== BLOGGER-SAFE QUEUE ======================
-    window._mbkQueue = window._mbkQueue || [];
+/* ================= UTIL ================= */
+const has=s=>document.querySelector(s);
+const arrow=v=>v>0?'▲':v<0?'▼':'—';
+const pct=(t,y)=>y?(((t-y)/y)*100).toFixed(2):"0.00";
 
-    function enqueueMBKCall(fnName, ...args) {
-        if (typeof window[fnName] === 'function') {
-            window[fnName](...args);
-        } else {
-            window._mbkQueue.push({fnName, args});
-        }
-    }
+/* ================= CHART.JS ================= */
+function loadChart(cb){
+  if(window.Chart) return cb();
+  const s=document.createElement('script');
+  s.src='https://cdn.jsdelivr.net/npm/chart.js';
+  s.onload=cb;
+  document.head.appendChild(s);
+}
 
-    function processMBKQueue() {
-        if (!window._mbkQueue.length) return;
-        for (const item of window._mbkQueue) {
-            if (typeof window[item.fnName] === 'function') {
-                window[item.fnName](...item.args);
-            }
-        }
-        window._mbkQueue = window._mbkQueue.filter(item => typeof window[item.fnName] !== 'function');
-    }
+/* ================= GVIZ PARSER ================= */
+function parseGViz(txt,limit=15){
+  try{
+    txt=txt.replace(/^\s*\/\*O_o\*\/\s*/,'')
+           .replace(/^google\.visualization\.Query\.setResponse\(/,'')
+           .replace(/\);?\s*$/,'');
+    const r=JSON.parse(txt).table.rows||[];
+    return r.slice(0,limit);
+  }catch(e){return[];}
+}
 
-    // ========================= SILVER =========================
-    let silverQueue = [], silverConfig = null, SILVER_HIST = [];
-    window.Silverdata = function (q, mtype) {
-        silverQueue.push(parseInt(String(q).replace(/\D/g, '')));
-        if (silverConfig) runSilver();
-        processMBKQueue();
-    };
+/* ================= CONFIG ================= */
+let goldCfg=null,silverCfg=null;
 
-    function runSilver() {
-        if (!silverQueue.length) return;
-        const num = silverQueue.pop();
-        const cfg = findCfg(silverConfig, num);
-        if (!cfg) return;
-
-        const url = `https://docs.google.com/spreadsheets/d/${cfg.id}/gviz/tq?tqx=out:json&sheet=silvweb&tq=select * limit 15 offset ${cfg.off}`;
-        fetch(url)
-            .then(r => r.text())
-            .then(t => {
-                const rows = parseGViz(t);
-                if (!rows.length) return;
-
-                SILVER_HIST.splice(0, 0, ...rows.slice(0, 15));
-                if (SILVER_HIST.length > 15) SILVER_HIST.length = 15;
-
-                const priceKg = rows[0].c[2]?.v || 0;
-                renderSilver(priceKg, SILVER_HIST);
-            })
-            .catch(err => {
-                console.error("Silver fetch failed, retrying...", err);
-                setTimeout(runSilver, 1200);
-            });
-    }
-
-    function renderSilver(priceKg, rows) {
-        const priceEl = document.querySelector('#silvr_pricet');
-        if (priceEl) priceEl.textContent = `₹${priceKg.toLocaleString('hi-IN')}`;
-
-        const gramTbl = document.querySelector('#silvr_gramtbl');
-        if (gramTbl) {
-            const price10g = priceKg / 100;
-            let html = '<table style="width:100%;border-collapse:collapse;">';
-            [1,10,50,100,500,1000].forEach(g => {
-                const price = Math.round((g/10) * price10g);
-                html += `<tr style="border-bottom:1px solid #eee;"><td style="padding:8px;">${g}g</td><td style="text-align:right;padding:8px;color:#c0c0c0;">₹${price.toLocaleString()}</td></tr>`;
-            });
-            html += '</table>';
-            gramTbl.innerHTML = html;
-        }
-
-        const histTbl = document.querySelector('#data_table1');
-        if (histTbl && rows.length) {
-            let html = '<table style="width:100%;border-collapse:collapse;">';
-            html += '<tr style="background:#e6f3ff;"><th style="padding:12px;">तारीख</th><th style="padding:12px;">1kg भाव</th></tr>';
-            rows.slice(0,15).forEach(row => {
-                const date = row.c[0]?.f || '';
-                const price = parseInt(row.c[2]?.v || 0);
-                html += `<tr style="border-bottom:1px solid #eee;"><td style="padding:10px;">${date}</td><td style="padding:10px;text-align:right;">₹${price.toLocaleString()}</td></tr>`;
-            });
-            html += '</table>';
-            histTbl.innerHTML = html;
-        }
-
-        const silverDisc = document.querySelector('#disclamerSilver');
-        if (silverDisc) {
-            silverDisc.innerHTML = `
-                <div style="background:#fff3cd;border-left:4px solid #c0c0c0;padding:15px;margin:20px 0;border-radius:8px;font-size:13px;line-height:1.5;">
-                    <strong>⚠️ सूचना:</strong> चाँदी के भाव स्थानीय ज्वेलर्स और अन्य स्रोतों से लिए गए हैं। mandibhavkhabar.com ने सूचना की सटीकता सुनिश्चित करने का हर प्रयास किया है; हालांकि हम इसकी गारंटी नहीं देते।
-                </div>`;
-        }
-
-        const grafEl = document.querySelector('#silvr_graf');
-        if (grafEl && rows.length > 5) {
-            grafEl.innerHTML = '<canvas id="silverChart" width="700" height="400" style="width:100%;height:400px;border:2px solid #c0c0c0;border-radius:12px;background:linear-gradient(135deg,#f8f9fa 0%,#e9ecef 100%);"></canvas>';
-            const canvas = document.getElementById('silverChart');
-            drawProfessionalSilverGraph(canvas, rows);
-        }
-    }
-
-    // ========================= GOLD =========================
-    let goldQueue = [], goldConfig = null;
-    window.golddata = function (q, mtype) {
-        goldQueue.push(parseInt(String(q).replace(/\D/g, '')));
-        if (goldConfig) runGold();
-        processMBKQueue();
-    };
-
-    function runGold() {
-        if (!goldQueue.length) return;
-        const num = goldQueue.pop();
-        const cfg = findCfg(goldConfig, num);
-        if (!cfg) return;
-
-        const offsetVal = 0;
-        const url = `https://docs.google.com/spreadsheets/d/${cfg.id}/gviz/tq?tqx=out:json&sheet=goldweb&tq=select * limit 20${offsetVal ? ` offset ${offsetVal}` : ''}`;
-
-        fetch(url)
-            .then(r => r.text())
-            .then(t => {
-                const rows = parseGViz(t);
-                if (!rows.length) {
-                    setTimeout(runGold, 1200);
-                    return;
-                }
-
-                const p22 = parseInt(rows[0].c[1]?.v || 0);
-                const p24 = parseInt(rows[0].c[3]?.v || 0);
-                renderGold(p22, p24, rows);
-            })
-            .catch(err => {
-                console.error("Gold fetch failed, retrying...", err);
-                setTimeout(runGold, 1200);
-            });
-    }
-
-    function renderGold(p22, p24, rows) {
-        const g22El = document.querySelector('#g22kt');
-        const g24El = document.querySelector('#g24kt');
-        const udatEl = document.querySelector('#udat');
-        if (g22El) g22El.textContent = `₹${p22.toLocaleString('hi-IN')}`;
-        if (g24El) g24El.textContent = `₹${p24.toLocaleString('hi-IN')}`;
-        if (udatEl) udatEl.textContent = new Date().toLocaleDateString('hi-IN');
-
-        updateGramTable('#gramtbl22', p22, '#fef3c7', '#d97706', '22K');
-        updateGramTable('#gramtbl24', p24, '#f3e8ff', '#a855f7', '24K');
-
-        if (rows.length > 1) {
-            updateHistoryTable('#data_table1', rows, '22K', '#fef3c7', 1);
-            updateHistoryTable('#data_table2', rows, '24K', '#f3e8ff', 3);
-        }
-
-        const goldDisc = document.querySelector('#disclamergold');
-        if (goldDisc) {
-            goldDisc.innerHTML = `
-                <div style="background:#fff3cd;border-left:4px solid #f59e0b;padding:15px;margin:20px 0;border-radius:8px;font-size:13px;line-height:1.5;">
-                    <strong>⚠️ सूचना:</strong> सोने के भाव स्थानीय ज्वेलर्स और अन्य स्रोतों से लिए गए हैं। mandibhavkhabar.com ने सूचना की सटीकता सुनिश्चित करने का हर प्रयास किया है; हालांकि हम इसकी गारंटी नहीं देते।
-                </div>`;
-        }
-
-        const grafEl = document.querySelector('#gldgraf');
-        if (grafEl && rows.length > 5) {
-            grafEl.innerHTML = '<canvas id="goldChart" width="700" height="400" style="width:100%;height:400px;border:2px solid #f59e0b;border-radius:12px;background:linear-gradient(135deg,#fef3c7 0%,#fde68a 100%);"></canvas>';
-            const canvas = document.getElementById('goldChart');
-            drawProfessionalGoldGraph(canvas, rows);
-        }
-    }
-
-    // ====================== FETCH CONFIGS ======================
-    fetch('https://api.mandibhavkhabar.com/data/gs/gold-groups.json')
-        .then(r => r.json())
-        .then(j => { goldConfig = j; runGold(); console.log('✅ Gold config loaded'); });
-
+/* ================= SILVER ================= */
+window.Silverdata=function(q){
+  if(!q) return;
+  const n=parseInt(q.replace(/\D/g,''));
+  const start=cfg=>{
+    fetch(`https://docs.google.com/spreadsheets/d/${cfg.id}/gviz/tq?tqx=out:json&sheet=silvweb&tq=select * limit 15`)
+    .then(r=>r.text()).then(t=>{
+      const rows=parseGViz(t);
+      if(rows.length) renderSilver(rows);
+    });
+  };
+  if(!silverCfg){
     fetch('https://api.mandibhavkhabar.com/data/gs/silver-groups.json')
-        .then(r => r.json())
-        .then(j => { silverConfig = j; runSilver(); console.log('✅ Silver config loaded'); });
+      .then(r=>r.json()).then(j=>{silverCfg=j;start(j[n]||Object.values(j)[0]);});
+  } else start(silverCfg[n]||Object.values(silverCfg)[0]);
+};
 
-    // ====================== GRAPH FUNCTIONS ======================
-    // Silver & Gold graph functions same as your previous code
-    // drawProfessionalSilverGraph(), drawProfessionalGoldGraph() - unchanged
-    // updateGramTable(), updateHistoryTable() - unchanged
+function renderSilver(rows){
+  has('#data_table2')&&(data_table2.innerHTML=''); // clear gold
 
-    // ====================== GLOBAL REFS + CSS ======================
-    window.g22kt = document.querySelector('#g22kt');
-    window.g24kt = document.querySelector('#g24kt');
-    window.udat = document.querySelector('#udat');
-    window.silvr_pricet = document.querySelector('#silvr_pricet');
+  const today=+rows[0].c[2]?.v||0;
+  const yesterday=+rows[1]?.c[2]?.v||today;
+  const diff=today-yesterday;
 
-    const style = document.createElement('style');
-    style.textContent = `
-        .gldbox {background:linear-gradient(135deg,#fef3c7 0%,#fde68a 100%)!important;padding:25px;border-radius:15px;box-shadow:0 8px 25px rgba(0,0,0,0.1);}
-        .silvrbox {background:linear-gradient(135deg,#e6f3ff 0%,#bfdbfe 100%)!important;}
-        #g22kt,#g24kt,#silvr_pricet {color:#d97706!important;font-size:28px!important;font-weight:800!important;}
-        #sscity{display:none!important;}
-        table{font-family:Arial,sans-serif;}
-        th{background:#f8f9fa!important;color:#333!important;}
-    `;
-    document.head.appendChild(style);
+  setVal(has('#silvr_pricet'),`₹${today.toLocaleString('hi-IN')}`);
+  has('#silvr_change')&&(silvr_change.innerHTML=
+    `<span class="${diff>=0?'up':'down'}">${arrow(diff)} ₹${diff} (${pct(today,yesterday)}%)</span>`);
+
+  const u=has('.sudate #udat');
+  u && (u.textContent=rows[0].c[0]?.f||'');
+
+  /* grams */
+  const gtbl=has('#silvr_gramtbl');
+  if(gtbl){
+    let h='<table class="price-table">';
+    [1,10,50,100,500,1000].forEach(g=>{
+      h+=`<tr><td>${g}g</td><td>₹${Math.round(today*g/1000).toLocaleString('hi-IN')}</td></tr>`;
+    });
+    gtbl.innerHTML=h+'</table>';
+  }
+
+  /* history */
+  const ht=has('#data_table1');
+  if(ht){
+    let h='<div class="table-wrapper"><table class="price-table">';
+    h+='<tr><th>Date</th><th>Price</th><th>Δ</th><th>%</th></tr>';
+    rows.forEach((r,i)=>{
+      const v=+r.c[2]?.v||0;
+      const pv=+rows[i+1]?.c[2]?.v||v;
+      h+=`<tr>
+        <td>${r.c[0]?.f}</td>
+        <td>₹${v}</td>
+        <td class="${v-pv>=0?'up':'down'}">${arrow(v-pv)} ${v-pv}</td>
+        <td>${pct(v,pv)}%</td>
+      </tr>`;
+    });
+    ht.innerHTML=h+'</table></div>';
+  }
+
+  /* graph */
+  const g=has('#silvr_graf');
+  if(g){
+    loadChart(()=>{
+      g.style.height='420px';
+      g.innerHTML='<canvas id="silverChart"></canvas>';
+      new Chart(silverChart,{
+        type:'line',
+        data:{
+          labels:rows.map(r=>r.c[0]?.f),
+          datasets:[{label:'Silver 1Kg',data:rows.map(r=>r.c[2]?.v),tension:.35,fill:true}]
+        },
+        options:{responsive:true,maintainAspectRatio:false}
+      });
+    });
+  }
+}
+
+/* ================= GOLD ================= */
+window.golddata=function(q){
+  if(!q) return;
+  const n=parseInt(q.replace(/\D/g,''));
+  const start=cfg=>{
+    fetch(`https://docs.google.com/spreadsheets/d/${cfg.id}/gviz/tq?tqx=out:json&sheet=goldweb&tq=select * limit 15`)
+    .then(r=>r.text()).then(t=>{
+      const rows=parseGViz(t);
+      if(rows.length) renderGold(rows);
+    });
+  };
+  if(!goldCfg){
+    fetch('https://api.mandibhavkhabar.com/data/gs/gold-groups.json')
+      .then(r=>r.json()).then(j=>{goldCfg=j;start(j[n]||Object.values(j)[0]);});
+  } else start(goldCfg[n]||Object.values(goldCfg)[0]);
+};
+
+function renderGold(rows){
+  has('#data_table1')&&(data_table1.innerHTML=''); // clear silver
+
+  const t22=+rows[0].c[1]?.v||0;
+  const t24=+rows[0].c[3]?.v||0;
+
+  setVal(has('#g22kt'),`₹${t22.toLocaleString('hi-IN')}`);
+  setVal(has('#g24kt'),`₹${t24.toLocaleString('hi-IN')}`);
+
+  const u=has('.udate #udat');
+  u && (u.textContent=rows[0].c[0]?.f||'');
+
+  /* grams */
+  const makeGram=(el,p)=>{
+    if(!el) return;
+    let h='<table class="price-table">';
+    [1,10,50,100].forEach(g=>{
+      h+=`<tr><td>${g}g</td><td>₹${Math.round(p*g).toLocaleString('hi-IN')}</td></tr>`;
+    });
+    el.innerHTML=h+'</table>';
+  };
+  makeGram(has('#gramtbl22'),t22);
+  makeGram(has('#gramtbl24'),t24);
+
+  /* history 22k */
+  const h22=has('#data_table1');
+  if(h22){
+    let h='<div class="table-wrapper"><table class="price-table">';
+    h+='<tr><th>Date</th><th>22K</th><th>Δ</th><th>%</th></tr>';
+    rows.forEach((r,i)=>{
+      const v=+r.c[1]?.v||0;
+      const pv=+rows[i+1]?.c[1]?.v||v;
+      h+=`<tr><td>${r.c[0]?.f}</td><td>₹${v}</td>
+      <td class="${v-pv>=0?'up':'down'}">${arrow(v-pv)} ${v-pv}</td>
+      <td>${pct(v,pv)}%</td></tr>`;
+    });
+    h22.innerHTML=h+'</table></div>';
+  }
+
+  /* history 24k */
+  const h24=has('#data_table2');
+  if(h24){
+    let h='<div class="table-wrapper"><table class="price-table">';
+    h+='<tr><th>Date</th><th>24K</th><th>Δ</th><th>%</th></tr>';
+    rows.forEach((r,i)=>{
+      const v=+r.c[3]?.v||0;
+      const pv=+rows[i+1]?.c[3]?.v||v;
+      h+=`<tr><td>${r.c[0]?.f}</td><td>₹${v}</td>
+      <td class="${v-pv>=0?'up':'down'}">${arrow(v-pv)} ${v-pv}</td>
+      <td>${pct(v,pv)}%</td></tr>`;
+    });
+    h24.innerHTML=h+'</table></div>';
+  }
+
+  /* graph */
+  const g=has('#gldgraf');
+  if(g){
+    loadChart(()=>{
+      g.style.height='420px';
+      g.innerHTML='<canvas id="goldChart"></canvas>';
+      new Chart(goldChart,{
+        type:'line',
+        data:{
+          labels:rows.map(r=>r.c[0]?.f),
+          datasets:[
+            {label:'22K',data:rows.map(r=>r.c[1]?.v),tension:.35,fill:true},
+            {label:'24K',data:rows.map(r=>r.c[3]?.v),tension:.35,fill:true}
+          ]
+        },
+        options:{responsive:true,maintainAspectRatio:false}
+      });
+    });
+  }
+}
+
+/* ================= CSS LOADER ================= */
+if(!document.getElementById('rates-ui-css')){
+  const l=document.createElement('link');
+  l.id='rates-ui-css';
+  l.rel='stylesheet';
+  l.href='https://api.mandibhavkhabar.com/data/gs/core/rates-ui.css';
+  document.head.appendChild(l);
+}
+
+/* ================= LOADER CSS (INLINE SAFE) ================= */
+const st=document.createElement('style');
+st.textContent=`
+.mbk-loader{display:inline-flex;align-items:center}
+.mbk-spin{width:16px;height:16px;border:2px solid #ddd;border-top-color:#999;border-radius:50%;animation:mbkspin .8s linear infinite}
+@keyframes mbkspin{to{transform:rotate(360deg)}}
+.up{color:#0a7d00;font-weight:600}
+.down{color:#c00;font-weight:600}
+`;
+document.head.appendChild(st);
 
 })();

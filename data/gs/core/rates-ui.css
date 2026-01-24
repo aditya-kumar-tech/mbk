@@ -23,24 +23,29 @@ body {
   color: #0a7cff;
 }
 
-/* ================= PRICE ================= */
-#silvr_pricet, #g22kt, #g24kt {
-  font-size: 24px;
-  font-weight: 700;
-  color: #222;
+/* ================= MAIN PRICES (FIXED COLORS) ================= */
+/* SILVER */
+#silvr_pricet {
+  font-size: 26px;
+  font-weight: 800;
+  color: #9aa0a6;              /* silver tone */
 }
 
+/* GOLD */
+#g22kt, #g24kt {
+  font-size: 26px;
+  font-weight: 800;
+  color: #d4af37;              /* classic gold color */
+}
+
+/* CHANGE INDICATOR */
 #silvr_change span, #gold_change span {
   font-size: 14px;
   font-weight: 600;
 }
 
-.up {
-  color: green;
-}
-.down {
-  color: red;
-}
+.up { color: #0f9d58; }
+.down { color: #d93025; }
 
 /* ================= GRAMS TABLE ================= */
 .price-table {
@@ -96,13 +101,23 @@ canvas {
   height: 400px !important;
 }
 
+/* ================= SELECT CITY HIDE ================= */
+#sscity,
+.select-city,
+.city-select {
+  display: none !important;
+}
+
 /* ================= RESPONSIVE ================= */
 @media screen and (max-width: 768px) {
   #silvr_pricet, #g22kt, #g24kt {
-    font-size: 20px;
+    font-size: 22px;
   }
 
-  .price-table th, .price-table td, .table-wrapper th, .table-wrapper td {
+  .price-table th,
+  .price-table td,
+  .table-wrapper th,
+  .table-wrapper td {
     font-size: 12px;
     padding: 5px;
   }

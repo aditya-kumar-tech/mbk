@@ -5,17 +5,18 @@
 
 /* ==================== LAST UPDATED ==================== */
 .udate, .sudate {
-  font-size: 0.95rem;
-  color: #4B5563; /* dark neutral */
-  margin-bottom: 15px;
-  display: inline-block;
-  font-weight: 500;
+    display: inline-block;
+    font-size: 13px;
+    background: #eef2f6;
+    padding: 5px 10px;
+    border-radius: 6px;
+    margin: 8px 0;
+    color: #555;
 }
 
-.udate span#udat, .sudate span#udat {
-  font-weight: 700;
-  color: #1F2937;
-  margin-left: 4px;
+.udate span, .sudate span {
+    font-weight: 600;
+    color: #0a7cff;
 }
 
 /* ==================== PRICE UP/DOWN COLOR ==================== */
@@ -88,9 +89,13 @@
   color: #fff;
 }
 
-.silvrbox {
+/*.silvrbox {
   background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
   color: #2d3748;
+}*/
+.silvrbox {
+    background: linear-gradient(135deg, #3a5680 0%, #e4e8f0 100%);
+    color: #191e27;
 }
 
 .gldbox ul, .silvrbox ul {
@@ -115,7 +120,8 @@
 }
 
 .gldli {
-  background: rgba(255,255,255,0.1);
+  color: black;
+  background: white;/*rgba(255,255,255,0.1);*/
   border: 1px solid rgba(255,255,255,0.2);
   backdrop-filter: blur(10px);
 }

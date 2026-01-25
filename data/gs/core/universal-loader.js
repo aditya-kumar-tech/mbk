@@ -126,6 +126,8 @@ if(gtbl){
             });
         });
     }
+    // ✅ LOADER REMOVE
+    document.querySelectorAll('.gldli .box-loader').forEach(l => l.remove());
 }
 
 /* ================= GOLD ================= */
@@ -224,6 +226,8 @@ makeGram(has('#gramtbl24'), t24);
             });
         });
     }
+    // ✅ LOADER REMOVE
+    document.querySelectorAll('.gldli .box-loader').forEach(l => l.remove());
 }
 
 })();

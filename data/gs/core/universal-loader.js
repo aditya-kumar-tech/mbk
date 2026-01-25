@@ -1,102 +1,85 @@
 /* =====================================================
-   MBK UNIVERSAL LOADER (TIMING + CACHE SAFE)
-   DO NOT TOUCH PAGES (1200+ SAFE)
+   MBK UNIVERSAL LOADER vFINAL
+   Rocket Loader + CSP + Timing SAFE
+   Pages untouched (1200+ SAFE)
 ===================================================== */
 
 (function () {
   "use strict";
 
-  const DEBUG = true;
-  const log = (...a) => DEBUG && console.log("🟢 MBK:", ...a);
+  const log = (...a) => console.log("🟢 MBK:", ...a);
 
-  /* ================= CSS LOADER ================= */
-  window.loadCSS = function (href) {
-    return new Promise((resolve, reject) => {
-      if (!href || !href.endsWith(".css")) return resolve();
+  /* ================= QUEUE ================= */
+  const callQueue = [];
 
-      if ([...document.styleSheets].some(s => s.href && s.href.includes(href))) {
-        return resolve();
-      }
-
-      const l = document.createElement("link");
-      l.rel = "stylesheet";
-      l.href = href;
-      l.onload = resolve;
-      l.onerror = reject;
-      document.head.appendChild(l);
-    });
-  };
-
-  /* ================= SCRIPT LOADER ================= */
-  function loadJS(src) {
-    return new Promise((resolve, reject) => {
-      if (document.querySelector(`script[src="${src}"]`)) return resolve();
-      const s = document.createElement("script");
-      s.src = src;
-      s.defer = true;
-      s.onload = resolve;
-      s.onerror = reject;
-      document.body.appendChild(s);
-    });
+  /* ================= SAFE STUBS ================= */
+  if (!window.Silverdata) {
+    window.Silverdata = function () {
+      log("⏳ Silverdata queued");
+      callQueue.push({ fn: "Silverdata", args: arguments });
+    };
   }
 
-  /* ================= SAFE CALL ================= */
-  function waitFor(fnName, cb, retry = 40) {
-    const t = setInterval(() => {
-      if (typeof window[fnName] === "function") {
-        clearInterval(t);
-        cb();
-      } else if (--retry <= 0) {
-        clearInterval(t);
-        log(`❌ ${fnName} not available`);
-      }
-    }, 250);
-  }
-
-  /* ================= CLEAR TABLE ================= */
-  function clearTable(id) {
-    const el = document.getElementById(id);
-    if (el) el.innerHTML = "";
+  if (!window.golddata) {
+    window.golddata = function () {
+      log("⏳ golddata queued");
+      callQueue.push({ fn: "golddata", args: arguments });
+    };
   }
 
   /* ================= PAGE TYPE ================= */
-  function isSilverPage() {
-    return /silver/i.test(location.pathname);
+  const isSilver = /silver/i.test(location.pathname);
+  const isGold   = /gold/i.test(location.pathname);
+
+  /* ================= CLEAR MIXED CACHE ================= */
+  function clearTables() {
+    [
+      "silver_history",
+      "gold_history",
+      "price_table"
+    ].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.innerHTML = "";
+    });
   }
 
-  function isGoldPage() {
-    return /gold/i.test(location.pathname);
+  /* ================= WAIT FOR REAL FUNCTIONS ================= */
+  function waitForReal(fn, cb, retry = 60) {
+    const t = setInterval(() => {
+      if (window[fn] && window[fn].toString().indexOf("queued") === -1) {
+        clearInterval(t);
+        cb();
+      }
+      if (--retry <= 0) clearInterval(t);
+    }, 250);
   }
 
-  /* ================= MAIN INIT ================= */
+  /* ================= REPLAY QUEUE ================= */
+  function replayQueue() {
+    callQueue.forEach(item => {
+      if (
+        (item.fn === "Silverdata" && isSilver) ||
+        (item.fn === "golddata" && isGold)
+      ) {
+        log("▶ Replaying", item.fn);
+        window[item.fn].apply(null, item.args);
+      }
+    });
+    callQueue.length = 0;
+  }
+
+  /* ================= INIT ================= */
   function init() {
     log("Loader Init");
 
-    /* clear mixed cache */
-    clearTable("silver_history");
-    clearTable("gold_history");
-    clearTable("price_table");
+    clearTables();
 
-    /* AUTO RECALL SILVER */
-    if (isSilverPage()) {
-      waitFor("Silverdata", () => {
-        log("Calling Silverdata()");
-        window.Silverdata(
-          window.sctqury || "sct180",
-          "Silver"
-        );
-      });
+    if (isSilver) {
+      waitForReal("Silverdata", replayQueue);
     }
 
-    /* AUTO RECALL GOLD */
-    if (isGoldPage()) {
-      waitFor("golddata", () => {
-        log("Calling golddata()");
-        window.golddata(
-          window.gctqury || "gct322",
-          "gold"
-        );
-      });
+    if (isGold) {
+      waitForReal("golddata", replayQueue);
     }
   }
 

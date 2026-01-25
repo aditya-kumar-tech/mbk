@@ -60,7 +60,7 @@
 .silvrbox .silvrli {
   flex: 1 1 150px;
   text-align: center;
-  background: transparent; /* remove inner box */
+  /*background: transparent;*/ /* remove inner box */
   padding: 10px;
   border-radius: 8px;
 }

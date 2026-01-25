@@ -83,15 +83,18 @@ function renderSilver(rows){
     has('#silvr_pricet') && (silvr_pricet.innerHTML = `₹${today.toLocaleString('hi-IN')}`);
     has('#silvr_change') && (silvr_change.innerHTML = `<span class="${ch>=0?'up':'down'}">${arrow(ch)} ₹${ch} (${pc}%)</span>`);
 
-    // GRAMS
-    const gtbl = has('#silvr_gramtbl');
-    if(gtbl){
-        let h = '<table class="price-table">';
-        [1,10,50,100,500,1000].forEach(g => {
-            h += `<tr><td>${g}g</td><td>₹${Math.round(today*g/1000).toLocaleString('hi-IN')}</td></tr>`;
-        });
-        gtbl.innerHTML = h + '</table>';
-    }
+    // GRAMS - Silver
+const gtbl = has('#silvr_gramtbl');
+if(gtbl){
+    let h = '<div class="table-wrapper"><table class="price-table">';
+    h += '<tr><th>Grams</th><th>Price</th></tr>'; // Added header
+    [1,10,50,100,500,1000].forEach(g => {
+        const price = Math.round(today * g / 1000);
+        h += `<tr><td>${g}g</td><td>₹${price.toLocaleString('hi-IN')}</td></tr>`;
+    });
+    gtbl.innerHTML = h + '</table></div>';
+}
+
 
     // HISTORY TABLE
     const ht = has('#data_table1');
@@ -163,15 +166,20 @@ function renderGold(rows){
     has('#g22kt') && (g22kt.innerHTML = `₹${t22.toLocaleString('hi-IN')}`);
     has('#g24kt') && (g24kt.innerHTML = `₹${t24.toLocaleString('hi-IN')}`);
 
-    // GRAMS
+    // GRAMS gold
     const makeGram = (el, p) => {
-        if(!el) return;
-        let h = '<table class="price-table">';
-        [1,10,50,100].forEach(g => { h += `<tr><td>${g}g</td><td>₹${Math.round(p*g).toLocaleString('hi-IN')}</td></tr>`; });
-        el.innerHTML = h + '</table>';
-    };
-    makeGram(has('#gramtbl22'), t22);
-    makeGram(has('#gramtbl24'), t24);
+    if(!el) return;
+    let h = '<div class="table-wrapper"><table class="price-table">';
+    h += '<tr><th>Grams</th><th>Price</th></tr>'; // Added header
+    [1,10,50,100].forEach(g => { 
+        const price = Math.round(p * g); // Gold price already per gram, multiply directly
+        h += `<tr><td>${g}g</td><td>₹${price.toLocaleString('hi-IN')}</td></tr>`; 
+    });
+    el.innerHTML = h + '</table></div>';
+};
+makeGram(has('#gramtbl22'), t22);
+makeGram(has('#gramtbl24'), t24);
+
 
     // HISTORY 22K
     const h22 = has('#data_table1');

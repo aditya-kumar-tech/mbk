@@ -1,4 +1,3 @@
-<script>
 document.addEventListener('DOMContentLoaded', () => {
 
 (function(){
@@ -221,4 +220,3 @@ function renderGold(rows){
 
 })();
 });
-</script>

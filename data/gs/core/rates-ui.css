@@ -1,140 +1,12 @@
-/* ================= GENERAL ================= */
-body {
-  font-family: 'Roboto', sans-serif;
-  background: #f5f6fa;
-  color: #333;
-  margin: 0;
-  padding: 0;
-}
-
-/* ================= LAST UPDATED ================= */
-.udate, .sudate {
-  display: inline-block;
-  font-size: 13px;
-  background: #eef2f6;
-  padding: 5px 10px;
-  border-radius: 6px;
-  margin: 8px 0;
-  color: #555;
-}
-
-.udate span, .sudate span {
-  font-weight: 600;
-  color: #0a7cff;
-}
-
-/* ================= MAIN PRICES (FIXED COLORS) ================= */
-/* SILVER */
-#silvr_pricet {
-  font-size: 26px;
-  font-weight: 800;
-  color: #9aa0a6;              /* silver tone */
-}
-
-/* GOLD */
-#g22kt, #g24kt {
-  font-size: 26px;
-  font-weight: 800;
-  color: #d4af37;              /* classic gold color */
-}
-
-/* CHANGE INDICATOR */
-#silvr_change span, #gold_change span {
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.up { color: #0f9d58; }
-.down { color: #d93025; }
-
-/* ================= GRAMS TABLE ================= */
-.price-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
-  font-size: 14px;
-}
-
-.price-table th,
-.price-table td {
-  border: 1px solid #ddd;
-  padding: 6px 10px;
-  text-align: center;
-}
-
-.price-table th {
-  background: #0a7cff;
-  color: #fff;
-  font-weight: 600;
-}
-
-/* ================= HISTORY TABLE WRAPPER ================= */
-.table-wrapper {
-  width: 100%;
-  overflow-x: auto;
-  margin-top: 12px;
-}
-
-.table-wrapper table {
-  width: 100%;
-  border-collapse: collapse;
-}
-
-.table-wrapper th,
-.table-wrapper td {
-  border: 1px solid #ccc;
-  padding: 8px;
-  text-align: center;
-  font-size: 13px;
-}
-
-.table-wrapper th {
-  background: #222;
-  color: #fff;
-  font-weight: 600;
-}
-
-/* ================= CHART ================= */
-canvas {
-  display: block;
-  width: 100% !important;
-  height: 400px !important;
-}
-
-/* ================= SELECT CITY HIDE ================= */
-#sscity,
-.select-city,
-.city-select {
-  display: none !important;
-}
-
-/* ================= RESPONSIVE ================= */
-@media screen and (max-width: 768px) {
-  #silvr_pricet, #g22kt, #g24kt {
-    font-size: 22px;
-  }
-
-  .price-table th,
-  .price-table td,
-  .table-wrapper th,
-  .table-wrapper td {
-    font-size: 12px;
-    padding: 5px;
-  }
-
-  canvas {
-    height: 300px !important;
-  }
-}
 /* ================= GOLD BOX ================= */
 .gldbox {
-  background: #d4af37; /* classic gold background */
-  color: #fff;          /* white text for contrast */
-  padding: 12px;
-  border-radius: 10px;
-  display: flex;        /* side by side items */
-  gap: 15px;            /* spacing between 22k and 24k */
-  flex-wrap: wrap;      /* responsive: wrap on small screens */
+  background: #d4af37; /* solid gold background */
+  color: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  display: flex;
+  gap: 30px;            /* space between 22K & 24K */
+  flex-wrap: wrap;
   justify-content: center;
   align-items: center;
 }
@@ -144,32 +16,33 @@ canvas {
   padding: 0;
   margin: 0;
   display: flex;
-  gap: 15px;
+  gap: 30px;
   flex-wrap: wrap;
 }
 
 .gldbox .gldli {
-  flex: 1 1 150px; /* grow/shrink, min-width 150px */
+  flex: 1 1 150px;
   text-align: center;
-  background: rgba(255,255,255,0.1); /* slight overlay for contrast */
+  /* Remove inner background */
+  background: transparent;
   padding: 10px;
   border-radius: 8px;
 }
 
-/* Font styling inside gold box */
 .gldbox .ggram, .gldbox .gldprc {
   display: block;
-  font-weight: 600;
+  font-weight: 700;
+  font-size: 22px; /* clear and visible */
 }
 
 /* ================= SILVER BOX ================= */
 .silvrbox {
-  background: #cce5ff; /* light blue, silver feel */
-  color: #000;          /* black text for readability */
-  padding: 12px;
-  border-radius: 10px;
+  background: #cce5ff; /* soft blue background */
+  color: #000;
+  padding: 20px;
+  border-radius: 12px;
   display: flex;
-  gap: 15px;
+  gap: 30px;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
@@ -180,33 +53,32 @@ canvas {
   padding: 0;
   margin: 0;
   display: flex;
-  gap: 15px;
+  gap: 30px;
   flex-wrap: wrap;
 }
 
 .silvrbox .silvrli {
   flex: 1 1 150px;
   text-align: center;
-  background: rgba(255,255,255,0.3); /* subtle highlight */
+  background: transparent; /* remove inner box */
   padding: 10px;
   border-radius: 8px;
 }
 
-/* Font styling inside silver box */
 .silvrbox .slvr_ggram, .silvrbox .silvrprc {
   display: block;
-  font-weight: 600;
+  font-weight: 700;
+  font-size: 22px; /* clear and professional */
 }
 
 /* ================= RESPONSIVE ================= */
 @media screen and (max-width: 768px){
   .gldbox, .silvrbox {
     flex-direction: column;
-    gap: 10px;
+    gap: 15px;
   }
 
   .gldbox .gldli, .silvrbox .silvrli {
     flex: 1 1 100%;
   }
 }
-

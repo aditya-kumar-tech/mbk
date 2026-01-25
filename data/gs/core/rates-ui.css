@@ -126,3 +126,87 @@ canvas {
     height: 300px !important;
   }
 }
+/* ================= GOLD BOX ================= */
+.gldbox {
+  background: #d4af37; /* classic gold background */
+  color: #fff;          /* white text for contrast */
+  padding: 12px;
+  border-radius: 10px;
+  display: flex;        /* side by side items */
+  gap: 15px;            /* spacing between 22k and 24k */
+  flex-wrap: wrap;      /* responsive: wrap on small screens */
+  justify-content: center;
+  align-items: center;
+}
+
+.gldbox ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.gldbox .gldli {
+  flex: 1 1 150px; /* grow/shrink, min-width 150px */
+  text-align: center;
+  background: rgba(255,255,255,0.1); /* slight overlay for contrast */
+  padding: 10px;
+  border-radius: 8px;
+}
+
+/* Font styling inside gold box */
+.gldbox .ggram, .gldbox .gldprc {
+  display: block;
+  font-weight: 600;
+}
+
+/* ================= SILVER BOX ================= */
+.silvrbox {
+  background: #cce5ff; /* light blue, silver feel */
+  color: #000;          /* black text for readability */
+  padding: 12px;
+  border-radius: 10px;
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.silvrbox ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.silvrbox .silvrli {
+  flex: 1 1 150px;
+  text-align: center;
+  background: rgba(255,255,255,0.3); /* subtle highlight */
+  padding: 10px;
+  border-radius: 8px;
+}
+
+/* Font styling inside silver box */
+.silvrbox .slvr_ggram, .silvrbox .silvrprc {
+  display: block;
+  font-weight: 600;
+}
+
+/* ================= RESPONSIVE ================= */
+@media screen and (max-width: 768px){
+  .gldbox, .silvrbox {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .gldbox .gldli, .silvrbox .silvrli {
+    flex: 1 1 100%;
+  }
+}
+

@@ -1,74 +1,53 @@
 /* ================= GOLD BOX ================= */
 .gldbox {
-  background: #d4af37; /* solid gold background */
-  color: #fff;
+  background: linear-gradient(135deg, #FFD700, #B8860B);
+  color: #2c2c2c;
   padding: 20px;
   border-radius: 12px;
-  display: flex;
-  gap: 30px;            /* space between 22K & 24K */
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-}
-
-.gldbox ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+  border: 2px solid #B8860B;
   display: flex;
   gap: 30px;
   flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease-in-out;
 }
 
-.gldbox .gldli {
-  flex: 1 1 150px;
-  text-align: center;
-  /* Remove inner background */
-  background: transparent;
-  padding: 10px;
-  border-radius: 8px;
+.gldbox:hover {
+  box-shadow: 0 0 20px rgba(184, 134, 11, 0.6); /* golden glow */
+  transform: scale(1.02); /* slight zoom */
 }
 
 .gldbox .ggram, .gldbox .gldprc {
   display: block;
   font-weight: 700;
-  font-size: 22px; /* clear and visible */
+  font-size: 22px;
 }
 
 /* ================= SILVER BOX ================= */
 .silvrbox {
-  background: #cce5ff; /* soft blue background */
-  color: #000;
+  background: linear-gradient(135deg, #C0C0C0, #A9A9A9);
+  color: #1a1a1a;
   padding: 20px;
   border-radius: 12px;
+  border: 2px solid #808080;
   display: flex;
   gap: 30px;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
+  transition: all 0.3s ease-in-out;
 }
 
-.silvrbox ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  gap: 30px;
-  flex-wrap: wrap;
-}
-
-.silvrbox .silvrli {
-  flex: 1 1 150px;
-  text-align: center;
-  /*background: transparent;*/ /* remove inner box */
-  padding: 10px;
-  border-radius: 8px;
+.silvrbox:hover {
+  box-shadow: 0 0 20px rgba(128, 128, 128, 0.6); /* silver glow */
+  transform: scale(1.02); /* slight zoom */
 }
 
 .silvrbox .slvr_ggram, .silvrbox .silvrprc {
   display: block;
   font-weight: 700;
-  font-size: 22px; /* clear and professional */
+  font-size: 22px;
 }
 
 /* ================= RESPONSIVE ================= */
@@ -77,7 +56,6 @@
     flex-direction: column;
     gap: 15px;
   }
-
   .gldbox .gldli, .silvrbox .silvrli {
     flex: 1 1 100%;
   }

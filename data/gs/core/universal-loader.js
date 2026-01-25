@@ -1,149 +1,152 @@
-console.log("🟢 MBK: Loader Init");
-
+/* =====================================================
+   MBK UNIVERSAL LOADER v9.2 (SAFE + RETRY)
+   ===================================================== */
+console.log("🟢 MBK: Loader Init1");
 (function(){
+  "use strict";
 
-/* ================= CONFIG ================= */
-const BASE = "https://api.mandibhavkhabar.com/data/gs/";
-let goldCfg=null, silverCfg=null;
+  console.log("🟢 MBK: Loader Init");
 
-let ready = {
-  dom:false,
-  css:false,
-  gviz:false,
-  gold:false,
-  silver:false
-};
+  const DEBUG = true;
+  const log = (...a)=>DEBUG && console.log("🟢 MBK:",...a);
 
-let started=false;
+  /* ---------------- CONFIG ---------------- */
+  const MAX_FUNC_WAIT = 25;   // function wait tries
+  const MAX_TABLE_WAIT = 20;  // table wait tries
+  const MAX_RETRY = 2;        // data retry
+  const INTERVAL = 300;
 
-/* ================= DOM READY ================= */
-if(document.readyState==="loading"){
-  document.addEventListener("DOMContentLoaded", ()=>{
-    ready.dom=true;
-    console.log("🟢 MBK: DOM Ready");
-    checkStart();
-  });
-}else{
-  ready.dom=true;
-}
+  /* ---------------- UTILS ---------------- */
 
-/* ================= CSS LOAD ================= */
-(function(){
-  const l=document.createElement("link");
-  l.rel="stylesheet";
-  l.href=BASE+"core/rates-ui.css";
-  l.onload=()=>{ready.css=true; checkStart();}
-  l.onerror=()=>console.warn("❌ CSS load failed");
-  document.head.appendChild(l);
-})();
-
-/* ================= GVIZ LOAD ================= */
-(function(){
-  const s=document.createElement("script");
-  s.src="https://www.gstatic.com/charts/loader.js";
-  s.onload=()=>{
-    google.charts.load("current",{packages:["corechart","table"]});
-    google.charts.setOnLoadCallback(()=>{
-      ready.gviz=true;
-      checkStart();
-    });
-  };
-  document.head.appendChild(s);
-})();
-
-/* ================= SAFE JSON FETCH ================= */
-async function safeFetchJSON(url){
-  try{
-    const r=await fetch(url,{cache:"no-store"});
-    const t=await r.text();
-    return JSON.parse(t);
-  }catch(e){
-    console.error("❌ JSON FAIL:",url,e);
-    return null;
-  }
-}
-
-/* ================= GROUP LOAD ================= */
-(async function(){
-  goldCfg   = await safeFetchJSON(BASE+"gold-groups.json");
-  silverCfg = await safeFetchJSON(BASE+"silver-groups.json");
-
-  ready.gold   = !!goldCfg;
-  ready.silver = !!silverCfg;
-  checkStart();
-})();
-
-/* ================= CITY EXTRACT ================= */
-function extractCityNo(v){
-  if(!v) return null;
-  const m=String(v).match(/(\d+)/);
-  return m ? parseInt(m[1],10) : null;
-}
-
-/* ================= VARIABLE DETECTOR ================= */
-function detectRequest(){
-  let req={};
-
-  if(window.gctqury){
-    req.type="gold";
-    req.raw=window.gctqury;
-    req.city=extractCityNo(window.gctqury);
+  function waitForFunction(fn, cb){
+    let i=0;
+    const t=setInterval(()=>{
+      i++;
+      if(typeof window[fn]==="function"){
+        clearInterval(t);
+        cb();
+      }
+      if(i>MAX_FUNC_WAIT){
+        clearInterval(t);
+        log("❌ Function not found:", fn);
+      }
+    },INTERVAL);
   }
 
-  if(window.sctqury){
-    req.type="silver";
-    req.raw=window.sctqury;
-    req.city=extractCityNo(window.sctqury);
+  function waitForTable(selector, cb){
+    let i=0;
+    const t=setInterval(()=>{
+      i++;
+      const el=document.querySelector(selector);
+      if(el && el.querySelector("tr")){
+        clearInterval(t);
+        cb(el);
+      }
+      if(i>MAX_TABLE_WAIT){
+        clearInterval(t);
+        cb(null);
+      }
+    },INTERVAL);
   }
 
-  if(window.mtype){
-    req.type=window.mtype.toLowerCase();
+  function hasVar(name){
+    return typeof window[name]!=="undefined";
   }
 
-  return req;
-}
-
-/* ================= MAIN START ================= */
-function checkStart(){
-  if(started) return;
-  if(!ready.dom || !ready.css || !ready.gviz) return;
-
-  const req=detectRequest();
-  if(!req.type || !req.city) return;
-
-  if(req.type==="gold" && ready.gold){
-    started=true;
-    console.log("🟢 MBK: golddata START after DOM", req.city);
-    callGold(req.city);
+  function cleanCityId(val){
+    if(!val) return null;
+    return String(val).replace(/[^\d]/g,''); // gct322 → 322
   }
 
-  if(req.type==="silver" && ready.silver){
-    started=true;
-    console.log("🟢 MBK: silverdata START after DOM", req.city);
-    callSilver(req.city);
-  }
-}
+  /* ---------------- CORE EXEC ---------------- */
 
-/* ================= AUTO RETRY (TABLE SAFE) ================= */
-function waitForTables(fn){
-  let tries=0;
-  const t=setInterval(()=>{
-    tries++;
-    if(document.querySelector(".price-table") || tries>15){
-      clearInterval(t);
-      fn();
+  function runWithRetry({fn, tableSel, args, label}){
+    let tries=0;
+
+    function attempt(){
+      tries++;
+      log(label,"attempt",tries);
+
+      fn.apply(null,args);
+
+      waitForTable(tableSel,(table)=>{
+        if(table){
+          log(label,"✅ data loaded");
+        }else if(tries<=MAX_RETRY){
+          log(label,"🔁 retry");
+          attempt();
+        }else{
+          log(label,"⏭ skipped (no data)");
+        }
+      });
     }
-  },500);
-}
+    attempt();
+  }
 
-/* ================= GOLD CALL ================= */
-function callGold(city){
-  waitForTables(()=>golddata(city,"gold"));
-}
+  /* ---------------- SILVER ---------------- */
 
-/* ================= SILVER CALL ================= */
-function callSilver(city){
-  waitForTables(()=>Silverdata(city,"Silver"));
-}
+  function startSilver(){
+    if(!hasVar("silver_city")) return log("⏭ silver_city not found");
+
+    const city=cleanCityId(window.silver_city);
+    if(!city) return log("⏭ invalid silver city");
+
+    waitForFunction("Silverdata",()=>{
+      runWithRetry({
+        fn: Silverdata,
+        tableSel: "#silver-rate-table, .silver-table, table",
+        args: [city,"Silver"],
+        label: "silverdata"
+      });
+    });
+  }
+
+  /* ---------------- GOLD ---------------- */
+
+  function startGold(){
+    if(!hasVar("gold_city")) return log("⏭ gold_city not found");
+
+    const city=cleanCityId(window.gold_city);
+    if(!city) return log("⏭ invalid gold city");
+
+    waitForFunction("golddata",()=>{
+      runWithRetry({
+        fn: golddata,
+        tableSel: "#gold-rate-table, .gold-table, table",
+        args: [city,"gold"],
+        label: "golddata"
+      });
+    });
+  }
+
+  /* ---------------- GVIZ (GRAMS / CHARTS SAFE) ---------------- */
+
+  function startGViz(){
+    if(!hasVar("GVIZ_URL")) return;
+
+    waitForFunction("drawGVizTable",()=>{
+      runWithRetry({
+        fn: drawGVizTable,
+        tableSel: ".gviz-table, table",
+        args: [window.GVIZ_URL],
+        label: "gviz"
+      });
+    });
+  }
+
+  /* ---------------- DOM READY ---------------- */
+
+  function onReady(fn){
+    if(document.readyState!=="loading") fn();
+    else document.addEventListener("DOMContentLoaded",fn);
+  }
+
+  onReady(()=>{
+    log("DOM Ready");
+
+    startSilver();
+    startGold();
+    startGViz();
+  });
 
 })();

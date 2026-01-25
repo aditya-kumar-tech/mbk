@@ -5,10 +5,30 @@ console.log("🟢 MBK: Loader Init");
 /* ================= CONFIG ================= */
 const BASE = "https://api.mandibhavkhabar.com/data/gs/";
 let goldCfg=null, silverCfg=null;
-let ready = {css:false, gviz:false, gold:false, silver:false};
+
+let ready = {
+  dom:false,
+  css:false,
+  gviz:false,
+  gold:false,
+  silver:false
+};
+
+let started=false;
+
+/* ================= DOM READY ================= */
+if(document.readyState==="loading"){
+  document.addEventListener("DOMContentLoaded", ()=>{
+    ready.dom=true;
+    console.log("🟢 MBK: DOM Ready");
+    checkStart();
+  });
+}else{
+  ready.dom=true;
+}
 
 /* ================= CSS LOAD ================= */
-(function loadCSS(){
+(function(){
   const l=document.createElement("link");
   l.rel="stylesheet";
   l.href=BASE+"core/rates-ui.css";
@@ -18,7 +38,7 @@ let ready = {css:false, gviz:false, gold:false, silver:false};
 })();
 
 /* ================= GVIZ LOAD ================= */
-(function loadGViz(){
+(function(){
   const s=document.createElement("script");
   s.src="https://www.gstatic.com/charts/loader.js";
   s.onload=()=>{
@@ -45,26 +65,37 @@ async function safeFetchJSON(url){
 
 /* ================= GROUP LOAD ================= */
 (async function(){
-  goldCfg  = await safeFetchJSON(BASE+"gold-groups.json");
-  silverCfg= await safeFetchJSON(BASE+"silver-groups.json");
+  goldCfg   = await safeFetchJSON(BASE+"gold-groups.json");
+  silverCfg = await safeFetchJSON(BASE+"silver-groups.json");
 
-  ready.gold = !!goldCfg;
+  ready.gold   = !!goldCfg;
   ready.silver = !!silverCfg;
   checkStart();
 })();
+
+/* ================= CITY EXTRACT ================= */
+function extractCityNo(v){
+  if(!v) return null;
+  const m=String(v).match(/(\d+)/);
+  return m ? parseInt(m[1],10) : null;
+}
 
 /* ================= VARIABLE DETECTOR ================= */
 function detectRequest(){
   let req={};
 
-  if(window.gctqury){ 
+  if(window.gctqury){
     req.type="gold";
-    req.q=window.gctqury;
+    req.raw=window.gctqury;
+    req.city=extractCityNo(window.gctqury);
   }
+
   if(window.sctqury){
     req.type="silver";
-    req.q=window.sctqury;
+    req.raw=window.sctqury;
+    req.city=extractCityNo(window.sctqury);
   }
+
   if(window.mtype){
     req.type=window.mtype.toLowerCase();
   }
@@ -74,41 +105,45 @@ function detectRequest(){
 
 /* ================= MAIN START ================= */
 function checkStart(){
-  if(!ready.css || !ready.gviz) return;
+  if(started) return;
+  if(!ready.dom || !ready.css || !ready.gviz) return;
+
   const req=detectRequest();
-  if(!req.type) return;
+  if(!req.type || !req.city) return;
 
   if(req.type==="gold" && ready.gold){
-    console.log("🟢 MBK: golddata START");
-    callGold(req.q);
+    started=true;
+    console.log("🟢 MBK: golddata START after DOM", req.city);
+    callGold(req.city);
   }
 
   if(req.type==="silver" && ready.silver){
-    console.log("🟢 MBK: silverdata START");
-    callSilver(req.q);
+    started=true;
+    console.log("🟢 MBK: silverdata START after DOM", req.city);
+    callSilver(req.city);
   }
 }
 
-/* ================= AUTO RETRY (TIMING FIX) ================= */
+/* ================= AUTO RETRY (TABLE SAFE) ================= */
 function waitForTables(fn){
   let tries=0;
-  const timer=setInterval(()=>{
+  const t=setInterval(()=>{
     tries++;
-    if(document.querySelector(".price-table") || tries>10){
-      clearInterval(timer);
+    if(document.querySelector(".price-table") || tries>15){
+      clearInterval(t);
       fn();
     }
   },500);
 }
 
 /* ================= GOLD CALL ================= */
-function callGold(q){
-  waitForTables(()=>golddata(q,"gold"));
+function callGold(city){
+  waitForTables(()=>golddata(city,"gold"));
 }
 
 /* ================= SILVER CALL ================= */
-function callSilver(q){
-  waitForTables(()=>Silverdata(q,"Silver"));
+function callSilver(city){
+  waitForTables(()=>Silverdata(city,"Silver"));
 }
 
 })();

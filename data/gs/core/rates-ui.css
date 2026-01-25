@@ -1,306 +1,139 @@
-/* ================= GOLD BOX - PROFESSIONAL ENHANCEMENT ================= */
+/* ==================== PRICE UP/DOWN COLOR ==================== */
+.gldprc.up, .silvrprc.up,
+.price-table td.up {
+  color: #10B981; /* green for up */
+}
+
+.gldprc.down, .silvrprc.down,
+.price-table td.down {
+  color: #EF4444; /* red for down */
+}
+
+/* ==================== TABLE STYLING ==================== */
+.price-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  margin: 25px 0;
+  font-size: 0.95rem;
+  background: #fff;
+}
+
+.price-table th {
+  font-weight: 600;
+  padding: 15px 12px;
+  color: #fff;
+  background: linear-gradient(135deg, #4b5563, #1f2937); /* neutral gradient for both tables */
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.price-table td {
+  padding: 14px 10px;
+  color: #1F2937;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  text-align: center;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.price-table tr:hover td {
+  background: rgba(0,0,0,0.02);
+}
+
+.price-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* ==================== GOLD/SILVER BOXES ==================== */
+.gldbox, .silvrbox {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 30px;
+  padding: 28px 30px;
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  transition: all 0.3s ease;
+}
+
 .gldbox {
   background: linear-gradient(135deg, #d4af37 0%, #b8941f 100%);
   color: #fff;
-  padding: 28px 30px;
-  border-radius: 16px;
-  display: flex;
-  gap: 40px;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  align-items: center;
-  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.25);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  position: relative;
-  overflow: hidden;
 }
 
-.gldbox::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
-}
-
-.gldbox h3 {
-  font-size: 1.4rem;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  margin-bottom: 8px;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-}
-
-.gldbox ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  gap: 40px;
-  flex-wrap: wrap;
-  flex: 1;
-  justify-content: center;
-}
-
-.gldbox .gldli {
-  flex: 1 1 180px;
-  text-align: center;
-  background: rgba(255, 255, 255, 0.1);
-  padding: 25px 20px;
-  border-radius: 12px;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  transition: all 0.3s ease;
-  min-width: 180px;
-}
-
-.gldbox .gldli:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-  background: rgba(255, 255, 255, 0.15);
-}
-
-.gldbox .gldli .label {
-  display: block;
-  font-size: 0.9rem;
-  opacity: 0.9;
-  margin-bottom: 8px;
-  font-weight: 500;
-  letter-spacing: 0.3px;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.95);
-}
-
-.gldbox .ggram, .gldbox .gldprc {
-  display: block;
-  font-weight: 700;
-  font-size: 28px;
-  line-height: 1.2;
-  color: #fff;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-.gldbox .gldprc {
-  color: #fff;
-  font-size: 24px;
-  margin-top: 5px;
-}
-
-/* ================= SILVER BOX - PROFESSIONAL ENHANCEMENT ================= */
 .silvrbox {
   background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
   color: #2d3748;
-  padding: 28px 30px;
-  border-radius: 16px;
-  display: flex;
-  gap: 40px;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  align-items: center;
-  box-shadow: 0 10px 30px rgba(76, 81, 191, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.8);
-  position: relative;
-  overflow: hidden;
 }
 
-.silvrbox::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
-}
-
-.silvrbox h3 {
-  font-size: 1.4rem;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  margin-bottom: 8px;
-  color: #2d3748;
-}
-
-.silvrbox ul {
+.gldbox ul, .silvrbox ul {
   list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  justify-content: center;
   padding: 0;
   margin: 0;
-  display: flex;
-  gap: 40px;
-  flex-wrap: wrap;
   flex: 1;
-  justify-content: center;
 }
 
-.silvrbox .silvrli {
+.gldli, .silvrli {
   flex: 1 1 180px;
+  min-width: 180px;
   text-align: center;
-  background: rgba(255, 255, 255, 0.85);
   padding: 25px 20px;
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.9);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   transition: all 0.3s ease;
-  min-width: 180px;
+  position: relative;
 }
 
-.silvrbox .silvrli:hover {
+.gldli {
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  backdrop-filter: blur(10px);
+}
+
+.silvrli {
+  background: rgba(255,255,255,0.85);
+  border: 1px solid rgba(255,255,255,0.9);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.gldli:hover, .silvrli:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-  background: white;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
 }
 
-.silvrbox .silvrli .label {
-  display: block;
+.ggram, .slvr_ggram {
   font-size: 0.9rem;
-  color: #4a5568;
-  margin-bottom: 8px;
   font-weight: 500;
-  letter-spacing: 0.3px;
-  text-transform: uppercase;
+  margin-bottom: 8px;
 }
 
-.silvrbox .slvr_ggram, .silvrbox .silvrprc {
-  display: block;
-  font-weight: 700;
-  font-size: 28px;
-  line-height: 1.2;
-  color: #2d3748;
-}
-
-.silvrbox .silvrprc {
-  color: #2d3748;
+.gldprc, .silvrprc {
   font-size: 24px;
+  font-weight: 700;
   margin-top: 5px;
 }
 
-/* ================= SECTION TITLES ================= */
-.price-section {
-  margin-bottom: 30px;
-}
-
-.section-title {
-  font-size: 1.6rem;
-  font-weight: 600;
-  color: #2d3748;
-  margin-bottom: 15px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.section-title::before {
-  content: '';
-  display: inline-block;
-  width: 4px;
-  height: 20px;
-  background: linear-gradient(to bottom, #d4af37, #b8941f);
-  border-radius: 2px;
-}
-
-.silvrbox .section-title::before {
-  background: linear-gradient(to bottom, #c0c0c0, #a0a0a0);
-}
-
-/* ================= RESPONSIVE ENHANCEMENTS ================= */
-@media screen and (max-width: 1024px) {
-  .gldbox, .silvrbox {
-    gap: 30px;
-    padding: 25px;
-  }
-  
-  .gldbox ul, .silvrbox ul {
-    gap: 25px;
-  }
-  
-  .gldbox .gldli, .silvrbox .silvrli {
-    flex: 1 1 160px;
-    padding: 20px 15px;
-  }
-}
-
-@media screen and (max-width: 768px) {
+/* ==================== RESPONSIVE ==================== */
+@media screen and (max-width:768px) {
   .gldbox, .silvrbox {
     flex-direction: column;
     gap: 20px;
     padding: 25px 20px;
-    border-radius: 14px;
   }
-  
-  .gldbox ul, .silvrbox ul {
-    width: 100%;
-    gap: 15px;
-  }
-  
-  .gldbox .gldli, .silvrbox .silvrli {
-    flex: 1 1 100%;
-    min-width: auto;
-    padding: 22px 15px;
-  }
-  
-  .gldbox .gldli:hover, .silvrbox .silvrli:hover {
-    transform: translateY(-3px);
-  }
-  
-  .section-title {
-    font-size: 1.4rem;
-  }
+  .gldli, .silvrli { flex: 1 1 100%; min-width: auto; padding: 22px 15px; }
 }
 
-@media screen and (max-width: 480px) {
-  .gldbox, .silvrbox {
-    padding: 20px 15px;
-    border-radius: 12px;
-  }
-  
-  .gldbox .gldli, .silvrbox .silvrli {
-    padding: 20px 12px;
-  }
-  
-  .gldbox .ggram, .gldbox .gldprc,
-  .silvrbox .slvr_ggram, .silvrbox .silvrprc {
-    font-size: 24px;
-  }
-  
-  .gldbox .gldprc, .silvrbox .silvrprc {
-    font-size: 22px;
-  }
-}
-
-/* ================= ANIMATION ENHANCEMENTS ================= */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.gldbox, .silvrbox {
-  animation: fadeInUp 0.6s ease-out;
-}
-
-.gldbox .gldli, .silvrbox .silvrli {
-  animation: fadeInUp 0.8s ease-out backwards;
-}
-
-.gldbox .gldli:nth-child(2) {
-  animation-delay: 0.1s;
-}
-
-.gldbox .gldli:nth-child(3) {
-  animation-delay: 0.2s;
-}
-
-.silvrbox .silvrli:nth-child(2) {
-  animation-delay: 0.1s;
-}
-
-.silvrbox .silvrli:nth-child(3) {
-  animation-delay: 0.2s;
+@media screen and (max-width:480px) {
+  .gldbox, .silvrbox { padding: 20px 15px; border-radius: 12px; }
+  .gldprc, .silvrprc { font-size: 22px; }
 }

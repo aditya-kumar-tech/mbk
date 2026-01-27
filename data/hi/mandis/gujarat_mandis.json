@@ -126,7 +126,7 @@
     ],
     "11003002": [
       "Anand(Veg,Yard,Anand)",
-      "anand_veg_yard_anand"
+      "anand_vegyardanand"
     ],
     "11003003": [
       "Anklav",
@@ -218,7 +218,7 @@
     ],
     "11005011": [
       "Dhanera(Veg,Yard Dhanera)",
-      "dhanera_veg_yard_dhanera"
+      "dhanera_vegyard_dhanera"
     ],
     "11005012": [
       "Diyodar",
@@ -234,7 +234,7 @@
     ],
     "11005015": [
       "Palanpur(Veg,Yard Palanpur)",
-      "palanpur_veg_yard_palanpur"
+      "palanpur_vegyard_palanpur"
     ],
     "11005016": [
       "Panthawada",
@@ -358,7 +358,7 @@
     ],
     "11009004": [
       "Jetpur-Pavi",
-      "jetpur_pavi"
+      "jetpurpavi"
     ],
     "11009005": [
       "Kalediya",
@@ -450,7 +450,7 @@
     ],
     "11013004": [
       "Kalol(Veg,Market,Kalol)",
-      "kalol_veg_market_kalol"
+      "kalol_vegmarketkalol"
     ],
     "11013005": [
       "Mansa",
@@ -470,7 +470,7 @@
     ],
     "11013009": [
       "Randheja(Veg.Market Gandhinagar)",
-      "randheja_veg_market_gandhinagar"
+      "randheja_vegmarket_gandhinagar"
     ],
     "11014001": [
       "Kodinar",
@@ -526,7 +526,7 @@
     ],
     "11016003": [
       "Junagadh(Veg,Yard, Junagadh)",
-      "junagadh_veg_yard_junagadh"
+      "junagadh_vegyard_junagadh"
     ],
     "11016004": [
       "Keshod",
@@ -570,7 +570,7 @@
     ],
     "11017003": [
       "Anjar(Veg,Sub Yard)",
-      "anjar_veg_sub_yard"
+      "anjar_vegsub_yard"
     ],
     "11017004": [
       "Bachau",
@@ -582,7 +582,7 @@
     ],
     "11017006": [
       "K.Mandvi",
-      "k_mandvi"
+      "kmandvi"
     ],
     "11017007": [
       "Mundra",
@@ -726,7 +726,7 @@
     ],
     "11021001": [
       "HALVAD",
-      "h_a_l_v_a_d"
+      "halvad"
     ],
     "11021002": [
       "Morbi",
@@ -866,7 +866,7 @@
     ],
     "11025004": [
       "Patan(Veg,Yard Patan)",
-      "patan_veg_yard_patan"
+      "patan_vegyard_patan"
     ],
     "11025005": [
       "Radhanpur",
@@ -902,7 +902,7 @@
     ],
     "11027003": [
       "Gondal(Veg.market Gondal)",
-      "gondal_veg_market_gondal"
+      "gondal_vegmarket_gondal"
     ],
     "11027004": [
       "Jamkandorna",
@@ -918,7 +918,7 @@
     ],
     "11027007": [
       "Jetpur(Dist.Rajkot)",
-      "jetpur_dist_rajkot"
+      "jetpur_distrajkot"
     ],
     "11027008": [
       "Rajkot",
@@ -926,7 +926,7 @@
     ],
     "11027009": [
       "Rajkot(Veg.Sub Yard)",
-      "rajkot_veg_sub_yard"
+      "rajkot_vegsub_yard"
     ],
     "11027010": [
       "Upleta",
@@ -934,7 +934,7 @@
     ],
     "11028001": [
       "KHEDBRAHMA",
-      "k_h_e_d_b_r_a_h_m_a"
+      "khedbrahma"
     ],
     "11028002": [
       "Bayad",
@@ -966,7 +966,7 @@
     ],
     "11028009": [
       "Himatnagar(Veg.Market Himatnagar)",
-      "himatnagar_veg_market_himatnagar"
+      "himatnagar_vegmarket_himatnagar"
     ],
     "11028010": [
       "Idar",
@@ -1082,7 +1082,7 @@
     ],
     "11029014": [
       "S.Mandvi",
-      "s_mandvi"
+      "smandvi"
     ],
     "11029015": [
       "Songadh",
@@ -1126,7 +1126,7 @@
     ],
     "11030001": [
       "Chotial(Veg,Yard)",
-      "chotial_veg_yard"
+      "chotial_vegyard"
     ],
     "11030002": [
       "Chotila",
@@ -1134,7 +1134,7 @@
     ],
     "11030003": [
       "Chotila(Veg,Yard Chotila)",
-      "chotila_veg_yard_chotila"
+      "chotila_vegyard_chotila"
     ],
     "11030004": [
       "Dasada Patadi",
@@ -1166,7 +1166,7 @@
     ],
     "11032001": [
       "Ahwa-Dang",
-      "ahwa_dang"
+      "ahwadang"
     ],
     "11033001": [
       "Chhota Udaipur",

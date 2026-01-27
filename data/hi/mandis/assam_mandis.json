@@ -168,6 +168,10 @@
       "Harbartganj",
       "harbartganj"
     ],
+    "04011001": [
+      "Gandhimaidan",
+      "gandhimaidan"
+    ],
     "04012001": [
       "Jorhat",
       "jorhat"
@@ -194,7 +198,7 @@
     ],
     "04013004": [
       "P.O. Uparhali Guwahati",
-      "p_o_uparhali_guwahati"
+      "po_uparhali_guwahati"
     ],
     "04013005": [
       "Pamohi(Garchuk)",
@@ -202,7 +206,7 @@
     ],
     "04013006": [
       "Rangia Sub-Divisional Market Committee",
-      "rangia_sub_divisional_market_committee"
+      "rangia_subdivisional_market_committee"
     ],
     "04013007": [
       "Sontoli",
@@ -376,6 +380,14 @@
       "Mission Chariali",
       "mission_chariali"
     ],
+    "04025001": [
+      "Banga Bazaar",
+      "banga_bazaar"
+    ],
+    "04025002": [
+      "Santar Bazaar",
+      "santar_bazaar"
+    ],
     "04026001": [
       "Bardhumsa",
       "bardhumsa"
@@ -395,18 +407,6 @@
     "04026005": [
       "Tinsukia",
       "tinsukia"
-    ],
-    "04011001": [
-      "Gandhimaidan",
-      "gandhimaidan"
-    ],
-    "04025001": [
-      "Banga Bazaar",
-      "banga_bazaar"
-    ],
-    "04025002": [
-      "Santar Bazaar",
-      "santar_bazaar"
     ]
   }
 }

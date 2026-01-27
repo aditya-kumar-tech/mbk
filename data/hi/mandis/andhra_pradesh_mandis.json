@@ -8,6 +8,22 @@
       "मंडी चुने",
       ""
     ],
+    "02001001": [
+      "Araku Valley",
+      "araku_valley"
+    ],
+    "02001002": [
+      "Rampachodvaram",
+      "rampachodvaram"
+    ],
+    "02002001": [
+      "Madygula",
+      "madygula"
+    ],
+    "02002002": [
+      "Payakaraopeta",
+      "payakaraopeta"
+    ],
     "02003001": [
       "Anantapur",
       "anantapur"
@@ -42,7 +58,7 @@
     ],
     "02003009": [
       "P. Ramacharyulu Park,RBZ",
-      "p_ramacharyulu_park_r_b_z"
+      "p_ramacharyulu_parkrbz"
     ],
     "02003010": [
       "Penukonda",
@@ -50,7 +66,7 @@
     ],
     "02003011": [
       "RAYADURG",
-      "r_a_y_a_d_u_r_g"
+      "rayadurg"
     ],
     "02003012": [
       "Rapthadu",
@@ -71,6 +87,18 @@
     "02003016": [
       "Urvakonda",
       "urvakonda"
+    ],
+    "02004001": [
+      "Angallu",
+      "angallu"
+    ],
+    "02004002": [
+      "Valmikipuram",
+      "valmikipuram"
+    ],
+    "02005001": [
+      "Vemuru",
+      "vemuru"
     ],
     "02006001": [
       "Bangarupalyam",
@@ -138,7 +166,7 @@
     ],
     "02006017": [
       "S.R.Puram",
-      "s_r_puram"
+      "srpuram"
     ],
     "02006018": [
       "Somala",
@@ -162,7 +190,7 @@
     ],
     "02006023": [
       "V.Kota Mkt.Yard",
-      "v_kota_mkt_yard"
+      "vkota_mktyard"
     ],
     "02006024": [
       "Vayalapadu",
@@ -206,7 +234,7 @@
     ],
     "02007009": [
       "Proddatur,RBZ",
-      "proddatur_r_b_z"
+      "proddaturrbz"
     ],
     "02007010": [
       "Pulivendala",
@@ -258,7 +286,7 @@
     ],
     "02008006": [
       "Ganesh Chouk,Rajahmundry,RBZ",
-      "ganesh_chouk_rajahmundry_r_b_z"
+      "ganesh_choukrajahmundryrbz"
     ],
     "02008007": [
       "Jaggampet",
@@ -270,7 +298,7 @@
     ],
     "02008009": [
       "Kakinada(R.T.C) ,RBZ",
-      "kakinada_r_t_c"
+      "kakinada_rtc"
     ],
     "02008010": [
       "Karapa",
@@ -322,7 +350,7 @@
     ],
     "02008022": [
       "Ravulapalem(MY),RBZ",
-      "ravulapalem_m_y"
+      "ravulapalem_my"
     ],
     "02008023": [
       "Ravulapelem",
@@ -354,7 +382,7 @@
     ],
     "02009002": [
       "CSMLS Point, ,RBZ,Guntur",
-      "c_s_m_l_s_point_r_b_z_guntur"
+      "csmls_point_rbzguntur"
     ],
     "02009003": [
       "Chilakaluripet",
@@ -394,7 +422,7 @@
     ],
     "02009012": [
       "Mangalagiri(SLNS Temple),RBZ",
-      "mangalagiri_s_l_n_s_temple"
+      "mangalagiri_slns_temple"
     ],
     "02009013": [
       "Narasaraopet",
@@ -402,11 +430,11 @@
     ],
     "02009014": [
       "Nr. Co-op Central Bank(Ten),RBZ",
-      "nr_co_op_central_bank_ten"
+      "nr_coop_central_bank_ten"
     ],
     "02009015": [
       "Opp:Swami Theatre, ,RBZ,Guntur",
-      "opp_swami_theatre_r_b_z_guntur"
+      "oppswami_theatre_rbzguntur"
     ],
     "02009016": [
       "Phirangipuram",
@@ -450,7 +478,7 @@
     ],
     "02010001": [
       "Bapulapadu,RBZ",
-      "bapulapadu_r_b_z"
+      "bapulapadurbz"
     ],
     "02010002": [
       "Divi",
@@ -462,7 +490,7 @@
     ],
     "02010004": [
       "Ghantsala HQ Kodali",
-      "ghantsala_h_q_kodali"
+      "ghantsala_hq_kodali"
     ],
     "02010005": [
       "Gudiwada",
@@ -490,7 +518,7 @@
     ],
     "02010011": [
       "Kedareshwari peta, Vijayawada,RBZ",
-      "kedareshwari_peta_vijayawada_r_b_z"
+      "kedareshwari_peta_vijayawadarbz"
     ],
     "02010012": [
       "Machilipatnam",
@@ -522,7 +550,7 @@
     ],
     "02010019": [
       "Patamata,RBZ",
-      "patamata_r_b_z"
+      "patamatarbz"
     ],
     "02010020": [
       "Pedana",
@@ -542,7 +570,7 @@
     ],
     "02010024": [
       "Vijayawada(S.Maidan),RBZ",
-      "vijayawada_s_maidan"
+      "vijayawada_smaidan"
     ],
     "02010025": [
       "Vuyyur",
@@ -550,7 +578,7 @@
     ],
     "02011001": [
       "A.A.Nagar,Kurnool,RBZ",
-      "a_a_nagar_kurnool_r_b_z"
+      "aanagarkurnoolrbz"
     ],
     "02011002": [
       "Adoni",
@@ -574,7 +602,7 @@
     ],
     "02011007": [
       "C.Camp,RBZ",
-      "c_camp_r_b_z"
+      "ccamprbz"
     ],
     "02011008": [
       "Dhone",
@@ -590,7 +618,7 @@
     ],
     "02011011": [
       "Kothpet,RBZ",
-      "kothpet_r_b_z"
+      "kothpetrbz"
     ],
     "02011012": [
       "Kurnool",
@@ -620,13 +648,17 @@
       "Yemmiganur",
       "yemmiganur"
     ],
+    "02012001": [
+      "Panyam",
+      "panyam"
+    ],
     "02013001": [
       "Atmakur(SPS)",
-      "atmakur_s_p_s"
+      "atmakur_sps"
     ],
     "02013002": [
       "Fatehkhanpet,RBZ",
-      "fatehkhanpet_r_b_z"
+      "fatehkhanpetrbz"
     ],
     "02013003": [
       "Gudur",
@@ -676,6 +708,22 @@
       "Venkatagiri",
       "venkatagiri"
     ],
+    "02014001": [
+      "Durgi",
+      "durgi"
+    ],
+    "02014002": [
+      "Gurazala",
+      "gurazala"
+    ],
+    "02014003": [
+      "Rajupalem",
+      "rajupalem"
+    ],
+    "02014004": [
+      "Rompicherla",
+      "rompicherla"
+    ],
     "02015001": [
       "Addanki",
       "addanki"
@@ -686,7 +734,7 @@
     ],
     "02015003": [
       "Cumbum(AP)",
-      "cumbum_a_p"
+      "cumbum_ap"
     ],
     "02015004": [
       "Darsi",
@@ -694,7 +742,7 @@
     ],
     "02015005": [
       "Dibbala Bazar,RBZ",
-      "dibbala_bazar_r_b_z"
+      "dibbala_bazarrbz"
     ],
     "02015006": [
       "Giddalur",
@@ -714,7 +762,7 @@
     ],
     "02015010": [
       "Kothapatnam B.Stand,RBZ",
-      "kothapatnam_b_stand_r_b_z"
+      "kothapatnam_bstandrbz"
     ],
     "02015011": [
       "Lawyer pet (Sai tmpl),RBZ",
@@ -755,6 +803,14 @@
     "02015020": [
       "Yerragondapalem",
       "yerragondapalem"
+    ],
+    "02016001": [
+      "Gorantla",
+      "gorantla"
+    ],
+    "02016002": [
+      "Puttaparthi",
+      "puttaparthi"
     ],
     "02017001": [
       "Amadalavalasa",
@@ -820,6 +876,18 @@
       "Tekkali",
       "tekkali"
     ],
+    "02018001": [
+      "B.N.Kandriga",
+      "bnkandriga"
+    ],
+    "02018002": [
+      "Chandragiri",
+      "chandragiri"
+    ],
+    "02018003": [
+      "Thiruchanur",
+      "thiruchanur"
+    ],
     "02019001": [
       "Bobbili",
       "bobbili"
@@ -846,7 +914,7 @@
     ],
     "02019007": [
       "Old Maharaj Hospital,RBZ,Vizianagaram",
-      "old_maharaj_hospital_r_b_z_vizianagaram"
+      "old_maharaj_hospitalrbzvizianagaram"
     ],
     "02019008": [
       "Parvathipuram",
@@ -858,11 +926,11 @@
     ],
     "02019010": [
       "R and B Guest House,RBZ,Vizianagaram",
-      "r_and_b_guest_house_r_b_z_vizianagaram"
+      "r_and_b_guest_houserbzvizianagaram"
     ],
     "02019011": [
       "Ring Road Jn.,RBZ, Vizianagaram",
-      "ring_road_jn_r_b_z_vizianagaram"
+      "ring_road_jnrbz_vizianagaram"
     ],
     "02019012": [
       "Saluru",
@@ -878,7 +946,7 @@
     ],
     "02020001": [
       "Akkaiahpalem,RBZ,Visakhapatnam",
-      "akkaiahpalem_r_b_z_visakhapatnam"
+      "akkaiahpalemrbzvisakhapatnam"
     ],
     "02020002": [
       "Anakapally",
@@ -902,27 +970,27 @@
     ],
     "02020007": [
       "Gajuwaka,RBZ,Visakhapatnam",
-      "gajuwaka_r_b_z_visakhapatnam"
+      "gajuwakarbzvisakhapatnam"
     ],
     "02020008": [
       "Gopala Patnam Cent.,RBZ,Visakhapatnam",
-      "gopala_patnam_cent_r_b_z_visakhapatnam"
+      "gopala_patnam_centrbzvisakhapatnam"
     ],
     "02020009": [
       "Kancharlapalem,RBZ",
-      "kancharlapalem_r_b_z"
+      "kancharlapalemrbz"
     ],
     "02020010": [
       "M.V.P.Colony,RBZ,Visakhapatnam",
-      "m_v_p_colony_r_b_z_visakhapatnam"
+      "mvpcolonyrbzvisakhapatnam"
     ],
     "02020011": [
       "Marripalem,RBZ,Visakhapatnam",
-      "marripalem_r_b_z_visakhapatnam"
+      "marripalemrbzvisakhapatnam"
     ],
     "02020012": [
       "Mulagada,Visakhapatnam",
-      "mulagada_visakhapatnam"
+      "mulagadavisakhapatnam"
     ],
     "02020013": [
       "Narsipatnam",
@@ -934,19 +1002,19 @@
     ],
     "02020015": [
       "Pedagantiyada,RBZ,Visakhapatnam",
-      "pedagantiyada_r_b_z_visakhapatnam"
+      "pedagantiyadarbzvisakhapatnam"
     ],
     "02020016": [
       "Peddavaltair,RBZ,Visakhapatnam",
-      "peddavaltair_r_b_z_visakhapatnam"
+      "peddavaltairrbzvisakhapatnam"
     ],
     "02020017": [
       "Pendurthi,RBZ",
-      "pendurthi_r_b_z"
+      "pendurthirbz"
     ],
     "02020018": [
       "Seethammadhara,RBZ,Visakhapatnam",
-      "seethammadhara_r_b_z_visakhapatnam"
+      "seethammadhararbzvisakhapatnam"
     ],
     "02020019": [
       "Visakhapatnam",
@@ -990,11 +1058,11 @@
     ],
     "02021009": [
       "Eluru(P.Sri.Mkt),RBZ",
-      "eluru_p_sri_mkt"
+      "eluru_psrimkt"
     ],
     "02021010": [
       "Eluru-II,RBZ",
-      "eluru_i_i_r_b_z"
+      "eluruiirbz"
     ],
     "02021011": [
       "Gopalavaram",
@@ -1039,74 +1107,6 @@
     "02021021": [
       "Ungatur",
       "ungatur"
-    ],
-    "02004001": [
-      "Angallu",
-      "angallu"
-    ],
-    "02004002": [
-      "Valmikipuram",
-      "valmikipuram"
-    ],
-    "02001001": [
-      "Araku Valley",
-      "araku_valley"
-    ],
-    "02001002": [
-      "Rampachodvaram",
-      "rampachodvaram"
-    ],
-    "02018001": [
-      "B.N.Kandriga",
-      "b_n_kandriga"
-    ],
-    "02018002": [
-      "Chandragiri",
-      "chandragiri"
-    ],
-    "02018003": [
-      "Thiruchanur",
-      "thiruchanur"
-    ],
-    "02014001": [
-      "Durgi",
-      "durgi"
-    ],
-    "02014002": [
-      "Gurazala",
-      "gurazala"
-    ],
-    "02014003": [
-      "Rajupalem",
-      "rajupalem"
-    ],
-    "02014004": [
-      "Rompicherla",
-      "rompicherla"
-    ],
-    "02016001": [
-      "Gorantla",
-      "gorantla"
-    ],
-    "02016002": [
-      "Puttaparthi",
-      "puttaparthi"
-    ],
-    "02002001": [
-      "Madygula",
-      "madygula"
-    ],
-    "02002002": [
-      "Payakaraopeta",
-      "payakaraopeta"
-    ],
-    "02012001": [
-      "Panyam",
-      "panyam"
-    ],
-    "02005001": [
-      "Vemuru",
-      "vemuru"
     ]
   }
 }

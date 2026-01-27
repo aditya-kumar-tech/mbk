@@ -1,19 +1,64 @@
 {
-  "headers": ["name","slug"],
+  "headers": [
+    "name",
+    "slug"
+  ],
   "data": {
-    "00000": ["जिला चुने", ""],
-    "13001": ["बिलासपुर", "bilaspur"],
-    "13002": ["चंबा", "chamba"],
-    "13003": ["हमीरपुर", "hamirpur"],
-    "13004": ["कांगड़ा", "kangra"],
-    "13005": ["कांगड़ा (धर्मशाला में)", "kangra_at_dharmashala"],
-    "13006": ["किन्नौर (कल्पा में)", "kinnaur_at_kalpa"],
-    "13007": ["कुल्लू", "kullu"],
-    "13008": ["लाहौल और स्पीति", "lahul_and_spiti"],
-    "13009": ["मंडी", "mandi"],
-    "13010": ["शिमला", "shimla"],
-    "13011": ["सिरमौर", "sirmore"],
-    "13012": ["सोलन", "solan"],
-    "13013": ["ऊना", "una"]
+    "13001": [
+      "Bilaspur",
+      "bilaspur"
+    ],
+    "13002": [
+      "Chamba",
+      "chamba"
+    ],
+    "13003": [
+      "Hamirpur",
+      "hamirpur"
+    ],
+    "13004": [
+      "Kangra",
+      "kangra"
+    ],
+    "13005": [
+      "Kangra (At Dharmashala)",
+      "kangra_at_dharmashala"
+    ],
+    "13006": [
+      "Kinnaur (At Kalpa)",
+      "kinnaur_at_kalpa"
+    ],
+    "13007": [
+      "Kullu",
+      "kullu"
+    ],
+    "13008": [
+      "Lahul & Spiti",
+      "lahul_spiti"
+    ],
+    "13009": [
+      "Mandi",
+      "mandi"
+    ],
+    "13010": [
+      "Shimla",
+      "shimla"
+    ],
+    "13011": [
+      "Sirmore",
+      "sirmore"
+    ],
+    "13012": [
+      "Solan",
+      "solan"
+    ],
+    "13013": [
+      "Una",
+      "una"
+    ],
+    "00000": [
+      "जिला चुने",
+      ""
+    ]
   }
 }

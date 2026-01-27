@@ -1,14 +1,44 @@
 {
-  "headers": ["name","slug"],
+  "headers": [
+    "name",
+    "slug"
+  ],
   "data": {
-    "00000": ["जिला चुने", ""],
-    "33001": ["धलाई", "dhalai"],
-    "33002": ["गोमती", "gomati"],
-    "33003": ["खोवाई", "khowai"],
-    "33004": ["उत्तरी त्रिपुरा", "north_tripura"],
-    "33005": ["सिपाहीजाला", "sepahijala"],
-    "33006": ["दक्षिण जिला", "south_district"],
-    "33007": ["उनोकोटी", "unokoti"],
-    "33008": ["पश्चिम जिला", "west_district"]
+    "33001": [
+      "Dhalai",
+      "dhalai"
+    ],
+    "33002": [
+      "Gomati",
+      "gomati"
+    ],
+    "33003": [
+      "Khowai",
+      "khowai"
+    ],
+    "33004": [
+      "North Tripura",
+      "north_tripura"
+    ],
+    "33005": [
+      "Sepahijala",
+      "sepahijala"
+    ],
+    "33006": [
+      "South Tripura",
+      "south_tripura"
+    ],
+    "33007": [
+      "Unokoti",
+      "unokoti"
+    ],
+    "33008": [
+      "West District",
+      "west_district"
+    ],
+    "00000": [
+      "जिला चुने",
+      ""
+    ]
   }
 }

@@ -1,18 +1,60 @@
 {
-  "headers": ["name","slug"],
+  "headers": [
+    "name",
+    "slug"
+  ],
   "data": {
-    "00000": ["जिला चुने", ""],
-    "24001": ["दीमापुर", "dimapur"],
-    "24002": ["किफाइर", "kiphire"],
-    "24003": ["कोहिमा", "kohima"],
-    "24004": ["लोंगलेंग", "longleng"],
-    "24005": ["मोकोकचुंग", "mokokchung"],
-    "24006": ["मोन", "mon"],
-    "24007": ["पेरेन", "peren"],
-    "24008": ["फेक", "phek"],
-    "24009": ["त्सेमिन्यु", "tsemenyu"],
-    "24010": ["तुएनसांग", "tuensang"],
-    "24011": ["वोखा", "wokha"],
-    "24012": ["ज़ुन्हेबोटो", "zunheboto"]
+    "24001": [
+      "Dimapur",
+      "dimapur"
+    ],
+    "24002": [
+      "Kiphire",
+      "kiphire"
+    ],
+    "24003": [
+      "Kohima",
+      "kohima"
+    ],
+    "24004": [
+      "Longleng",
+      "longleng"
+    ],
+    "24005": [
+      "Mokokchung",
+      "mokokchung"
+    ],
+    "24006": [
+      "Mon",
+      "mon"
+    ],
+    "24007": [
+      "Peren",
+      "peren"
+    ],
+    "24008": [
+      "Phek",
+      "phek"
+    ],
+    "24009": [
+      "Tsemenyu",
+      "tsemenyu"
+    ],
+    "24010": [
+      "Tuensang",
+      "tuensang"
+    ],
+    "24011": [
+      "Wokha",
+      "wokha"
+    ],
+    "24012": [
+      "Zunheboto",
+      "zunheboto"
+    ],
+    "00000": [
+      "जिला चुने",
+      ""
+    ]
   }
 }

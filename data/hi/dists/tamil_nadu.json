@@ -1,44 +1,164 @@
 {
-  "headers": ["name","slug"],
+  "headers": [
+    "name",
+    "slug"
+  ],
   "data": {
-    "00000": ["जिला चुने", ""],
-    "31001": ["अरियालुर", "ariyalur"],
-    "31002": ["चेंगलपट्टू", "chengalpattu"],
-    "31003": ["चेन्नई", "chennai"],
-    "31004": ["कोयंबटूर", "coimbatore"],
-    "31005": ["कुड्डालोर", "cuddalore"],
-    "31006": ["धर्मपुरी", "dharmapuri"],
-    "31007": ["डिंडीगुल", "dindigul"],
-    "31008": ["इरोड", "erode"],
-    "31009": ["कल्लाकुरिची", "kallakuruchi"],
-    "31010": ["कांचीपुरम", "kancheepuram"],
-    "31011": ["करूर", "karur"],
-    "31012": ["कृष्णागिरि", "krishnagiri"],
-    "31013": ["मदुरै", "madurai"],
-    "31014": ["मयिलादुथुराई", "mayiladuthurai"],
-    "31015": ["नागपट्टिनम", "nagapattinam"],
-    "31016": ["नागरकोइल (कन्याकुमारी)", "nagercoil_kannyiakumari"],
-    "31017": ["नमक्कल", "namakkal"],
-    "31018": ["पेरम्बलुर", "perambalur"],
-    "31019": ["पुदुक्कोट्टई", "pudukkottai"],
-    "31020": ["रामनाथपुरम", "ramanathapuram"],
-    "31021": ["रानीपेट", "ranipet"],
-    "31022": ["सेलम", "salem"],
-    "31023": ["शिवगंगा", "sivaganga"],
-    "31024": ["तेनकासी", "tenkasi"],
-    "31025": ["तंजावुर", "thanjavur"],
-    "31026": ["नीलगिरी", "the_nilgiris"],
-    "31027": ["थेनी", "theni"],
-    "31028": ["तिरुचिरापल्ली", "thiruchirappalli"],
-    "31029": ["तिरुनेलवेली", "thirunelveli"],
-    "31030": ["तिरुप्पत्तूर", "thirupathur"],
-    "31031": ["तिरुपुर", "thirupur"],
-    "31032": ["तिरुवन्नामलई", "thiruvannamalai"],
-    "31033": ["तिरुवरुर", "thiruvarur"],
-    "31034": ["तिरुवल्लूर", "thiruvellore"],
-    "31035": ["तूतीकोरिन", "tuticorin"],
-    "31036": ["वेल्लोर", "vellore"],
-    "31037": ["विल्लुपुरम", "villupuram"],
-    "31038": ["विरुधुनगर", "virudhunagar"]
+    "31001": [
+      "Ariyalur",
+      "ariyalur"
+    ],
+    "31002": [
+      "Chengalpattu",
+      "chengalpattu"
+    ],
+    "31003": [
+      "Chennai",
+      "chennai"
+    ],
+    "31004": [
+      "Coimbatore",
+      "coimbatore"
+    ],
+    "31005": [
+      "Cuddalore",
+      "cuddalore"
+    ],
+    "31006": [
+      "Dharmapuri",
+      "dharmapuri"
+    ],
+    "31007": [
+      "Dindigul",
+      "dindigul"
+    ],
+    "31008": [
+      "Erode",
+      "erode"
+    ],
+    "31009": [
+      "Kallakuruchi",
+      "kallakuruchi"
+    ],
+    "31010": [
+      "Kancheepuram",
+      "kancheepuram"
+    ],
+    "31011": [
+      "Karur",
+      "karur"
+    ],
+    "31012": [
+      "Krishnagiri",
+      "krishnagiri"
+    ],
+    "31013": [
+      "Madurai",
+      "madurai"
+    ],
+    "31014": [
+      "Mayiladuthurai",
+      "mayiladuthurai"
+    ],
+    "31015": [
+      "Nagapattinam",
+      "nagapattinam"
+    ],
+    "31016": [
+      "Nagercoil (Kannyiakumari)",
+      "nagercoil_kannyiakumari"
+    ],
+    "31017": [
+      "Namakkal",
+      "namakkal"
+    ],
+    "31018": [
+      "Perambalur",
+      "perambalur"
+    ],
+    "31019": [
+      "Pudukkottai",
+      "pudukkottai"
+    ],
+    "31020": [
+      "Ramanathapuram",
+      "ramanathapuram"
+    ],
+    "31021": [
+      "Ranipet",
+      "ranipet"
+    ],
+    "31022": [
+      "Salem",
+      "salem"
+    ],
+    "31023": [
+      "Sivaganga",
+      "sivaganga"
+    ],
+    "31024": [
+      "Tenkasi",
+      "tenkasi"
+    ],
+    "31025": [
+      "Thanjavur",
+      "thanjavur"
+    ],
+    "31026": [
+      "The Nilgiris",
+      "the_nilgiris"
+    ],
+    "31027": [
+      "Theni",
+      "theni"
+    ],
+    "31028": [
+      "Thiruchirappalli",
+      "thiruchirappalli"
+    ],
+    "31029": [
+      "Thirunelveli",
+      "thirunelveli"
+    ],
+    "31030": [
+      "Thirupathur",
+      "thirupathur"
+    ],
+    "31031": [
+      "Thirupur",
+      "thirupur"
+    ],
+    "31032": [
+      "Thiruvannamalai",
+      "thiruvannamalai"
+    ],
+    "31033": [
+      "Thiruvarur",
+      "thiruvarur"
+    ],
+    "31034": [
+      "Thiruvellore",
+      "thiruvellore"
+    ],
+    "31035": [
+      "Tuticorin",
+      "tuticorin"
+    ],
+    "31036": [
+      "Vellore",
+      "vellore"
+    ],
+    "31037": [
+      "Villupuram",
+      "villupuram"
+    ],
+    "31038": [
+      "Virudhunagar",
+      "virudhunagar"
+    ],
+    "00000": [
+      "जिला चुने",
+      ""
+    ]
   }
 }

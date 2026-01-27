@@ -1,43 +1,160 @@
 {
-  "headers": ["name","slug"],
+  "headers": [
+    "name",
+    "slug"
+  ],
   "data": {
-    "00000": ["जिला चुने", ""],
-    "20001": ["अहमदनगर", "ahmednagar"],
-    "20002": ["अकोला", "akola"],
-    "20003": ["अमरावती", "amarawati"],
-    "20004": ["बांद्रा (पूर्व)", "bandra_e"],
-    "20005": ["बीड", "beed"],
-    "20006": ["भंडारा", "bhandara"],
-    "20007": ["बुलढाणा", "buldhana"],
-    "20008": ["चंद्रपूर", "chandrapur"],
-    "20009": ["छत्रपती संभाजीनगर", "chattrapati_sambhajinagar"],
-    "20010": ["धाराशिव (उस्मानाबाद)", "dharashivusmanabad"],
-    "20011": ["धुळे", "dhule"],
-    "20012": ["गडचिरोली", "gadchiroli"],
-    "20013": ["गोंदिया", "gondiya"],
-    "20014": ["हिंगोली", "hingoli"],
-    "20015": ["जालना", "jalana"],
-    "20016": ["जळगाव", "jalgaon"],
-    "20017": ["कोल्हापूर", "kolhapur"],
-    "20018": ["लातूर", "latur"],
-    "20019": ["मुंबई", "mumbai"],
-    "20020": ["मुरुम", "murum"],
-    "20021": ["नागपूर", "nagpur"],
-    "20022": ["नांदेड", "nanded"],
-    "20023": ["नंदुरबार", "nandurbar"],
-    "20024": ["नाशिक", "nashik"],
-    "20025": ["उस्मानाबाद", "osmanabad"],
-    "20026": ["परभणी", "parbhani"],
-    "20027": ["पुणे", "pune"],
-    "20028": ["रायगड", "raigad"],
-    "20029": ["रत्नागिरी", "ratnagiri"],
-    "20030": ["सांगली", "sangli"],
-    "20031": ["सातारा", "satara"],
-    "20032": ["सोलापूर", "sholapur"],
-    "20033": ["सिंधुदुर्ग", "sindhudurg"],
-    "20034": ["ठाणे", "thane"],
-    "20035": ["वाशिम", "vashim"],
-    "20036": ["वर्धा", "wardha"],
-    "20037": ["यवतमाळ", "yavatmal"]
+    "20001": [
+      "Ahmednagar",
+      "ahmednagar"
+    ],
+    "20002": [
+      "Akola",
+      "akola"
+    ],
+    "20003": [
+      "Amarawati",
+      "amarawati"
+    ],
+    "20004": [
+      "Bandra(E)",
+      "bandra_e"
+    ],
+    "20005": [
+      "Beed",
+      "beed"
+    ],
+    "20006": [
+      "Bhandara",
+      "bhandara"
+    ],
+    "20007": [
+      "Buldhana",
+      "buldhana"
+    ],
+    "20008": [
+      "Chandrapur",
+      "chandrapur"
+    ],
+    "20009": [
+      "Chattrapati Sambhajinagar",
+      "chattrapati_sambhajinagar"
+    ],
+    "20010": [
+      "Dharashiv(Usmanabad)",
+      "dharashiv_usmanabad"
+    ],
+    "20011": [
+      "Dhule",
+      "dhule"
+    ],
+    "20012": [
+      "Gadchiroli",
+      "gadchiroli"
+    ],
+    "20013": [
+      "Gondiya",
+      "gondiya"
+    ],
+    "20014": [
+      "Hingoli",
+      "hingoli"
+    ],
+    "20015": [
+      "Jalana",
+      "jalana"
+    ],
+    "20016": [
+      "Jalgaon",
+      "jalgaon"
+    ],
+    "20017": [
+      "Kolhapur",
+      "kolhapur"
+    ],
+    "20018": [
+      "Latur",
+      "latur"
+    ],
+    "20019": [
+      "Mumbai",
+      "mumbai"
+    ],
+    "20020": [
+      "Murum",
+      "murum"
+    ],
+    "20021": [
+      "Nagpur",
+      "nagpur"
+    ],
+    "20022": [
+      "Nanded",
+      "nanded"
+    ],
+    "20023": [
+      "Nandurbar",
+      "nandurbar"
+    ],
+    "20024": [
+      "Nashik",
+      "nashik"
+    ],
+    "20025": [
+      "Osmanabad",
+      "osmanabad"
+    ],
+    "20026": [
+      "Parbhani",
+      "parbhani"
+    ],
+    "20027": [
+      "Pune",
+      "pune"
+    ],
+    "20028": [
+      "Raigad",
+      "raigad"
+    ],
+    "20029": [
+      "Ratnagiri",
+      "ratnagiri"
+    ],
+    "20030": [
+      "Sangli",
+      "sangli"
+    ],
+    "20031": [
+      "Satara",
+      "satara"
+    ],
+    "20032": [
+      "Sholapur",
+      "sholapur"
+    ],
+    "20033": [
+      "Sindhudurg",
+      "sindhudurg"
+    ],
+    "20034": [
+      "Thane",
+      "thane"
+    ],
+    "20035": [
+      "Vashim",
+      "vashim"
+    ],
+    "20036": [
+      "Wardha",
+      "wardha"
+    ],
+    "20037": [
+      "Yavatmal",
+      "yavatmal"
+    ],
+    "00000": [
+      "जिला चुने",
+      ""
+    ]
   }
 }

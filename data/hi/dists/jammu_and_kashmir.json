@@ -1,27 +1,96 @@
 {
-  "headers": ["name","slug"],
+  "headers": [
+    "name",
+    "slug"
+  ],
   "data": {
-    "00000": ["जिला चुने", ""],
-    "14001": ["अनंतनाग", "anantnag"],
-    "14002": ["बडगाम", "badgam"],
-    "14003": ["बांदीपोरा", "bandipora"],
-    "14004": ["बारामूला", "baramulla"],
-    "14005": ["डोडा", "doda"],
-    "14006": ["गांदरबल", "ganderbal"],
-    "14007": ["जम्मू", "jammu"],
-    "14008": ["कारगिल", "kargil"],
-    "14009": ["कठुआ", "kathua"],
-    "14010": ["किश्तवाड़", "kishtwar"],
-    "14011": ["कुलगाम", "kulgam"],
-    "14012": ["कुपवाड़ा", "kupwara"],
-    "14013": ["लेह", "leh"],
-    "14014": ["पुंछ", "poonch"],
-    "14015": ["पुलवामा", "pulwama"],
-    "14016": ["राजौरी", "rajouri"],
-    "14017": ["रामबन", "ramban"],
-    "14018": ["सांबा", "samba"],
-    "14019": ["शोपियां", "shopian"],
-    "14020": ["श्रीनगर", "srinagar"],
-    "14021": ["उधमपुर", "udhampur"]
+    "14001": [
+      "Anantnag",
+      "anantnag"
+    ],
+    "14002": [
+      "Bandipora",
+      "bandipora"
+    ],
+    "14003": [
+      "Baramulla",
+      "baramulla"
+    ],
+    "14004": [
+      "Budgam",
+      "budgam"
+    ],
+    "14005": [
+      "Doda",
+      "doda"
+    ],
+    "14006": [
+      "Ganderbal",
+      "ganderbal"
+    ],
+    "14007": [
+      "Jammu",
+      "jammu"
+    ],
+    "14008": [
+      "Kargil",
+      "kargil"
+    ],
+    "14009": [
+      "Kathua",
+      "kathua"
+    ],
+    "14010": [
+      "Kishtwar",
+      "kishtwar"
+    ],
+    "14011": [
+      "Kulgam",
+      "kulgam"
+    ],
+    "14012": [
+      "Kupwara",
+      "kupwara"
+    ],
+    "14013": [
+      "Leh",
+      "leh"
+    ],
+    "14014": [
+      "Poonch",
+      "poonch"
+    ],
+    "14015": [
+      "Pulwama",
+      "pulwama"
+    ],
+    "14016": [
+      "Rajouri",
+      "rajouri"
+    ],
+    "14017": [
+      "Ramban",
+      "ramban"
+    ],
+    "14018": [
+      "Samba",
+      "samba"
+    ],
+    "14019": [
+      "Shopian",
+      "shopian"
+    ],
+    "14020": [
+      "Srinagar",
+      "srinagar"
+    ],
+    "14021": [
+      "Udhampur",
+      "udhampur"
+    ],
+    "00000": [
+      "जिला चुने",
+      ""
+    ]
   }
 }

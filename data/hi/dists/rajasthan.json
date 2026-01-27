@@ -1,56 +1,212 @@
 {
-  "headers": ["name","slug"],
+  "headers": [
+    "name",
+    "slug"
+  ],
   "data": {
-    "00000": ["जिला चुने", ""],
-    "29001": ["अजमेर", "ajmer"],
-    "29002": ["अलवर", "alwar"],
-    "29003": ["अनूपगढ़", "anupgarh"],
-    "29004": ["बालोतरा", "balotra"],
-    "29005": ["बांसवाड़ा", "banswara"],
-    "29006": ["बारां", "baran"],
-    "29007": ["बाड़मेर", "barmer"],
-    "29008": ["ब्यावर", "beawar"],
-    "29009": ["भरतपुर", "bharatpur"],
-    "29010": ["भीलवाड़ा", "bhilwara"],
-    "29011": ["बीकानेर", "bikaner"],
-    "29012": ["बूंदी", "bundi"],
-    "29013": ["चित्तौड़गढ़", "chittorgarh"],
-    "29014": ["चूरू", "churu"],
-    "29015": ["दौसा", "dausa"],
-    "29016": ["डीडवाना कुचामन", "deedwana_kuchaman"],
-    "29017": ["डीग", "deeg"],
-    "29018": ["धौलपुर", "dholpur"],
-    "29019": ["दूदू", "dudu"],
-    "29020": ["डूंगरपुर", "dungarpur"],
-    "29021": ["गंगानगर", "ganganagar"],
-    "29022": ["गंगापुर सिटी", "gangapur_city"],
-    "29023": ["हनुमानगढ़", "hanumangarh"],
-    "29024": ["जयपुर", "jaipur"],
-    "29025": ["जयपुर ग्रामीण", "jaipur_rural"],
-    "29026": ["जैसलमेर", "jaisalmer"],
-    "29027": ["जालौर", "jalore"],
-    "29028": ["झालरापाटन", "jhalrapatan"],
-    "29029": ["झालावाड़", "jhalawar"],
-    "29030": ["झुंझुनू", "jhunjhunu"],
-    "29031": ["जोधपुर", "jodhpur"],
-    "29032": ["जोधपुर ग्रामीण", "jodhpur_rural"],
-    "29033": ["करौली", "karauli"],
-    "29034": ["केकड़ी", "kekri"],
-    "29035": ["खैरथल तिजारा", "khairthal_tijara"],
-    "29036": ["कोटा", "kota"],
-    "29037": ["कोटपूतली-बहरोड़", "kotputli_behror"],
-    "29038": ["नागौर", "nagaur"],
-    "29039": ["नीम का थाना", "neem_ka_thana"],
-    "29040": ["पाली", "pali"],
-    "29041": ["फलौदी", "phalodi"],
-    "29042": ["प्रतापगढ़", "pratapgarh"],
-    "29043": ["राजसमंद", "rajsamand"],
-    "29044": ["सांचौर", "sanchore"],
-    "29045": ["शाहपुरा", "shahpura"],
-    "29046": ["सीकर", "sikar"],
-    "29047": ["सिरोही", "sirohi"],
-    "29048": ["सवाई माधोपुर", "swai_madhopur"],
-    "29049": ["टोंक", "tonk"],
-    "29050": ["उदयपुर", "udaipur"]
+    "29001": [
+      "Ajmer",
+      "ajmer"
+    ],
+    "29002": [
+      "Alwar",
+      "alwar"
+    ],
+    "29003": [
+      "Anupgarh",
+      "anupgarh"
+    ],
+    "29004": [
+      "Balotra",
+      "balotra"
+    ],
+    "29005": [
+      "Banswara",
+      "banswara"
+    ],
+    "29006": [
+      "Baran",
+      "baran"
+    ],
+    "29007": [
+      "Barmer",
+      "barmer"
+    ],
+    "29008": [
+      "Beawar",
+      "beawar"
+    ],
+    "29009": [
+      "Bharatpur",
+      "bharatpur"
+    ],
+    "29010": [
+      "Bhilwara",
+      "bhilwara"
+    ],
+    "29011": [
+      "Bikaner",
+      "bikaner"
+    ],
+    "29012": [
+      "Bundi",
+      "bundi"
+    ],
+    "29013": [
+      "Chittorgarh",
+      "chittorgarh"
+    ],
+    "29014": [
+      "Churu",
+      "churu"
+    ],
+    "29015": [
+      "Dausa",
+      "dausa"
+    ],
+    "29016": [
+      "Deedwana Kuchaman",
+      "deedwana_kuchaman"
+    ],
+    "29017": [
+      "Deeg",
+      "deeg"
+    ],
+    "29018": [
+      "Dholpur",
+      "dholpur"
+    ],
+    "29019": [
+      "Dudu",
+      "dudu"
+    ],
+    "29020": [
+      "Dungarpur",
+      "dungarpur"
+    ],
+    "29021": [
+      "Ganganagar",
+      "ganganagar"
+    ],
+    "29022": [
+      "Gangapur City",
+      "gangapur_city"
+    ],
+    "29023": [
+      "Hanumangarh",
+      "hanumangarh"
+    ],
+    "29024": [
+      "Jaipur",
+      "jaipur"
+    ],
+    "29025": [
+      "Jaipur Rural",
+      "jaipur_rural"
+    ],
+    "29026": [
+      "Jaisalmer",
+      "jaisalmer"
+    ],
+    "29027": [
+      "Jalore",
+      "jalore"
+    ],
+    "29028": [
+      "Jhafarapatan",
+      "jhafarapatan"
+    ],
+    "29029": [
+      "Jhalawar",
+      "jhalawar"
+    ],
+    "29030": [
+      "Jhunjhunu",
+      "jhunjhunu"
+    ],
+    "29031": [
+      "Jodhpur",
+      "jodhpur"
+    ],
+    "29032": [
+      "Jodhpur Rural",
+      "jodhpur_rural"
+    ],
+    "29033": [
+      "Karauli",
+      "karauli"
+    ],
+    "29034": [
+      "Kekri",
+      "kekri"
+    ],
+    "29035": [
+      "Khairthal Tijara",
+      "khairthal_tijara"
+    ],
+    "29036": [
+      "Kota",
+      "kota"
+    ],
+    "29037": [
+      "Kotputli- Behror",
+      "kotputli_behror"
+    ],
+    "29038": [
+      "Nagaur",
+      "nagaur"
+    ],
+    "29039": [
+      "Neem Ka Thana",
+      "neem_ka_thana"
+    ],
+    "29040": [
+      "Pali",
+      "pali"
+    ],
+    "29041": [
+      "Phalodi",
+      "phalodi"
+    ],
+    "29042": [
+      "Pratapgarh",
+      "pratapgarh"
+    ],
+    "29043": [
+      "Rajsamand",
+      "rajsamand"
+    ],
+    "29044": [
+      "Sanchore",
+      "sanchore"
+    ],
+    "29045": [
+      "Shahpura",
+      "shahpura"
+    ],
+    "29046": [
+      "Sikar",
+      "sikar"
+    ],
+    "29047": [
+      "Sirohi",
+      "sirohi"
+    ],
+    "29048": [
+      "Swai Madhopur",
+      "swai_madhopur"
+    ],
+    "29049": [
+      "Tonk",
+      "tonk"
+    ],
+    "29050": [
+      "Udaipur",
+      "udaipur"
+    ],
+    "00000": [
+      "जिला चुने",
+      ""
+    ]
   }
 }

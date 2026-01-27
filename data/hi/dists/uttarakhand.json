@@ -1,20 +1,68 @@
 {
-  "headers": ["name","slug"],
+  "headers": [
+    "name",
+    "slug"
+  ],
   "data": {
-    "00000": ["जिला चुने", ""],
-    "35001": ["अल्मोड़ा", "almora"],
-    "35002": ["बागेश्वर", "bageshwar"],
-    "35003": ["चमोली (गोपेश्वर)", "chamoli_gopeshwar"],
-    "35004": ["चम्पावत", "champawat"],
-    "35005": ["देहरादून", "dehradoon"],
-    "35006": ["गढ़वाल (पौड़ी)", "garhwal_pauri"],
-    "35007": ["हल्द्वानी", "haldwani"],
-    "35008": ["हरिद्वार", "haridwar"],
-    "35009": ["नैनीताल", "nanital"],
-    "35010": ["पिथौरागढ़", "pithoragarh"],
-    "35011": ["रुद्रप्रयाग", "rudraprayag"],
-    "35012": ["टिहरी गढ़वाल", "tehri_garhwal"],
-    "35013": ["उधम सिंह नगर", "udhamsinghnagar"],
-    "35014": ["उत्तरकाशी", "uttarkashi"]
+    "35001": [
+      "Almora",
+      "almora"
+    ],
+    "35002": [
+      "Bageshwar",
+      "bageshwar"
+    ],
+    "35003": [
+      "Chamoli (Gopeshwar)",
+      "chamoli_gopeshwar"
+    ],
+    "35004": [
+      "Champawat",
+      "champawat"
+    ],
+    "35005": [
+      "Dehradoon",
+      "dehradoon"
+    ],
+    "35006": [
+      "Garhwal (Pauri)",
+      "garhwal_pauri"
+    ],
+    "35007": [
+      "Haldwani",
+      "haldwani"
+    ],
+    "35008": [
+      "Haridwar",
+      "haridwar"
+    ],
+    "35009": [
+      "Nanital",
+      "nanital"
+    ],
+    "35010": [
+      "Pithoragarh",
+      "pithoragarh"
+    ],
+    "35011": [
+      "Rudraprayag",
+      "rudraprayag"
+    ],
+    "35012": [
+      "Tehri Garhwal",
+      "tehri_garhwal"
+    ],
+    "35013": [
+      "Udhamsinghnagar",
+      "udhamsinghnagar"
+    ],
+    "35014": [
+      "Uttarkashi",
+      "uttarkashi"
+    ],
+    "00000": [
+      "जिला चुने",
+      ""
+    ]
   }
 }

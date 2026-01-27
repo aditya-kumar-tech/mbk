@@ -1,10 +1,28 @@
 {
-  "headers": ["name","slug"],
+  "headers": [
+    "name",
+    "slug"
+  ],
   "data": {
-    "00000": ["जिला चुने", ""],
-    "30001": ["पूर्व", "east"],
-    "30002": ["उत्तरी सिक्किम (मंगन)", "north_sikkim_mangan"],
-    "30003": ["दक्षिणी सिक्किम (नामची)", "south_sikkim_namchi"],
-    "30004": ["पश्चिमी सिक्किम (ग्यालशिंग)", "west_sikkim_gyalsing"]
+    "30001": [
+      "East",
+      "east"
+    ],
+    "30002": [
+      "North Sikkim (Mangan)",
+      "north_sikkim_mangan"
+    ],
+    "30003": [
+      "South Sikkim (Namchi)",
+      "south_sikkim_namchi"
+    ],
+    "30004": [
+      "West Sikkim (Gyalsing)",
+      "west_sikkim_gyalsing"
+    ],
+    "00000": [
+      "जिला चुने",
+      ""
+    ]
   }
 }

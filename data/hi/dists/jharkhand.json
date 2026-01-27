@@ -1,28 +1,100 @@
 {
-  "headers": ["name","slug"],
+  "headers": [
+    "name",
+    "slug"
+  ],
   "data": {
-    "00000": ["जिला चुने", ""],
-    "15001": ["बोकारो", "bokaro"],
-    "15002": ["चतरा", "chatra"],
-    "15003": ["देवगढ़", "deogarh"],
-    "15004": ["धनबाद", "dhanbad"],
-    "15005": ["दुमका", "dumka"],
-    "15006": ["पूर्वी सिंहभूम", "east_singhbhum"],
-    "15007": ["गढ़वा", "garhwa"],
-    "15008": ["गिरिडीह", "giridih"],
-    "15009": ["गोड्डा", "godda"],
-    "15010": ["गुमला", "gumla"],
-    "15011": ["हजारीबाग", "hazaribagh"],
-    "15012": ["जामताड़ा", "jamtara"],
-    "15013": ["कोडरमा", "koderma"],
-    "15014": ["लातेहार", "latehar"],
-    "15015": ["लोहरदगा", "lohardaga"],
-    "15016": ["पाकुड़", "pakur"],
-    "15017": ["पलामू", "palamu"],
-    "15018": ["रांची", "ranchi"],
-    "15019": ["साहेबगंज", "sahebgang"],
-    "15020": ["सरायकेला (खरसावां)", "saraikelakharsanwa"],
-    "15021": ["सिमडेगा", "simdega"],
-    "15022": ["पश्चिमी सिंहभूम", "west_singbhum"]
+    "15001": [
+      "Bokaro",
+      "bokaro"
+    ],
+    "15002": [
+      "Chatra",
+      "chatra"
+    ],
+    "15003": [
+      "Deogarh",
+      "deogarh"
+    ],
+    "15004": [
+      "Dhanbad",
+      "dhanbad"
+    ],
+    "15005": [
+      "Dumka",
+      "dumka"
+    ],
+    "15006": [
+      "East Singhbhum",
+      "east_singhbhum"
+    ],
+    "15007": [
+      "Garhwa",
+      "garhwa"
+    ],
+    "15008": [
+      "Giridih",
+      "giridih"
+    ],
+    "15009": [
+      "Godda",
+      "godda"
+    ],
+    "15010": [
+      "Gumla",
+      "gumla"
+    ],
+    "15011": [
+      "Hazaribagh",
+      "hazaribagh"
+    ],
+    "15012": [
+      "Jamtara",
+      "jamtara"
+    ],
+    "15013": [
+      "Koderma",
+      "koderma"
+    ],
+    "15014": [
+      "Latehar",
+      "latehar"
+    ],
+    "15015": [
+      "Lohardaga",
+      "lohardaga"
+    ],
+    "15016": [
+      "Pakur",
+      "pakur"
+    ],
+    "15017": [
+      "Palamu",
+      "palamu"
+    ],
+    "15018": [
+      "Ranchi",
+      "ranchi"
+    ],
+    "15019": [
+      "Sahebgang",
+      "sahebgang"
+    ],
+    "15020": [
+      "Saraikela(Kharsanwa)",
+      "saraikela_kharsanwa"
+    ],
+    "15021": [
+      "Simdega",
+      "simdega"
+    ],
+    "15022": [
+      "West Singbhum",
+      "west_singbhum"
+    ],
+    "00000": [
+      "जिला चुने",
+      ""
+    ]
   }
 }

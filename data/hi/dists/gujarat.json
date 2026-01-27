@@ -1,40 +1,148 @@
 {
-  "headers": ["name","slug"],
+  "headers": [
+    "name",
+    "slug"
+  ],
   "data": {
-    "00000": ["जिला चुने", ""],
-    "11001": ["अहमदाबाद", "ahmedabad"],
-    "11002": ["अमरेली", "amreli"],
-    "11003": ["आणंद", "anand"],
-    "11004": ["अरावली", "aravalli"],
-    "11005": ["बनासकांठा", "banaskanth"],
-    "11006": ["भरूच", "bharuch"],
-    "11007": ["भावनगर", "bhavnagar"],
-    "11008": ["बोटाद", "botad"],
-    "11009": ["छोटा उदयपुर", "chhota_udaipur"],
-    "11010": ["दाहोद", "dahod"],
-    "11011": ["डांग", "dang"],
-    "11012": ["देवभूमि द्वारका", "devbhumi_dwarka"],
-    "11013": ["गांधीनगर", "gandhinagar"],
-    "11014": ["गिर सोमनाथ", "gir_somnath"],
-    "11015": ["जामनगर", "jamnagar"],
-    "11016": ["जूनागढ़", "junagarh"],
-    "11017": ["कच्छ", "kachchh"],
-    "11018": ["खेड़ा", "kheda"],
-    "11019": ["महीसागर", "mahisagar"],
-    "11020": ["मेहसाणा", "mehsana"],
-    "11021": ["मोरबी", "morbi"],
-    "11022": ["नर्मदा", "narmada"],
-    "11023": ["नवसारी", "navsari"],
-    "11024": ["पंचमहल", "panchmahals"],
-    "11025": ["पाटन", "patan"],
-    "11026": ["पोरबंदर", "porbandar"],
-    "11027": ["राजकोट", "rajkot"],
-    "11028": ["साबरकांठा", "sabarkantha"],
-    "11029": ["सूरत", "surat"],
-    "11030": ["सुरेंद्रनगर", "surendranagar"],
-    "11031": ["तापी", "tapi"],
-    "11032": ["द डांग्स", "the_dangs"],
-    "11033": ["वडोदरा (बड़ौदा)", "vadodara(baroda)"],
-    "11034": ["वलसाड", "valsad"]
+    "11001": [
+      "Ahmedabad",
+      "ahmedabad"
+    ],
+    "11002": [
+      "Amreli",
+      "amreli"
+    ],
+    "11003": [
+      "Anand",
+      "anand"
+    ],
+    "11004": [
+      "Aravalli ",
+      "aravalli"
+    ],
+    "11005": [
+      "Banaskanth",
+      "banaskanth"
+    ],
+    "11006": [
+      "Bharuch",
+      "bharuch"
+    ],
+    "11007": [
+      "Bhavnagar",
+      "bhavnagar"
+    ],
+    "11008": [
+      "Botad",
+      "botad"
+    ],
+    "11009": [
+      "Chhota Udaipur",
+      "chhota_udaipur"
+    ],
+    "11010": [
+      "Dahod",
+      "dahod"
+    ],
+    "11011": [
+      "Dang",
+      "dang"
+    ],
+    "11012": [
+      "Devbhumi Dwarka",
+      "devbhumi_dwarka"
+    ],
+    "11013": [
+      "Gandhinagar",
+      "gandhinagar"
+    ],
+    "11014": [
+      "Gir Somnath",
+      "gir_somnath"
+    ],
+    "11015": [
+      "Jamnagar",
+      "jamnagar"
+    ],
+    "11016": [
+      "Junagarh",
+      "junagarh"
+    ],
+    "11017": [
+      "Kachchh",
+      "kachchh"
+    ],
+    "11018": [
+      "Kheda",
+      "kheda"
+    ],
+    "11019": [
+      "Mahisagar",
+      "mahisagar"
+    ],
+    "11020": [
+      "Mehsana",
+      "mehsana"
+    ],
+    "11021": [
+      "Morbi",
+      "morbi"
+    ],
+    "11022": [
+      "Narmada",
+      "narmada"
+    ],
+    "11023": [
+      "Navsari",
+      "navsari"
+    ],
+    "11024": [
+      "Panchmahals",
+      "panchmahals"
+    ],
+    "11025": [
+      "Patan",
+      "patan"
+    ],
+    "11026": [
+      "Porbandar",
+      "porbandar"
+    ],
+    "11027": [
+      "Rajkot",
+      "rajkot"
+    ],
+    "11028": [
+      "Sabarkantha",
+      "sabarkantha"
+    ],
+    "11029": [
+      "Surat",
+      "surat"
+    ],
+    "11030": [
+      "Surendranagar",
+      "surendranagar"
+    ],
+    "11031": [
+      "Tapi",
+      "tapi"
+    ],
+    "11032": [
+      "The Dangs",
+      "the_dangs"
+    ],
+    "11033": [
+      "Vadodara(Baroda)",
+      "vadodara_baroda"
+    ],
+    "11034": [
+      "Valsad",
+      "valsad"
+    ],
+    "00000": [
+      "जिला चुने",
+      ""
+    ]
   }
 }

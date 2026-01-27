@@ -1,10 +1,28 @@
 {
-  "headers": ["name","slug"],
+  "headers": [
+    "name",
+    "slug"
+  ],
   "data": {
-    "00000": ["जिला चुने", ""],
-    "27001": ["कराईकल", "karaikal"],
-    "27002": ["माहे", "mahe"],
-    "27003": ["पुडुचेरी", "pondicherry"],
-    "27004": ["यनम", "yanam"]
+    "27001": [
+      "Karaikal",
+      "karaikal"
+    ],
+    "27002": [
+      "Mahe",
+      "mahe"
+    ],
+    "27003": [
+      "Pondicherry",
+      "pondicherry"
+    ],
+    "27004": [
+      "Yanam",
+      "yanam"
+    ],
+    "00000": [
+      "जिला चुने",
+      ""
+    ]
   }
 }

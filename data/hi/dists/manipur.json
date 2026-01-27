@@ -1,17 +1,56 @@
 {
-  "headers": ["name","slug"],
+  "headers": [
+    "name",
+    "slug"
+  ],
   "data": {
-    "00000": ["जिला चुने", ""],
-    "21001": ["बिष्णुपुर", "bishnupur"],
-    "21002": ["चंदेल", "chandel"],
-    "21003": ["चुराचांदपुर", "churachandpur"],
-    "21004": ["इंफाल पूर्व", "imphal_east"],
-    "21005": ["इंफाल पश्चिम", "imphal_west"],
-    "21006": ["काकचिंग", "kakching"],
-    "21007": ["सेनापति", "senapati"],
-    "21008": ["तामेंगलोंग", "tamenglong"],
-    "21009": ["तेंगनौपाल", "tengnoupal"],
-    "21010": ["थौबल", "thoubal"],
-    "21011": ["उखरूल", "ukhrul"]
+    "21001": [
+      "Bishnupur",
+      "bishnupur"
+    ],
+    "21002": [
+      "Chandel",
+      "chandel"
+    ],
+    "21003": [
+      "Churachandpur",
+      "churachandpur"
+    ],
+    "21004": [
+      "Imphal East",
+      "imphal_east"
+    ],
+    "21005": [
+      "Imphal West",
+      "imphal_west"
+    ],
+    "21006": [
+      "Kakching",
+      "kakching"
+    ],
+    "21007": [
+      "Senapati",
+      "senapati"
+    ],
+    "21008": [
+      "Tamenglong",
+      "tamenglong"
+    ],
+    "21009": [
+      "Tengnoupal",
+      "tengnoupal"
+    ],
+    "21010": [
+      "Thoubal",
+      "thoubal"
+    ],
+    "21011": [
+      "Ukhrul",
+      "ukhrul"
+    ],
+    "00000": [
+      "जिला चुने",
+      ""
+    ]
   }
 }

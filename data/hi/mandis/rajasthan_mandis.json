@@ -10,7 +10,7 @@
     ],
     "29001002": [
       "Ajmer(F&V) फल-सब्जी",
-      "ajmer_fv"
+      "ajmer_fandv"
     ],
     "29001003": [
       "Madanganj Kishangarh",
@@ -162,7 +162,7 @@
     ],
     "29011002": [
       "Bikaner (F&V) फल-सब्जी",
-      "bikaner_fv"
+      "bikaner_fandv"
     ],
     "29011003": [
       "Bikaner (Grain)",
@@ -338,7 +338,7 @@
     ],
     "29021008": [
       "Sriganganagar (F&V) फल-सब्जी",
-      "sriganganagar_fv"
+      "sriganganagar_fandv"
     ],
     "29021009": [
       "Sriganganagar (Grain)",
@@ -394,7 +394,7 @@
     ],
     "29024001": [
       "Jaipur (F&V) फल-सब्जी",
-      "jaipur_fv"
+      "jaipur_fandv"
     ],
     "29024002": [
       "Jaipur (Grain)",
@@ -418,7 +418,7 @@
     ],
     "29025004": [
       "Chomu (F&V) फल-सब्जी",
-      "chomu_fv"
+      "chomu_fandv"
     ],
     "29025005": [
       "Chomu (Grain)",
@@ -494,7 +494,7 @@
     ],
     "29031002": [
       "Jodhpur (F&V) फल-सब्जी",
-      "jodhpur_fv"
+      "jodhpur_fandv"
     ],
     "29031003": [
       "Jodhpur (Grain)",
@@ -542,7 +542,7 @@
     ],
     "29036003": [
       "Kota (F&V) फल-सब्जी",
-      "kota_fv"
+      "kota_fandv"
     ],
     "29036004": [
       "Kota",
@@ -698,7 +698,7 @@
     ],
     "29050002": [
       "Udaipur (F&V) फल-सब्जी",
-      "udaipur_fv"
+      "udaipur_fandv"
     ],
     "29050003": [
       "Udaipur (Grain)",

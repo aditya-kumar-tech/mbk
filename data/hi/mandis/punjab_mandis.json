@@ -5,7 +5,7 @@
   ],
   "data": {
     "28001001": [
-      "Ajnala Sudhar",
+      "Ajnala (Sudhar)",
       "ajnala_sudhar"
     ],
     "28001002": [
@@ -17,12 +17,12 @@
       "amritsar"
     ],
     "28001004": [
-      "AmritsarAmritsar Mewa",
-      "amritsaramritsar_mewa"
+      "Amritsar(Amritsar Mewa Mandi)",
+      "amritsar_amritsar_mewa_mandi"
     ],
     "28001005": [
-      "AmritsarChehreta",
-      "amritsarchehreta"
+      "Amritsar(Chehreta)",
+      "amritsar_chehreta"
     ],
     "28001006": [
       "Attari",
@@ -37,8 +37,8 @@
       "gehri"
     ],
     "28001009": [
-      "GehriJandiala",
-      "gehrijandiala"
+      "Gehri(Jandiala mandi)",
+      "gehri_jandiala_mandi"
     ],
     "28001010": [
       "Majitha",
@@ -53,8 +53,8 @@
       "rayya"
     ],
     "28001013": [
-      "RayyaSathiala",
-      "rayyasathiala"
+      "Rayya(Sathiala)",
+      "rayya_sathiala"
     ],
     "28002001": [
       "Barnala",
@@ -65,15 +65,15 @@
       "bhadaur"
     ],
     "28002003": [
-      "BhadaurSehna",
-      "bhadaursehna"
+      "Bhadaur(Sehna)",
+      "bhadaur_sehna"
     ],
     "28002004": [
       "Dhanaula",
       "dhanaula"
     ],
     "28002005": [
-      "Dhanula Kaleke",
+      "Dhanula (Kaleke)",
       "dhanula_kaleke"
     ],
     "28002006": [
@@ -81,27 +81,27 @@
       "mehal_kalan"
     ],
     "28002007": [
-      "Mehal Kallan ChananWal",
-      "mehal_kallan_chananwal"
+      "Mehal Kallan (ChananWal)",
+      "mehal_kallan_chanan_wal"
     ],
     "28002008": [
       "Tapa",
       "tapa"
     ],
     "28002009": [
-      "TapaSadar Bazar",
-      "tapasadar_bazar"
+      "Tapa(Sadar Bazar)",
+      "tapa_sadar_bazar"
     ],
     "28002010": [
-      "TapaTapa",
-      "tapatapa"
+      "Tapa(Tapa Mandi)",
+      "tapa_tapa_mandi"
     ],
     "28003001": [
       "Bathinda",
       "bathinda"
     ],
     "28003002": [
-      "Bhagta Bhai Ka Jalal",
+      "Bhagta Bhai Ka (Jalal)",
       "bhagta_bhai_ka_jalal"
     ],
     "28003003": [
@@ -109,8 +109,8 @@
       "bhagta_bhai_ka"
     ],
     "28003004": [
-      "Bhagta Bhai KaKotha Guru Ka",
-      "bhagta_bhai_kakotha_guru_ka"
+      "Bhagta Bhai Ka(Kotha Guru Ka)",
+      "bhagta_bhai_ka_kotha_guru_ka"
     ],
     "28003005": [
       "Bhucho",
@@ -121,8 +121,8 @@
       "goniana"
     ],
     "28003007": [
-      "GonianaMehma Sarja",
-      "gonianamehma_sarja"
+      "Goniana(Mehma Sarja)",
+      "goniana_mehma_sarja"
     ],
     "28003008": [
       "Maur",
@@ -137,24 +137,24 @@
       "rampura_phul"
     ],
     "28003011": [
-      "RampuraphulBhai Rupan",
-      "rampuraphulbhai_rupan"
+      "Rampuraphul(Bhai Rupan)",
+      "rampuraphul_bhai_rupan"
     ],
     "28003012": [
-      "RampuraphulChowke",
-      "rampuraphulchowke"
+      "Rampuraphul(Chowke)",
+      "rampuraphul_chowke"
     ],
     "28003013": [
-      "RampuraphulDhapali",
-      "rampuraphuldhapali"
+      "Rampuraphul(Dhapali)",
+      "rampuraphul_dhapali"
     ],
     "28003014": [
-      "RampuraphulMehraj",
-      "rampuraphulmehraj"
+      "Rampuraphul(Mehraj)",
+      "rampuraphul_mehraj"
     ],
     "28003015": [
-      "RampuraphulNabha",
-      "rampuraphulnabha"
+      "Rampuraphul(Nabha Mandi)",
+      "rampuraphul_nabha_mandi"
     ],
     "28003016": [
       "Sangat",
@@ -165,15 +165,15 @@
       "talwandi_sabo"
     ],
     "28003018": [
-      "Talwandi SaboKot Fatta",
-      "talwandi_sabokot_fatta"
+      "Talwandi Sabo(Kot Fatta)",
+      "talwandi_sabo_kot_fatta"
     ],
     "28003019": [
-      "Talwandi SaboShekhupura",
-      "talwandi_saboshekhupura"
+      "Talwandi Sabo(Shekhupura)",
+      "talwandi_sabo_shekhupura"
     ],
     "28004001": [
-      "Faridkot Machakikalan",
+      "Faridkot (Machakikalan)",
       "faridkot_machakikalan"
     ],
     "28004002": [
@@ -185,8 +185,8 @@
       "jaitu"
     ],
     "28004004": [
-      "JaituBajakhana",
-      "jaitubajakhana"
+      "Jaitu(Bajakhana)",
+      "jaitu_bajakhana"
     ],
     "28004005": [
       "Kotkapura",
@@ -201,8 +201,8 @@
       "amloh"
     ],
     "28005002": [
-      "AmlohGobind Garh",
-      "amlohgobind_garh"
+      "Amloh(Gobind Garh Mandi)",
+      "amloh_gobind_garh_mandi"
     ],
     "28005003": [
       "Bassi Pathana",
@@ -213,7 +213,7 @@
       "chanarthal"
     ],
     "28005005": [
-      "Khamano Sanghol",
+      "Khamano (Sanghol)",
       "khamano_sanghol"
     ],
     "28005006": [
@@ -229,7 +229,7 @@
       "abohar"
     ],
     "28006002": [
-      "Fazilka Ladhuka",
+      "Fazilka (Ladhuka)",
       "fazilka_ladhuka"
     ],
     "28006003": [
@@ -241,11 +241,11 @@
       "jalalabad"
     ],
     "28007001": [
-      "Ferozepur CanttJhok Harihar",
-      "ferozepur_canttjhok_harihar"
+      "Ferozepur Cantt(Jhok Harihar)",
+      "ferozepur_cantt_jhok_harihar"
     ],
     "28007002": [
-      "Ferozepur Cantt, Sadehasham",
+      "Ferozepur Cantt, (Sadehasham)",
       "ferozepur_cantt_sadehasham"
     ],
     "28007003": [
@@ -265,8 +265,8 @@
       "makhu"
     ],
     "28007007": [
-      "Mallanwala KhosaDalSinghwala",
-      "mallanwala_khosadalsinghwala"
+      "Mallanwala (KhosaDalSinghwala)",
+      "mallanwala_khosa_dal_singhwala"
     ],
     "28007008": [
       "Mallanwala",
@@ -277,16 +277,16 @@
       "mamdot"
     ],
     "28007010": [
-      "MamdotTibbi Khurd",
-      "mamdottibbi_khurd"
+      "Mamdot(Tibbi Khurd)",
+      "mamdot_tibbi_khurd"
     ],
     "28007011": [
       "Talwandi Bhai",
       "talwandi_bhai"
     ],
     "28007012": [
-      "Talwandi BhaiMudki",
-      "talwandi_bhaimudki"
+      "Talwandi Bhai(Mudki)",
+      "talwandi_bhai_mudki"
     ],
     "28007013": [
       "Zira",
@@ -333,8 +333,8 @@
       "sri_har_gobindpur"
     ],
     "28008011": [
-      "Sri Har GobindpurHarechowal",
-      "sri_har_gobindpurharechowal"
+      "Sri Har Gobindpur(Harechowal)",
+      "sri_har_gobindpur_harechowal"
     ],
     "28009001": [
       "Dasuya",
@@ -345,36 +345,36 @@
       "garh_shankar"
     ],
     "28009003": [
-      "Garh ShankarMahalpur",
-      "garh_shankarmahalpur"
+      "Garh Shankar(Mahalpur)",
+      "garh_shankar_mahalpur"
     ],
     "28009004": [
-      "GarhShankar Kotfatuhi",
-      "garhshankar_kotfatuhi"
+      "GarhShankar (Kotfatuhi)",
+      "garh_shankar_kotfatuhi"
     ],
     "28009005": [
-      "GarhshankarSaila Khurd",
-      "garhshankarsaila_khurd"
+      "Garhshankar(Saila Khurd)",
+      "garhshankar_saila_khurd"
     ],
     "28009006": [
       "Hoshiarpur",
       "hoshiarpur"
     ],
     "28009007": [
-      "HoshiarpurChara",
-      "hoshiarpurchara"
+      "Hoshiarpur(Chara Mandi)",
+      "hoshiarpur_chara_mandi"
     ],
     "28009008": [
-      "HoshiarpurSham Churasi",
-      "hoshiarpursham_churasi"
+      "Hoshiarpur(Sham Churasi)",
+      "hoshiarpur_sham_churasi"
     ],
     "28009009": [
       "Mukerian",
       "mukerian"
     ],
     "28009010": [
-      "MukerianTalwara",
-      "mukeriantalwara"
+      "Mukerian(Talwara)",
+      "mukerian_talwara"
     ],
     "28009011": [
       "Tanda Urmur",
@@ -389,7 +389,7 @@
       "bhogpur"
     ],
     "28010003": [
-      "Bilga Talwan",
+      "Bilga (Talwan )",
       "bilga_talwan"
     ],
     "28010004": [
@@ -401,12 +401,12 @@
       "goraya"
     ],
     "28010006": [
-      "Jalandhar Cantt Jamshedpur Dana",
-      "jalandhar_cantt_jamshedpur_dana"
+      "Jalandhar Cantt (Jamshedpur Dana Mandi)",
+      "jalandhar_cantt_jamshedpur_dana_mandi"
     ],
     "28010007": [
-      "Jalandhar CanttHoshiarpur Road",
-      "jalandhar_cantthoshiarpur_road"
+      "Jalandhar Cantt(Hoshiarpur Road)",
+      "jalandhar_cantt_hoshiarpur_road"
     ],
     "28010008": [
       "Jalandhar Cantt.",
@@ -417,16 +417,16 @@
       "jalandhar_city"
     ],
     "28010010": [
-      "Jalandhar CityFaintan Ganj",
-      "jalandhar_cityfaintan_ganj"
+      "Jalandhar City(Faintan Ganj)",
+      "jalandhar_city_faintan_ganj"
     ],
     "28010011": [
-      "Jalandhar CityJalandhar",
-      "jalandhar_cityjalandhar"
+      "Jalandhar City(Jalandhar)",
+      "jalandhar_city_jalandhar"
     ],
     "28010012": [
-      "Jalandhar CityKartar Pur Dana",
-      "jalandhar_citykartar_pur_dana"
+      "Jalandhar City(Kartar Pur Dana mandi)",
+      "jalandhar_city_kartar_pur_dana_mandi"
     ],
     "28010013": [
       "Lohian Khas",
@@ -441,39 +441,39 @@
       "nakodar"
     ],
     "28010016": [
-      "NakodarSarih",
-      "nakodarsarih"
+      "Nakodar(Sarih)",
+      "nakodar_sarih"
     ],
     "28010017": [
       "Noor Mehal",
       "noor_mehal"
     ],
     "28010018": [
-      "Noor MehalKot Badal Khan",
-      "noor_mehalkot_badal_khan"
+      "Noor Mehal(Kot Badal Khan)",
+      "noor_mehal_kot_badal_khan"
     ],
     "28010019": [
       "Phillaur",
       "phillaur"
     ],
     "28010020": [
-      "PhillaurApra",
-      "phillaurapra"
+      "Phillaur(Apra Mandi)",
+      "phillaur_apra_mandi"
     ],
     "28010021": [
       "Shahkot",
       "shahkot"
     ],
     "28010022": [
-      "Shakot Malsian",
+      "Shakot (Malsian)",
       "shakot_malsian"
     ],
     "28011001": [
-      "Bhulath Ibrahimaaaaval",
+      "Bhulath (Ibrahimaaaaval)",
       "bhulath_ibrahimaaaaval"
     ],
     "28011002": [
-      "Bhulath Nadala",
+      "Bhulath (Nadala)",
       "bhulath_nadala"
     ],
     "28011003": [
@@ -497,7 +497,7 @@
       "sultanpur"
     ],
     "28011008": [
-      "Sultanpur Lodhi Tibba",
+      "Sultanpur Lodhi (Tibba)",
       "sultanpur_lodhi_tibba"
     ],
     "28012001": [
@@ -521,7 +521,7 @@
       "kila_raipur"
     ],
     "28012006": [
-      "Killa Raipur Jodhan",
+      "Killa Raipur (Jodhan)",
       "killa_raipur_jodhan"
     ],
     "28012007": [
@@ -529,19 +529,19 @@
       "ludhiana"
     ],
     "28012008": [
-      "Ludhiana gill Road",
-      "ludhiana_gill_road"
+      "Ludhiana(Mandi gill Road)",
+      "ludhiana_mandi_gill_road"
     ],
     "28012009": [
-      "LudhianaSalem Tabri",
-      "ludhianasalem_tabri"
+      "Ludhiana(Salem Tabri)",
+      "ludhiana_salem_tabri"
     ],
     "28012010": [
       "Machhiwara",
       "machhiwara"
     ],
     "28012011": [
-      "Malaoud Siar",
+      "Malaoud (Siar)",
       "malaoud_siar"
     ],
     "28012012": [
@@ -557,7 +557,7 @@
       "mullanpur"
     ],
     "28012015": [
-      "Mullanpur Dakha Sawadi",
+      "Mullanpur Dakha (Sawadi)",
       "mullanpur_dakha_sawadi"
     ],
     "28012016": [
@@ -569,11 +569,11 @@
       "purain"
     ],
     "28012018": [
-      "Raikot Nathowal",
+      "Raikot (Nathowal)",
       "raikot_nathowal"
     ],
     "28012019": [
-      "Raikot Talwandi rai",
+      "Raikot (Talwandi rai)",
       "raikot_talwandi_rai"
     ],
     "28012020": [
@@ -589,7 +589,7 @@
       "samrala"
     ],
     "28012023": [
-      "Sidhwan Bet Lodhiwala",
+      "Sidhwan Bet (Lodhiwala)",
       "sidhwan_bet_lodhiwala"
     ],
     "28012024": [
@@ -625,7 +625,7 @@
       "budalada"
     ],
     "28013006": [
-      "Budhlada Phaphre Bhaike",
+      "Budhlada (Phaphre Bhaike)",
       "budhlada_phaphre_bhaike"
     ],
     "28013007": [
@@ -633,11 +633,11 @@
       "kankwal_chahlan"
     ],
     "28013008": [
-      "Mansa Bhamekalan",
+      "Mansa (Bhamekalan)",
       "mansa_bhamekalan"
     ],
     "28013009": [
-      "Mansa Khiala kalan",
+      "Mansa (Khiala kalan)",
       "mansa_khiala_kalan"
     ],
     "28013010": [
@@ -645,19 +645,19 @@
       "mansa"
     ],
     "28013011": [
-      "MansaUbha Buraj Dhilwan",
-      "mansaubha_buraj_dhilwan"
+      "Mansa(Ubha Buraj Dhilwan)",
+      "mansa_ubha_buraj_dhilwan"
     ],
     "28013012": [
       "Sardulgarh",
       "sardulgarh"
     ],
     "28014001": [
-      "Ajitwal Chogawan",
+      "Ajitwal (Chogawan)",
       "ajitwal_chogawan"
     ],
     "28014002": [
-      "Ajitwal Dala",
+      "Ajitwal (Dala)",
       "ajitwal_dala"
     ],
     "28014003": [
@@ -669,7 +669,7 @@
       "badhni_kalan"
     ],
     "28014005": [
-      "Badhni Kallan Bilaspur",
+      "Badhni Kallan (Bilaspur)",
       "badhni_kallan_bilaspur"
     ],
     "28014006": [
@@ -693,11 +693,11 @@
       "moga"
     ],
     "28014011": [
-      "Nihal Singh Wala Himmatpura",
+      "Nihal Singh Wala (Himmatpura)",
       "nihal_singh_wala_himmatpura"
     ],
     "28014012": [
-      "Nihal Singh Wala Rautan",
+      "Nihal Singh Wala (Rautan)",
       "nihal_singh_wala_rautan"
     ],
     "28014013": [
@@ -705,7 +705,7 @@
       "nihal_singh_wala"
     ],
     "28015001": [
-      "Banur Kheragaju",
+      "Banur (Kheragaju)",
       "banur_kheragaju"
     ],
     "28015002": [
@@ -737,11 +737,11 @@
       "giddarbaha"
     ],
     "28016003": [
-      "Malout Kilianwali",
+      "Malout (Kilianwali)",
       "malout_kilianwali"
     ],
     "28016004": [
-      "Malout Panniwala",
+      "Malout (Panniwala)",
       "malout_panniwala"
     ],
     "28016005": [
@@ -757,7 +757,7 @@
       "balachaur"
     ],
     "28017002": [
-      "Banga Kataria",
+      "Banga (Kataria)",
       "banga_kataria"
     ],
     "28017003": [
@@ -765,20 +765,20 @@
       "banga"
     ],
     "28017004": [
-      "Nawan Shahar Aur",
-      "nawan_shahar_aur"
+      "Nawan Shahar(Mandi Aur)",
+      "nawan_shahar_mandi_aur"
     ],
     "28017005": [
-      "Nawan Shahar Jadla",
-      "nawan_shahar_jadla"
+      "Nawan Shahar(Mandi Jadla)",
+      "nawan_shahar_mandi_jadla"
     ],
     "28017006": [
-      "Nawan ShaharMandiRaho",
-      "nawan_shaharmandiraho"
+      "Nawan Shahar(MandiRaho)",
+      "nawan_shahar_mandi_raho"
     ],
     "28017007": [
-      "Nawan ShaharSubzi",
-      "nawan_shaharsubzi"
+      "Nawan Shahar(Subzi Mandi)",
+      "nawan_shahar_subzi_mandi"
     ],
     "28017008": [
       "Nawanshahar",
@@ -789,7 +789,7 @@
       "narot_j_singh"
     ],
     "28018002": [
-      "Pathankot Kanwa",
+      "Pathankot (Kanwa)",
       "pathankot_kanwa"
     ],
     "28018003": [
@@ -821,20 +821,20 @@
       "patiala"
     ],
     "28019007": [
-      "PatialaAnaj Sanaur Road",
-      "patialaanaj_sanaur_road"
+      "Patiala(Anaj Mandi Sanaur Road)",
+      "patiala_anaj_mandi_sanaur_road"
     ],
     "28019008": [
-      "PatialaNew Anaj",
-      "patialanew_anaj"
+      "Patiala(New Anaj Mandi)",
+      "patiala_new_anaj_mandi"
     ],
     "28019009": [
       "Patran",
       "patran"
     ],
     "28019010": [
-      "PatranGhagga",
-      "patranghagga"
+      "Patran(Ghagga Mandi)",
+      "patran_ghagga_mandi"
     ],
     "28019011": [
       "Rajpura",
@@ -845,12 +845,12 @@
       "samana"
     ],
     "28019013": [
-      "SamanaGajewas",
-      "samanagajewas"
+      "Samana(Gajewas)",
+      "samana_gajewas"
     ],
     "28019014": [
-      "SamanaKakrala",
-      "samanakakrala"
+      "Samana(Kakrala)",
+      "samana_kakrala"
     ],
     "28020001": [
       "Anandpur Sahib",
@@ -881,7 +881,7 @@
       "bhawanigarh"
     ],
     "28021004": [
-      "Cheema Lonogal",
+      "Cheema (Lonogal)",
       "cheema_lonogal"
     ],
     "28021005": [
@@ -933,19 +933,19 @@
       "sunam"
     ],
     "28022001": [
-      "Bhikhiwind Algo",
+      "Bhikhiwind (Algo)",
       "bhikhiwind_algo"
     ],
     "28022002": [
-      "Bhikhiwind Basarke",
+      "Bhikhiwind (Basarke)",
       "bhikhiwind_basarke"
     ],
     "28022003": [
-      "Bhikhiwind Marrimegha",
+      "Bhikhiwind (Marrimegha)",
       "bhikhiwind_marrimegha"
     ],
     "28022004": [
-      "Bhikhiwind Sursingh",
+      "Bhikhiwind (Sursingh)",
       "bhikhiwind_sursingh"
     ],
     "28022005": [
@@ -953,8 +953,8 @@
       "bhikhiwind"
     ],
     "28022006": [
-      "BhikhiwindKhalra",
-      "bhikhiwindkhalra"
+      "Bhikhiwind(Khalra)",
+      "bhikhiwind_khalra"
     ],
     "28022007": [
       "Chabhal",
@@ -969,19 +969,19 @@
       "khadur_sahib"
     ],
     "28022010": [
-      "Khadur SahibFetehabad",
-      "khadur_sahibfetehabad"
+      "Khadur Sahib(Fetehabad)",
+      "khadur_sahib_fetehabad"
     ],
     "28022011": [
       "Khem karan",
       "khem_karan"
     ],
     "28022012": [
-      "Khemkaran Amarkot",
+      "Khemkaran (Amarkot)",
       "khemkaran_amarkot"
     ],
     "28022013": [
-      "Naushera Pannua Dhotian",
+      "Naushera Pannua (Dhotian)",
       "naushera_pannua_dhotian"
     ],
     "28022014": [

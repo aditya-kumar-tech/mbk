@@ -5,12 +5,12 @@
   ],
   "data": {
     "29001001": [
-      "Ajmer",
-      "ajmer"
+      "Ajmer (Grain)",
+      "ajmer_grain"
     ],
     "29001002": [
-      "Ajmer फल-सब्जी",
-      "ajmer_fv"
+      "Ajmer(F&V) फल-सब्जी",
+      "ajmer_f_v"
     ],
     "29001003": [
       "Madanganj Kishangarh",
@@ -161,12 +161,12 @@
       "bajju"
     ],
     "29011002": [
-      "Bikaner फल-सब्जी",
-      "bikaner_fv"
+      "Bikaner (F&V) फल-सब्जी",
+      "bikaner_f_v"
     ],
     "29011003": [
-      "Bikaner",
-      "bikaner"
+      "Bikaner (Grain)",
+      "bikaner_grain"
     ],
     "29011004": [
       "Khajuwala",
@@ -181,8 +181,8 @@
       "nokha"
     ],
     "29011007": [
-      "Pugal Road",
-      "pugal_road"
+      "Pugal Road (Grain)",
+      "pugal_road_grain"
     ],
     "29011008": [
       "Sridungargarh",
@@ -317,8 +317,8 @@
       "kesarisinghpur"
     ],
     "29021003": [
-      "Lalgarh Jatan - Sri Ganganagar",
-      "lalgarh_jatan_sri_ganganagar"
+      "Lalgarh Jatan - Sri Ganganagar Grain",
+      "lalgarh_jatan_sri_ganganagar_grain"
     ],
     "29021004": [
       "Padampur",
@@ -337,12 +337,12 @@
       "sri_karanpur"
     ],
     "29021008": [
-      "Sriganganagar फल-सब्जी",
-      "sriganganagar_fv"
+      "Sriganganagar (F&V) फल-सब्जी",
+      "sriganganagar_f_v"
     ],
     "29021009": [
-      "Sriganganagar",
-      "sriganganagar"
+      "Sriganganagar (Grain)",
+      "sriganganagar_grain"
     ],
     "29021010": [
       "Suratgarh",
@@ -370,7 +370,7 @@
     ],
     "29023005": [
       "HanumangarhTown",
-      "hanumangarhtown"
+      "hanumangarh_town"
     ],
     "29023006": [
       "Nohar",
@@ -393,16 +393,16 @@
       "tibbi"
     ],
     "29024001": [
-      "Jaipur फल-सब्जी",
-      "jaipur_fv"
+      "Jaipur (F&V) फल-सब्जी",
+      "jaipur_f_v"
     ],
     "29024002": [
-      "Jaipur",
-      "jaipur"
+      "Jaipur (Grain)",
+      "jaipur_grain"
     ],
     "29024003": [
-      "Rajdhanai KukarKheda",
-      "rajdhanai_kukarkheda"
+      "Rajdhanai Mandi (KukarKheda)",
+      "rajdhanai_mandi_kukar_kheda"
     ],
     "29025001": [
       "Bagru",
@@ -417,12 +417,12 @@
       "chaksu"
     ],
     "29025004": [
-      "Chomu फल-सब्जी",
-      "chomu_fv"
+      "Chomu (F&V) फल-सब्जी",
+      "chomu_f_v"
     ],
     "29025005": [
-      "Chomu",
-      "chomu"
+      "Chomu (Grain)",
+      "chomu_grain"
     ],
     "29025006": [
       "Kishangarh Renwal",
@@ -445,8 +445,8 @@
       "jalore"
     ],
     "29029001": [
-      "Bhawani",
-      "bhawani"
+      "Bhawani Mandi",
+      "bhawani_mandi"
     ],
     "29029002": [
       "Choumahla",
@@ -493,12 +493,12 @@
       "bhagat_ki_kothi"
     ],
     "29031002": [
-      "Jodhpur फल-सब्जी",
-      "jodhpur_fv"
+      "Jodhpur (F&V) फल-सब्जी",
+      "jodhpur_f_v"
     ],
     "29031003": [
-      "Jodhpur",
-      "jodhpur"
+      "Jodhpur (Grain)",
+      "jodhpur_grain"
     ],
     "29032001": [
       "Bilara",
@@ -541,8 +541,8 @@
       "khatauli"
     ],
     "29036003": [
-      "Kota फल-सब्जी",
-      "kota_fv"
+      "Kota (F&V) फल-सब्जी",
+      "kota_f_v"
     ],
     "29036004": [
       "Kota",
@@ -697,12 +697,12 @@
       "fatehnagar"
     ],
     "29050002": [
-      "Udaipur फल-सब्जी",
-      "udaipur_fv"
+      "Udaipur (F&V) फल-सब्जी",
+      "udaipur_f_v"
     ],
     "29050003": [
-      "Udaipur",
-      "udaipur"
+      "Udaipur (Grain)",
+      "udaipur_grain"
     ],
     "00000000": [
       "मंडी चुने",

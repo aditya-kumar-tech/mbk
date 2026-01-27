@@ -13,12 +13,12 @@
       "angul"
     ],
     "26001003": [
-      "AngulAtthamallick",
-      "angulatthamallick"
+      "Angul(Atthamallick)",
+      "angul_atthamallick"
     ],
     "26001004": [
-      "AngulJarapada",
-      "anguljarapada"
+      "Angul(Jarapada)",
+      "angul_jarapada"
     ],
     "26001005": [
       "Pallahara",
@@ -57,8 +57,8 @@
       "bargarh"
     ],
     "26003003": [
-      "BargarhBarapalli",
-      "bargarhbarapalli"
+      "Bargarh(Barapalli)",
+      "bargarh_barapalli"
     ],
     "26003004": [
       "Godabhaga",
@@ -89,8 +89,8 @@
       "bolangir"
     ],
     "26007002": [
-      "BolangirPatnagarh",
-      "bolangirpatnagarh"
+      "Bolangir(Patnagarh)",
+      "bolangir_patnagarh"
     ],
     "26007003": [
       "Kantabaji",
@@ -121,8 +121,8 @@
       "kendupatna"
     ],
     "26009004": [
-      "KendupatnaNiali",
-      "kendupatnaniali"
+      "Kendupatna(Niali)",
+      "kendupatna_niali"
     ],
     "26009005": [
       "Rairangpur",
@@ -201,8 +201,8 @@
       "junagarh"
     ],
     "26017003": [
-      "KalahandiDharamagarh",
-      "kalahandidharamagarh"
+      "Kalahandi(Dharamagarh)",
+      "kalahandi_dharamagarh"
     ],
     "26017004": [
       "Kesinga",
@@ -233,8 +233,8 @@
       "kendrapara"
     ],
     "26019004": [
-      "KendraparaMarshaghai",
-      "kendraparamarshaghai"
+      "Kendrapara(Marshaghai)",
+      "kendrapara_marshaghai"
     ],
     "26019005": [
       "Pattamundai",
@@ -253,20 +253,20 @@
       "keonjhar"
     ],
     "26020004": [
-      "KeonjharDhekikote",
-      "keonjhardhekikote"
+      "Keonjhar(Dhekikote)",
+      "keonjhar_dhekikote"
     ],
     "26020005": [
-      "KeonjharJhumpura",
-      "keonjharjhumpura"
+      "Keonjhar(Jhumpura)",
+      "keonjhar_jhumpura"
     ],
     "26020006": [
       "Saharpada",
       "saharpada"
     ],
     "26021001": [
-      "Aiginia",
-      "aiginia"
+      "Aiginia Mandi",
+      "aiginia_mandi"
     ],
     "26021002": [
       "Balugaon",
@@ -285,24 +285,24 @@
       "jeypore"
     ],
     "26022002": [
-      "JeyporeKotpad",
-      "jeyporekotpad"
+      "Jeypore(Kotpad)",
+      "jeypore_kotpad"
     ],
     "26022003": [
       "Koraput",
       "koraput"
     ],
     "26022004": [
-      "KoraputSemilguda",
-      "koraputsemilguda"
+      "Koraput(Semilguda)",
+      "koraput_semilguda"
     ],
     "26023001": [
       "Malkanagiri",
       "malkanagiri"
     ],
     "26023002": [
-      "MalkangiriKorakunda",
-      "malkangirikorakunda"
+      "Malkangiri(Korakunda)",
+      "malkangiri_korakunda"
     ],
     "26024001": [
       "Baripada",
@@ -341,8 +341,8 @@
       "sarankul"
     ],
     "26026001": [
-      "NabarangpurUmerkote",
-      "nabarangpurumerkote"
+      "Nabarangpur(Umerkote)",
+      "nabarangpur_umerkote"
     ],
     "26026002": [
       "Nawarangpur",
@@ -369,8 +369,8 @@
       "nimapara"
     ],
     "26028004": [
-      "PuriBrahmagiri",
-      "puribrahmagiri"
+      "Puri(Brahmagiri)",
+      "puri_brahmagiri"
     ],
     "26028005": [
       "Sakhigopal",
@@ -385,8 +385,8 @@
       "rayagada"
     ],
     "26029003": [
-      "RayagadaMuniguda",
-      "rayagadamuniguda"
+      "Rayagada(Muniguda)",
+      "rayagada_muniguda"
     ],
     "26031001": [
       "Gosala",

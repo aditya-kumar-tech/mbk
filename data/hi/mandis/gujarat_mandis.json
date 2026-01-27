@@ -9,20 +9,20 @@
       "ahmedabad"
     ],
     "11001002": [
-      "AhmedabadChimanbhai Patal Vasana",
-      "ahmedabadchimanbhai_patal_vasana"
+      "Ahmedabad(Chimanbhai Patal Market Vasana)",
+      "ahmedabad_chimanbhai_patal_market_vasana"
     ],
     "11001003": [
-      "AhmedabadFruit , Naroda",
-      "ahmedabadfruit_naroda"
+      "Ahmedabad(Fruit Market, Naroda)",
+      "ahmedabad_fruit_market_naroda"
     ],
     "11001004": [
-      "AhmedabadManekchowk",
-      "ahmedabadmanekchowk"
+      "Ahmedabad(Manekchowk)",
+      "ahmedabad_manekchowk"
     ],
     "11001005": [
-      "AhmedabadRajnagar sub yard",
-      "ahmedabadrajnagar_sub_yard"
+      "Ahmedabad(Rajnagar sub yard)",
+      "ahmedabad_rajnagar_sub_yard"
     ],
     "11001006": [
       "Barvala",
@@ -37,20 +37,20 @@
       "dhandhuka"
     ],
     "11001009": [
-      "DhandkukaDholera",
-      "dhandkukadholera"
+      "Dhandkuka(Dholera)",
+      "dhandkuka_dholera"
     ],
     "11001010": [
       "Dholka",
       "dholka"
     ],
     "11001011": [
-      "DholkaKoth",
-      "dholkakoth"
+      "Dholka(Koth)",
+      "dholka_koth"
     ],
     "11001012": [
-      "Dholka Yard Veg",
-      "dholka_yard_veg"
+      "Dholka(Market Yard Veg)",
+      "dholka_market_yard_veg"
     ],
     "11001013": [
       "Mandal",
@@ -93,8 +93,8 @@
       "dhari"
     ],
     "11002006": [
-      "DhariChalala",
-      "dharichalala"
+      "Dhari(Chalala)",
+      "dhari_chalala"
     ],
     "11002007": [
       "Khambha",
@@ -105,7 +105,7 @@
       "lathi"
     ],
     "11002009": [
-      "Rajula Dungar",
+      "Rajula (Dungar)",
       "rajula_dungar"
     ],
     "11002010": [
@@ -125,8 +125,8 @@
       "anand"
     ],
     "11003002": [
-      "AnandVeg,Yard,Anand",
-      "anandveg_yard_anand"
+      "Anand(Veg,Yard,Anand)",
+      "anand_veg_yard_anand"
     ],
     "11003003": [
       "Anklav",
@@ -137,32 +137,32 @@
       "borsad"
     ],
     "11003005": [
-      "BorsadAsodar",
-      "borsadasodar"
+      "Borsad(Asodar)",
+      "borsad_asodar"
     ],
     "11003006": [
-      "BorsadVeg Yard Barsad",
-      "borsadveg_yard_barsad"
+      "Borsad(Veg Yard Barsad)",
+      "borsad_veg_yard_barsad"
     ],
     "11003007": [
       "Khambhat",
       "khambhat"
     ],
     "11003008": [
-      "Khambhat",
-      "khambhat"
+      "Khambhat(Grain Market)",
+      "khambhat_grain_market"
     ],
     "11003009": [
-      "KhambhatVeg Yard Khambhat",
-      "khambhatveg_yard_khambhat"
+      "Khambhat(Veg Yard Khambhat)",
+      "khambhat_veg_yard_khambhat"
     ],
     "11003010": [
       "Petlad",
       "petlad"
     ],
     "11003011": [
-      "PetladVeg Yard, Petlad",
-      "petladveg_yard_petlad"
+      "Petlad(Veg Yard, Petlad)",
+      "petlad_veg_yard_petlad"
     ],
     "11003012": [
       "Sojitra",
@@ -177,8 +177,8 @@
       "umreth"
     ],
     "11005001": [
-      "AhmedabadFlower Jamalpur",
-      "ahmedabadflower_jamalpur"
+      "Ahmedabad(Flower Market Jamalpur)",
+      "ahmedabad_flower_market_jamalpur"
     ],
     "11005002": [
       "Amirgadh",
@@ -201,24 +201,24 @@
       "deesa"
     ],
     "11005007": [
-      "DeesaBhildi",
-      "deesabhildi"
+      "Deesa(Bhildi)",
+      "deesa_bhildi"
     ],
     "11005008": [
-      "DeesaDeesa Veg Yard",
-      "deesadeesa_veg_yard"
+      "Deesa(Deesa Veg Yard)",
+      "deesa_deesa_veg_yard"
     ],
     "11005009": [
       "Dhanera",
       "dhanera"
     ],
     "11005010": [
-      "DhaneraSamarwada",
-      "dhanerasamarwada"
+      "Dhanera(Samarwada)",
+      "dhanera_samarwada"
     ],
     "11005011": [
-      "DhaneraVeg,Yard Dhanera",
-      "dhaneraveg_yard_dhanera"
+      "Dhanera(Veg,Yard Dhanera)",
+      "dhanera_veg_yard_dhanera"
     ],
     "11005012": [
       "Diyodar",
@@ -233,8 +233,8 @@
       "palanpur"
     ],
     "11005015": [
-      "PalanpurVeg,Yard Palanpur",
-      "palanpurveg_yard_palanpur"
+      "Palanpur(Veg,Yard Palanpur)",
+      "palanpur_veg_yard_palanpur"
     ],
     "11005016": [
       "Panthawada",
@@ -245,16 +245,16 @@
       "thara"
     ],
     "11005018": [
-      "TharaShihori",
-      "tharashihori"
+      "Thara(Shihori)",
+      "thara_shihori"
     ],
     "11005019": [
       "Tharad",
       "tharad"
     ],
     "11005020": [
-      "TharadRah",
-      "tharadrah"
+      "Tharad(Rah)",
+      "tharad_rah"
     ],
     "11005021": [
       "Vadgam",
@@ -285,16 +285,16 @@
       "hasot"
     ],
     "11006006": [
-      "HasotElav",
-      "hasotelav"
+      "Hasot(Elav)",
+      "hasot_elav"
     ],
     "11006007": [
       "Jambusar",
       "jambusar"
     ],
     "11006008": [
-      "JambusarKaavi",
-      "jambusarkaavi"
+      "Jambusar(Kaavi)",
+      "jambusar_kaavi"
     ],
     "11006009": [
       "Jhagadiya",
@@ -305,8 +305,8 @@
       "valia"
     ],
     "11006011": [
-      "ValiaNethrang",
-      "valianethrang"
+      "Valia(Nethrang)",
+      "valia_nethrang"
     ],
     "11007001": [
       "Bhavnagar",
@@ -317,8 +317,8 @@
       "gariyadar"
     ],
     "11007003": [
-      "MahuvaStation Road",
-      "mahuvastation_road"
+      "Mahuva(Station Road)",
+      "mahuva_station_road"
     ],
     "11007004": [
       "Palitana",
@@ -333,12 +333,12 @@
       "botad"
     ],
     "11008002": [
-      "BotadBhabarkot",
-      "botadbhabarkot"
+      "Botad(Bhabarkot)",
+      "botad_bhabarkot"
     ],
     "11008003": [
-      "BotadHaddad",
-      "botadhaddad"
+      "Botad(Haddad)",
+      "botad_haddad"
     ],
     "11008004": [
       "Gadada",
@@ -385,24 +385,24 @@
       "dahod"
     ],
     "11010002": [
-      "DahodGarbada",
-      "dahodgarbada"
+      "Dahod(Garbada)",
+      "dahod_garbada"
     ],
     "11010003": [
-      "DahodHimalaya",
-      "dahodhimalaya"
+      "Dahod(Himalaya)",
+      "dahod_himalaya"
     ],
     "11010004": [
-      "DahodJesavada",
-      "dahodjesavada"
+      "Dahod(Jesavada)",
+      "dahod_jesavada"
     ],
     "11010005": [
-      "DahodVeg.",
-      "dahodveg"
+      "Dahod(Veg. Market)",
+      "dahod_veg_market"
     ],
     "11010006": [
-      "DavgadbariaPiplod",
-      "davgadbariapiplod"
+      "Davgadbaria(Piplod)",
+      "davgadbaria_piplod"
     ],
     "11010007": [
       "Devgadhbaria",
@@ -417,12 +417,12 @@
       "limkheda"
     ],
     "11010010": [
-      "ZalodSanjeli",
-      "zalodsanjeli"
+      "Zalod(Sanjeli)",
+      "zalod_sanjeli"
     ],
     "11010011": [
-      "ZalodZalod",
-      "zalodzalod"
+      "Zalod(Zalod)",
+      "zalod_zalod"
     ],
     "11011001": [
       "Vaghai",
@@ -441,36 +441,36 @@
       "dehgam"
     ],
     "11013002": [
-      "DehgamRekhiyal",
-      "dehgamrekhiyal"
+      "Dehgam(Rekhiyal)",
+      "dehgam_rekhiyal"
     ],
     "11013003": [
       "Kalol",
       "kalol"
     ],
     "11013004": [
-      "KalolVeg,,Kalol",
-      "kalolveg_kalol"
+      "Kalol(Veg,Market,Kalol)",
+      "kalol_veg_market_kalol"
     ],
     "11013005": [
       "Mansa",
       "mansa"
     ],
     "11013006": [
-      "MansaManas Veg Yard",
-      "mansamanas_veg_yard"
+      "Mansa(Manas Veg Yard)",
+      "mansa_manas_veg_yard"
     ],
     "11013007": [
       "Radheja",
       "radheja"
     ],
     "11013008": [
-      "RandhejaChiloda",
-      "randhejachiloda"
+      "Randheja(Chiloda)",
+      "randheja_chiloda"
     ],
     "11013009": [
-      "RandhejaVeg. Gandhinagar",
-      "randhejaveg_gandhinagar"
+      "Randheja(Veg.Market Gandhinagar)",
+      "randheja_veg_market_gandhinagar"
     ],
     "11014001": [
       "Kodinar",
@@ -525,16 +525,16 @@
       "junagadh"
     ],
     "11016003": [
-      "JunagadhVeg,Yard, Junagadh",
-      "junagadhveg_yard_junagadh"
+      "Junagadh(Veg,Yard, Junagadh)",
+      "junagadh_veg_yard_junagadh"
     ],
     "11016004": [
       "Keshod",
       "keshod"
     ],
     "11016005": [
-      "KodinarDollasa",
-      "kodinardollasa"
+      "Kodinar(Dollasa)",
+      "kodinar_dollasa"
     ],
     "11016006": [
       "Malia Hatina",
@@ -569,8 +569,8 @@
       "anjar"
     ],
     "11017003": [
-      "AnjarVeg,Sub Yard",
-      "anjarveg_sub_yard"
+      "Anjar(Veg,Sub Yard)",
+      "anjar_veg_sub_yard"
     ],
     "11017004": [
       "Bachau",
@@ -601,8 +601,8 @@
       "balasinor"
     ],
     "11018002": [
-      "KapadanjMoti Jaher",
-      "kapadanjmoti_jaher"
+      "Kapadanj(Moti Jaher)",
+      "kapadanj_moti_jaher"
     ],
     "11018003": [
       "Kapadvanj",
@@ -617,44 +617,44 @@
       "kheda"
     ],
     "11018006": [
-      "KhedaNayaka",
-      "khedanayaka"
+      "Kheda(Nayaka)",
+      "kheda_nayaka"
     ],
     "11018007": [
       "Matar",
       "matar"
     ],
     "11018008": [
-      "MatarLimbasi",
-      "matarlimbasi"
+      "Matar(Limbasi)",
+      "matar_limbasi"
     ],
     "11018009": [
       "Mehmadabad",
       "mehmadabad"
     ],
     "11018010": [
-      "MehmadabadVeg ,",
-      "mehmadabadveg"
+      "Mehmadabad(Veg ,market)",
+      "mehmadabad_veg_market"
     ],
     "11018011": [
       "Nadiad",
       "nadiad"
     ],
     "11018012": [
-      "NadiyadChaklasi",
-      "nadiyadchaklasi"
+      "Nadiyad(Chaklasi)",
+      "nadiyad_chaklasi"
     ],
     "11018013": [
-      "NadiyadPiplag",
-      "nadiyadpiplag"
+      "Nadiyad(Piplag)",
+      "nadiyad_piplag"
     ],
     "11018014": [
       "Thasara",
       "thasara"
     ],
     "11018015": [
-      "ThasaraDokar",
-      "thasaradokar"
+      "Thasara(Dokar)",
+      "thasara_dokar"
     ],
     "11018016": [
       "Virpur",
@@ -669,20 +669,20 @@
       "kadi"
     ],
     "11020003": [
-      "KadiKadi cotton Yard",
-      "kadikadi_cotton_yard"
+      "Kadi(Kadi cotton Yard)",
+      "kadi_kadi_cotton_yard"
     ],
     "11020004": [
       "Mehsana",
       "mehsana"
     ],
     "11020005": [
-      "MehsanaJornang",
-      "mehsanajornang"
+      "Mehsana(Jornang)",
+      "mehsana_jornang"
     ],
     "11020006": [
-      "MehsanaMehsana Veg",
-      "mehsanamehsana_veg"
+      "Mehsana(Mehsana Veg)",
+      "mehsana_mehsana_veg"
     ],
     "11020007": [
       "Unava",
@@ -697,28 +697,28 @@
       "vadnagar"
     ],
     "11020010": [
-      "VadnagarKheralu",
-      "vadnagarkheralu"
+      "Vadnagar(Kheralu)",
+      "vadnagar_kheralu"
     ],
     "11020011": [
       "Vijapur",
       "vijapur"
     ],
     "11020012": [
-      "VijapurGojjariya",
-      "vijapurgojjariya"
+      "Vijapur(Gojjariya)",
+      "vijapur_gojjariya"
     ],
     "11020013": [
-      "VijapurKukarvada",
-      "vijapurkukarvada"
+      "Vijapur(Kukarvada)",
+      "vijapur_kukarvada"
     ],
     "11020014": [
-      "VijapurLadol",
-      "vijapurladol"
+      "Vijapur(Ladol)",
+      "vijapur_ladol"
     ],
     "11020015": [
-      "Vijapurveg",
-      "vijapurveg"
+      "Vijapur(veg)",
+      "vijapur_veg"
     ],
     "11020016": [
       "Visnagar",
@@ -726,7 +726,7 @@
     ],
     "11021001": [
       "HALVAD",
-      "halvad"
+      "h_a_l_v_a_d"
     ],
     "11021002": [
       "Morbi",
@@ -737,8 +737,8 @@
       "vankaner"
     ],
     "11021004": [
-      "VankanerSub yard",
-      "vankanersub_yard"
+      "Vankaner(Sub yard)",
+      "vankaner_sub_yard"
     ],
     "11022001": [
       "Dediyapada",
@@ -757,8 +757,8 @@
       "selemba"
     ],
     "11022005": [
-      "SelembaNavgam Javli",
-      "selembanavgam_javli"
+      "Selemba(Navgam Javli)",
+      "selemba_navgam_javli"
     ],
     "11022006": [
       "Tilakwada",
@@ -769,8 +769,8 @@
       "bilimora"
     ],
     "11023002": [
-      "BilimoraGandevi",
-      "bilimoragandevi"
+      "Bilimora(Gandevi)",
+      "bilimora_gandevi"
     ],
     "11023003": [
       "Chikhali",
@@ -785,20 +785,20 @@
       "vansda"
     ],
     "11023006": [
-      "VansdaLimzar",
-      "vansdalimzar"
+      "Vansda(Limzar)",
+      "vansda_limzar"
     ],
     "11024001": [
       "Derol",
       "derol"
     ],
     "11024002": [
-      "DerolAdadara",
-      "deroladadara"
+      "Derol(Adadara)",
+      "derol_adadara"
     ],
     "11024003": [
-      "DerolVejalpur",
-      "derolvejalpur"
+      "Derol(Vejalpur)",
+      "derol_vejalpur"
     ],
     "11024004": [
       "Godhra",
@@ -809,16 +809,16 @@
       "godhra_kakanpur"
     ],
     "11024006": [
-      "GodhraTimbaroad",
-      "godhratimbaroad"
+      "Godhra(Timbaroad)",
+      "godhra_timbaroad"
     ],
     "11024007": [
       "Gogamba",
       "gogamba"
     ],
     "11024008": [
-      "GogambaSimiliya",
-      "gogambasimiliya"
+      "Gogamba(Similiya)",
+      "gogamba_similiya"
     ],
     "11024009": [
       "Halol",
@@ -833,8 +833,8 @@
       "lunavada"
     ],
     "11024012": [
-      "LunavadaKobamba",
-      "lunavadakobamba"
+      "Lunavada(Kobamba)",
+      "lunavada_kobamba"
     ],
     "11024013": [
       "Morva Hafad",
@@ -845,8 +845,8 @@
       "santrampur"
     ],
     "11024015": [
-      "SantrampurFathaepura",
-      "santrampurfathaepura"
+      "Santrampur(Fathaepura)",
+      "santrampur_fathaepura"
     ],
     "11024016": [
       "Shehra",
@@ -865,8 +865,8 @@
       "patan"
     ],
     "11025004": [
-      "PatanVeg,Yard Patan",
-      "patanveg_yard_patan"
+      "Patan(Veg,Yard Patan)",
+      "patan_veg_yard_patan"
     ],
     "11025005": [
       "Radhanpur",
@@ -901,8 +901,8 @@
       "gondal"
     ],
     "11027003": [
-      "GondalVeg. Gondal",
-      "gondalveg_gondal"
+      "Gondal(Veg.market Gondal)",
+      "gondal_veg_market_gondal"
     ],
     "11027004": [
       "Jamkandorna",
@@ -913,40 +913,40 @@
       "jasdan"
     ],
     "11027006": [
-      "JasdanVichhiya",
-      "jasdanvichhiya"
+      "Jasdan(Vichhiya)",
+      "jasdan_vichhiya"
     ],
     "11027007": [
-      "JetpurDist.Rajkot",
-      "jetpurdist_rajkot"
+      "Jetpur(Dist.Rajkot)",
+      "jetpur_dist_rajkot"
     ],
     "11027008": [
       "Rajkot",
       "rajkot"
     ],
     "11027009": [
-      "RajkotVeg.Sub Yard",
-      "rajkotveg_sub_yard"
+      "Rajkot(Veg.Sub Yard)",
+      "rajkot_veg_sub_yard"
     ],
     "11027010": [
       "Upleta",
       "upleta"
     ],
     "11028001": [
-      "APMCKHEDBRAHMA",
-      "apmckhedbrahma"
+      "KHEDBRAHMA",
+      "k_h_e_d_b_r_a_h_m_a"
     ],
     "11028002": [
       "Bayad",
       "bayad"
     ],
     "11028003": [
-      "BayadDemai",
-      "bayaddemai"
+      "Bayad(Demai)",
+      "bayad_demai"
     ],
     "11028004": [
-      "BayadSadamba",
-      "bayadsadamba"
+      "Bayad(Sadamba)",
+      "bayad_sadamba"
     ],
     "11028005": [
       "Bhiloda",
@@ -961,28 +961,28 @@
       "himatnagar"
     ],
     "11028008": [
-      "HimatnagarGambhoi",
-      "himatnagargambhoi"
+      "Himatnagar(Gambhoi)",
+      "himatnagar_gambhoi"
     ],
     "11028009": [
-      "HimatnagarVeg. Himatnagar",
-      "himatnagarveg_himatnagar"
+      "Himatnagar(Veg.Market Himatnagar)",
+      "himatnagar_veg_market_himatnagar"
     ],
     "11028010": [
       "Idar",
       "idar"
     ],
     "11028011": [
-      "IdarJadar",
-      "idarjadar"
+      "Idar(Jadar)",
+      "idar_jadar"
     ],
     "11028012": [
-      "KhedbrahmaLambadia",
-      "khedbrahmalambadia"
+      "Khedbrahma(Lambadia)",
+      "khedbrahma_lambadia"
     ],
     "11028013": [
-      "KhedbrahmaPosina",
-      "khedbrahmaposina"
+      "Khedbrahma(Posina)",
+      "khedbrahma_posina"
     ],
     "11028014": [
       "Malpur",
@@ -993,92 +993,92 @@
       "meghraj"
     ],
     "11028016": [
-      "MeghrajRadlavada",
-      "meghrajradlavada"
+      "Meghraj(Radlavada)",
+      "meghraj_radlavada"
     ],
     "11028017": [
       "Modasa",
       "modasa"
     ],
     "11028018": [
-      "ModasaTintoi",
-      "modasatintoi"
+      "Modasa(Tintoi)",
+      "modasa_tintoi"
     ],
     "11028019": [
       "Prantij",
       "prantij"
     ],
     "11028020": [
-      "PrantijSalala",
-      "prantijsalala"
+      "Prantij(Salala)",
+      "prantij_salala"
     ],
     "11028021": [
       "Talod",
       "talod"
     ],
     "11028022": [
-      "TalodHarsol",
-      "talodharsol"
+      "Talod(Harsol)",
+      "talod_harsol"
     ],
     "11028023": [
       "Vadali",
       "vadali"
     ],
     "11028024": [
-      "VijaynagarKundlakap",
-      "vijaynagarkundlakap"
+      "Vijaynagar(Kundlakap)",
+      "vijaynagar_kundlakap"
     ],
     "11029001": [
       "Bardoli",
       "bardoli"
     ],
     "11029002": [
-      "BardoliKadod",
-      "bardolikadod"
+      "Bardoli(Kadod)",
+      "bardoli_kadod"
     ],
     "11029003": [
-      "BardoliMadhi",
-      "bardolimadhi"
+      "Bardoli(Madhi)",
+      "bardoli_madhi"
     ],
     "11029004": [
       "Kosamba",
       "kosamba"
     ],
     "11029005": [
-      "KosambaVankal",
-      "kosambavankal"
+      "Kosamba(Vankal)",
+      "kosamba_vankal"
     ],
     "11029006": [
-      "KosambaZangvav",
-      "kosambazangvav"
+      "Kosamba(Zangvav)",
+      "kosamba_zangvav"
     ],
     "11029007": [
       "Mahuva",
       "mahuva"
     ],
     "11029008": [
-      "MahuvaAnaval",
-      "mahuvaanaval"
+      "Mahuva(Anaval)",
+      "mahuva_anaval"
     ],
     "11029009": [
       "Mandvi",
       "mandvi"
     ],
     "11029010": [
-      "MandviAmba Paradi",
-      "mandviamba_paradi"
+      "Mandvi(Amba Paradi)",
+      "mandvi_amba_paradi"
     ],
     "11029011": [
       "Nizar",
       "nizar"
     ],
     "11029012": [
-      "NizarKukarmuda",
-      "nizarkukarmuda"
+      "Nizar(Kukarmuda)",
+      "nizar_kukarmuda"
     ],
     "11029013": [
-      "NizarPumkitalov",
-      "nizarpumkitalov"
+      "Nizar(Pumkitalov)",
+      "nizar_pumkitalov"
     ],
     "11029014": [
       "S.Mandvi",
@@ -1089,12 +1089,12 @@
       "songadh"
     ],
     "11029016": [
-      "SongadhBadarpada",
-      "songadhbadarpada"
+      "Songadh(Badarpada)",
+      "songadh_badarpada"
     ],
     "11029017": [
-      "SongadhUmrada",
-      "songadhumrada"
+      "Songadh(Umrada)",
+      "songadh_umrada"
     ],
     "11029018": [
       "Surat",
@@ -1105,36 +1105,36 @@
       "uchhal"
     ],
     "11029020": [
-      "UchhalKarod",
-      "uchhalkarod"
+      "Uchhal(Karod)",
+      "uchhal_karod"
     ],
     "11029021": [
       "Valod",
       "valod"
     ],
     "11029022": [
-      "ValodBuhari",
-      "valodbuhari"
+      "Valod(Buhari)",
+      "valod_buhari"
     ],
     "11029023": [
-      "VyaraPaati",
-      "vyarapaati"
+      "Vyara(Paati)",
+      "vyara_paati"
     ],
     "11029024": [
       "Vyra",
       "vyra"
     ],
     "11030001": [
-      "ChotialVeg,Yard",
-      "chotialveg_yard"
+      "Chotial(Veg,Yard)",
+      "chotial_veg_yard"
     ],
     "11030002": [
       "Chotila",
       "chotila"
     ],
     "11030003": [
-      "ChotilaVeg,Yard Chotila",
-      "chotilaveg_yard_chotila"
+      "Chotila(Veg,Yard Chotila)",
+      "chotila_veg_yard_chotila"
     ],
     "11030004": [
       "Dasada Patadi",
@@ -1173,8 +1173,8 @@
       "chhota_udaipur"
     ],
     "11033002": [
-      "DabhoiKayavarohan",
-      "dabhoikayavarohan"
+      "Dabhoi(Kayavarohan)",
+      "dabhoi_kayavarohan"
     ],
     "11033003": [
       "Daboi",
@@ -1201,12 +1201,12 @@
       "savli"
     ],
     "11033009": [
-      "SavliDesar",
-      "savlidesar"
+      "Savli(Desar)",
+      "savli_desar"
     ],
     "11033010": [
-      "SavliSamlaya",
-      "savlisamlaya"
+      "Savli(Samlaya)",
+      "savli_samlaya"
     ],
     "11033011": [
       "Shinor",
@@ -1217,52 +1217,52 @@
       "vadodara"
     ],
     "11033013": [
-      "VadodaraNavapura",
-      "vadodaranavapura"
+      "Vadodara(Navapura)",
+      "vadodara_navapura"
     ],
     "11033014": [
-      "VadodaraSayajipura",
-      "vadodarasayajipura"
+      "Vadodara(Sayajipura)",
+      "vadodara_sayajipura"
     ],
     "11033015": [
       "Vagodiya",
       "vagodiya"
     ],
     "11034001": [
-      "ChikliKhorgam",
-      "chiklikhorgam"
+      "Chikli(Khorgam)",
+      "chikli_khorgam"
     ],
     "11034002": [
-      "Dharampurveg",
-      "dharampurveg"
+      "Dharampur(veg)",
+      "dharampur_veg"
     ],
     "11034003": [
       "Pardi",
       "pardi"
     ],
     "11034004": [
-      "PardiMotavagachiya",
-      "pardimotavagachiya"
+      "Pardi(Motavagachiya)",
+      "pardi_motavagachiya"
     ],
     "11034005": [
-      "PardiRohinee",
-      "pardirohinee"
+      "Pardi(Rohinee)",
+      "pardi_rohinee"
     ],
     "11034006": [
-      "PardiUgvada",
-      "pardiugvada"
+      "Pardi(Ugvada)",
+      "pardi_ugvada"
     ],
     "11034007": [
-      "PardiVapi",
-      "pardivapi"
+      "Pardi(Vapi)",
+      "pardi_vapi"
     ],
     "11034008": [
       "Valsad",
       "valsad"
     ],
     "11034009": [
-      "ValsadDungari",
-      "valsaddungari"
+      "Valsad(Dungari)",
+      "valsad_dungari"
     ],
     "00000000": [
       "मंडी चुने",

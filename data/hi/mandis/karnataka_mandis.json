@@ -13,12 +13,12 @@
       "bagalakot"
     ],
     "16001003": [
-      "BagalkotBigali",
-      "bagalkotbigali"
+      "Bagalkot(Bigali)",
+      "bagalkot_bigali"
     ],
     "16001004": [
-      "BagalkotBilagi",
-      "bagalkotbilagi"
+      "Bagalkot(Bilagi)",
+      "bagalkot_bilagi"
     ],
     "16001005": [
       "Hungund",
@@ -41,8 +41,8 @@
       "bangalore"
     ],
     "16002002": [
-      "Binny Mill , Bangalore फल-सब्जी",
-      "binny_mill_bangalore_fv"
+      "Binny Mill (F&V), Bangalore फल-सब्जी",
+      "binny_mill_f_v"
     ],
     "16002003": [
       "Channapatana",
@@ -129,8 +129,8 @@
       "hospet"
     ],
     "16004005": [
-      "HospetKampli",
-      "hospetkampli"
+      "Hospet(Kampli)",
+      "hospet_kampli"
     ],
     "16004006": [
       "Kottur",
@@ -173,16 +173,16 @@
       "sindagi"
     ],
     "16006003": [
-      "SindagiDevarayipparagi",
-      "sindagidevarayipparagi"
+      "Sindagi(Devarayipparagi)",
+      "sindagi_devarayipparagi"
     ],
     "16006004": [
-      "SindagiIndi",
-      "sindagiindi"
+      "Sindagi(Indi)",
+      "sindagi_indi"
     ],
     "16006005": [
-      "Sindagichadachan",
-      "sindagichadachan"
+      "Sindagi(chadachan)",
+      "sindagi_chadachan"
     ],
     "16006006": [
       "Talikot",
@@ -289,7 +289,7 @@
       "dharwar"
     ],
     "16011003": [
-      "Hubli Amaragol",
+      "Hubli (Amaragol)",
       "hubli_amaragol"
     ],
     "16011004": [
@@ -389,11 +389,11 @@
       "chittapur"
     ],
     "16015004": [
-      "Kalburgi Jevargi",
+      "Kalburgi  (Jevargi)",
       "kalburgi_jevargi"
     ],
     "16015005": [
-      "Kalburgi Afzalpur",
+      "Kalburgi (Afzalpur)",
       "kalburgi_afzalpur"
     ],
     "16015006": [
@@ -477,8 +477,8 @@
       "gangavathi"
     ],
     "16018002": [
-      "GangavathiKaratagi",
-      "gangavathikaratagi"
+      "Gangavathi(Karatagi)",
+      "gangavathi_karatagi"
     ],
     "16018003": [
       "Kanakagiri",
@@ -569,7 +569,7 @@
       "k_r_nagar"
     ],
     "16022003": [
-      "Mysore Bandipalya",
+      "Mysore (Bandipalya)",
       "mysore_bandipalya"
     ],
     "16022004": [
@@ -625,8 +625,8 @@
       "sagar"
     ],
     "16025004": [
-      "SagarHosanagara",
-      "sagarhosanagara"
+      "Sagar(Hosanagara)",
+      "sagar_hosanagara"
     ],
     "16025005": [
       "Shikaripura",
@@ -637,12 +637,12 @@
       "shimoga"
     ],
     "16025007": [
-      "ShimogaTheertahalli",
-      "shimogatheertahalli"
+      "Shimoga(Theertahalli)",
+      "shimoga_theertahalli"
     ],
     "16025008": [
-      "ShimoggaTheertahalli",
-      "shimoggatheertahalli"
+      "Shimogga(Theertahalli)",
+      "shimogga_theertahalli"
     ],
     "16025009": [
       "Sorabha",

@@ -7,6 +7,62 @@
     "00000": [
       "जिला चुने",
       ""
+    ],
+    "03001": [
+      "Changlang",
+      "changlang"
+    ],
+    "03002": [
+      "East Kameng",
+      "east_kameng"
+    ],
+    "03003": [
+      "East Siang",
+      "east_siang"
+    ],
+    "03004": [
+      "Kurung Kummey",
+      "kurung_kummey"
+    ],
+    "03005": [
+      "Lohit",
+      "lohit"
+    ],
+    "03006": [
+      "Lower Dibang Valley",
+      "lower_dibang_valley"
+    ],
+    "03007": [
+      "Lower Subansiri",
+      "lower_subansiri"
+    ],
+    "03008": [
+      "Papum Pore",
+      "papum_pore"
+    ],
+    "03009": [
+      "Tawang",
+      "tawang"
+    ],
+    "03010": [
+      "Tirap",
+      "tirap"
+    ],
+    "03011": [
+      "Upper Siang",
+      "upper_siang"
+    ],
+    "03012": [
+      "Upper Subansiri",
+      "upper_subansiri"
+    ],
+    "03013": [
+      "West Kameng",
+      "west_kameng"
+    ],
+    "03014": [
+      "West Siang",
+      "west_siang"
     ]
   }
 }

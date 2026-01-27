@@ -7,6 +7,18 @@
     "00000": [
       "जिला चुने",
       ""
+    ],
+    "01001": [
+      "Nicobar",
+      "nicobar"
+    ],
+    "01002": [
+      "North and Middle Andaman",
+      "north_and_middle_andaman"
+    ],
+    "01003": [
+      "South Andaman",
+      "south_andaman"
     ]
   }
 }

@@ -5,351 +5,351 @@
   ],
   "data": {
     "29001001": [
-      "Ajmer (Grain)",
+      "अजमेर (अनाज)",
       "ajmer_grain"
     ],
     "29001002": [
-      "Ajmer (फल-सब्जी)",
+      "अजमेर (फल-सब्जी)",
       "ajmer_fv"
     ],
     "29001003": [
-      "Madanganj Kishangarh",
+      "मदनगंज किशनगढ़",
       "madanganj_kishangarh"
     ],
     "29002001": [
-      "Alwar",
+      "अलवर",
       "alwar"
     ],
     "29002002": [
-      "Barodamev",
+      "बड़ोदामेव",
       "barodamev"
     ],
     "29002003": [
-      "Govindgarh",
+      "गोविंदगढ़",
       "govindgarh"
     ],
     "29002004": [
-      "Kherli",
+      "खेड़ली",
       "kherli"
     ],
     "29002005": [
-      "Laxmangarh - Barodamev",
+      "लक्ष्मणगढ़ - बड़ौदामेव",
       "laxmangarh_barodamev"
     ],
     "29002006": [
-      "Pahari",
+      "पहाड़ी",
       "pahari"
     ],
     "29003001": [
-      "Anupgarh",
+      "अनूपगढ़",
       "anupgarh"
     ],
     "29003002": [
-      "Gharsana",
+      "घड़साना",
       "gharsana"
     ],
     "29003003": [
-      "Jaitsar",
+      "जैतसर",
       "jaitsar"
     ],
     "29003004": [
-      "Raisingh Nagar",
+      "रायसिंह नगर",
       "raisingh_nagar"
     ],
     "29003005": [
-      "Rawla",
+      "रावला",
       "rawla"
     ],
     "29003006": [
-      "Sri Vijayanagar",
+      "श्री विजयनगर",
       "sri_vijayanagar"
     ],
     "29004001": [
-      "Balotra",
+      "बालोतरा",
       "balotra"
     ],
     "29005001": [
-      "Banswara",
+      "बांसवाड़ा",
       "banswara"
     ],
     "29006001": [
-      "Anta",
+      "अंता",
       "anta"
     ],
     "29006002": [
-      "Atru",
+      "अटरु",
       "atru"
     ],
     "29006003": [
-      "Baran",
+      "बारां",
       "baran"
     ],
     "29006004": [
-      "Chhabra",
+      "छबड़ा",
       "chhabra"
     ],
     "29006005": [
-      "Nahargarh",
+      "नाहरगढ़",
       "nahargarh"
     ],
     "29006006": [
-      "Samraniyan",
+      "समरानियां",
       "samraniyan"
     ],
     "29007001": [
-      "Barmer",
+      "बाड़मेर",
       "barmer"
     ],
     "29007002": [
-      "Chohtan",
+      "चौहटन",
       "chohtan"
     ],
     "29007003": [
-      "Dhorimanna",
+      "धोरीमन्ना",
       "dhorimanna"
     ],
     "29008001": [
-      "Beawar",
+      "ब्यावर",
       "beawar"
     ],
     "29008002": [
-      "Bijaynagar",
+      "बिजयनगर",
       "bijaynagar"
     ],
     "29008003": [
-      "Jaitaran",
+      "जैतारण",
       "jaitaran"
     ],
     "29009001": [
-      "Bayana",
+      "बयाना",
       "bayana"
     ],
     "29009002": [
-      "Bharatpur",
+      "भरतपुर",
       "bharatpur"
     ],
     "29009003": [
-      "Bhusawar Bair",
+      "भुसावर बैर",
       "bhusawar_bair"
     ],
     "29009004": [
-      "Nadwai",
+      "नदबई",
       "nadwai"
     ],
     "29010001": [
-      "Bhilwara",
+      "भीलवाड़ा",
       "bhilwara"
     ],
     "29010002": [
-      "Bijolia",
+      "बिजोलिया",
       "bijolia"
     ],
     "29010003": [
-      "Gangapur",
+      "गंगापुर",
       "gangapur"
     ],
     "29010004": [
-      "Gulabpura",
+      "गुलाबपुरा",
       "gulabpura"
     ],
     "29010005": [
-      "Mandalgarh",
+      "मंडलगढ़",
       "mandalgarh"
     ],
     "29011001": [
-      "Bajju",
+      "बज्जू",
       "bajju"
     ],
     "29011002": [
-      "Bikaner (फल-सब्जी)",
+      "बीकानेर (फल-सब्जी)",
       "bikaner_fv"
     ],
     "29011003": [
-      "Bikaner (Grain)",
+      "बीकानेर (अनाज)",
       "bikaner_grain"
     ],
     "29011004": [
-      "Khajuwala",
+      "खाजूवाला",
       "khajuwala"
     ],
     "29011005": [
-      "Lunkaransar",
+      "लूणकरणसर",
       "lunkaransar"
     ],
     "29011006": [
-      "Nokha",
+      "नोखा",
       "nokha"
     ],
     "29011007": [
-      "Pugal Road (Grain)",
+      "पूगल रोड़ (अनाज)",
       "pugal_road_grain"
     ],
     "29011008": [
-      "Sridungargarh",
+      "श्री डूंगरगढ़",
       "sridungargarh"
     ],
     "29012001": [
-      "Bundi",
+      "बूंदी",
       "bundi"
     ],
     "29012002": [
-      "Dei",
+      "देई",
       "dei"
     ],
     "29012003": [
-      "Keshoraipatan",
+      "केशवराय पाटन",
       "keshoraipatan"
     ],
     "29012004": [
-      "Sumerganj",
+      "सुमेरगंज",
       "sumerganj"
     ],
     "29013001": [
-      "Barisadri",
+      "बड़ीसादड़ी",
       "barisadri"
     ],
     "29013002": [
-      "Begu",
+      "बेगू",
       "begu"
     ],
     "29013003": [
-      "Chittorgarh",
+      "चित्तौड़गढ़",
       "chittorgarh"
     ],
     "29013004": [
-      "Kapasan",
+      "कपासन",
       "kapasan"
     ],
     "29013005": [
-      "Nimbahera",
+      "निंबाहेड़ा",
       "nimbahera"
     ],
     "29014001": [
-      "Churu",
+      "चूरू",
       "churu"
     ],
     "29014002": [
-      "Ratangarh",
+      "रतनगढ़",
       "ratangarh"
     ],
     "29014003": [
-      "Sadulpur",
+      "सादुलपुर",
       "sadulpur"
     ],
     "29014004": [
-      "Sardar Shahar",
+      "सरदार शहर",
       "sardar_shahar"
     ],
     "29014005": [
-      "Sujangarh",
+      "सुजानगढ़",
       "sujangarh"
     ],
     "29015001": [
-      "Bandikui",
+      "बांदीकुई",
       "bandikui"
     ],
     "29015002": [
-      "Dausa",
+      "दौसा",
       "dausa"
     ],
     "29015003": [
-      "Lalsot",
+      "लालसोट",
       "lalsot"
     ],
     "29015004": [
-      "Mahuwa",
+      "महुवा",
       "mahuwa"
     ],
     "29015005": [
-      "Mandawar",
+      "मंडावर",
       "mandawar"
     ],
     "29015006": [
-      "Mandawari",
+      "मंडावरी",
       "mandawari"
     ],
     "29016001": [
-      "Deedwana",
+      "डीडवाना",
       "deedwana"
     ],
     "29016002": [
-      "Kuchaman City",
+      "कुचामन सिटी",
       "kuchaman_city"
     ],
     "29017001": [
-      "Deeg",
+      "डीग",
       "deeg"
     ],
     "29017002": [
-      "Kama",
+      "कामा",
       "kama"
     ],
     "29017003": [
-      "Kumher",
+      "कुम्हेर",
       "kumher"
     ],
     "29017004": [
-      "Nagar",
+      "नगर",
       "nagar"
     ],
     "29017005": [
-      "Sikri",
+      "सीकरी",
       "sikri"
     ],
     "29018001": [
-      "Dholpur",
+      "धौलपुर",
       "dholpur"
     ],
     "29019001": [
-      "Dudu",
+      "दूदू",
       "dudu"
     ],
     "29020001": [
-      "Dungarpur",
+      "डूंगरपुर",
       "dungarpur"
     ],
     "29021001": [
-      "Gajsinghpur",
+      "गजसिंहपुर",
       "gajsinghpur"
     ],
     "29021002": [
-      "Kesarisinghpur",
+      "केसरीसिंहपुर",
       "kesarisinghpur"
     ],
     "29021003": [
-      "Lalgarh Jatan - Sri Ganganagar Grain",
+      लालगढ़ जट्टन - श्री गंगानगर (अनाज)",
       "lalgarh_jatan_sri_ganganagar_grain"
     ],
     "29021004": [
-      "Padampur",
+      "पदमपुर",
       "padampur"
     ],
     "29021005": [
-      "Ridmalsar",
+      "रिड़मलसर",
       "ridmalsar"
     ],
     "29021006": [
-      "Sadulshahar",
+      "सादुलशहर",
       "sadulshahar"
     ],
     "29021007": [
-      "Sri Karanpur",
+      "श्री करणपुर",
       "sri_karanpur"
     ],
     "29021008": [
-      "Sriganganagar (फल-सब्जी)",
+      "श्रीगंगानगर (फल-सब्जी)",
       "sriganganagar_fv"
     ],
     "29021009": [
-      "Sriganganagar (Grain)",
+      "श्रीगंगागनर (अनाज)",
       "sriganganagar_grain"
     ],
     "29021010": [
-      "Suratgarh",
+      "सूरतगढ़",
       "suratgarh"
     ],
     "29022001": [
-      "Gangapur City",
+      "गंगापुर सिटी",
       "gangapur_city"
     ],
     "29023001": [

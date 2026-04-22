@@ -264,7 +264,7 @@ const vid = r[3];
     document.getElementById('mandiName').textContent = currentMandiName;
     document.getElementById('distName').textContent = currentDistName;
     document.getElementById('stateName').textContent = currentStateName;
-    document.getElementById('pageTitle').textContent = `🌱 ${currentMandiName} मंडी का भाव`;
+    document.getElementById('pageTitle').textContent = `🌱 कृषि उपज मंडी समिति ${currentMandiName} 🌱`;
     document.getElementById('pageSubtitle').textContent = `जिला ${currentDistName} | ${currentStateName} | ${formatDate(currentDate)}`;
     
     ['statsSection', 'infoSearchSection', 'watermark'].forEach(id => {

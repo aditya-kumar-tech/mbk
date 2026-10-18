@@ -1,1 +1,1 @@
-{"headers":["date","mandi_id","commodity_id","variety_id","grade_id","min_price","max_price","modal_price","arrival_quintal","arrival_bori"],"rows":[["2026-10-09","07015002","010",0,0,5000,5500,5200,14.4,0]]}
+{"headers":["date","mandi_id","commodity_id","variety_id","grade_id","min_price","max_price","modal_price","arrival_quintal","arrival_bori"],"rows":[["2026-10-09","07015002","010",0,0,5000,5500,5200,14.4,0],["2026-10-16","07015002","002",0,0,2200,2200,2200,56,0]]}

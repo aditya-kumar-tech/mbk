@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Note Counter & Mandi Tax Calculator</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f4f6f9;
+    margin:0;
+    padding:10px;
+}
+
+.container{
+    max-width:900px;
+    margin:auto;
+    background:#fff;
+    padding:15px;
+    border-radius:12px;
+    box-shadow:0 0 15px rgba(0,0,0,.10);
+}
+
+h2{
+    text-align:center;
+    color:#0b6b3a;
+    font-size:20px;
+    margin-top:5px;
+    margin-bottom:15px;
+    white-space: nowrap; /* शीर्षक हमेशा एक ही लाइन में रहेगा */
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.tabs{
+    display:flex;
+    gap:8px;
+    margin-bottom:15px;
+}
+
+.tabs button{
+    flex:1;
+    padding:12px;
+    border:none;
+    border-radius:8px;
+    background:#0b6b3a;
+    color:white;
+    font-size:15px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.tab-content{
+    display:none;
+}
+
+.active{
+    display:block;
+}
+
+.sticky-total{
+    position:sticky;
+    top:5px;
+    z-index:1000;
+    background:#0b6b3a;
+    color:#fff;
+    padding:10px;
+    border-radius:8px;
+    text-align:center;
+    font-size:16px;
+    font-weight:bold;
+    margin-bottom:10px;
+    box-shadow:0 4px 6px rgba(0,0,0,0.15);
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    table-layout: fixed;
+}
+
+th,td{
+    padding:8px 4px;
+    border-bottom:1px solid #ddd;
+    text-align:center;
+    vertical-align: middle;
+}
+
+th:nth-child(1), td:nth-child(1) { width: 28%; text-align: left; padding-left: 10px; }
+th:nth-child(2), td:nth-child(2) { width: 38%; text-align: center; }
+th:nth-child(3), td:nth-child(3) { width: 34%; text-align: right; padding-right: 10px; }
+
+th {
+    font-size:15px;
+    background:#f8fafc;
+}
+
+.note-input{
+    width:100%;
+    max-width:95px;
+    height:42px;
+    font-size:20px;
+    text-align:center;
+    font-weight:bold;
+    border:1px solid #ccc;
+    border-radius:6px;
+}
+
+.amount-cell{
+    font-size:16px;
+    font-weight:bold;
+    color:#0b6b3a;
+    white-space: nowrap;
+}
+
+.summary{
+    margin-top:15px;
+    background:#eefaf2;
+    padding:12px;
+    border-radius:8px;
+    line-height:1.6;
+    font-size:15px;
+}
+
+.tax-grid {
+    display:flex;
+    gap:10px;
+}
+
+.tax-grid div {
+    flex:1;
+}
+
+.tax-box{
+    width:100%;
+    padding:10px;
+    font-size:18px;
+    margin-bottom:10px;
+    border:1px solid #ccc;
+    border-radius:8px;
+}
+
+.target-box {
+    background:#e0f2fe;
+    border:2px solid #0284c7;
+    color:#0369a1;
+    font-weight:bold;
+}
+
+.remaining-card {
+    background:#fef3c7;
+    border:2px solid #f59e0b;
+    padding:12px;
+    border-radius:8px;
+    margin-top:10px;
+    margin-bottom:10px;
+    font-size:16px;
+    font-weight:bold;
+}
+
+.remaining-row {
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:4px;
+}
+
+.toggle-container {
+    background:#fff3cd;
+    border:1px solid #ffeeba;
+    padding:10px;
+    border-radius:8px;
+    margin-bottom:12px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-weight:bold;
+    color:#856404;
+    cursor:pointer;
+}
+
+.toggle-container input {
+    width:20px;
+    height:20px;
+    cursor:pointer;
+}
+
+.btn-group{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+    margin-bottom:10px;
+}
+
+.btn{
+    flex:1;
+    min-width:90px;
+    background:#d97706;
+    color:white;
+    border:none;
+    padding:12px 8px;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:15px;
+    font-weight:bold;
+}
+
+.btn:hover{
+    opacity:.9;
+}
+
+.btn-reset {
+    background:#dc2626 !important;
+}
+
+.calc-step-card {
+    background:#fdf2e9;
+    border:2px solid #e07a5f;
+    padding:12px;
+    border-radius:8px;
+    margin-bottom:12px;
+}
+
+.receipt-card {
+    background:#e0f2fe;
+    border:2px solid #0284c7;
+    padding:12px;
+    border-radius:8px;
+    margin-top:12px;
+}
+
+.card-title {
+    font-weight:bold;
+    font-size:16px;
+    margin-bottom:8px;
+    text-align:center;
+    border-bottom:1px dashed #ccc;
+    padding-bottom:5px;
+}
+
+.receipt-row {
+    display:flex;
+    justify-content:space-between;
+    font-size:16px;
+    margin-bottom:5px;
+    font-weight:bold;
+}
+
+pre{
+    white-space:pre-wrap;
+    font-size:14px;
+    background:#fff;
+    padding:8px;
+    border-radius:6px;
+    border:1px solid #e2e8f0;
+}
+
+@media(max-width: 480px) {
+    body { padding:5px; }
+    .container { padding:10px; }
+    h2 { font-size: 17px; }
+    .sticky-total { font-size:14px; padding:8px; }
+    .note-input { height:38px; font-size:18px; max-width:80px; }
+    .tax-grid { flex-direction:column; gap:0; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+<h2>🧮 Note Counter & Mandi Tax Calculator</h2>
+
+<div class="tabs">
+<button onclick="showTab('notes')">🧾 Note Counter</button>
+<button onclick="showTab('tax')">📊 Mandi Tax</button>
+</div>
+
+<!-- NOTE COUNTER -->
+<div id="notes" class="tab-content active">
+
+<div class="sticky-total">
+कुल नोट: <span id="stickyNotes">0</span> | कुल राशि: ₹<span id="stickyAmount">0</span>
+</div>
+
+<!-- Option 1: कुल जमा करने योग्य लक्षित राशि -->
+<label style="color:#0369a1;"><b>कुल जमा करने योग्य राशि (Target Deposit) (₹)</b></label>
+<input class="tax-box target-box" type="number" inputmode="numeric" id="targetDepositInput" value="0" onfocus="clearZero(this)" onblur="restoreZero(this)" oninput="updateNotes()" placeholder="जितनी कुल राशि जमा करनी है दर्ज करें">
+
+<!-- जमा हेतु शेष राशि प्रदर्शित करने हेतु कार्ड -->
+<div class="remaining-card">
+    <div class="remaining-row" style="color:#b45309;">
+        <span>लक्ष्य राशि (Target):</span>
+        <span>₹<span id="targetDisplay">0</span></span>
+    </div>
+    <div class="remaining-row" style="color:#0b6b3a;">
+        <span>गिनी गई राशि (Counted):</span>
+        <span>₹<span id="countedDisplay">0</span></span>
+    </div>
+    <div class="remaining-row" id="remainingRow" style="color:#dc2626; border-top:1px dashed #f59e0b; padding-top:4px; margin-top:4px;">
+        <span>जमा हेतु शेष राशि (Remaining):</span>
+        <span>₹<span id="remainingDeposit">0</span></span>
+    </div>
+</div>
+
+<table>
+<tr>
+<th>नोट</th>
+<th>संख्या</th>
+<th>राशि</th>
+</tr>
+
+<tr>
+<td>₹500</td>
+<td><input class="note-input" type="number" inputmode="numeric" id="n500" value="0" onfocus="clearZero(this)" onblur="restoreZero(this)" oninput="updateNotes()"></td>
+<td id="a500" class="amount-cell">₹0</td>
+</tr>
+
+<tr>
+<td>₹200</td>
+<td><input class="note-input" type="number" inputmode="numeric" id="n200" value="0" onfocus="clearZero(this)" onblur="restoreZero(this)" oninput="updateNotes()"></td>
+<td id="a200" class="amount-cell">₹0</td>
+</tr>
+
+<tr>
+<td>₹100</td>
+<td><input class="note-input" type="number" inputmode="numeric" id="n100" value="0" onfocus="clearZero(this)" onblur="restoreZero(this)" oninput="updateNotes()"></td>
+<td id="a100" class="amount-cell">₹0</td>
+</tr>
+
+<tr>
+<td>₹50</td>
+<td><input class="note-input" type="number" inputmode="numeric" id="n50" value="0" onfocus="clearZero(this)" onblur="restoreZero(this)" oninput="updateNotes()"></td>
+<td id="a50" class="amount-cell">₹0</td>
+</tr>
+
+<tr>
+<td>₹20</td>
+<td><input class="note-input" type="number" inputmode="numeric" id="n20" value="0" onfocus="clearZero(this)" onblur="restoreZero(this)" oninput="updateNotes()"></td>
+<td id="a20" class="amount-cell">₹0</td>
+</tr>
+
+<tr>
+<td>₹10</td>
+<td><input class="note-input" type="number" inputmode="numeric" id="n10" value="0" onfocus="clearZero(this)" onblur="restoreZero(this)" oninput="updateNotes()"></td>
+<td id="a10" class="amount-cell">₹0</td>
+</tr>
+
+<tr>
+<td>₹5</td>
+<td><input class="note-input" type="number" inputmode="numeric" id="n5" value="0" onfocus="clearZero(this)" onblur="restoreZero(this)" oninput="updateNotes()"></td>
+<td id="a5" class="amount-cell">₹0</td>
+</tr>
+
+<tr>
+<td>₹2</td>
+<td><input class="note-input" type="number" inputmode="numeric" id="n2" value="0" onfocus="clearZero(this)" onblur="restoreZero(this)" oninput="updateNotes()"></td>
+<td id="a2" class="amount-cell">₹0</td>
+</tr>
+
+<tr>
+<td>₹1</td>
+<td><input class="note-input" type="number" inputmode="numeric" id="n1" value="0" onfocus="clearZero(this)" onblur="restoreZero(this)" oninput="updateNotes()"></td>
+<td id="a1" class="amount-cell">₹0</td>
+</tr>
+</table>
+
+<div style="margin-top:15px;">
+<button class="btn btn-reset" style="width:100%;" onclick="resetNoteCounter()">🔄 रिसेट नोट काउंटर</button>
+</div>
+
+<div class="summary">
+<b>कुल नोट:</b> <span id="totalNotes">0</span><br>
+<b>कुल राशि:</b> ₹<span id="totalAmount">0</span>
+<hr>
+<b>बैंक स्लिप सारांश</b>
+<pre id="slipSummary"></pre>
+</div>
+
+</div>
+
+<!-- MANDI TAX -->
+<div id="tax" class="tab-content">
+
+<!-- Sticky Bar -->
+<div class="sticky-total">
+नेट टैक्स: ₹<span id="stickyNetTax">0</span> | राउंड रसीद टैक्स: ₹<span id="stickyRoundTax">0</span>
+</div>
+
+<div class="toggle-container">
+    <input type="checkbox" id="nirashritToggle" checked onchange="handleNirashritToggle()">
+    <label for="nirashritToggle">निराश्रित शुल्क (0.2%) लागू करें</label>
+</div>
+
+<label><b>माल की कीमत (मूल्य) (₹)</b></label>
+<input class="tax-box" type="number" inputmode="numeric" id="amountInput" oninput="calculateFromAmount()" style="font-weight:bold; color:#1e3a8a; background:#f0f9ff;" placeholder="कीमत डालें या नीचे टैक्स भरें">
+
+<!-- नया फीचर: कुल कंप्यूटर टैक्स इनपुट बॉक्स -->
+<label style="color:#047857;"><b>कुल कंप्यूटर टैक्स (Total Computer Tax) (₹)</b></label>
+<input class="tax-box" type="number" inputmode="numeric" id="totalTaxInput" oninput="calculateFromTotalTax()" style="font-weight:bold; color:#047857; background:#ecfdf5; border-color:#a7f3d0;" placeholder="डायरेक्ट कुल टैक्स दर्ज करें">
+
+<div class="tax-grid">
+    <div>
+        <label><b>कंप्यूटर मंडी शुल्क (₹)</b></label>
+        <input class="tax-box" type="number" inputmode="numeric" id="mandiInput" oninput="calculateFromDirectTax()">
+    </div>
+    <div id="nirashritBoxContainer">
+        <label><b>कंप्यूटर निराश्रित शुल्क (₹)</b></label>
+        <input class="tax-box" type="number" inputmode="numeric" id="nirashritInput" oninput="calculateFromDirectTax()">
+    </div>
+</div>
+
+<label style="color:#c53030;"><b>व्यापारी का कुल एडवांस (₹)</b></label>
+<input class="tax-box" type="number" inputmode="numeric" id="advanceInput" value="0" onfocus="clearZero(this)" onblur="restoreZero(this)" oninput="processTaxCalculation()" style="border-color:#feb2b2; background:#fff5f5; font-weight:bold;">
+
+<!-- STEP 1: Advanced Deducted Tax Display -->
+<div class="calc-step-card">
+    <div class="card-title" style="color:#d97706;">🔻 एडवांस घटाने के बाद (नेट टैक्स)</div>
+    
+    <div class="receipt-row">
+        <span>शुद्ध मंडी शुल्क:</span>
+        <span style="color:#b45309;">₹<span id="netMandi">0</span></span>
+    </div>
+    
+    <div class="receipt-row" id="netNirashritRow">
+        <span>शुद्ध निराश्रित शुल्क:</span>
+        <span style="color:#b45309;">₹<span id="netNirashrit">0</span></span>
+    </div>
+
+    <div class="receipt-row" style="border-top:1px dashed #e07a5f; padding-top:4px; margin-top:4px; color:#9a3412;">
+        <span>कुल नेट टैक्स (जमा करने योग्य):</span>
+        <span>₹<span id="netTotalTax">0</span></span>
+    </div>
+</div>
+
+<label><b>राउंड-अप करने के लिए बटन दबाएं:</b></label>
+<div class="btn-group">
+<button class="btn" onclick="roundUpNet(10)">₹10 Round Up</button>
+<button class="btn" onclick="roundUpNet(50)">₹50 Round Up</button>
+<button class="btn" onclick="roundUpNet(100)">₹100 Round Up</button>
+<button class="btn btn-reset" onclick="resetTaxCalculator()">🔄 रिसेट</button>
+</div>
+
+<!-- STEP 2: Final Receipt After Round Up -->
+<div class="receipt-card">
+    <div class="card-title" style="color:#0369a1;">🧾 रसीद काटने हेतु अंतिम राशि</div>
+    
+    <div class="receipt-row">
+        <span>मंडी रसीद राशि:</span>
+        <span style="color:#0369a1;">₹<span id="mandiReceipt">0</span></span>
+    </div>
+    
+    <div class="receipt-row" id="nirashritReceiptRow">
+        <span>निराश्रित रसीद राशि:</span>
+        <span style="color:#0369a1;">₹<span id="nirashritReceipt">0</span></span>
+    </div>
+
+    <div class="receipt-row" style="border-top: 1px solid #bae6fd; padding-top: 5px; margin-top: 5px; color:#0f5132;">
+        <span>कुल राउंडेड रसीद टैक्स:</span>
+        <span>₹<span id="roundedTax">0</span></span>
+    </div>
+    
+    <div class="receipt-row" style="color:#1e3a8a; margin-top: 3px; border-top:1px solid #bae6fd; padding-top:5px;">
+        <span>संशोधित माल की कीमत:</span>
+        <span>₹<span id="goodsPriceDisplay">0</span></span>
+    </div>
+
+    <!-- नकद राशि और वापसी/शेष राशि -->
+    <div style="margin-top: 8px; border-top: 1px dashed #bae6fd; padding-top: 5px;">
+        <label style="font-size: 14px; color: #0369a1;"><b>नकद राशि दी गई (Cash Given):</b></label>
+        <input class="tax-box" type="number" inputmode="numeric" id="cashGivenInput" value="0" onfocus="clearZero(this)" onblur="restoreZero(this)" oninput="processTaxCalculation()" style="margin-top: 3px; margin-bottom: 5px; padding: 6px; font-size: 16px;">
+    </div>
+
+    <div class="receipt-row" style="color: #b91c1c; margin-top: 3px;">
+        <span>वापसी / शेष राशि (Change):</span>
+        <span>₹<span id="cashBalance">0</span></span>
+    </div>
+</div>
+
+</div>
+
+</div>
+
+<script>
+function showTab(tab){
+    document.getElementById("notes").style.display="none";
+    document.getElementById("tax").style.display="none";
+    document.getElementById(tab).style.display="block";
+}
+
+function clearZero(input) {
+    if (input.value === '0') {
+        input.value = '';
+    }
+}
+
+function restoreZero(input) {
+    if (input.value === '') {
+        input.value = '0';
+        if(input.id.startsWith('n') || input.id === 'targetDepositInput') updateNotes();
+        if(input.id === 'advanceInput' || input.id === 'cashGivenInput') processTaxCalculation();
+    }
+}
+
+function updateNotes(){
+    let notes=[500,200,100,50,20,10,5,2,1];
+    let totalAmount=0;
+    let totalNotes=0;
+    let summary="";
+
+    notes.forEach(note=>{
+        let qty = Number(document.getElementById("n"+note).value)||0;
+        let amount = qty * note;
+
+        document.getElementById("a"+note).innerHTML = "₹" + amount.toLocaleString("en-IN");
+
+        if(qty > 0){
+            summary += note + " × " + qty + " = ₹" + amount.toLocaleString("en-IN") + "\n";
+        }
+
+        totalAmount += amount;
+        totalNotes += qty;
+    });
+
+    summary += "-------------------------\n";
+    summary += "कुल = ₹" + totalAmount.toLocaleString("en-IN");
+
+    let targetDeposit = Number(document.getElementById("targetDepositInput").value) || 0;
+    let remaining = targetDeposit - totalAmount;
+
+    document.getElementById("totalAmount").innerHTML = totalAmount.toLocaleString("en-IN");
+    document.getElementById("totalNotes").innerHTML = totalNotes;
+    document.getElementById("stickyAmount").innerHTML = totalAmount.toLocaleString("en-IN");
+    document.getElementById("stickyNotes").innerHTML = totalNotes;
+    document.getElementById("slipSummary").textContent = summary;
+
+    document.getElementById("targetDisplay").innerHTML = targetDeposit.toLocaleString("en-IN");
+    document.getElementById("countedDisplay").innerHTML = totalAmount.toLocaleString("en-IN");
+    document.getElementById("remainingDeposit").innerHTML = remaining.toLocaleString("en-IN");
+
+    let remainingRow = document.getElementById("remainingRow");
+    if(remaining < 0) {
+        remainingRow.style.color = "#047857"; // Extra money colored green
+    } else {
+        remainingRow.style.color = "#dc2626"; // Remaining needed colored red
+    }
+}
+
+function resetNoteCounter(){
+    let notes=[500,200,100,50,20,10,5,2,1];
+    notes.forEach(note=>{
+        document.getElementById("n"+note).value = 0;
+    });
+    document.getElementById("targetDepositInput").value = 0;
+    updateNotes();
+}
+
+let isRoundedManual = false;
+let manualRoundTax = 0;
+
+function getTaxRate(){
+    let hasNirashrit = document.getElementById("nirashritToggle").checked;
+    return {
+        hasNirashrit: hasNirashrit,
+        mandiRate: 0.015,
+        nirashritRate: hasNirashrit ? 0.002 : 0,
+        totalRate: hasNirashrit ? 0.017 : 0.015
+    };
+}
+
+function handleNirashritToggle(){
+    let hasNirashrit = document.getElementById("nirashritToggle").checked;
+    document.getElementById("nirashritBoxContainer").style.display = hasNirashrit ? "block" : "none";
+    document.getElementById("netNirashritRow").style.display = hasNirashrit ? "flex" : "none";
+    document.getElementById("nirashritReceiptRow").style.display = hasNirashrit ? "flex" : "none";
+    isRoundedManual = false;
+    calculateFromAmount();
+}
+
+function calculateFromAmount(){
+    isRoundedManual = false;
+    let amount = Number(document.getElementById("amountInput").value) || 0;
+    let rates = getTaxRate();
+
+    let mandi = Math.round(amount * rates.mandiRate);
+    let nirashrit = Math.round(amount * rates.nirashritRate);
+    let totalTax = mandi + nirashrit;
+
+    document.getElementById("totalTaxInput").value = totalTax > 0 ? totalTax : "";
+    document.getElementById("mandiInput").value = mandi > 0 ? mandi : "";
+    if(rates.hasNirashrit){
+        document.getElementById("nirashritInput").value = nirashrit > 0 ? nirashrit : "";
+    }
+
+    processTaxCalculation();
+}
+
+function calculateFromTotalTax(){
+    isRoundedManual = false;
+    let totalTax = Number(document.getElementById("totalTaxInput").value) || 0;
+    let hasNirashrit = document.getElementById("nirashritToggle").checked;
+    let rates = getTaxRate();
+
+    let mandi = 0;
+    let nirashrit = 0;
+
+    if(hasNirashrit){
+        mandi = Math.round(totalTax * 15 / 17);
+        nirashrit = totalTax - mandi;
+    } else {
+        mandi = totalTax;
+        nirashrit = 0;
+    }
+
+    let amount = totalTax > 0 ? Math.round(totalTax / rates.totalRate) : 0;
+
+    document.getElementById("amountInput").value = amount > 0 ? amount : "";
+    document.getElementById("mandiInput").value = mandi > 0 ? mandi : "";
+    if(hasNirashrit){
+        document.getElementById("nirashritInput").value = nirashrit > 0 ? nirashrit : "";
+    }
+
+    processTaxCalculation();
+}
+
+function calculateFromDirectTax(){
+    isRoundedManual = false;
+    let mandi = Number(document.getElementById("mandiInput").value) || 0;
+    let hasNirashrit = document.getElementById("nirashritToggle").checked;
+    let nirashrit = hasNirashrit ? (Number(document.getElementById("nirashritInput").value) || 0) : 0;
+
+    let totalCompTax = mandi + nirashrit;
+    let rates = getTaxRate();
+    let amount = totalCompTax > 0 ? Math.round(totalCompTax / rates.totalRate) : 0;
+
+    document.getElementById("totalTaxInput").value = totalCompTax > 0 ? totalCompTax : "";
+    document.getElementById("amountInput").value = amount > 0 ? amount : "";
+
+    processTaxCalculation();
+}
+
+function processTaxCalculation(){
+    let mandiComp = Number(document.getElementById("mandiInput").value) || 0;
+    let hasNirashrit = document.getElementById("nirashritToggle").checked;
+    let nirashritComp = hasNirashrit ? (Number(document.getElementById("nirashritInput").value) || 0) : 0;
+    let advance = Number(document.getElementById("advanceInput").value) || 0;
+    let cashGiven = Number(document.getElementById("cashGivenInput").value) || 0;
+
+    let totalCompTax = mandiComp + nirashritComp;
+    let netTotalTax = Math.max(0, totalCompTax - advance);
+
+    let netMandi = 0;
+    let netNirashrit = 0;
+
+    if(hasNirashrit){
+        netMandi = Math.round(netTotalTax * 15 / 17);
+        netNirashrit = netTotalTax - netMandi;
+    } else {
+        netMandi = netTotalTax;
+        netNirashrit = 0;
+    }
+
+    document.getElementById("netMandi").innerHTML = netMandi.toLocaleString("en-IN");
+    document.getElementById("netNirashrit").innerHTML = netNirashrit.toLocaleString("en-IN");
+    document.getElementById("netTotalTax").innerHTML = netTotalTax.toLocaleString("en-IN");
+    document.getElementById("stickyNetTax").innerHTML = netTotalTax.toLocaleString("en-IN");
+
+    let finalTax = isRoundedManual ? manualRoundTax : netTotalTax;
+
+    let mandiReceipt = 0;
+    let nirashritReceipt = 0;
+
+    if(hasNirashrit){
+        mandiReceipt = Math.round(finalTax * 15 / 17);
+        nirashritReceipt = finalTax - mandiReceipt;
+    } else {
+        mandiReceipt = finalTax;
+        nirashritReceipt = 0;
+    }
+
+    let rates = getTaxRate();
+    let displayAmount = 0;
+    if(isRoundedManual && finalTax > 0){
+        displayAmount = Math.round((finalTax + advance) / rates.totalRate);
+    } else {
+        displayAmount = Number(document.getElementById("amountInput").value) || 0;
+    }
+
+    let cashBalance = cashGiven - finalTax;
+
+    document.getElementById("mandiReceipt").innerHTML = mandiReceipt.toLocaleString("en-IN");
+    document.getElementById("nirashritReceipt").innerHTML = nirashritReceipt.toLocaleString("en-IN");
+    document.getElementById("roundedTax").innerHTML = finalTax.toLocaleString("en-IN");
+    document.getElementById("stickyRoundTax").innerHTML = finalTax.toLocaleString("en-IN");
+    document.getElementById("goodsPriceDisplay").innerHTML = displayAmount.toLocaleString("en-IN");
+    document.getElementById("cashBalance").innerHTML = cashBalance.toLocaleString("en-IN");
+}
+
+function roundUpNet(step){
+    let baseTax = isRoundedManual ? manualRoundTax : (Number(document.getElementById("netTotalTax").innerText.replace(/,/g, '')) || 0);
+    if(baseTax <= 0) return;
+
+    let target = Math.ceil(baseTax / step) * step;
+    if(target === baseTax){
+        target += step;
+    }
+
+    isRoundedManual = true;
+    manualRoundTax = target;
+
+    processTaxCalculation();
+}
+
+function resetTaxCalculator(){
+    isRoundedManual = false;
+    manualRoundTax = 0;
+    document.getElementById("amountInput").value = "";
+    document.getElementById("totalTaxInput").value = "";
+    document.getElementById("mandiInput").value = "";
+    document.getElementById("nirashritInput").value = "";
+    document.getElementById("advanceInput").value = 0;
+    document.getElementById("cashGivenInput").value = 0;
+    processTaxCalculation();
+}
+
+updateNotes();
+</script>
+
+</body>
+</html>

@@ -281,7 +281,7 @@ pre{
 </div>
 
 <!-- NOTE COUNTER -->
-<div id="notes" class="tab-content active">
+<div id="notes" class="tab-content">
 
 <div class="sticky-total">
 कुल नोट: <span id="stickyNotes">0</span> | कुल राशि: ₹<span id="stickyAmount">0</span>
@@ -384,7 +384,7 @@ pre{
 </div>
 
 <!-- MANDI TAX -->
-<div id="tax" class="tab-content">
+<div id="tax" class="tab-content active">
 
 <!-- Sticky Bar -->
 <div class="sticky-total">
@@ -728,6 +728,7 @@ function resetTaxCalculator(){
 }
 
 updateNotes();
+showTab('tax');
 </script>
 
 </body>

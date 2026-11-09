@@ -1,0 +1,1336 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FitPass – Multi-City Gym Platform</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg-main: #f8fafc;
+  --bg-card: #ffffff;
+  --brand-navy: #0f172a;
+  --brand-blue: #1e293b;
+  --primary: #2563eb;
+  --primary-hover: #1d4ed8;
+  --accent-green: #059669;
+  --accent-green-bg: #ecfdf5;
+  --accent-orange: #d97706;
+  --accent-orange-bg: #fffbeb;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #94a3b8;
+  --border-light: #e2e8f0;
+  --border-focus: #94a3b8;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Plus Jakarta Sans', 'Noto Sans Devanagari', system-ui, -apple-system, sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Common UI Elements */
+button, input, select, textarea { font: inherit; }
+button {
+  cursor: pointer; border: none; outline: none; border-radius: var(--radius-sm);
+  padding: 9px 16px; font-weight: 600; font-size: 14px; transition: all 0.2s ease;
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+}
+.btn-primary { background: var(--primary); color: white; }
+.btn-primary:hover { background: var(--primary-hover); }
+.btn-secondary { background: #f1f5f9; color: var(--text-primary); border: 1px solid var(--border-light); }
+.btn-secondary:hover { background: #e2e8f0; }
+.btn-dark { background: var(--brand-navy); color: white; }
+.btn-dark:hover { background: var(--brand-blue); }
+.btn-success { background: var(--accent-green); color: white; }
+.btn-sm { padding: 6px 12px; font-size: 13px; border-radius: 6px; }
+.btn-block { width: 100%; }
+
+.badge {
+  display: inline-flex; align-items: center; padding: 4px 10px; border-radius: 9999px;
+  font-size: 12px; font-weight: 600; line-height: 1;
+}
+.badge-blue { background: #eff6ff; color: #1d4ed8; }
+.badge-green { background: var(--accent-green-bg); color: var(--accent-green); }
+.badge-orange { background: var(--accent-orange-bg); color: var(--accent-orange); }
+.badge-gray { background: #f1f5f9; color: #475569; }
+
+.card {
+  background: var(--bg-card); border: 1px solid var(--border-light);
+  border-radius: var(--radius-md); padding: 20px; box-shadow: var(--shadow-sm);
+}
+
+/* Header Navbar */
+.app-header {
+  background: var(--brand-navy); color: white; padding: 14px 24px;
+  position: sticky; top: 0; z-index: 100; box-shadow: var(--shadow-md);
+}
+.header-container {
+  max-width: 1280px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between;
+}
+.brand-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; color: white; }
+.logo-icon {
+  width: 40px; height: 40px; background: linear-gradient(135deg, #2563eb, #1d4ed8);
+  border-radius: 10px; display: grid; place-items: center; font-size: 20px; font-weight: bold;
+}
+.brand-title { font-size: 20px; font-weight: 800; letter-spacing: -0.5px; }
+.brand-tag { font-size: 11px; background: rgba(255,255,255,0.15); padding: 2px 8px; border-radius: 12px; color: #93c5fd; }
+.user-menu { display: flex; align-items: center; gap: 16px; }
+.user-profile-summary { text-align: right; font-size: 13px; }
+.user-name { font-weight: 700; color: #f8fafc; }
+.user-role-badge { font-size: 11px; color: #94a3b8; text-transform: capitalize; }
+
+/* Main App Wrapper */
+.app-wrapper { max-width: 1280px; margin: 24px auto; padding: 0 20px; min-height: 75vh; }
+.auth-container { max-width: 460px; margin: 30px auto; }
+.login-card { background: white; padding: 32px; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); border: 1px solid var(--border-light); }
+.login-header { text-align: center; margin-bottom: 20px; }
+.login-header h2 { font-size: 24px; font-weight: 800; color: var(--brand-navy); }
+.quick-login-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px; }
+
+/* Tabs for Auth */
+.auth-tabs { display: flex; border-bottom: 2px solid var(--border-light); margin-bottom: 20px; }
+.auth-tab-btn { flex: 1; padding: 10px; background: transparent; border: none; border-bottom: 2px solid transparent; margin-bottom: -2px; font-weight: 700; color: var(--text-secondary); border-radius: 0; }
+.auth-tab-btn.active { border-bottom-color: var(--primary); color: var(--primary); }
+
+/* Layout Grid */
+.dashboard-layout { display: grid; grid-template-columns: 240px 1fr; gap: 24px; }
+@media(max-width: 850px) {
+  .dashboard-layout { grid-template-columns: 1fr; }
+}
+
+/* Sidebar Navigation */
+.sidebar-nav { background: white; border: 1px solid var(--border-light); border-radius: var(--radius-md); padding: 12px; position: sticky; top: 80px; height: fit-content; }
+.nav-group-title { font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; padding: 8px 12px 4px; }
+.nav-item {
+  width: 100%; text-align: left; background: transparent; color: var(--text-secondary);
+  padding: 10px 12px; border-radius: 6px; font-size: 14px; font-weight: 600; display: flex; align-items: center; gap: 10px; margin-bottom: 2px;
+}
+.nav-item:hover { background: #f1f5f9; color: var(--brand-navy); }
+.nav-item.active { background: #eff6ff; color: var(--primary); }
+
+@media(max-width: 850px) {
+  .sidebar-nav { display: flex; flex-direction: row; overflow-x: auto; padding: 8px; margin-bottom: 16px; position: static; }
+  .nav-group-title { display: none; }
+  .nav-item { white-space: nowrap; width: auto; font-size: 13px; padding: 8px 14px; }
+}
+
+/* Stats Container */
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 24px; }
+.stat-card { background: white; border: 1px solid var(--border-light); padding: 16px; border-radius: var(--radius-md); }
+.stat-label { font-size: 12px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; }
+.stat-value { font-size: 26px; font-weight: 800; color: var(--brand-navy); margin: 4px 0; }
+.stat-desc { font-size: 12px; color: var(--accent-green); font-weight: 600; }
+
+/* Forms */
+.form-group { margin-bottom: 16px; }
+.form-group label { display: block; font-size: 13px; font-weight: 600; color: var(--text-secondary); margin-bottom: 6px; }
+.form-control { width: 100%; padding: 10px 12px; border: 1px solid var(--border-light); border-radius: var(--radius-sm); background: white; color: var(--text-primary); }
+.form-control:focus { outline: none; border-color: var(--primary); }
+.form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+
+/* Cards Grid */
+.cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 18px; }
+.gym-banner { height: 120px; background: linear-gradient(135deg, #e2e8f0, #cbd5e1); border-radius: var(--radius-sm); display: grid; place-items: center; font-size: 40px; margin-bottom: 12px; position: relative; overflow: hidden; }
+.gym-banner img { width: 100%; height: 100%; object-fit: cover; }
+
+/* Tables */
+.table-responsive { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.custom-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 14px; }
+.custom-table th { background: #f8fafc; padding: 12px 14px; border-bottom: 1px solid var(--border-light); color: var(--text-secondary); font-weight: 600; }
+.custom-table td { padding: 12px 14px; border-bottom: 1px solid var(--border-light); }
+
+/* Modal */
+.modal-overlay { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 1000; padding: 16px; }
+.modal-box { background: white; border-radius: var(--radius-lg); width: 100%; max-width: 520px; box-shadow: var(--shadow-lg); overflow: hidden; max-height: 90vh; display: flex; flex-direction: column; }
+.modal-header { padding: 16px 20px; border-bottom: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center; }
+.modal-header h3 { font-size: 18px; font-weight: 700; }
+.modal-body { padding: 20px; overflow-y: auto; }
+.modal-footer { padding: 14px 20px; border-top: 1px solid var(--border-light); display: flex; justify-content: flex-end; gap: 10px; background: #f8fafc; }
+
+/* Toast */
+.toast-container { position: fixed; bottom: 20px; right: 20px; z-index: 2000; display: flex; flex-direction: column; gap: 8px; }
+.toast-msg { background: var(--brand-navy); color: white; padding: 12px 20px; border-radius: var(--radius-sm); font-size: 14px; font-weight: 500; box-shadow: var(--shadow-lg); animation: slideIn 0.3s ease; }
+
+@keyframes slideIn { from { transform: translateY(100%); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+/* Universal Footer */
+.app-footer { background: var(--brand-navy); color: #94a3b8; border-top: 1px solid #334155; margin-top: 60px; padding: 40px 20px 24px; font-size: 13px; }
+.footer-container { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; margin-bottom: 30px; }
+.footer-column h4 { color: white; font-size: 15px; font-weight: 700; margin-bottom: 12px; }
+.footer-column p { margin-bottom: 10px; line-height: 1.6; }
+.footer-bottom { max-width: 1280px; margin: 0 auto; padding-top: 20px; border-top: 1px solid #1e293b; text-align: center; font-size: 12px; color: #64748b; }
+
+/* Payment Methods Styles */
+.pay-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 16px; }
+.pay-opt-btn { border: 1px solid var(--border-light); padding: 10px; border-radius: var(--radius-sm); text-align: center; font-size: 13px; font-weight: 600; cursor: pointer; background: #f8fafc; }
+.pay-opt-btn.active { border-color: var(--primary); background: #eff6ff; color: var(--primary); }
+
+.hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="app-header">
+  <div class="header-container">
+    <a href="#" class="brand-logo" onclick="location.reload()">
+      <div class="logo-icon">🏋️</div>
+      <div>
+        <div class="brand-title">FitPass</div>
+        <div class="brand-tag">Multi-City Access</div>
+      </div>
+    </a>
+    <div class="user-menu" id="headerUserMenu">
+      <!-- Injected via JS -->
+    </div>
+  </div>
+</header>
+
+<!-- Main App Content -->
+<div class="app-wrapper" id="appMain">
+  <!-- Dynamic View Rendered Here -->
+</div>
+
+<!-- Modal Container -->
+<div id="modalContainer" class="hidden"></div>
+
+<!-- Toast Container -->
+<div class="toast-container" id="toastContainer"></div>
+
+<!-- Footer -->
+<footer class="app-footer">
+  <div class="footer-container">
+    <div class="footer-column">
+      <h4>🌐 One Pass For All Gyms</h4>
+      <p>Scan QR codes & work out in any city seamlessly. Access premium gyms, certified trainers, and fitness centers across 12+ cities with a single unified account.</p>
+    </div>
+    <div class="footer-column">
+      <h4>💳 Flexible Credit Wallet</h4>
+      <p>Pay per visit with automated settlements. Transparent credit deductions, instant check-in confirmation, and hassle-free wallet recharges.</p>
+    </div>
+    <div class="footer-column">
+      <h4>🚀 Portal Ecosystem</h4>
+      <p>Dedicated dashboard interfaces for <strong>User</strong>, <strong>Gym Owner</strong>, <strong>Trainer</strong>, and <strong>Admin</strong> roles for seamless operational management.</p>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    FitPass Demo Platform &copy; 2026. All data is persistent via browser LocalStorage.
+  </div>
+</footer>
+
+<script>
+// --- Initial Default State Data ---
+const DEFAULT_GYMS = [
+  { id: "FIT-0101", name: "Iron House Fitness", city: "Bhopal", area: "MP Nagar, Zone 2", type: "Premium", credits: 40, fee: "₹1,500/mo", crowd: "Medium", rating: "4.8", icon: "🏋️", photo: "" },
+  { id: "FIT-0102", name: "The Fit Arena", city: "Indore", area: "Vijay Nagar", type: "Standard", credits: 25, fee: "₹900/mo", crowd: "High", rating: "4.6", icon: "💪", photo: "" },
+  { id: "FIT-0103", name: "Pulse Fitness Club", city: "Jaipur", area: "Malviya Nagar", type: "Luxury", credits: 65, fee: "₹2,200/mo", crowd: "Low", rating: "4.9", icon: "🏃", photo: "" },
+  { id: "FIT-0104", name: "Power Zone Gym", city: "Delhi", area: "Dwarka Sector 12", type: "Standard", credits: 30, fee: "₹1,100/mo", crowd: "Medium", rating: "4.5", icon: "🔥", photo: "" }
+];
+
+const DEFAULT_TRAINERS = [
+  { id: "TR-101", name: "Aarav Sharma", skill: "Strength & Conditioning", exp: "8 years", qual: "Certified Fitness Coach", fee: 500, rate: "4.9", photo: "https://images.unsplash.com/photo-1567013127542-490d757e51fc?w=300&auto=format&fit=crop&q=80", showPhoto: true },
+  { id: "TR-102", name: "Priya Verma", skill: "Yoga & Mobility", exp: "6 years", qual: "Yoga Instructor Diploma", fee: 400, rate: "4.8", photo: "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=300&auto=format&fit=crop&q=80", showPhoto: true },
+  { id: "TR-103", name: "Kabir Khan", skill: "Bodybuilding", exp: "10 years", qual: "Sports Nutrition & Training", fee: 700, rate: "4.9", photo: "", showPhoto: false }
+];
+
+const DEFAULT_USERS = [
+  { id: "U-1", name: "Rahul Verma", role: "user", email: "user@fitpass.com", pass: "123", credits: 1200 },
+  { id: "U-2", name: "Vikram Singh (Gym Owner)", role: "owner", email: "owner@fitpass.com", pass: "123", gymId: "FIT-0101" },
+  { id: "U-3", name: "Aarav Sharma (Trainer)", role: "trainer", email: "trainer@fitpass.com", pass: "123", trainerId: "TR-101" },
+  { id: "U-4", name: "System Admin", role: "admin", email: "admin@fitpass.com", pass: "123" }
+];
+
+const DEFAULT_TRANSACTIONS = [
+  { id: "TXN-901", title: "Welcome Account Bonus", type: "credit", amount: 1000, date: "2026-03-01", status: "Success" },
+  { id: "TXN-902", title: "Gym Visit: Iron House Fitness", type: "debit", amount: 40, date: "2026-03-02", status: "Completed" },
+  { id: "TXN-903", title: "Gym Visit: The Fit Arena", type: "debit", amount: 25, date: "2026-03-04", status: "Completed" },
+  { id: "TXN-904", title: "Wallet Package Top-up (UPI)", type: "credit", amount: 500, date: "2026-03-07", status: "Success" }
+];
+
+const DEFAULT_MARKET = [
+  { id: "M-1", icon: "🏋️", title: "Commercial Treadmill", desc: "Used · Good condition", price: "₹45,000" },
+  { id: "M-2", icon: "🎽", title: "Gym Training T-Shirt", desc: "New · Breathable fabric", price: "₹699" },
+  { id: "M-3", icon: "💪", title: "Adjustable Dumbbell Set", desc: "New · 20kg Pair", price: "₹3,499" }
+];
+
+// --- LocalStorage Store Wrapper ---
+const store = {
+  get(key, fallback) {
+    const data = localStorage.getItem('fitpass_' + key);
+    return data ? JSON.parse(data) : fallback;
+  },
+  set(key, val) {
+    localStorage.setItem('fitpass_' + key, JSON.stringify(val));
+  }
+};
+
+// Initialize Stores if empty
+if (!localStorage.getItem('fitpass_gyms')) store.set('gyms', DEFAULT_GYMS);
+if (!localStorage.getItem('fitpass_trainers')) store.set('trainers', DEFAULT_TRAINERS);
+if (!localStorage.getItem('fitpass_users')) store.set('users', DEFAULT_USERS);
+if (!localStorage.getItem('fitpass_txns')) store.set('txns', DEFAULT_TRANSACTIONS);
+if (!localStorage.getItem('fitpass_market')) store.set('market', DEFAULT_MARKET);
+
+let currentUser = store.get('currentUser', null);
+let activeTab = "dashboard";
+let authMode = "login"; // 'login' or 'signup'
+let selectedPaymentMethod = "upi";
+
+// Helper Functions
+function showToast(msg) {
+  const container = document.getElementById('toastContainer');
+  const toast = document.createElement('div');
+  toast.className = 'toast-msg';
+  toast.innerText = msg;
+  container.appendChild(toast);
+  setTimeout(() => toast.remove(), 3000);
+}
+
+function openModal(title, bodyHtml, footerHtml = '') {
+  const modal = document.getElementById('modalContainer');
+  modal.className = 'modal-overlay';
+  modal.innerHTML = `
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3>${title}</h3>
+        <button class="btn-secondary btn-sm" onclick="closeModal()">✕</button>
+      </div>
+      <div class="modal-body">${bodyHtml}</div>
+      ${footerHtml ? `<div class="modal-footer">${footerHtml}</div>` : ''}
+    </div>
+  `;
+}
+function closeModal() {
+  document.getElementById('modalContainer').className = 'hidden';
+}
+
+// Global Auth Handlers
+function loginAs(role) {
+  const users = store.get('users', DEFAULT_USERS);
+  const u = users.find(x => x.role === role);
+  if (u) {
+    currentUser = u;
+    store.set('currentUser', u);
+    activeTab = "dashboard";
+    showToast(`Logged in as ${u.name}`);
+    renderApp();
+  }
+}
+
+function handleCustomLogin(e) {
+  e.preventDefault();
+  const email = document.getElementById('loginEmail').value;
+  const pass = document.getElementById('loginPass').value;
+  const users = store.get('users', DEFAULT_USERS);
+  const u = users.find(x => x.email === email && x.pass === pass);
+  if (u) {
+    currentUser = u;
+    store.set('currentUser', u);
+    activeTab = "dashboard";
+    showToast(`Welcome back, ${u.name}!`);
+    renderApp();
+  } else {
+    showToast("Invalid Credentials. Demo: user@fitpass.com / 123");
+  }
+}
+
+function handleCustomSignup(e) {
+  e.preventDefault();
+  const name = document.getElementById('suName').value;
+  const email = document.getElementById('suEmail').value;
+  const pass = document.getElementById('suPass').value;
+  const role = document.getElementById('suRole').value;
+
+  const users = store.get('users', DEFAULT_USERS);
+  if (users.find(u => u.email === email)) {
+    showToast("Account with this email already exists!");
+    return;
+  }
+
+  const newUser = {
+    id: "U-" + (users.length + 1),
+    name,
+    email,
+    pass,
+    role,
+    credits: role === 'user' ? 500 : 0
+  };
+
+  users.push(newUser);
+  store.set('users', users);
+
+  // Add bonus transaction if user
+  if (role === 'user') {
+    const txns = store.get('txns', DEFAULT_TRANSACTIONS);
+    txns.unshift({
+      id: "TXN-" + (txns.length + 901),
+      title: "New Account Registration Bonus",
+      type: "credit",
+      amount: 500,
+      date: new Date().toISOString().split('T')[0],
+      status: "Success"
+    });
+    store.set('txns', txns);
+  }
+
+  // Auto Login
+  currentUser = newUser;
+  store.set('currentUser', newUser);
+  activeTab = "dashboard";
+  showToast(`Registration Successful! Welcome, ${name}.`);
+  renderApp();
+}
+
+function logout() {
+  currentUser = null;
+  localStorage.removeItem('fitpass_currentUser');
+  showToast("Logged out successfully");
+  renderApp();
+}
+
+// Render Header
+function renderHeader() {
+  const container = document.getElementById('headerUserMenu');
+  if (!currentUser) {
+    container.innerHTML = `<span class="badge badge-gray">Demo Portal</span>`;
+    return;
+  }
+  container.innerHTML = `
+    <div class="user-profile-summary">
+      <div class="user-name">${currentUser.name}</div>
+      <div class="user-role-badge">${currentUser.role.toUpperCase()} ROLE</div>
+    </div>
+    <button class="btn-secondary btn-sm" onclick="logout()">Logout</button>
+  `;
+}
+
+// --- MAIN RENDERER ---
+function renderApp() {
+  renderHeader();
+  const main = document.getElementById('appMain');
+
+  if (!currentUser) {
+    main.innerHTML = renderAuthScreen();
+    return;
+  }
+
+  // Render Dashboard Layout Based on Role
+  main.innerHTML = `
+    <div class="dashboard-layout">
+      <aside class="sidebar-nav">
+        ${renderSidebarNav()}
+      </aside>
+      <main class="main-content">
+        ${renderContentArea()}
+      </main>
+    </div>
+  `;
+}
+
+// --- AUTH SCREEN (LOGIN & SIGNUP TABS) ---
+function renderAuthScreen() {
+  return `
+    <div class="auth-container">
+      <div class="login-card">
+        <div class="auth-tabs">
+          <button class="auth-tab-btn ${authMode === 'login' ? 'active' : ''}" onclick="switchAuthMode('login')">Sign In</button>
+          <button class="auth-tab-btn ${authMode === 'signup' ? 'active' : ''}" onclick="switchAuthMode('signup')">New Registration</button>
+        </div>
+
+        ${authMode === 'login' ? `
+          <div class="login-header">
+            <h2>Welcome Back</h2>
+            <p style="color: var(--text-secondary); font-size:13px; margin-top:2px;">Enter your credentials to access portal</p>
+          </div>
+          <form onsubmit="handleCustomLogin(event)">
+            <div class="form-group">
+              <label>Email Address</label>
+              <input type="email" id="loginEmail" class="form-control" placeholder="user@fitpass.com" required value="user@fitpass.com">
+            </div>
+            <div class="form-group">
+              <label>Password</label>
+              <input type="password" id="loginPass" class="form-control" value="123" required>
+            </div>
+            <button type="submit" class="btn-primary btn-block" style="padding:11px">Sign In</button>
+          </form>
+
+          <div style="margin-top:20px; padding-top:16px; border-top:1px solid var(--border-light);">
+            <div style="font-size:11px; font-weight:700; color:var(--text-muted); text-transform:uppercase; text-align:center;">1-Click Quick Demo Logins</div>
+            <div class="quick-login-grid">
+              <button class="btn-secondary btn-sm" onclick="loginAs('user')">👤 User</button>
+              <button class="btn-secondary btn-sm" onclick="loginAs('owner')">🏢 Gym Owner</button>
+              <button class="btn-secondary btn-sm" onclick="loginAs('trainer')">🏋️ Trainer</button>
+              <button class="btn-secondary btn-sm" onclick="loginAs('admin')">🛡️ Admin</button>
+            </div>
+          </div>
+        ` : `
+          <div class="login-header">
+            <h2>Create Account</h2>
+            <p style="color: var(--text-secondary); font-size:13px; margin-top:2px;">Register as a User or Gym Partner</p>
+          </div>
+          <form onsubmit="handleCustomSignup(event)">
+            <div class="form-group">
+              <label>Full Name</label>
+              <input type="text" id="suName" class="form-control" placeholder="e.g. Rahul Sharma" required>
+            </div>
+            <div class="form-group">
+              <label>Email Address</label>
+              <input type="email" id="suEmail" class="form-control" placeholder="name@example.com" required>
+            </div>
+            <div class="form-group">
+              <label>Password</label>
+              <input type="password" id="suPass" class="form-control" placeholder="••••••••" required>
+            </div>
+            <div class="form-group">
+              <label>Register As</label>
+              <select id="suRole" class="form-control">
+                <option value="user">Gym Member User (Get 500 Bonus Credits)</option>
+                <option value="owner">Gym Owner / Business</option>
+                <option value="trainer">Fitness Trainer</option>
+              </select>
+            </div>
+            <button type="submit" class="btn-primary btn-block" style="padding:11px">Register Now</button>
+          </form>
+        `}
+      </div>
+    </div>
+  `;
+}
+
+function switchAuthMode(mode) {
+  authMode = mode;
+  renderApp();
+}
+
+// --- SIDEBAR NAVIGATION DEFINITION ---
+function renderSidebarNav() {
+  const role = currentUser.role;
+  let items = [];
+
+  if (role === 'user') {
+    items = [
+      { id: 'dashboard', label: '📊 Dashboard' },
+      { id: 'gyms', label: '🏋️ Explore Gyms' },
+      { id: 'wallet', label: '💳 Credit Wallet' },
+      { id: 'trainers', label: '🧘 Book Trainers' },
+      { id: 'market', label: '🛒 Marketplace' }
+    ];
+  } else if (role === 'owner') {
+    items = [
+      { id: 'dashboard', label: '📊 Owner Overview' },
+      { id: 'add_gym', label: '➕ Add / Manage Gym' },
+      { id: 'crowd', label: '👥 Update Crowd' }
+    ];
+  } else if (role === 'trainer') {
+    items = [
+      { id: 'dashboard', label: '📊 Trainer Profile' },
+      { id: 'photo_setting', label: '🖼️ Photo Settings' }
+    ];
+  } else if (role === 'admin') {
+    items = [
+      { id: 'dashboard', label: '📊 System Overview' },
+      { id: 'add_user', label: '👤 Add New User' },
+      { id: 'add_gym', label: '🏢 Add New Gym' },
+      { id: 'add_trainer', label: '🏋️ Add New Trainer' },
+      { id: 'all_users', label: '📋 View All Users' }
+    ];
+  }
+
+  return `
+    <div class="nav-group-title">Navigation</div>
+    ${items.map(item => `
+      <button class="nav-item ${activeTab === item.id ? 'active' : ''}" onclick="switchTab('${item.id}')">
+        ${item.label}
+      </button>
+    `).join('')}
+  `;
+}
+
+function switchTab(tabId) {
+  activeTab = tabId;
+  renderApp();
+}
+
+// --- CONTENT AREA ROUTER ---
+function renderContentArea() {
+  const role = currentUser.role;
+
+  if (role === 'user') {
+    if (activeTab === 'dashboard') return renderUserDashboard();
+    if (activeTab === 'gyms') return renderExploreGyms();
+    if (activeTab === 'wallet') return renderWallet();
+    if (activeTab === 'trainers') return renderTrainersList();
+    if (activeTab === 'market') return renderMarketplace();
+  } else if (role === 'owner') {
+    if (activeTab === 'dashboard') return renderOwnerDashboard();
+    if (activeTab === 'add_gym') return renderAddGymForm();
+    if (activeTab === 'crowd') return renderCrowdManagement();
+  } else if (role === 'trainer') {
+    if (activeTab === 'dashboard') return renderTrainerDashboard();
+    if (activeTab === 'photo_setting') return renderTrainerPhotoSettings();
+  } else if (role === 'admin') {
+    if (activeTab === 'dashboard') return renderAdminDashboard();
+    if (activeTab === 'add_user') return renderAddUserForm();
+    if (activeTab === 'add_gym') return renderAddGymForm();
+    if (activeTab === 'add_trainer') return renderAddTrainerForm();
+    if (activeTab === 'all_users') return renderAllUsersTable();
+  }
+  return `<div>Select a tab</div>`;
+}
+
+// ================= USER ROLE VIEWS =================
+function renderUserDashboard() {
+  const gyms = store.get('gyms', DEFAULT_GYMS);
+  return `
+    <div style="margin-bottom:20px;">
+      <h2>Welcome Back, ${currentUser.name}!</h2>
+      <p style="color:var(--text-secondary)">Access any gym, book trainers, or buy credits.</p>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">Wallet Balance</div>
+        <div class="stat-value">${currentUser.credits || 0} Cr</div>
+        <div class="stat-desc">● Active Plan</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Available Gyms</div>
+        <div class="stat-value">${gyms.length}</div>
+        <div class="stat-desc">Across 12 cities</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Sessions Used</div>
+        <div class="stat-value">08</div>
+        <div class="stat-desc">This Month</div>
+      </div>
+    </div>
+
+    <div style="margin-bottom:16px; display:flex; justify-content:space-between; align-items:center;">
+      <h3>Featured Gyms Nearby</h3>
+      <button class="btn-secondary btn-sm" onclick="switchTab('gyms')">View All Gyms</button>
+    </div>
+    ${renderGymCardsGrid(gyms.slice(0, 2))}
+  `;
+}
+
+function renderExploreGyms() {
+  const gyms = store.get('gyms', DEFAULT_GYMS);
+  return `
+    <div style="margin-bottom:20px;">
+      <h2>Explore Partner Gyms</h2>
+      <p style="color:var(--text-secondary)">Find gym facilities across different cities.</p>
+    </div>
+    ${renderGymCardsGrid(gyms)}
+  `;
+}
+
+function renderGymCardsGrid(gymList) {
+  return `
+    <div class="cards-grid">
+      ${gymList.map(g => `
+        <div class="card">
+          <div class="gym-banner">
+            ${g.photo ? `<img src="${g.photo}" alt="${g.name}"/>` : g.icon}
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+            <span class="badge badge-gray">${g.type}</span>
+            <span class="badge badge-green">★ ${g.rating}</span>
+          </div>
+          <h3 style="font-size:16px; font-weight:700;">${g.name}</h3>
+          <p style="font-size:13px; color:var(--text-secondary); margin-bottom:12px;">📍 ${g.area}, ${g.city}</p>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; padding-top:10px; border-top:1px solid var(--border-light);">
+            <div>
+              <strong style="font-size:18px; color:var(--brand-navy);">${g.credits} Credits</strong>
+              <div style="font-size:11px; color:var(--text-muted);">per session</div>
+            </div>
+            <span class="badge ${g.crowd === 'High' ? 'badge-orange' : 'badge-green'}">${g.crowd} Crowd</span>
+          </div>
+          <button class="btn-primary btn-block btn-sm" onclick="triggerCheckin('${g.name}', ${g.credits})">Check-in Now</button>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+function triggerCheckin(gymName, cost) {
+  if (currentUser.credits < cost) {
+    showToast("Insufficient credits! Please top-up wallet.");
+    switchTab('wallet');
+    return;
+  }
+  currentUser.credits -= cost;
+  // Update local user store
+  const users = store.get('users', DEFAULT_USERS);
+  const idx = users.findIndex(u => u.id === currentUser.id);
+  if (idx !== -1) {
+    users[idx].credits = currentUser.credits;
+    store.set('users', users);
+  }
+  store.set('currentUser', currentUser);
+
+  // Record Debit Transaction
+  const txns = store.get('txns', DEFAULT_TRANSACTIONS);
+  txns.unshift({
+    id: "TXN-" + (txns.length + 901),
+    title: `Gym Visit: ${gymName}`,
+    type: "debit",
+    amount: cost,
+    date: new Date().toISOString().split('T')[0],
+    status: "Completed"
+  });
+  store.set('txns', txns);
+
+  showToast(`Checked in at ${gymName}! ${cost} credits deducted.`);
+  renderApp();
+}
+
+function renderWallet() {
+  const txns = store.get('txns', DEFAULT_TRANSACTIONS);
+
+  return `
+    <div style="margin-bottom:20px;">
+      <h2>My Credit Wallet</h2>
+      <p style="color:var(--text-secondary)">Purchase credits to access any gym in the network.</p>
+    </div>
+    <div class="card" style="background: linear-gradient(135deg, #0f172a, #1e293b); color:white; margin-bottom:24px;">
+      <div style="font-size:13px; color:#94a3b8;">Available Balance</div>
+      <div style="font-size:36px; font-weight:800; margin:6px 0;">${currentUser.credits || 0} Credits</div>
+      <div style="font-size:12px; color:#64748b;">Instant visit approval enabled</div>
+    </div>
+
+    <h3>Top Up Credits</h3>
+    <div class="cards-grid" style="margin-top:14px; margin-bottom:30px;">
+      ${[[500, "₹500"], [1000, "₹950"], [2000, "₹1,800"]].map(([cr, price]) => `
+        <div class="card" style="text-align:center;">
+          <h3 style="font-size:22px; color:var(--primary);">${cr} Credits</h3>
+          <p style="color:var(--text-secondary); margin:6px 0 14px;">Price: ${price}</p>
+          <button class="btn-primary btn-block btn-sm" onclick="openPaymentModal(${cr}, '${price}')">Buy Package</button>
+        </div>
+      `).join('')}
+    </div>
+
+    <h3>Recent Transaction History (Debits & Credits)</h3>
+    <div class="card table-responsive" style="margin-top:14px;">
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th>Txn ID</th>
+            <th>Activity / Description</th>
+            <th>Date</th>
+            <th>Type</th>
+            <th>Credits</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${txns.map(t => `
+            <tr>
+              <td><code>${t.id}</code></td>
+              <td><strong>${t.title}</strong></td>
+              <td>${t.date}</td>
+              <td>
+                <span class="badge ${t.type === 'credit' ? 'badge-green' : 'badge-orange'}">
+                  ${t.type === 'credit' ? '🟢 Credit (+)' : '🔴 Debit (-)'}
+                </span>
+              </td>
+              <td><strong style="font-size:15px; color:${t.type === 'credit' ? 'var(--accent-green)' : 'var(--brand-navy)'};">${t.type === 'credit' ? '+' : '-'}${t.amount} Cr</strong></td>
+              <td><span class="badge badge-blue">${t.status}</span></td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
+// --- DEMO PAYMENT GATEWAY SYSTEM ---
+function openPaymentModal(credits, priceStr) {
+  selectedPaymentMethod = "upi";
+  const body = `
+    <div style="margin-bottom:14px; text-align:center; padding:12px; background:#eff6ff; border-radius:8px;">
+      <div style="font-size:12px; color:var(--text-secondary);">Recharging Package</div>
+      <div style="font-size:22px; font-weight:800; color:var(--primary);">${credits} Credits</div>
+      <div style="font-size:14px; font-weight:700; color:var(--brand-navy);">Amount to Pay: ${priceStr}</div>
+    </div>
+
+    <label style="font-size:12px; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Select Payment Method</label>
+    <div class="pay-options" style="margin-top:8px;">
+      <div class="pay-opt-btn active" id="payOpt_upi" onclick="selectPayOpt('upi')">📱 UPI</div>
+      <div class="pay-opt-btn" id="payOpt_card" onclick="selectPayOpt('card')">💳 Card</div>
+      <div class="pay-opt-btn" id="payOpt_net" onclick="selectPayOpt('net')">🏦 NetBanking</div>
+    </div>
+
+    <div id="payDetailsArea">
+      ${renderUpiPayFields()}
+    </div>
+  `;
+
+  const footer = `
+    <button class="btn-secondary btn-sm" onclick="closeModal()">Cancel</button>
+    <button class="btn-primary btn-sm" id="payConfirmBtn" onclick="processDemoPayment(${credits})">Pay ${priceStr} Now</button>
+  `;
+
+  openModal("FitPass Secure Checkout (Demo)", body, footer);
+}
+
+function selectPayOpt(opt) {
+  selectedPaymentMethod = opt;
+  document.querySelectorAll('.pay-opt-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById(`payOpt_${opt}`).classList.add('active');
+
+  const area = document.getElementById('payDetailsArea');
+  if (opt === 'upi') area.innerHTML = renderUpiPayFields();
+  else if (opt === 'card') area.innerHTML = renderCardPayFields();
+  else if (opt === 'net') area.innerHTML = renderNetPayFields();
+}
+
+function renderUpiPayFields() {
+  return `
+    <div class="form-group">
+      <label>Enter UPI ID (Google Pay / PhonePe / Paytm)</label>
+      <input type="text" class="form-control" placeholder="user@okaxis / mobile@upi" value="demo@upi">
+    </div>
+  `;
+}
+
+function renderCardPayFields() {
+  return `
+    <div class="form-group">
+      <label>Card Number</label>
+      <input type="text" class="form-control" placeholder="4532 •••• •••• 8921" value="4532 8921 4821 8921">
+    </div>
+    <div class="form-grid">
+      <div class="form-group">
+        <label>Expiry Date</label>
+        <input type="text" class="form-control" placeholder="MM/YY" value="08/28">
+      </div>
+      <div class="form-group">
+        <label>CVV</label>
+        <input type="password" class="form-control" placeholder="•••" value="123">
+      </div>
+    </div>
+  `;
+}
+
+function renderNetPayFields() {
+  return `
+    <div class="form-group">
+      <label>Select Bank</label>
+      <select class="form-control">
+        <option>State Bank of India (SBI)</option>
+        <option>HDFC Bank</option>
+        <option>ICICI Bank</option>
+        <option>Axis Bank</option>
+      </select>
+    </div>
+  `;
+}
+
+function processDemoPayment(credits) {
+  const btn = document.getElementById('payConfirmBtn');
+  btn.innerText = "Processing Payment...";
+  btn.disabled = true;
+
+  setTimeout(() => {
+    closeModal();
+    addCredits(credits);
+  }, 1200);
+}
+
+function addCredits(amount) {
+  currentUser.credits = (currentUser.credits || 0) + amount;
+  const users = store.get('users', DEFAULT_USERS);
+  const idx = users.findIndex(u => u.id === currentUser.id);
+  if (idx !== -1) {
+    users[idx].credits = currentUser.credits;
+    store.set('users', users);
+  }
+  store.set('currentUser', currentUser);
+
+  // Record Credit Transaction
+  const txns = store.get('txns', DEFAULT_TRANSACTIONS);
+  txns.unshift({
+    id: "TXN-" + (txns.length + 901),
+    title: `Wallet Package Top-up (${selectedPaymentMethod.toUpperCase()})`,
+    type: "credit",
+    amount: amount,
+    date: new Date().toISOString().split('T')[0],
+    status: "Success"
+  });
+  store.set('txns', txns);
+
+  showToast(`Payment Successful! Added ${amount} Credits.`);
+  renderApp();
+}
+
+function renderTrainersList() {
+  const trainers = store.get('trainers', DEFAULT_TRAINERS);
+  return `
+    <div style="margin-bottom:20px;">
+      <h2>Certified Personal Trainers</h2>
+      <p style="color:var(--text-secondary)">Book 1-on-1 sessions with verified coaches.</p>
+    </div>
+    <div class="cards-grid">
+      ${trainers.map(t => `
+        <div class="card">
+          <div class="gym-banner">
+            ${(t.showPhoto && t.photo) ? `<img src="${t.photo}" alt="${t.name}"/>` : '🧑‍🏫'}
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <h3 style="font-size:16px;">${t.name}</h3>
+            <span class="badge badge-green">★ ${t.rate}</span>
+          </div>
+          <p style="font-size:13px; font-weight:600; color:var(--primary); margin:2px 0 8px;">${t.skill}</p>
+          <p style="font-size:12px; color:var(--text-secondary); margin-bottom:12px;">${t.exp} Exp · ${t.qual}</p>
+          <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border-light); padding-top:10px;">
+            <strong>₹${t.fee} / session</strong>
+            <button class="btn-primary btn-sm" onclick="showToast('Trainer Booking Requested!')">Book Session</button>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+function renderMarketplace() {
+  const market = store.get('market', DEFAULT_MARKET);
+  return `
+    <div style="margin-bottom:20px; display:flex; justify-content:space-between; align-items:center;">
+      <div>
+        <h2>Fitness Marketplace</h2>
+        <p style="color:var(--text-secondary)">Buy & sell fitness gear and apparel.</p>
+      </div>
+      <button class="btn-primary btn-sm" onclick="openAddMarketModal()">+ Sell Item</button>
+    </div>
+    <div class="cards-grid">
+      ${market.map(m => `
+        <div class="card">
+          <div class="gym-banner">${m.icon}</div>
+          <h3 style="font-size:16px;">${m.title}</h3>
+          <p style="font-size:12px; color:var(--text-secondary); margin-bottom:12px;">${m.desc}</p>
+          <div style="display:flex; justify-content:space-between; align-items:center; border-top:1px solid var(--border-light); padding-top:10px;">
+            <strong style="font-size:16px; color:var(--brand-navy);">${m.price}</strong>
+            <button class="btn-secondary btn-sm" onclick="showToast('Contacting seller...')">View Details</button>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+function openAddMarketModal() {
+  const body = `
+    <form id="addMarketForm">
+      <div class="form-group">
+        <label>Item Name</label>
+        <input type="text" id="mTitle" class="form-control" required placeholder="e.g. Dumbbell Set">
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        <input type="text" id="mDesc" class="form-control" required placeholder="Condition, details...">
+      </div>
+      <div class="form-group">
+        <label>Price (₹)</label>
+        <input type="text" id="mPrice" class="form-control" required placeholder="₹1,500">
+      </div>
+    </form>
+  `;
+  const footer = `
+    <button class="btn-secondary btn-sm" onclick="closeModal()">Cancel</button>
+    <button class="btn-primary btn-sm" onclick="saveMarketItem()">Add Listing</button>
+  `;
+  openModal("Add Item to Marketplace", body, footer);
+}
+
+function saveMarketItem() {
+  const title = document.getElementById('mTitle').value;
+  const desc = document.getElementById('mDesc').value;
+  const price = document.getElementById('mPrice').value;
+  if (!title || !price) return;
+
+  const market = store.get('market', DEFAULT_MARKET);
+  market.push({ id: "M-" + (market.length + 1), icon: "📦", title, desc, price });
+  store.set('market', market);
+  closeModal();
+  showToast("Marketplace Item Listed!");
+  renderApp();
+}
+
+// ================= GYM OWNER ROLE VIEWS =================
+function renderOwnerDashboard() {
+  const gyms = store.get('gyms', DEFAULT_GYMS);
+  const myGym = gyms.find(g => g.id === currentUser.gymId) || gyms[0];
+
+  return `
+    <div style="margin-bottom:20px;">
+      <h2>Gym Owner Dashboard</h2>
+      <p style="color:var(--text-secondary)">Manage your gym listing, pricing, and live crowd metrics.</p>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">Managed Gym</div>
+        <div class="stat-value" style="font-size:20px;">${myGym.name}</div>
+        <div class="stat-desc">📍 ${myGym.city}</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Monthly Visits</div>
+        <div class="stat-value">342</div>
+        <div class="stat-desc">+12% vs last month</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Current Crowd</div>
+        <div class="stat-value">${myGym.crowd}</div>
+        <div class="stat-desc">● Live Status</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Gym Info Overview</h3>
+      <p style="margin:8px 0; color:var(--text-secondary);">Per Visit Credit Fee: <strong>${myGym.credits} Cr</strong></p>
+      <p style="margin-bottom:14px; color:var(--text-secondary);">Monthly Fee: <strong>${myGym.fee}</strong></p>
+      <button class="btn-secondary btn-sm" onclick="switchTab('crowd')">Update Crowd Status</button>
+    </div>
+  `;
+}
+
+function renderCrowdManagement() {
+  const gyms = store.get('gyms', DEFAULT_GYMS);
+  const myGym = gyms.find(g => g.id === currentUser.gymId) || gyms[0];
+
+  return `
+    <div style="margin-bottom:20px;">
+      <h2>Update Gym Crowd Level</h2>
+      <p style="color:var(--text-secondary)">Keep real-time crowd status updated for members.</p>
+    </div>
+    <div class="card" style="max-width:500px;">
+      <h3>Current Gym: ${myGym.name}</h3>
+      <p style="color:var(--text-secondary); margin-bottom:16px;">Select the current occupancy level:</p>
+      <div class="form-group">
+        <select id="crowdSelect" class="form-control">
+          <option value="Low" ${myGym.crowd === 'Low' ? 'selected' : ''}>🟢 Low Crowd</option>
+          <option value="Medium" ${myGym.crowd === 'Medium' ? 'selected' : ''}>🟡 Medium Crowd</option>
+          <option value="High" ${myGym.crowd === 'High' ? 'selected' : ''}>🔴 High Crowd</option>
+        </select>
+      </div>
+      <button class="btn-primary btn-sm" onclick="saveCrowdStatus('${myGym.id}')">Save Status</button>
+    </div>
+  `;
+}
+
+function saveCrowdStatus(gymId) {
+  const val = document.getElementById('crowdSelect').value;
+  const gyms = store.get('gyms', DEFAULT_GYMS);
+  const g = gyms.find(x => x.id === gymId);
+  if (g) {
+    g.crowd = val;
+    store.set('gyms', gyms);
+    showToast("Gym Crowd Level Updated!");
+    renderApp();
+  }
+}
+
+// ================= TRAINER ROLE VIEWS =================
+function renderTrainerDashboard() {
+  const trainers = store.get('trainers', DEFAULT_TRAINERS);
+  const myProfile = trainers.find(t => t.id === currentUser.trainerId) || trainers[0];
+
+  return `
+    <div style="margin-bottom:20px;">
+      <h2>Trainer Profile Dashboard</h2>
+      <p style="color:var(--text-secondary)">Manage your public trainer profile and session photo settings.</p>
+    </div>
+    <div class="card" style="max-width:600px;">
+      <div style="display:flex; gap:20px; align-items:center; margin-bottom:16px;">
+        <div class="gym-banner" style="width:90px; height:90px; margin:0; flex-shrink:0;">
+          ${(myProfile.showPhoto && myProfile.photo) ? `<img src="${myProfile.photo}" alt="${myProfile.name}"/>` : '🧑‍🏫'}
+        </div>
+        <div>
+          <h3 style="font-size:20px;">${myProfile.name}</h3>
+          <p style="color:var(--primary); font-weight:600;">${myProfile.skill}</p>
+          <p style="font-size:12px; color:var(--text-secondary);">${myProfile.qual} (${myProfile.exp} Exp)</p>
+        </div>
+      </div>
+      <p>Session Fee: <strong>₹${myProfile.fee}</strong></p>
+      <p style="margin-top:6px;">Photo Display Status: <strong>${myProfile.showPhoto ? 'Visible to Users' : 'Hidden'}</strong></p>
+    </div>
+  `;
+}
+
+function renderTrainerPhotoSettings() {
+  const trainers = store.get('trainers', DEFAULT_TRAINERS);
+  const myProfile = trainers.find(t => t.id === currentUser.trainerId) || trainers[0];
+
+  return `
+    <div style="margin-bottom:20px;">
+      <h2>Profile Photo Settings</h2>
+      <p style="color:var(--text-secondary)">Choose whether to display your profile picture to users.</p>
+    </div>
+    <div class="card" style="max-width:500px;">
+      <div class="form-group">
+        <label>Profile Image URL</label>
+        <input type="text" id="trPhotoUrl" class="form-control" value="${myProfile.photo || ''}" placeholder="https://example.com/photo.jpg">
+      </div>
+      <div class="form-group">
+        <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+          <input type="checkbox" id="trShowPhoto" ${myProfile.showPhoto ? 'checked' : ''}>
+          <span>Display photo publicly on Trainer Directory</span>
+        </label>
+      </div>
+      <button class="btn-primary btn-sm" onclick="saveTrainerPhoto('${myProfile.id}')">Save Settings</button>
+    </div>
+  `;
+}
+
+function saveTrainerPhoto(tId) {
+  const url = document.getElementById('trPhotoUrl').value;
+  const show = document.getElementById('trShowPhoto').checked;
+
+  const trainers = store.get('trainers', DEFAULT_TRAINERS);
+  const t = trainers.find(x => x.id === tId);
+  if (t) {
+    t.photo = url;
+    t.showPhoto = show;
+    store.set('trainers', trainers);
+    showToast("Photo Settings Updated!");
+    renderApp();
+  }
+}
+
+// ================= ADMIN ROLE VIEWS =================
+function renderAdminDashboard() {
+  const users = store.get('users', DEFAULT_USERS);
+  const gyms = store.get('gyms', DEFAULT_GYMS);
+  const trainers = store.get('trainers', DEFAULT_TRAINERS);
+
+  return `
+    <div style="margin-bottom:20px;">
+      <h2>Platform Administrator Panel</h2>
+      <p style="color:var(--text-secondary)">Overview of registered users, gyms, and platform activity.</p>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-label">Total Registered Users</div>
+        <div class="stat-value">${users.length}</div>
+        <div class="stat-desc">Across all roles</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Active Gyms</div>
+        <div class="stat-value">${gyms.length}</div>
+        <div class="stat-desc">Listed Partner Gyms</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Certified Trainers</div>
+        <div class="stat-value">${trainers.length}</div>
+        <div class="stat-desc">Active Directory</div>
+      </div>
+    </div>
+  `;
+}
+
+function renderAddUserForm() {
+  return `
+    <div style="margin-bottom:20px;">
+      <h2>Add New User / Account</h2>
+      <p style="color:var(--text-secondary)">Create new platform accounts with specific roles.</p>
+    </div>
+    <div class="card" style="max-width:500px;">
+      <form onsubmit="handleCreateUser(event)">
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" id="nuName" class="form-control" required placeholder="John Doe">
+        </div>
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="email" id="nuEmail" class="form-control" required placeholder="john@example.com">
+        </div>
+        <div class="form-group">
+          <label>Password</label>
+          <input type="password" id="nuPass" class="form-control" required value="123">
+        </div>
+        <div class="form-group">
+          <label>Account Role</label>
+          <select id="nuRole" class="form-control">
+            <option value="user">User / Member</option>
+            <option value="owner">Gym Owner</option>
+            <option value="trainer">Trainer</option>
+            <option value="admin">Administrator</option>
+          </select>
+        </div>
+        <button type="submit" class="btn-primary btn-sm">Create Account</button>
+      </form>
+    </div>
+  `;
+}
+
+function handleCreateUser(e) {
+  e.preventDefault();
+  const name = document.getElementById('nuName').value;
+  const email = document.getElementById('nuEmail').value;
+  const pass = document.getElementById('nuPass').value;
+  const role = document.getElementById('nuRole').value;
+
+  const users = store.get('users', DEFAULT_USERS);
+  users.push({ id: "U-" + (users.length + 1), name, email, pass, role, credits: role === 'user' ? 500 : 0 });
+  store.set('users', users);
+  showToast(`New ${role.toUpperCase()} account created!`);
+  switchTab('all_users');
+}
+
+function renderAddGymForm() {
+  return `
+    <div style="margin-bottom:20px;">
+      <h2>Add New Partner Gym</h2>
+      <p style="color:var(--text-secondary)">Register a new gym branch onto the FitPass network.</p>
+    </div>
+    <div class="card" style="max-width:600px;">
+      <form onsubmit="handleCreateGym(event)">
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Gym Name</label>
+            <input type="text" id="ngName" class="form-control" required placeholder="e.g. Titan Gym">
+          </div>
+          <div class="form-group">
+            <label>City</label>
+            <input type="text" id="ngCity" class="form-control" required placeholder="Bhopal, Indore...">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Area / Locality</label>
+          <input type="text" id="ngArea" class="form-control" required placeholder="e.g. Zone 1">
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Per Visit Credit Cost</label>
+            <input type="number" id="ngCredits" class="form-control" required value="30">
+          </div>
+          <div class="form-group">
+            <label>Monthly Fee (Display)</label>
+            <input type="text" id="ngFee" class="form-control" required value="₹1,200/mo">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Gym Banner Photo URL (Optional)</label>
+          <input type="text" id="ngPhoto" class="form-control" placeholder="https://images.unsplash.com/...">
+        </div>
+        <button type="submit" class="btn-primary btn-sm">Add Gym Listing</button>
+      </form>
+    </div>
+  `;
+}
+
+function handleCreateGym(e) {
+  e.preventDefault();
+  const name = document.getElementById('ngName').value;
+  const city = document.getElementById('ngCity').value;
+  const area = document.getElementById('ngArea').value;
+  const credits = parseInt(document.getElementById('ngCredits').value);
+  const fee = document.getElementById('ngFee').value;
+  const photo = document.getElementById('ngPhoto').value;
+
+  const gyms = store.get('gyms', DEFAULT_GYMS);
+  gyms.push({
+    id: "FIT-0" + (gyms.length + 101),
+    name, city, area, type: "Standard", credits, fee, crowd: "Medium", rating: "4.7", icon: "🏋️", photo
+  });
+  store.set('gyms', gyms);
+  showToast("New Gym Added Successfully!");
+  switchTab('dashboard');
+}
+
+function renderAddTrainerForm() {
+  return `
+    <div style="margin-bottom:20px;">
+      <h2>Add New Trainer</h2>
+      <p style="color:var(--text-secondary)">Register a certified instructor to the platform directory.</p>
+    </div>
+    <div class="card" style="max-width:600px;">
+      <form onsubmit="handleCreateTrainer(event)">
+        <div class="form-group">
+          <label>Trainer Name</label>
+          <input type="text" id="ntName" class="form-control" required placeholder="Name">
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Specialization / Skill</label>
+            <input type="text" id="ntSkill" class="form-control" required placeholder="Yoga, Bodybuilding...">
+          </div>
+          <div class="form-group">
+            <label>Fee / Session (₹)</label>
+            <input type="number" id="ntFee" class="form-control" required value="500">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Profile Photo URL</label>
+          <input type="text" id="ntPhoto" class="form-control" placeholder="https://...">
+        </div>
+        <button type="submit" class="btn-primary btn-sm">Register Trainer</button>
+      </form>
+    </div>
+  `;
+}
+
+function handleCreateTrainer(e) {
+  e.preventDefault();
+  const name = document.getElementById('ntName').value;
+  const skill = document.getElementById('ntSkill').value;
+  const fee = parseInt(document.getElementById('ntFee').value);
+  const photo = document.getElementById('ntPhoto').value;
+
+  const trainers = store.get('trainers', DEFAULT_TRAINERS);
+  trainers.push({
+    id: "TR-" + (trainers.length + 101),
+    name, skill, exp: "3+ years", qual: "Certified Coach", fee, rate: "4.8", photo, showPhoto: !!photo
+  });
+  store.set('trainers', trainers);
+  showToast("Trainer Profile Registered!");
+  switchTab('dashboard');
+}
+
+function renderAllUsersTable() {
+  const users = store.get('users', DEFAULT_USERS);
+  return `
+    <div style="margin-bottom:20px;">
+      <h2>All Platform Users</h2>
+    </div>
+    <div class="card table-responsive">
+      <table class="custom-table">
+        <thead>
+          <tr>
+            <th>User ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${users.map(u => `
+            <tr>
+              <td>${u.id}</td>
+              <td><strong>${u.name}</strong></td>
+              <td>${u.email}</td>
+              <td><span class="badge badge-blue">${u.role.toUpperCase()}</span></td>
+            </tr>
+          `).join('')}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
+// Initial App Boot
+renderApp();
+</script>
+</body>
+</html>
